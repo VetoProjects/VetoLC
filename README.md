@@ -8,7 +8,7 @@ to work, you will install that as well(naturally). No additional Python packages
 Version & General Infos
 -----------------------
 
-Package Version:    0.1.0
+Package Version:    0.1.0 Alpha/Test
 
 Packages used to develop this application(and their versions):
     Qt:     5.2/5.3 (QT 5 is necessary)
