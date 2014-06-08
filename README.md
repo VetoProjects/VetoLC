@@ -8,12 +8,12 @@ to work, you will install that as well(naturally). No additional Python packages
 Table of Contents
 -----------------
 **[Maintainers](#maintainers)**  
-**[Version & General Info](#version)**  
+**[Version & General Info](#version--general-infos)**  
 **[Compilation](#compilation)**  
 **[Usage](#usage)**  
 **[Settings](#settings)**  
 **[Capabilities](#capabilities)**  
-**[Examples & Resources](#examples)**  
+**[Examples & Resources](#examples--resources)**  
 **[Contribute](#contribute)**  
 
 Maintainers
