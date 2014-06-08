@@ -41,7 +41,7 @@ You can try it out with, e.g.:
 
 ```
 qmake -CONFIG+=with_python_custom QMAKE_CXXFLAGS+=-DWITH_PYTHON \
-    QMAKE_CXX_FLAGS+=`/usr/bin/python2.7-cnfig --clfags` \
+    QMAKE_CXX_FLAGS+=`/usr/bin/python2.7-config --clfags` \
     QMAKE_LFLAGS+=`/usr/bin/python2.7-config --ldflags`
 make CPP_FLAGS+="-DWITH_PYTHON"
 ```
