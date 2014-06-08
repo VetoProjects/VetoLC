@@ -1,51 +1,14 @@
 #include "SettingsTab.hpp"
 
 /**
- * @brief SettingsTab::settings
- *
- * needed because the variable is static.
- */
-QHash<QString, int>* SettingsTab::settings;
-
-/**
- * @brief SettingsTab::count
- *
- * needed because the variable is static.
- */
-int SettingsTab::count = 0;
-
-/**
  * @brief SettingsTab::SettingsTab
  *
  * The constructor of the SettingsTab class.
  * Translates the QSettings into a list of strings and integers
  * we can make use of.
  */
-SettingsTab::SettingsTab(QWidget* parent, int subDirNum) : QWidget(parent){
-    if(count == 0){
-    settings = new QHash<QString, int>();
-    QString subdirectory("Live Code Editor/");
-    subdirectory.append(QString::number(subDirNum));
-    QSettings set("VeTo", subdirectory);
-    foreach(const QString &key, set.childKeys())
-        settings->insert(key, set.value(key).toInt());
-    }
-    count++;
-}
-
-SettingsTab::~SettingsTab(){
-    if(--count == 0)
-        delete settings;
-}
-
-/**
- * @brief SettingsTab::getSettings
- * @return a copy of the internal settings hashlist
- *
- * a getter for the settings.
- */
-QHash<QString, int> SettingsTab::getSettings(){
-    return *settings;
+SettingsTab::SettingsTab(QHash<QString, int> *Settings, QWidget* parent) : QWidget(parent){
+    settings = Settings;
 }
 
 /**
@@ -54,7 +17,7 @@ QHash<QString, int> SettingsTab::getSettings(){
  * Constructor of the LayoutTab class.
  * Calls the addLayout member function.
  */
-LayoutTab::LayoutTab(QWidget* parent, int subDirNum) : SettingsTab(parent, subDirNum){
+LayoutTab::LayoutTab(QHash<QString, int> *Settings, QWidget* parent) : SettingsTab(Settings, parent){
     addLayout();
 }
 
@@ -74,7 +37,7 @@ void LayoutTab::addLayout(){
     designBox->addItem(tr("Brown"));
     designBox->addItem(tr("White"));
 
-    int designConfig = settings->find("Design").value();
+    int designConfig = settings->value("Design");
     if(designConfig >= 0 || designConfig <= 4)
         designBox->setCurrentIndex(designConfig);
 
@@ -98,7 +61,7 @@ void LayoutTab::addLayout(){
     hlBox->addItem(tr("Variable Names"));    
     hlBox->addItem(tr("None"));
 
-    int hlConfig = settings->find("Highlighting").value();
+    int hlConfig = settings->value("Highlighting");
     if(hlConfig >= 0 || hlConfig <= 4)
         hlBox->setCurrentIndex(hlConfig);
 
@@ -120,7 +83,7 @@ void LayoutTab::addLayout(){
     languageBox->addItem(tr("English"));
     languageBox->addItem(tr("German"));
 
-    int languageConfig = settings->find("Language").value();
+    int languageConfig = settings->value("Language");
     if(languageConfig >= 0 || languageConfig <= 1)
         languageBox->setCurrentIndex(languageConfig);
 
@@ -187,7 +150,7 @@ void LayoutTab::languageSettings(int index){
  * Construcotr of the BehaviourTab class.
  * Calls addLayout().
  */
-BehaviourTab::BehaviourTab(QWidget* parent, int subDirNum) : SettingsTab(parent, subDirNum){
+BehaviourTab::BehaviourTab(QHash<QString, int> *Settings, QWidget* parent) : SettingsTab(Settings, parent){
     addLayout();
 }
 
@@ -201,12 +164,12 @@ void BehaviourTab::addLayout(){
     QCheckBox* openCheck = new QCheckBox(tr("Open Last Files On Startup"));
     QCheckBox* sizeCheck = new QCheckBox(tr("Remember Size Of Application"));
 
-    if(settings->find("OpenFiles").value() == 1)
+    if(settings->value("OpenFiles") == 1)
         openCheck->toggle();
     else
         settings->insert("OpenFiles", 0);
 
-    if(settings->find("RememberSize").value() == 1)
+    if(settings->value("RememberSize") == 1)
         sizeCheck->toggle();
     else
         settings->insert("RememberSize", 0);
@@ -217,7 +180,7 @@ void BehaviourTab::addLayout(){
     startupCompiler->addButton(rememberCompiler);
     startupCompiler->addButton(askForCompiler);
 
-    if(settings->find("RememberCompiler").value() == 1)
+    if(settings->value("RememberCompiler") == 1)
         rememberCompiler->toggle();
     else{
         settings->insert("RememberCompiler", 0);
@@ -237,7 +200,7 @@ void BehaviourTab::addLayout(){
     compilerChoice->addItem(tr("GLSL"));
     compilerChoice->addItem(tr("Python (Regular)"));
 
-    int useCompilerConfig = settings->find("UseCompiler").value();
+    int useCompilerConfig = settings->value("UseCompiler");
     if(useCompilerConfig >= 0 || useCompilerConfig <= 2)
         compilerChoice->setCurrentIndex(useCompilerConfig);
 

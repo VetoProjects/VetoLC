@@ -419,7 +419,9 @@ void Backend::getExecutionResults(PyLiveThread* thread, PythonException returned
     instances[thread->ID]->reportWarning(returnedException.what());
 }
 void Backend::getExecutionResults(GlLiveThread* thread, QtGlException returnedException){
-    // Already gone; no disconnect()
+    // Already gone?
+    disconnect(thread, SIGNAL(doneSignal(GlLiveThread*, QtGlException)),
+            this, SLOT(getExecutionResults(GlLiveThread*, QtGlException)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException.what());
 }

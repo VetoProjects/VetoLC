@@ -41,6 +41,8 @@ int main(int argc, char *argv[]){
     Backend server(&a);
 
     QList<int> ids = server.loadIds();
+    if(ids.length() == 0)
+        ids.append(server.nextID());
     for(int id : ids){
         QHash<QString,QVariant> settings = server.getSettings(id);
         Instances::WindowInstance *instance = new Instances::WindowInstance(id, settings, &server);

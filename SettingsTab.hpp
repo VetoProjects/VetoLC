@@ -27,14 +27,11 @@
 class SettingsTab : public QWidget{
 Q_OBJECT
 public:
-    SettingsTab(QWidget* parent = 0, int = 0);
-    ~SettingsTab();
-    QHash<QString, int> getSettings();
-    static QHash<QString, int>* settings;
-private:
-    static int count;
+    SettingsTab(QHash<QString,int> *Settings, QWidget* parent = 0);
 signals:
     void contentChanged();
+protected:
+    QHash<QString, int> *settings;
 };
 
 /**
@@ -49,7 +46,7 @@ signals:
 class LayoutTab : public SettingsTab{
 Q_OBJECT
 public:
-    LayoutTab(QWidget* parent = 0, int = 0);
+    LayoutTab(QHash<QString, int> *Settings, QWidget* parent = 0);
 private slots:
     void addLayout();
     void designSettings(int);
@@ -69,7 +66,7 @@ private slots:
 class BehaviourTab : public SettingsTab{
 Q_OBJECT
 public:
-    BehaviourTab(QWidget* parent = 0, int = 0);
+    BehaviourTab(QHash<QString, int> *Settings, QWidget* parent = 0);
 private:
     void addLayout();
 private slots:

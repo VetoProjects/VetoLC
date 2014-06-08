@@ -37,6 +37,7 @@ private:
     LayoutTab* layout;
     BehaviourTab* behaviour;
     QSettings* settings;
+    QHash<QString,int> settingsDict;
 };
 
 #endif // SETTINGSWINDOW

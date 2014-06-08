@@ -22,16 +22,9 @@ class LiveThread : public QThread{
     Q_OBJECT
 public:
     LiveThread(const long identity, QObject* parent = 0): QThread(parent), ID(identity){}
-    virtual void run(){}
-    virtual void initialize(const QString &title, const QString &instructions){
-        Q_UNUSED(title);
-        Q_UNUSED(instructions);
-    }
-    virtual bool updateCode(const QString &title, const QString &instructions){
-        Q_UNUSED(title);
-        Q_UNUSED(instructions);
-        return false;
-    }
+    virtual void run() = 0;
+    virtual void initialize(const QString &title, const QString &instructions) = 0;
+    virtual bool updateCode(const QString &title, const QString &instructions) = 0;
     const long ID;
 };
 
@@ -39,7 +32,9 @@ class PySoundThread : public LiveThread{
     Q_OBJECT
 public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){
+#ifdef WITH_PYTHON
         runObj = 0;
+#endif
     }
     void run(){
 #ifdef WITH_PYTHON
@@ -80,7 +75,9 @@ class PyLiveThread : public LiveThread{
     Q_OBJECT
 public:
     PyLiveThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){
+#ifdef WITH_PYTHON
         runObj = 0;
+#endif
     }
     void run(){
 #ifdef WITH_PYTHON
@@ -102,6 +99,9 @@ public:
 #ifdef WITH_PYTHON
        if(runObj)
            return runObj->updateCode(filename, code);
+#else
+        Q_UNUSED(filename)
+        Q_UNUSED(code)
 #endif
         return false;
     }
@@ -123,6 +123,10 @@ public:
     GlLiveThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){
         runObj = 0;
     }
+    ~GlLiveThread(){
+        delete runObj;
+    }
+
     void run(){
         if(runObj)
             runObj->show();

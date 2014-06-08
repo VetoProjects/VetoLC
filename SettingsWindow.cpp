@@ -7,12 +7,16 @@
  * Sets up the SIGNALS, UI and the tabs.
  */
 SettingsWindow::SettingsWindow(int subDirNum){
+
     QString subdirectory("Live Code Editor/");
     subdirectory.append(QString::number(subDirNum));
     settings = new QSettings("VeTo", subdirectory);
+    foreach(const QString &key, settings->childKeys())
+        settingsDict.insert(key, settings->value(key).toInt());
+
     tabs = new QTabWidget;
-    layout = new LayoutTab(this);
-    behaviour = new BehaviourTab(this);
+    layout = new LayoutTab(&settingsDict, this);
+    behaviour = new BehaviourTab(&settingsDict, this);
     changed = false;
     tabs->addTab(layout, "Layout");
     connect(layout, SIGNAL(contentChanged()), this, SLOT(setChanged()));
@@ -65,11 +69,12 @@ SettingsWindow::~SettingsWindow(){
  */
 void SettingsWindow::apply(){
     if(changed){
-        QHash<QString, int> tabSettings = layout->getSettings();
-        tabSettings.unite(behaviour->getSettings());
-        QHash<QString, int>::iterator i;
-        for(i = tabSettings.begin(); i != tabSettings.end(); i++)
-            settings->setValue(i.key(), i.value());
+//        QHash<QString, int> tabSettings = layout->getSettings();
+//        tabSettings.unite(behaviour->getSettings());
+//        QHash<QString, int>::iterator i;
+//        for(i = tabSettings.begin(); i != tabSettings.end(); i++)
+        for(const QString &key : settingsDict.keys())
+            settings->setValue(key, settingsDict[key]);
         changed = false;
     }
 }
