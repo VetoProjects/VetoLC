@@ -7,14 +7,14 @@ to work, you will install that as well(naturally). No additional Python packages
 
 Table of Contents
 -----------------
-**1. [Maintainers](#maintainers)**
-**2. [Version & General Info](#version--general-infos)**
-**3. [Compilation](#compilation)**
-**4. [Usage](#usage)**
-**5. [Settings](#settings)**
-**6. [Capabilities](#capabilities)**
-**7. [Examples & Resources](#examples--resources)**
-**8. [Contribute](#contribute)**
+1. **[Maintainers](#maintainers)**
+2. **[Version & General Info](#version--general-infos)**
+3. **[Compilation](#compilation)**
+4. **[Usage](#usage)**
+5. **[Settings](#settings)**
+6. **[Capabilities](#capabilities)**
+7. **[Examples & Resources](#examples--resources)**
+8. **[Contribute](#contribute)**
 
 Maintainers
 -----------
