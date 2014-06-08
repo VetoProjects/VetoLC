@@ -8,8 +8,8 @@ to work, you will install that as well(naturally). No additional Python packages
 Maintainers
 -----------
 
-* Tobias Brosge <s0539713@htw-berlin.de>
-* Veit Heller <s0539501@htw-berlin.de> <veit.heller@htw-berlin.de>
+* Tobias Brosge (<s0539713@htw-berlin.de>)
+* Veit Heller (<s0539501@htw-berlin.de>, <veit.heller@htw-berlin.de>)
 
 Version & General Infos
 -----------------------
