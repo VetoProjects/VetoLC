@@ -5,6 +5,17 @@ A Live Coding Environment for AudioPython, QML and GLSL(also rudimentary Python 
 Should be platform independent but GLSL is only working in Windows right now; in order to get AudioPython
 to work, you will install that as well(naturally). No additional Python packages are required.
 
+Table of Contents
+-----------------
+**[Maintainers](#maintainers)**  
+**[Version & General Info](#version)**  
+**[Compilation](#compilation)**  
+**[Usage](#usage)**  
+**[Settings](#settings)**  
+**[Capabilities](#capabilities)**  
+**[Examples & Resources](#examples)**  
+**[Contribute](#contribute)**  
+
 Maintainers
 -----------
 
