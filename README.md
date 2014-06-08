@@ -40,9 +40,10 @@ called with_python_custom where you will have to provide any additional config f
 You can try it out with, e.g.:
 
 ```bash
-qmake -CONFIG+=with_python_custom QMAKE_CXXFLAGS+=-DWITH_PYTHON QMAKE_CXX_FLAGS+=\`/usr/bin/python2.7-cnfig --clfags\` \
-QMAKE_LFLAGS+=\`/usr/bin/python2.7-config --ldflags\`
-make CPP_FLAGS+="-DWITH_PYTHON"
+qmake -CONFIG+=with_python_custom QMAKE_CXXFLAGS+=-DWITH_PYTHON \
+QMAKE_CXX_FLAGS+=`/usr/bin/python2.7-cnfig --clfags` \
+QMAKE_LFLAGS+=`/usr/bin/python2.7-config --ldflags`
+make CPP_FLAGS+=\"-DWITH_PYTHON\"
 ```
 
 This toolchain will essentially do the same thing that the option ```with_python``` does on Unix.
