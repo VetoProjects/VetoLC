@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTest>
-#include "../Backend.hpp"
+#include "../src/Backend.hpp"
 
 class BackendTest : public QObject{
 Q_OBJECT

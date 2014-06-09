@@ -3,8 +3,8 @@
 
 #include <QObject>
 #include <QTest>
-#include "../EditorWindow.hpp"
-#include "../SettingsBackend.hpp"
+#include "../src/EditorWindow.hpp"
+#include "../src/SettingsBackend.hpp"
 
 class EditorWindowTest : public QObject{
 Q_OBJECT

@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTest>
-#include "../CodeEditor.hpp"
+#include "../src/CodeEditor.hpp"
 
 /**
  * @brief The CodeEditor Testing class

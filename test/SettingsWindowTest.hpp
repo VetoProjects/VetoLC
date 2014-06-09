@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTest>
-#include "../SettingsWindow.hpp"
+#include "../src/SettingsWindow.hpp"
 
 class SettingsWindowTest : public QObject{
 Q_OBJECT

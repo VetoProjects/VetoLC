@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTest>
-#include "../CodeHighlighter.hpp"
+#include "../src/CodeHighlighter.hpp"
 
 class CodeHighlighterTest : public QObject{
 Q_OBJECT

@@ -3,17 +3,17 @@
 
 #include <QObject>
 #include <QTest>
-#include "../LiveThread.hpp"
+#include "../src/LiveThread.hpp"
 
 class SoundGeneratorTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase(){
-        thread = new LiveThread(0);
+        thread = new QtSoundThread(0);
         connect(thread, SIGNAL(doneSignal(LiveThread*, QtSoundException)),
                 this, SLOT(finishedTest(LiveThread*, QtSoundException)));
-        thread->initializeQtSound((char *)"", (char *)"int i;");
-        }
+        thread->initialize((char *)"", (char *)"int i;");
+    }
     void objectCreationTest() {
 
         QVERIFY(thread);

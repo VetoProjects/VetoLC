@@ -17,10 +17,10 @@ with_python{
     QMAKE_LFLAGS += `/usr/bin/python2.7-config --ldflags`
     LIBS += -lpython2.7
 }with_python_custom || with_python{
-    SOURCES += ../PySoundGenerator.cpp
+    SOURCES += ../src/PySoundGenerator.cpp
 
     HEADERS  += PySoundGeneratorTest.hpp \
-    ../PySoundGenerator.hpp
+    ../src/PySoundGenerator.hpp
 
 }
 
@@ -30,43 +30,43 @@ RESOURCES += \
 HEADERS += \
     EditorWindowTest.hpp \
     CodeEditorTest.hpp \
-    ../PythonException.hpp \
-    ../QtSoundException.hpp \
-    ../SettingsWindow.hpp \
-    ../SettingsTab.hpp \
-    ../Renderer.hpp \
-    ../CodeEditor.hpp \
-    ../CodeHighlighter.hpp \
-    ../EditorWindow.hpp \
-    ../LiveCodingSetup.hpp \
-    ../SoundGenerator.hpp \
+    ../src/PythonException.hpp \
+    ../src/QtSoundException.hpp \
+    ../src/SettingsWindow.hpp \
+    ../src/SettingsTab.hpp \
+    ../src/Renderer.hpp \
+    ../src/CodeEditor.hpp \
+    ../src/CodeHighlighter.hpp \
+    ../src/EditorWindow.hpp \
+    ../src/LiveCodingSetup.hpp \
+    ../src/SoundGenerator.hpp \
     CodeHighlighterTest.hpp \
     SettingsTabTest.hpp \
     SettingsWindowTest.hpp \
     SoundGeneratorTest.hpp \
-    ../Backend.hpp \
-    ../LiveThread.hpp \
+    ../src/Backend.hpp \
+    ../src/LiveThread.hpp \
     BackendTest.hpp \
-    ../SettingsBackend.hpp \
-    ../AudioInputProcessor.hpp \
-    ../BootLoader.hpp \
-    ../CodeEditorTest.hpp \
-    ../QtGlException.hpp \
-    ../Instances/IInstance.hpp \
-    ../Instances/WindowInstance.hpp
+    ../src/SettingsBackend.hpp \
+    ../src/AudioInputProcessor.hpp \
+    ../src/BootLoader.hpp \
+    ../src/CodeEditorTest.hpp \
+    ../src/QtGlException.hpp \
+    ../src/Instances/IInstance.hpp \
+    ../src/Instances/WindowInstance.hpp
 
 SOURCES += \
-    ../CodeEditor.cpp \
-    ../CodeHighlighter.cpp \
-    ../EditorWindow.cpp \
-    ../LiveCodingSetup.cpp \
-    ../SoundGenerator.cpp \
-    ../SettingsWindow.cpp \
-    ../SettingsTab.cpp \
-    ../Renderer.cpp \
+    ../src/CodeEditor.cpp \
+    ../src/CodeHighlighter.cpp \
+    ../src/EditorWindow.cpp \
+    ../src/LiveCodingSetup.cpp \
+    ../src/SoundGenerator.cpp \
+    ../src/SettingsWindow.cpp \
+    ../src/SettingsTab.cpp \
+    ../src/Renderer.cpp \
     main.cpp \
-    ../Backend.cpp \
-    ../SettingsBackend.cpp \
-    ../AudioInputProcessor.cpp \
-    ../BootLoader.cpp \
-    ../Instances/WindowInstance.cpp
+    ../src/Backend.cpp \
+    ../src/SettingsBackend.cpp \
+    ../src/AudioInputProcessor.cpp \
+    ../src/BootLoader.cpp \
+    ../src/Instances/WindowInstance.cpp

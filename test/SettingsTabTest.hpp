@@ -3,13 +3,13 @@
 
 #include <QObject>
 #include <QTest>
-#include "../SettingsTab.hpp"
+#include "../src/SettingsTab.hpp"
 
 class SettingsTabTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase() {
-        settingsTab = new SettingsTab();
+        settingsTab = new SettingsTab(0);
     }
     void objectCreationTest() {
         QVERIFY(settingsTab);
@@ -27,7 +27,7 @@ public:
     LayoutTabTest(QObject *parent = 0) : QObject(parent){}
 private slots:
     void initTestCase() {
-        layoutTab = new LayoutTab();
+        layoutTab = new LayoutTab(0);
     }
     void objectCreationTest() {
         QVERIFY(layoutTab);
@@ -43,7 +43,7 @@ class BehaviourTabTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase() {
-        behaviourTab = new BehaviourTab();
+        behaviourTab = new BehaviourTab(0);
     }
     void objectCreationTest() {
         QVERIFY(behaviourTab);

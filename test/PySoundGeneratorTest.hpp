@@ -3,7 +3,7 @@
 #ifdef with_python
 #include <QObject>
 #include <QTest>
-#include "../PySoundGenerator.hpp"
+#include "../src/PySoundGenerator.hpp"
 
 class PySoundGeneratorTest : public QObject{
 Q_OBJECT
