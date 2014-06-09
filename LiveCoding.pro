@@ -36,48 +36,48 @@ with_python{
 with_python_custom || with_python{
 
     SOURCES += \
-    PySoundGenerator.cpp\
-    PyLiveInterpreter.cpp
+    src/PySoundGenerator.cpp\
+    src/PyLiveInterpreter.cpp
 
     HEADERS  += \
-    PySoundGenerator.hpp\
-    PyLiveInterpreter.hpp
+    src/PySoundGenerator.hpp\
+    src/PyLiveInterpreter.hpp
 
 }
 
 RESOURCES += \
     application.qrc
 
-HEADERS += CodeEditor.hpp \
-    CodeHighlighter.hpp \
-    EditorWindow.hpp \
-    LiveCodingSetup.hpp \
-    SoundGenerator.hpp\
-    PythonException.hpp \
-    QtSoundException.hpp \
-    SettingsWindow.hpp \
-    SettingsTab.hpp \
-    Renderer.hpp \
-    SettingsBackend.hpp \
-    Backend.hpp \
-    QtGlException.hpp \
-    LiveThread.hpp \
-    BootLoader.hpp \
-    AudioInputProcessor.hpp \
-    Instances/IInstance.hpp \
-    Instances/WindowInstance.hpp
+HEADERS += src/Instances/IInstance.hpp \
+    src/Instances/WindowInstance.hpp \
+    src/AudioInputProcessor.hpp \
+    src/Backend.hpp \
+    src/BootLoader.hpp \
+    src/CodeEditor.hpp \
+    src/CodeHighlighter.hpp \
+    src/EditorWindow.hpp \
+    src/LiveCodingSetup.hpp \
+    src/LiveThread.hpp \
+    src/PythonException.hpp \
+    src/QtGlException.hpp \
+    src/QtSoundException.hpp \
+    src/Renderer.hpp \
+    src/SettingsBackend.hpp \
+    src/SettingsTab.hpp \
+    src/SettingsWindow.hpp \
+    src/SoundGenerator.hpp
 
-SOURCES += main.cpp\
-    CodeEditor.cpp \
-    CodeHighlighter.cpp \
-    EditorWindow.cpp \
-    LiveCodingSetup.cpp \
-    SoundGenerator.cpp \
-    SettingsTab.cpp \
-    SettingsWindow.cpp \
-    Renderer.cpp \
-    SettingsBackend.cpp \
-    Backend.cpp \
-    BootLoader.cpp \
-    AudioInputProcessor.cpp \
-    Instances/WindowInstance.cpp
+SOURCES += src/Instances/WindowInstance.cpp \
+    src/AudioInputProcessor.cpp \
+    src/Backend.cpp \
+    src/BootLoader.cpp \
+    src/CodeEditor.cpp \
+    src/CodeHighlighter.cpp \
+    src/EditorWindow.cpp \
+    src/LiveCodingSetup.cpp \
+    src/main.cpp \
+    src/Renderer.cpp \
+    src/SettingsBackend.cpp \
+    src/SettingsTab.cpp \
+    src/SettingsWindow.cpp \
+    src/SoundGenerator.cpp
