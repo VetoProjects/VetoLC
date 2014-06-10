@@ -170,4 +170,12 @@ Coming soon.
 Contribute
 ----------
 
-Coming soon.
+At the time being, most issues are in integrating the interpreters/compilers. We are working
+in making OpenGL support platform-independent and the AudioPython interpreter more stable.
+QML is up next.
+
+A few bugs are in memory allocation/cleanup routines, but they should be fixed pretty soon;
+we are valgrind aficionados, after all.
+
+If you want a interpreter/compiler that's not on the list, feel free to contact us. We
+will brief you on how to best approach that and integrate your code as good as possible.
