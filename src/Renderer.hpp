@@ -6,6 +6,7 @@
 #include <QWindow>
 #include <QOpenGLPaintDevice>
 #include <QOpenGLFunctions>
+#include <QOpenGLDebugLogger>
 #include <QTime>
 #include <QMutex>
 //#include <QAudioBuffer>
@@ -39,6 +40,7 @@ public slots:
     void renderLater();
     bool updateCode(const QString &, const QString &);
     void updateAudioData(QByteArray);
+    void onMessageLogged(QOpenGLDebugMessage message);
 
 protected:
     virtual bool event(QEvent *);
@@ -63,6 +65,8 @@ private:
     QString fragmentSource;
 
     AudioInputProcessor *audio;
+
+    QOpenGLDebugLogger* m_logger;
 
 
 //    static bool mapFormat(float *target, char *source, int count, const QAudioFormat &format);

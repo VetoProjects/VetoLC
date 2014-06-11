@@ -19,7 +19,8 @@ public:
         exceptionText = message;
     }
 
-    //~QtSoundException(){}
+    ~QtSoundException() throw() {}
+
     virtual const char* what() const throw(){
         return exceptionText.toLocal8Bit().data();
     }

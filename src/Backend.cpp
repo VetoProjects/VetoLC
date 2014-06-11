@@ -56,10 +56,14 @@ void Backend::addInstance(IInstance *instance, bool removeSettings){
     connect(instance, SIGNAL(destroyed(QObject*)),  this, SLOT(instanceDestroyed(QObject *)));
     connect(instance, SIGNAL(runCode(IInstance*)),  this, SLOT(instanceRunCode(IInstance *)));
     connect(instance, SIGNAL(stopCode(IInstance*)), this, SLOT(instanceStopCode(IInstance *)));
-    connect(instance, SIGNAL(changeSetting (IInstance*, const QString, const QVariant&)), this, SLOT(instanceChangedSetting(IInstance*, const QString&, const QVariant&)));
-    connect(instance, SIGNAL(getSetting    (IInstance*, const QString, QVariant&)),       this, SLOT(instanceRequestSetting(IInstance*, const QString&, QVariant&)));
-    connect(instance, SIGNAL(changeSettings(IInstance*, const QHash<QString,QVariant>&)), this, SLOT(instanceChangedSettings(IInstance*, const QHash<QString,QVariant>&)));
-    connect(instance, SIGNAL(getSettings   (IInstance*, QHash<QString,QVariant>&)),       this, SLOT(instanceRequestSettings(IInstance*, QHash<QString,QVariant>&)));
+    connect(instance, SIGNAL(changeSetting (IInstance*, const QString, const QVariant&)),
+            this, SLOT(instanceChangedSetting(IInstance*, const QString&, const QVariant&)));
+    connect(instance, SIGNAL(getSetting    (IInstance*, const QString, QVariant&)),
+            this, SLOT(instanceRequestSetting(IInstance*, const QString&, QVariant&)));
+    connect(instance, SIGNAL(changeSettings(IInstance*, const QHash<QString,QVariant>&)),
+            this, SLOT(instanceChangedSettings(IInstance*, const QHash<QString,QVariant>&)));
+    connect(instance, SIGNAL(getSettings   (IInstance*, QHash<QString,QVariant>&)),
+            this, SLOT(instanceRequestSettings(IInstance*, QHash<QString,QVariant>&)));
     connect(instance, SIGNAL(closeAll()), this, SLOT(childSaidCloseAll()));
     connect(instance, SIGNAL(openSettings(IInstance*)), this, SLOT(settingsWindowRequested(IInstance*)));
     connect(instance, SIGNAL(openHelp(IInstance*)), this, SLOT(openHelp(IInstance*)));
@@ -89,7 +93,8 @@ int Backend::nextID(){
  */
 QList<int> Backend::loadIds()
 {
-    QVariantList ids = settings.getSettingsFor("Instances", QVariantList()).toList();
+    QVariantList ids = settings.getSettingsFor("Instances",
+                                               QVariantList()).toList();
     QList<int> res;
     for(QVariant id : ids){
         bool ok;

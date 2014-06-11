@@ -137,6 +137,17 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
 
     setTitle(filename);
 
+    m_logger = new QOpenGLDebugLogger( this );
+
+    connect(m_logger, SIGNAL(messageLogged(QOpenGLDebugMessage)),
+             this, SLOT(onMessageLogged(QOpenGLDebugMessage)),
+             Qt::DirectConnection );
+
+    if ( m_logger->initialize() ) {
+        m_logger->startLogging( QOpenGLDebugLogger::SynchronousLogging );
+        m_logger->enableMessages();
+    }
+
     time = new QTime();
     time->start();
 
@@ -391,4 +402,9 @@ void Renderer::updateAudioData(QByteArray data){
         delete[] left;
     if(right != data.data())
         delete[] right;
+}
+
+
+void Renderer::onMessageLogged(QOpenGLDebugMessage message){
+    qDebug() << message;
 }

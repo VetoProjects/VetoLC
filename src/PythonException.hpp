@@ -21,7 +21,7 @@ public:
         exceptionText = message;
     }
 
-    ~PythonException(){
+    ~PythonException() throw(){
     }
 
     virtual const char* what() const throw(){
