@@ -134,7 +134,6 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
     shaderProgram(0),
     fragmentSource(instructions)
 {
-
     setTitle(filename);
 
     m_logger = new QOpenGLDebugLogger( this );
@@ -253,6 +252,7 @@ void Renderer::render(){
 }
 
 void Renderer::render(QPainter *){
+//    qDebug() << QLatin1String(reinterpret_cast<const char*>(glGetString(GL_VERSION))) << " " << QLatin1String(reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, width() * retinaScale, height() * retinaScale);
 
