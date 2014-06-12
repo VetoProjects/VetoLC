@@ -142,6 +142,11 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
              this, SLOT(onMessageLogged(QOpenGLDebugMessage)),
              Qt::DirectConnection );
 
+    if (m_logger->initialize()){
+        m_logger->startLogging( QOpenGLDebugLogger::SynchronousLogging );
+        m_logger->enableMessages();
+    }
+
     time = new QTime();
     time->start();
 
@@ -311,10 +316,6 @@ void Renderer::renderNow(){
         init();
     }
 
-    if ( m_logger->initialize() ) {
-        m_logger->startLogging( QOpenGLDebugLogger::SynchronousLogging );
-        m_logger->enableMessages();
-    }
 
     if(!shaderProgram)
         initShaders(fragmentSource);

@@ -25,7 +25,7 @@ public:
     ~PySoundGenerator();
 
 private:
-    PyObject* execute(char* instruct);
+    PyObject* execute(QString instruct);
     void exceptionOccurred();
     PythonException ownExcept;
     bool triggered;

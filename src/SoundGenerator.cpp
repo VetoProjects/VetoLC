@@ -10,69 +10,35 @@
  * and the break SIGNAL.
  */
 SoundGenerator::SoundGenerator(const QString &progName, const QString &qtInstructions){
-    stopflag = false;
     qRegisterMetaType<QtSoundException>("QtSoundException");
+    if(qtInstructions == ""){
+        emit doneSignal(QtSoundException("File is empty. Nothing to execute."));
+        return;
+    }
+    engine = new QQmlEngine(this);
     name = progName;
     instructions = qtInstructions;
     abortAction = new QAction(this);
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
-}
-
-/**
- * @brief SoundGenerator::addToOutputs
- * @param file
- * @param format
- * @return int index of the output in the Outputlist
- *
- * Creates a QAudioOutput in the desired QAudioFormat and linked
- * to the QFile specified.
- */
-int SoundGenerator::addToOutputs(QFile file, QAudioFormat format){
-    QAudioOutput audio(format);
-    connect(&audio, SIGNAL(stateChanged(QAudio::State)),
-            this, SLOT(handleStateChanged(QAudio::State)));
-    audio.start(&file);
-    outputs.append(&audio);
-    return outputs.indexOf(&audio);
-}
-
-/**
- * @brief SoundGenerator::removeFromOutputs
- * @param index
- *
- * erases the output at index.
- */
-void SoundGenerator::removeFromOutputs(int index){
-    QAudioOutput* audio = outputs.at(index);
-    audio->~QAudioOutput();
-    outputs.removeAt(index);
+    emit doneSignal(QtSoundException("Terminated successfully."));
 }
 
 /**
  * @brief SoundGenerator::updateCode
  * @param filename
  * @param instructions
- * @return
+ * @return true when name and instructions are valid, false otherwise
  *
- * STUB!
- */
-bool SoundGenerator::updateCode(const QString &filename, const QString &instructions){
-    return !filename.isEmpty() && !instructions.isEmpty();
-}
-
-/**
- * @brief SoundGenerator::changeOutputAt
- * @param index
- * @param file
  *
- * changes the output at index to the QFile specfied.
  */
-void SoundGenerator::changeOutputAt(int index, QFile* file){
-    if(file == NULL)
-        throw QtSoundException("File given to changeOutputAt() was invalid: NULL");
-    QAudioOutput *output = outputs.at(index);
-    output->start(file);
+bool SoundGenerator::updateCode(const QString &filename, const QString &qtInstructions){
+    if(!qtInstructions.isEmpty()){
+        name = filename;
+        instructions = qtInstructions;
+        return true
+    }
+    return false;
 }
 
 /**
@@ -82,10 +48,6 @@ void SoundGenerator::changeOutputAt(int index, QFile* file){
  * the stopflag is set.
  */
 void SoundGenerator::run(){
-    if(instructions.isEmpty()){
-        emit doneSignal(QtSoundException("File is empty. Nothing to execute."));
-        return;
-    }
     try{
         while(true){
             loop();

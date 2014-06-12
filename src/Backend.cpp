@@ -273,7 +273,7 @@ bool Backend::isLast(){
 void Backend::instanceRunCode(IInstance *instance)
 {
     int id = instance->ID;
-    qDebug() << id;
+    //qDebug() << id;
     if(threads.contains(id)){
         bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
         if(!worked)
@@ -295,6 +295,7 @@ void Backend::instanceRunCode(IInstance *instance)
                 break;
             case 3:
                 this->runPyFile(instance);
+                break;
             default:
                 instance->codeStoped();
                 instance->reportError("Compiler not found.");
@@ -325,7 +326,7 @@ void Backend::instanceChangedSettings(IInstance *instance, const QHash<QString, 
 void Backend::instanceRequestSettings(IInstance *instance, QHash<QString, QVariant> &set)
 {
     set = settings.getSettings(instance->ID);
-    qDebug() << "Request Settings for" << instance->ID << ":" << set;
+    //qDebug() << "Request Settings for" << instance->ID << ":" << set;
 }
 
 /**

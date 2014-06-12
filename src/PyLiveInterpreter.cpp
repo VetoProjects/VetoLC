@@ -1,5 +1,4 @@
 #include "PyLiveInterpreter.hpp"
-#include <QDebug>
 
 /**
  * @brief PyLiveInterpreter::PyLiveInterpreter
@@ -11,7 +10,7 @@
  * which it will be fed, the class variables and the break shortcut.
  */
 PyLiveInterpreter::PyLiveInterpreter(char* progName, char* pyInstructions){
-    if(instructions == ""){
+    if(pyInstructions == QString("")){
         emit doneSignal(PythonException("File is empty. Nothing to execute."));
         return;
     }

@@ -1,5 +1,4 @@
 #include "WindowInstance.hpp"
-#include <QDebug>
 
 namespace Instances {
 

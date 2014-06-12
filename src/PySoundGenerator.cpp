@@ -1,5 +1,4 @@
 #include "PySoundGenerator.hpp"
-#include <QDebug>
 
 /**
  * @brief PySoundGenerator::PySoundGenerator
@@ -11,7 +10,7 @@
  * which it will be fed, the class variables and the break shortcut.
  */
 PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
-    if(pyInstructions == ""){
+    if(pyInstructions == QString("")){
         emit doneSignal(PythonException("File is empty. Nothing to execute."));
         return;
     }
@@ -65,8 +64,9 @@ void PySoundGenerator::run(){
  *
  * executes the python code in the interpreter.
  */
-PyObject* PySoundGenerator::execute(char* instruct){
-    return PyRun_String(instruct, Py_file_input, dict, dict);
+PyObject* PySoundGenerator::execute(QString instruct){
+    return PyRun_String(instruct.toLocal8Bit().data(),
+                        Py_file_input, dict, dict);
 }
 
 /**

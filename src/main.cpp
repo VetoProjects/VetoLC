@@ -3,7 +3,6 @@
 #include <QLocalServer>
 #include <QTranslator>
 #include <QFontDatabase>
-#include <QDebug>
 #include "EditorWindow.hpp"
 #include "Renderer.hpp"
 #include "BootLoader.hpp"
@@ -50,6 +49,5 @@ int main(int argc, char *argv[]){
     }
     BootLoader *bootLoader = new BootLoader(socketName, &server);
     bootLoader->start();
-    qDebug() << bootLoader;
     return a.exec();
 }
