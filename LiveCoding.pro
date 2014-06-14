@@ -11,9 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = LiveCoding
 TEMPLATE = app
 
-TRANSLATIONS = codeeditor_de.ts \
-               codeeditor_en.ts \
-               codeeditor_fr.ts
+TRANSLATIONS = translations/codeeditor_de.ts \
+               translations/codeeditor_en.ts \
+               translations/codeeditor_fr.ts
 
 CODECFORSRC     = UTF-8
 
