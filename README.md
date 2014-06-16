@@ -119,14 +119,20 @@ will be your playground.
 ![Your playground](images/Documentation/open.png "Your playground")
 
 Default syntax highlighting will be GLSL, but you can tweak the settings to highlight Python
-code as well. There are a few minor differences, but generally, We use GLSL highlighting for
-Python, as it is good enough for my lazy ass(but we code in Vim, too, so we might not be the
+code as well. There are a few minor differences, but generally, we use GLSL highlighting for
+Python, as it is good enough for our lazy asses(but we code in Vim, too, so we might not be the
 best users for scale).
 
 ![Highlighting](images/Documentation/glsl.png "Highlighting in a nutshell")
 
-More coming soon.
+You might want to take a ride and you can(provided you are a Windows user). There is an example
+called `default.glsl` in the source directory. If you open and run it, you can play around with
+it very well(run it by hitting the systems refresh action(`F5` on Windows and Linux, `Cmd+R` on
+OS X)). A new window will pop open that renders the shader. Our personal preference is to drag 
+that window to a different screen so you have a clean workbench. If you change something, you can 
+hit refresh at every point in your development and the updated code will be run.
 
+More coming soon.
 
 Settings
 --------
@@ -153,8 +159,8 @@ There you can change the syntax highlighting(or even switch it off).
 **Language**:
 
 At the moment, only english and german are supported. An experimental version
-of french is being created, but I do not trust my french very much. Not more than
-my spanish and japanese, so all three of them will take a while.
+of french is being created, but we do not trust our french very much. Not more than
+our spanish and japanese, so all three of them will take a while.
 
 ![The settings window II](images/Documentation/settings2.png "The settings window, II")
 
