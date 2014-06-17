@@ -126,13 +126,27 @@ best users for scale).
 ![Highlighting](images/Documentation/glsl.png "Highlighting in a nutshell")
 
 You might want to take a ride and you can(provided you are a Windows user). There is an example
-called `default.glsl` in the source directory. If you open and run it, you can play around with
-it very well(run it by hitting the systems refresh action(`F5` on Windows and Linux, `Cmd+R` on
-OS X)). A new window will pop open that renders the shader. Our personal preference is to drag 
-that window to a different screen so you have a clean workbench. If you change something, you can 
-hit refresh at every point in your development and the updated code will be run.
+for Graphics Live Coding called `default.glsl` in the source directory. If you open and run it, 
+you can play around with it very well(run it by hitting the systems refresh action(`F5` on Windows 
+and Linux, `Cmd+R` on OS X)). A new window will pop open that renders the shader. Our personal 
+preference is to drag that window to a different screen so you have a clean workbench. If you 
+change something, you can hit refresh at every point in your development and the updated code 
+will be run.
 
-More coming soon.
+(Here be dragons... err - pictures.)
+
+If you want to test out the Python capabilities, go to the Settings(for a tutorial on Settings 
+in our environment refer to [this](#settings) section) and choose "Python (Regular)" as compiler.
+Now you can write and interpret Python code, yay!
+
+That is not too interesting, though, you might want to use Python in the context of Audio Live
+Coding, as promised earlier. You can do that, too! Just go back to the Settings and select "Audio
+Python" in the compiler section. For a general tutorial/introduction to AudioPython, refer to 
+[this](https://github.com/hellerve/AudioPython) page.
+
+If you want to play with QML, I have bad news for you, though. This feature is not yet ready. :(
+
+That's it with the basics. Have fun!
 
 Settings
 --------
