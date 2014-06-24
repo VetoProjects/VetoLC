@@ -2,8 +2,8 @@ Veto-LiveCoding
 ===============
 
 A Live Coding Environment for AudioPython, QML and GLSL(also rudimentary Python IDE capabilities) in QT/C++.
-Should be platform independent but GLSL is only working in Windows right now; in order to get AudioPython
-to work, you will install that as well(naturally). No additional Python packages are required.
+In order to get AudioPython to work from source, you will have to install QT as well(naturally). 
+No additional Python packages are required. The editor is platform-independent.
 
 Table of Contents
 -----------------
@@ -25,7 +25,7 @@ Maintainers
 Version & General Infos
 -----------------------
 
-Package Version:    `0.1.1 Alpha/Test`
+Package Version:    `0.1.2 Alpha/Test`
 
 Packages used to develop this application(and their versions):
 
@@ -46,8 +46,6 @@ graphics processor. This code is known as shaders. In our environment only so ca
 shaders can be programmed to make live coding easy and fast, without needing to write heaps of 
 code. Those fragment shaders are then rendered in a window which you can adjust to your liking,
 e.g. display it fullscreen on a beamer.
-
-NOTE: By now, rendering only works on Windows(we do not know why, but we are looking into it).
 
 **AudioPython**:
 
@@ -125,13 +123,13 @@ best users for scale).
 
 ![Highlighting](images/Documentation/glsl.png "Highlighting in a nutshell")
 
-You might want to take a ride and you can(provided you are a Windows user). There is an example
-for Graphics Live Coding called `default.glsl` in the source directory. If you open and run it, 
-you can play around with it very well(run it by hitting the systems refresh action(`F5` on Windows 
-and Linux, `Cmd+R` on OS X)). A new window will pop open that renders the shader. Our personal 
-preference is to drag that window to a different screen so you have a clean workbench. If you 
-change something, you can hit refresh at every point in your development and the updated code 
-will be run.
+You might want to take a ride and you can(on every platform we know of, provided there is OpenGL
+and GLSL installed). There is an example for Graphics Live Coding called `default.glsl` in the 
+source directory. If you open and run it, you can play around with it very well(run it by 
+hitting the systems refresh action(`F5` on Windows and Linux, `Cmd+R` on OS X)). A new window 
+will pop open that renders the shader. Our personal preference is to drag that window to a 
+different screen so you have a clean workbench. If you change something, you can hit refresh 
+at every point in your development and the updated code will be run.
 
 (Here be dragons... err - pictures.)
 
@@ -200,11 +198,10 @@ Contribute
 ----------
 
 At the time being, most issues are in integrating the interpreters/compilers. We are working
-in making OpenGL support platform-independent and the AudioPython interpreter more stable.
-QML is up next.
+on making the AudioPython interpreter more stable. QML is up next.
 
 A few bugs are in memory allocation/cleanup routines, but they should be fixed pretty soon;
-we are valgrind aficionados, after all.
+we are valgrind fans, after all.
 
 If you want a interpreter/compiler that's not on the list, feel free to contact us. We
 will brief you on how to best approach that and integrate your code as good as possible.
