@@ -5,6 +5,8 @@
 #include <QThread>
 #include <QAction>
 #include <QCoreApplication>
+#include <QIODevice>
+#include "AudioOutputProcessor.hpp"
 #include "PythonException.hpp"
 
 /**
@@ -27,10 +29,12 @@ public:
 private:
     PyObject* execute(QString instruct);
     void exceptionOccurred();
+    void stream(PyObject *process);
     PythonException ownExcept;
     bool triggered;
     QAction* abortAction;
     PyObject* dict;
+    AudioOutputProcessor* device;
 
 private slots:
     void terminated();

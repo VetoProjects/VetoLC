@@ -28,35 +28,47 @@ public:
     const long ID;
 };
 
+#ifdef WITH_PYTHON
 class PySoundThread : public LiveThread{
     Q_OBJECT
 public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){
-#ifdef WITH_PYTHON
         runObj = 0;
-#endif
     }
     void run(){
-#ifdef WITH_PYTHON
         if(runObj)
             runObj->run();
-#endif
     }
     void initialize(const QString &title, const QString &instructions){
-#ifdef WITH_PYTHON
         runObj = new PySoundGenerator(title.toLocal8Bit().data(), instructions.toLocal8Bit().data());
         connect(runObj, SIGNAL(doneSignal(PythonException)), this, SLOT(doneSignalReceived(PythonException)));
-#else
-        Q_UNUSED(title);
-        Q_UNUSED(instructions);
-        emit doneSignal(this, PythonException("Python is not supported in this version"));
-#endif
     }
     bool updateCode(const QString &filename, const QString &code){
-#ifdef WITH_PYTHON
        if(runObj)
            return runObj->updateCode(filename, code);
-#endif
+       return false;
+    }
+public slots:
+    void doneSignalReceived(PythonException exception){
+        emit doneSignal(this, exception);
+    }
+signals:
+    void doneSignal(PySoundThread*, PythonException);
+private:
+    PySoundGenerator* runObj;
+};
+
+#else
+
+class PySoundThread : public LiveThread{
+    Q_OBJECT
+public:
+    PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){ }
+    void run(){ }
+    void initialize(const QString &, const QString &){
+        emit doneSignal(this, PythonException("Python is not supported in this version"));
+    }
+    bool updateCode(const QString &, const QString &){
         return false;
     }
 public slots:
@@ -66,10 +78,8 @@ public slots:
 signals:
     void doneSignal(PySoundThread*, PythonException);
 private:
-#ifdef WITH_PYTHON
-    PySoundGenerator* runObj;
-#endif
 };
+#endif
 
 class PyLiveThread : public LiveThread{
     Q_OBJECT

@@ -6,6 +6,8 @@
 #include <QWindow>
 #include <QOpenGLPaintDevice>
 #include <QOpenGLFunctions>
+#include <QOpenGLVertexArrayObject>
+#include <QOpenGLBuffer>
 #include <QOpenGLDebugLogger>
 #include <QTime>
 #include <QMutex>
@@ -57,6 +59,7 @@ private:
     QTime *time;
     bool pendingUpdate;
 
+    QOpenGLVertexArrayObject *vao;
     GLuint vertexBuffer, uvBuffer, audioLeftTexture, audioRightTexture;
     int vertexAttr, uvAttr,
         timeUniform, audioLeftUniform, audioRightUniform;

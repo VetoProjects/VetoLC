@@ -4,7 +4,7 @@
 #include <exception>
 #include <QtMultimedia/QAudioOutput>
 #include <QtMultimedia/QAudioFormat>
-#include <QtQml/QQmlEngine>
+//#include <QtQml/QQmlEngine>
 #include <QList>
 #include <QFile>
 #include <QPair>
@@ -48,7 +48,7 @@ private:
     bool stopflag;
     QtSoundException ownExcept;
     QAction* abortAction;
-    QQmlEngine* engine;
+//    QQmlEngine* engine;
 
 private slots:
     void terminated();

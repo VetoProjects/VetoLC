@@ -129,7 +129,7 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
     context(0), device(0),
     time(0),
     pendingUpdate(false),
-    vertexBuffer(0), uvBuffer(0), audioLeftTexture(0), audioRightTexture(0),
+    vao(0), uvBuffer(0), audioLeftTexture(0), audioRightTexture(0),
     vertexAttr(0), uvAttr(0), timeUniform(0),
     shaderProgram(0),
     fragmentSource(instructions)
@@ -141,11 +141,6 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
     connect(m_logger, SIGNAL(messageLogged(QOpenGLDebugMessage)),
              this, SLOT(onMessageLogged(QOpenGLDebugMessage)),
              Qt::DirectConnection );
-
-    if (m_logger->initialize()){
-        m_logger->startLogging( QOpenGLDebugLogger::SynchronousLogging );
-        m_logger->enableMessages();
-    }
 
     time = new QTime();
     time->start();
@@ -168,13 +163,17 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
 }
 
 Renderer::~Renderer(){
-    glDeleteBuffers(1, &vertexBuffer);
     glDeleteBuffers(1, &uvBuffer);
     glDeleteTextures(1, &audioLeftTexture);
     glDeleteTextures(1, &audioRightTexture);
 }
 
 bool Renderer::init(){
+    delete vao;
+    vao = new QOpenGLVertexArrayObject(this);
+    vao->create();
+    vao->bind();
+
     glDeleteBuffers(1, &vertexBuffer);
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -194,6 +193,8 @@ bool Renderer::init(){
 
     glClearColor(0,0,.3,1);
     return initShaders(fragmentSource);
+
+    vao->release();
 }
 
 bool Renderer::initShaders(const QString &fragmentShader){
@@ -227,9 +228,19 @@ bool Renderer::initShaders(const QString &fragmentShader){
         if(shaderProgram)
             delete shaderProgram;
         shaderProgram = newShaderProgram;
+
         vertexAttr   = shaderProgram->attributeLocation("position");
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+        shaderProgram->setAttributeBuffer(vertexAttr, GL_FLOAT, 0, 3);
+        shaderProgram->enableAttributeArray(vertexAttr);
+
         uvAttr       = shaderProgram->attributeLocation("texCoord");
+        glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+        shaderProgram->setAttributeBuffer("texCoord", GL_FLOAT, 0, 2);
+        shaderProgram->enableAttributeArray(uvAttr);
+
         timeUniform  = shaderProgram->uniformLocation("_time");
+
         audioLeftUniform = shaderProgram->uniformLocation("audioDataLeft");
         audioRightUniform = shaderProgram->uniformLocation("audioDataRight");
         shaderProgram->setUniformValue(audioLeftUniform, 0);
@@ -263,26 +274,15 @@ void Renderer::render(QPainter *){
 
     glClear(GL_COLOR_BUFFER_BIT);
 
+    vao->bind();
     shaderProgramMutex.lock();
     shaderProgram->bind();
 
     shaderProgram->setUniformValue(timeUniform, time->elapsed());
 
-    glEnableVertexAttribArray(vertexAttr);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glVertexAttribPointer(vertexAttr, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    glEnableVertexAttribArray(uvAttr);
-    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-    glVertexAttribPointer(uvAttr, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glDrawArrays(GL_TRIANGLES, 0, sizeof(vertices));
-
-    glDisableVertexAttribArray(vertexAttr);
-    glDisableVertexAttribArray(uvAttr);
-
-    shaderProgram->release();
+    vao->release();
     shaderProgramMutex.unlock();
 }
 
@@ -312,6 +312,10 @@ void Renderer::renderNow(){
     context->makeCurrent(this);
 
     if(needsInit){
+        if (m_logger->initialize()){
+            m_logger->startLogging( QOpenGLDebugLogger::SynchronousLogging );
+            m_logger->enableMessages();
+        }
         initializeOpenGLFunctions();
         init();
     }

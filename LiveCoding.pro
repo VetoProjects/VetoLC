@@ -65,7 +65,9 @@ HEADERS += src/Instances/IInstance.hpp \
     src/SettingsBackend.hpp \
     src/SettingsTab.hpp \
     src/SettingsWindow.hpp \
-    src/SoundGenerator.hpp
+    src/SoundGenerator.hpp \
+    AudioOutputProcessor.hpp \
+    src/AudioOutputProcessor.hpp
 
 SOURCES += src/Instances/WindowInstance.cpp \
     src/AudioInputProcessor.cpp \
@@ -80,4 +82,6 @@ SOURCES += src/Instances/WindowInstance.cpp \
     src/SettingsBackend.cpp \
     src/SettingsTab.cpp \
     src/SettingsWindow.cpp \
-    src/SoundGenerator.cpp
+    src/SoundGenerator.cpp \
+    AudioOutputProcessor.cpp \
+    src/AudioOutputProcessor.cpp

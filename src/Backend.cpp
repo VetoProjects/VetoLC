@@ -9,7 +9,7 @@ using namespace Instances;
  * @brief Backend::Backend
  * @param parent
  *
- * The construcotr of the Backend class.
+ * The constructor of the Backend class.
  * Initializes the editor window list and the thread list as well
  * as the settings backend.
  */

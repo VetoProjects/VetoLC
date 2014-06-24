@@ -15,7 +15,7 @@ SoundGenerator::SoundGenerator(const QString &progName, const QString &qtInstruc
         emit doneSignal(QtSoundException("File is empty. Nothing to execute."));
         return;
     }
-    //engine = new QQmlEngine(this);
+//    engine = new QQmlEngine(this);
     name = progName;
     instructions = qtInstructions;
     abortAction = new QAction(this);
