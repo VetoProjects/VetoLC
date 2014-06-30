@@ -31,6 +31,7 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     PyList_Append(path, PyString_FromString("."));
     dict = PyModule_GetDict(module);
     execute(pyInstructions);
+    execute("samples = compute_samples(channels, None)");
 
     device = new AudioOutputProcessor();
 }
