@@ -17,7 +17,6 @@
 #include <QAudioInput>
 #include <QBuffer>
 
-#include "QtGlException.hpp"
 #include "AudioInputProcessor.hpp"
 
 /**
@@ -35,7 +34,7 @@ public:
     ~Renderer();
 
 signals:
-    void doneSignal(QtGlException);
+    void doneSignal(QString);
 
 public slots:
     void renderNow();

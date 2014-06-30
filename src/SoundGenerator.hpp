@@ -46,7 +46,7 @@ private:
     QString name;
     QString instructions;
     bool stopflag;
-    QtSoundException ownExcept;
+    QString ownExcept;
     QAction* abortAction;
 //    QQmlEngine* engine;
 
@@ -54,7 +54,7 @@ private slots:
     void terminated();
 
 signals:
-    void doneSignal(QtSoundException);
+    void doneSignal(QString);
 };
 
 #endif // SOUNDGENERATOR

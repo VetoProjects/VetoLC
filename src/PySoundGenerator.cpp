@@ -11,15 +11,14 @@
  */
 PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     if(pyInstructions == QString("")){
-        emit doneSignal(PythonException("File is empty. Nothing to execute."));
+        emit doneSignal("File is empty. Nothing to execute.");
         return;
     }
-    qRegisterMetaType<PythonException>("PythonException");
 
     Py_SetProgramName(progName);
     Py_Initialize();
     triggered = false;
-    ownExcept = PythonException();
+    ownExcept = QString();
     abortAction = new QAction(this);
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
@@ -33,7 +32,8 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     execute(pyInstructions);
     execute("samples = compute_samples(channels, None)");
 
-    device = new AudioOutputProcessor();
+    format = new QAudioFormat();
+    device = new AudioOutputProcessor(*format, this);
 }
 
 /**
@@ -112,10 +112,9 @@ void PySoundGenerator::exceptionOccurred(){
     PyErr_Fetch(&errtype, &errvalue, &traceback);
     PyErr_NormalizeException(&errtype, &errvalue, &traceback);
     QString exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
-    exceptionText.append(": ");
-    exceptionText.append(PyString_AsString(PyObject_Str(errvalue)));
+    exceptionText.append(": ").append(PyString_AsString(PyObject_Str(errvalue)));
     triggered = true;
-    ownExcept = PythonException(exceptionText);
+    ownExcept = exceptionText;
 }
 
 /**
@@ -126,5 +125,5 @@ void PySoundGenerator::exceptionOccurred(){
  */
 void PySoundGenerator::terminated(){
     triggered = true;
-    ownExcept = PythonException("User Terminated.");
+    ownExcept = "User Terminated.";
 }

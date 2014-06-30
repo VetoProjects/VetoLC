@@ -2,9 +2,6 @@
 #define LIVETHREAD
 
 #include <QThread>
-#include "QtSoundException.hpp"
-#include "PythonException.hpp"
-#include "QtGlException.hpp"
 #include "SoundGenerator.hpp"
 #include "Renderer.hpp"
 #ifdef WITH_PYTHON
@@ -41,7 +38,7 @@ public:
     }
     void initialize(const QString &title, const QString &instructions){
         runObj = new PySoundGenerator(title.toLocal8Bit().data(), instructions.toLocal8Bit().data());
-        connect(runObj, SIGNAL(doneSignal(PythonException)), this, SLOT(doneSignalReceived(PythonException)));
+        connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
     }
     bool updateCode(const QString &filename, const QString &code){
        if(runObj)
@@ -49,11 +46,11 @@ public:
        return false;
     }
 public slots:
-    void doneSignalReceived(PythonException exception){
+    void doneSignalReceived(QString exception){
         emit doneSignal(this, exception);
     }
 signals:
-    void doneSignal(PySoundThread*, PythonException);
+    void doneSignal(PySoundThread*, QString);
 private:
     PySoundGenerator* runObj;
 };
@@ -66,17 +63,17 @@ public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){ }
     void run(){ }
     void initialize(const QString &, const QString &){
-        emit doneSignal(this, PythonException("Python is not supported in this version"));
+        emit doneSignal(this, "Python is not supported in this version"n);
     }
     bool updateCode(const QString &, const QString &){
         return false;
     }
 public slots:
-    void doneSignalReceived(PythonException exception){
+    void doneSignalReceived(QString exception){
         emit doneSignal(this, exception);
     }
 signals:
-    void doneSignal(PySoundThread*, PythonException);
+    void doneSignal(PySoundThread*, QString);
 private:
 };
 #endif
@@ -98,11 +95,11 @@ public:
     void initialize(const QString &title, const QString &instructions){
 #ifdef WITH_PYTHON
         runObj = new PyLiveInterpreter(title.toLocal8Bit().data(), instructions.toLocal8Bit().data());
-        connect(runObj, SIGNAL(doneSignal(PythonException)), this, SLOT(doneSignalReceived(PythonException)));
+        connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
 #else
         Q_UNUSED(title);
         Q_UNUSED(instructions);
-        emit doneSignal(this, PythonException("Python is not supported in this version"));
+        emit doneSignal(this, "Python is not supported in this version");
 #endif
     }
     bool updateCode(const QString &filename, const QString &code){
@@ -116,11 +113,11 @@ public:
         return false;
     }
 public slots:
-    void doneSignalReceived(PythonException exception){
+    void doneSignalReceived(QString exception){
         emit doneSignal(this, exception);
     }
 signals:
-    void doneSignal(PyLiveThread*, PythonException);
+    void doneSignal(PyLiveThread*, QString);
 private:
 #ifdef WITH_PYTHON
     PyLiveInterpreter* runObj;
@@ -144,7 +141,7 @@ public:
     // No parent object =(
     void initialize(const QString &title, const QString &instructions){
         runObj = new Renderer(title, instructions);
-        connect(runObj, SIGNAL(doneSignal(QtGlException)), this, SLOT(doneSignalReceived(QtGlException)));
+        connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
     }
     bool updateCode(const QString &filename, const QString &code){
         if(runObj)
@@ -152,11 +149,11 @@ public:
         return false;
     }
 public slots:
-    void doneSignalReceived(QtGlException exception){
+    void doneSignalReceived(QString exception){
         emit doneSignal(this, exception);
     }
 signals:
-    void doneSignal(GlLiveThread*, QtGlException);
+    void doneSignal(GlLiveThread*, QString);
 private:
     Renderer* runObj;
 };
@@ -173,7 +170,7 @@ public:
     }
     void initialize(const QString &filename, const QString &instructions){
         runObj = new SoundGenerator(filename, instructions);
-        connect(runObj, SIGNAL(doneSignal(QtSoundException)), this, SLOT(doneSignalReceived(QtSoundException)));
+        connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
     }
     bool updateCode(const QString &filename, const QString &code){
         if(runObj)
@@ -181,11 +178,11 @@ public:
         return false;
     }
 public slots:
-    void doneSignalReceived(QtSoundException exception){
+    void doneSignalReceived(QString exception){
         emit doneSignal(this, exception);
     }
 signals:
-    void doneSignal(QtSoundThread*, QtSoundException);
+    void doneSignal(QtSoundThread*, QString);
 private:
     SoundGenerator* runObj;
 };

@@ -10,9 +10,8 @@
  * and the break SIGNAL.
  */
 SoundGenerator::SoundGenerator(const QString &progName, const QString &qtInstructions){
-    qRegisterMetaType<QtSoundException>("QtSoundException");
     if(qtInstructions == ""){
-        emit doneSignal(QtSoundException("File is empty. Nothing to execute."));
+        emit doneSignal("File is empty. Nothing to execute.");
         return;
     }
 //    engine = new QQmlEngine(this);
@@ -21,7 +20,7 @@ SoundGenerator::SoundGenerator(const QString &progName, const QString &qtInstruc
     abortAction = new QAction(this);
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
-    emit doneSignal(QtSoundException("Terminated successfully."));
+    emit doneSignal("Terminated successfully.");
 }
 
 /**
@@ -55,9 +54,9 @@ void SoundGenerator::run(){
                 throw QtSoundException("Terminated successfully.");
         }
     }catch(QtSoundException e){
-        ownExcept = e;
+        ownExcept = e.what();
     }catch(std::exception& e){
-        ownExcept = QtSoundException(e.what());
+        ownExcept = e.what();
     }
     delete abortAction;
     emit doneSignal(ownExcept);

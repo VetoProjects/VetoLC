@@ -338,7 +338,7 @@ bool Renderer::event(QEvent *event){
         renderNow();
         return true;
     case QEvent::Close:
-        emit doneSignal(QtGlException());
+        emit doneSignal("User closed window");
         // No fall throu?
         return true;
     default:

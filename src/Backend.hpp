@@ -71,21 +71,21 @@ public slots:
 //    void instanceRemoveID(IInstance *instance);
     void childSaidCloseAll();
 
-    void getExecutionResults(QtSoundThread*, QtSoundException);
-    void getExecutionResults(PySoundThread*, PythonException);
-    void getExecutionResults(PyLiveThread*, PythonException);
-    void getExecutionResults(GlLiveThread*, QtGlException);
+    void getExecutionResults(QtSoundThread*, QString);
+    void getExecutionResults(PySoundThread*, QString);
+    void getExecutionResults(PyLiveThread*, QString);
+    void getExecutionResults(GlLiveThread*, QString);
 
 private:
     void runPyFile(IInstance *);
     void runQtSoundFile(IInstance *);
     void runGlFile(IInstance *);
     void runPySoundFile(IInstance *);
-    void terminateThread(int id);
+    void terminateThread(long id);
     SettingsBackend settings;
     QList<int> ids;
     QHash<int, IInstance*> instances;
-    QHash<int, LiveThread*> threads;
+    QHash<long, LiveThread*> threads;
     void saveIDs();
 };
 

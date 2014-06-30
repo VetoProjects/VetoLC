@@ -7,7 +7,6 @@
 #include <QCoreApplication>
 #include <QIODevice>
 #include "AudioOutputProcessor.hpp"
-#include "PythonException.hpp"
 
 /**
  * @brief The PySoundGenerator class
@@ -30,17 +29,18 @@ private:
     PyObject* execute(QString instruct);
     void exceptionOccurred();
     void stream(PyObject *process);
-    PythonException ownExcept;
+    QString ownExcept;
     bool triggered;
     QAction* abortAction;
     PyObject* dict;
+    QAudioFormat* format;
     AudioOutputProcessor* device;
 
 private slots:
     void terminated();
 
 signals:
-    void doneSignal(PythonException);
+    void doneSignal(QString);
 };
 
 #endif // PYSOUNDGENERATOR
