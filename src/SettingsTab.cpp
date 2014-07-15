@@ -1,4 +1,5 @@
 #include "SettingsTab.hpp"
+#include <QStyleFactory>
 
 /**
  * @brief SettingsTab::SettingsTab
@@ -7,7 +8,7 @@
  * Translates the QSettings into a list of strings and integers
  * we can make use of.
  */
-SettingsTab::SettingsTab(QHash<QString, int> *Settings, QWidget* parent) : QWidget(parent){
+SettingsTab::SettingsTab(QHash<QString, QVariant> *Settings, QWidget* parent) : QWidget(parent){
     settings = Settings;
 }
 
@@ -17,7 +18,7 @@ SettingsTab::SettingsTab(QHash<QString, int> *Settings, QWidget* parent) : QWidg
  * Constructor of the LayoutTab class.
  * Calls the addLayout member function.
  */
-LayoutTab::LayoutTab(QHash<QString, int> *Settings, QWidget* parent) : SettingsTab(Settings, parent){
+LayoutTab::LayoutTab(QHash<QString, QVariant> *Settings, QWidget* parent) : SettingsTab(Settings, parent){
     addLayout();
 }
 
@@ -31,17 +32,14 @@ void LayoutTab::addLayout(){
 
     QLabel* designBoxLabel = new QLabel(tr("Design:"));
     QComboBox* designBox = new QComboBox;
-    designBox->addItem(tr("Standard"));
-    designBox->addItem(tr("Red"));
-    designBox->addItem(tr("Black"));
-    designBox->addItem(tr("Brown"));
-    designBox->addItem(tr("White"));
+    QString designConfig = settings->value("Design").toString();
+    for(QString style : QStyleFactory::keys()){
+        designBox->addItem(style);
+        if(designConfig == style)
+            designBox->setCurrentIndex(designBox->count() - 1);
+    }
 
-    int designConfig = settings->value("Design");
-    if(designConfig >= 0 || designConfig <= 4)
-        designBox->setCurrentIndex(designConfig);
-
-    connect(designBox, SIGNAL(currentIndexChanged(int)), this, SLOT(designSettings(int)));
+    connect(designBox, SIGNAL(currentTextChanged(QString)), this, SLOT(designSettings(QString)));
 
     QHBoxLayout* verticalDesign = new QHBoxLayout;
     verticalDesign->addWidget(designBoxLabel);
@@ -61,7 +59,7 @@ void LayoutTab::addLayout(){
     hlBox->addItem(tr("Variable Names"));    
     hlBox->addItem(tr("None"));
 
-    int hlConfig = settings->value("Highlighting");
+    int hlConfig = settings->value("Highlighting").toInt();
     if(hlConfig >= 0 || hlConfig <= 4)
         hlBox->setCurrentIndex(hlConfig);
 
@@ -83,7 +81,7 @@ void LayoutTab::addLayout(){
     languageBox->addItem(tr("English"));
     languageBox->addItem(tr("German"));
 
-    int languageConfig = settings->value("Language");
+    int languageConfig = settings->value("Language").toInt();
     if(languageConfig >= 0 || languageConfig <= 1)
         languageBox->setCurrentIndex(languageConfig);
 
@@ -113,8 +111,8 @@ void LayoutTab::addLayout(){
  * SLOT that reacts to the currentIndexChanged SIGNAL
  * of the Design drop down list. Changes it according to the users input.
  */
-void LayoutTab::designSettings(int index){
-    settings->insert("Design", index);
+void LayoutTab::designSettings(QString text){
+    settings->insert("Design", text);
     emit contentChanged();
 }
 
@@ -150,7 +148,7 @@ void LayoutTab::languageSettings(int index){
  * Construcotr of the BehaviourTab class.
  * Calls addLayout().
  */
-BehaviourTab::BehaviourTab(QHash<QString, int> *Settings, QWidget* parent) : SettingsTab(Settings, parent){
+BehaviourTab::BehaviourTab(QHash<QString, QVariant> *Settings, QWidget* parent) : SettingsTab(Settings, parent){
     addLayout();
 }
 
@@ -200,7 +198,7 @@ void BehaviourTab::addLayout(){
     compilerChoice->addItem(tr("GLSL"));
     compilerChoice->addItem(tr("Python (Regular)"));
 
-    int useCompilerConfig = settings->value("UseCompiler");
+    int useCompilerConfig = settings->value("UseCompiler").toInt();
     if(useCompilerConfig >= 0 || useCompilerConfig <= 2)
         compilerChoice->setCurrentIndex(useCompilerConfig);
 

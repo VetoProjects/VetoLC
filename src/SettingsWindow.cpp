@@ -1,4 +1,5 @@
 #include "SettingsWindow.hpp"
+#include <QApplication>
 
 /**
  * @brief SettingsWindow::SettingsWindow
@@ -12,7 +13,9 @@ SettingsWindow::SettingsWindow(int subDirNum){
     subdirectory.append(QString::number(subDirNum));
     settings = new QSettings("VeTo", subdirectory);
     foreach(const QString &key, settings->childKeys())
-        settingsDict.insert(key, settings->value(key).toInt());
+        settingsDict.insert(key, settings->value(key));
+    globalSettings = new QSettings("VeTo", "Live Code Editor");
+    settingsDict.insert("Design", globalSettings->value("Design"));
 
     tabs = new QTabWidget;
     layout = new LayoutTab(&settingsDict, this);
@@ -57,6 +60,7 @@ SettingsWindow::SettingsWindow(int subDirNum){
  */
 SettingsWindow::~SettingsWindow(){
     delete settings;
+    delete globalSettings;
     delete layout;
     delete behaviour;
     delete tabs;
@@ -73,6 +77,9 @@ void SettingsWindow::apply(){
 //        tabSettings.unite(behaviour->getSettings());
 //        QHash<QString, int>::iterator i;
 //        for(i = tabSettings.begin(); i != tabSettings.end(); i++)
+        globalSettings->setValue("Design", settingsDict["Design"]);
+        QApplication::setStyle(settingsDict["Design"].toString());
+        settingsDict.remove("Design");
         for(const QString &key : settingsDict.keys())
             settings->setValue(key, settingsDict[key]);
         changed = false;

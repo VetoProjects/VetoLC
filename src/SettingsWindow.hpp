@@ -32,12 +32,12 @@ private:
     void addButtons();
 
     bool changed;
-    QListWidget* content;
-    QTabWidget* tabs;
-    LayoutTab* layout;
-    BehaviourTab* behaviour;
-    QSettings* settings;
-    QHash<QString,int> settingsDict;
+    QListWidget *content;
+    QTabWidget *tabs;
+    LayoutTab *layout;
+    BehaviourTab *behaviour;
+    QSettings *settings, *globalSettings;
+    QHash<QString,QVariant> settingsDict;
 };
 
 #endif // SETTINGSWINDOW

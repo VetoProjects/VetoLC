@@ -13,7 +13,9 @@ using namespace Instances;
  * Initializes the editor window list and the thread list as well
  * as the settings backend.
  */
-Backend::Backend(QObject *parent) : QObject(parent){ }
+Backend::Backend(QObject *parent) : QObject(parent){
+    QApplication::setStyle(settings.getSettingsFor("Design", "").toString());
+}
 
 /**
  * @brief Backend::~Backend
