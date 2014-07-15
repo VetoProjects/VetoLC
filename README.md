@@ -64,7 +64,8 @@ QML(QT Markup Language) is a declarative programming language, based on JSON, by
 used for quick UI generation, but can be used and abused, e.g. for multimedia. That is what we did
 here.
 
-NOTE: The support for this is a stub and will need a few weeks to work as expected.
+NOTE: The support for this is a stub and will need a few weeks to work as expected so it is 
+disabled right now.
 
 **Python (Regular)**:
 
@@ -162,7 +163,9 @@ In the first tab there are few things you can tweak regarding layout:
 
 **Design**:
 
-There you can adjust the editor design.
+There you can adjust the editor design. It is based on the styles that are available by
+default from QT(mostly Windows and Fusion, but on certain platforms also other designs,
+e.g. Mac or KDE).
 
 **Highlighting**:
 
