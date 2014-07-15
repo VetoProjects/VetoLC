@@ -31,8 +31,6 @@ Backend::~Backend(){
                 thread->terminate();
             delete thread;
         }
-    if(!ids.isEmpty())
-        qDebug() << "Orphaned children: " << ids;
 }
 
 /**
@@ -51,7 +49,6 @@ void Backend::addInstance(IInstance *instance, bool removeSettings){
         return;
     if(removeSettings)
         settings.removeSettings(id);
-    qDebug() << "Child (" << id << " : " << instance << ") added to backend (" << this << ")";
     instances.insert(id, instance);
     connect(instance, SIGNAL(closing(IInstance*)),  this, SLOT(instanceClosing(IInstance *)));
     connect(instance, SIGNAL(destroyed(QObject*)),  this, SLOT(instanceDestroyed(QObject *)));
@@ -275,7 +272,6 @@ bool Backend::isLast(){
 void Backend::instanceRunCode(IInstance *instance)
 {
     int id = instance->ID;
-    //qDebug() << id;
     if(threads.contains(id)){
         bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
         if(!worked)
@@ -328,7 +324,6 @@ void Backend::instanceChangedSettings(IInstance *instance, const QHash<QString, 
 void Backend::instanceRequestSettings(IInstance *instance, QHash<QString, QVariant> &set)
 {
     set = settings.getSettings(instance->ID);
-    //qDebug() << "Request Settings for" << instance->ID << ":" << set;
 }
 
 /**

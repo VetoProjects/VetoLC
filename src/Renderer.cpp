@@ -205,22 +205,18 @@ bool Renderer::initShaders(const QString &fragmentShader){
         char *infoLog = new char[infologLength + 1];
         glGetShaderInfoLog(newShaderProgram->programId(), infologLength + 1, &infologLength, infoLog);
 
-        qDebug() << infoLog;
 
         delete[] infoLog;
 
 
-//        qDebug() << newShaderProgram->log();
         delete newShaderProgram;
         return false;
     }
     if(!newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,fragmentShader)){
-        qDebug() << newShaderProgram->log();
         delete newShaderProgram;
         return false;
     }
     if(!newShaderProgram->link()){
-        qDebug() << newShaderProgram->log();
         delete newShaderProgram;
         return false;
     }
@@ -248,10 +244,6 @@ bool Renderer::initShaders(const QString &fragmentShader){
         fragmentSource = fragmentShader;
     shaderProgramMutex.unlock();
 
-//    qDebug() << "vertexAttr" << vertexAttr;
-//    qDebug() << "uvAttr" << uvAttr;
-//    qDebug() << "timeUniform" << timeUniform;
-//    qDebug() << "audioUniform" << audioUniform;
     return true;
 }
 
@@ -268,7 +260,6 @@ void Renderer::render(){
 }
 
 void Renderer::render(QPainter *){
-//    qDebug() << QLatin1String(reinterpret_cast<const char*>(glGetString(GL_VERSION))) << " " << QLatin1String(reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, width() * retinaScale, height() * retinaScale);
 

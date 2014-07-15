@@ -38,7 +38,6 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
  * if wanted and exits(SLOT).
  */
 void EditorWindow::closeEvent(QCloseEvent *event){
-    //qDebug("closeEvent");
     if(saveDialog()){
         saveSettings();
         emit closing(this);
@@ -159,7 +158,7 @@ void EditorWindow::codeStoped()
 }
 
 /**
- * @brief EditorWindow::changeSettings
+ * @brief EditorWindow::apply‚Settings
  *
  * Reads the "persistent platform-independent
  * application settings" and gets the settings.

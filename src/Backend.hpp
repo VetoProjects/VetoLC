@@ -84,7 +84,7 @@ private:
     void terminateThread(long id);
     SettingsBackend settings;
     QList<int> ids;
-    QHash<int, IInstance*> instances;
+    QHash<long, IInstance*> instances;
     QHash<long, LiveThread*> threads;
     void saveIDs();
 };
