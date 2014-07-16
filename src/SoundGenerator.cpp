@@ -6,8 +6,8 @@
  * @param qtInstructions
  *
  * Constructor of the SoundGenerator class.
- * Sets up QT, the class variables, the instructions
- * and the break SIGNAL.
+ * Sets up the QML interpreter, the class variables,
+ * the instructions and the break SIGNAL.
  */
 SoundGenerator::SoundGenerator(const QString &progName, const QString &qtInstructions){
     if(qtInstructions == ""){

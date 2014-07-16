@@ -31,6 +31,8 @@ Backend::~Backend(){
                 thread->terminate();
             delete thread;
         }
+    if(!ids.isEmpty())
+        qDebug() << "Orphaned children: " << ids;
 }
 
 /**
@@ -49,6 +51,7 @@ void Backend::addInstance(IInstance *instance, bool removeSettings){
         return;
     if(removeSettings)
         settings.removeSettings(id);
+    qDebug() << "Child (" << id << " : " << instance << ") added to backend (" << this << ")";
     instances.insert(id, instance);
     connect(instance, SIGNAL(closing(IInstance*)),  this, SLOT(instanceClosing(IInstance *)));
     connect(instance, SIGNAL(destroyed(QObject*)),  this, SLOT(instanceDestroyed(QObject *)));
@@ -56,11 +59,11 @@ void Backend::addInstance(IInstance *instance, bool removeSettings){
     connect(instance, SIGNAL(stopCode(IInstance*)), this, SLOT(instanceStopCode(IInstance *)));
     connect(instance, SIGNAL(changeSetting (IInstance*, const QString, const QVariant&)),
             this, SLOT(instanceChangedSetting(IInstance*, const QString&, const QVariant&)));
-    connect(instance, SIGNAL(getSetting    (IInstance*, const QString, QVariant&)),
+    connect(instance, SIGNAL(getSetting(IInstance*, const QString, QVariant&)),
             this, SLOT(instanceRequestSetting(IInstance*, const QString&, QVariant&)));
     connect(instance, SIGNAL(changeSettings(IInstance*, const QHash<QString,QVariant>&)),
             this, SLOT(instanceChangedSettings(IInstance*, const QHash<QString,QVariant>&)));
-    connect(instance, SIGNAL(getSettings   (IInstance*, QHash<QString,QVariant>&)),
+    connect(instance, SIGNAL(getSettings(IInstance*, QHash<QString,QVariant>&)),
             this, SLOT(instanceRequestSettings(IInstance*, QHash<QString,QVariant>&)));
     connect(instance, SIGNAL(closeAll()), this, SLOT(childSaidCloseAll()));
     connect(instance, SIGNAL(openSettings(IInstance*)), this, SLOT(settingsWindowRequested(IInstance*)));
@@ -73,7 +76,7 @@ void Backend::addInstance(IInstance *instance, bool removeSettings){
  * @brief Backend::nextID
  * @return Free to use id
  *
- * Lookup the first free ID for a new Instance
+ * Look up the first free ID for a new Instance.
  */
 int Backend::nextID(){
     int id = 0;
@@ -103,11 +106,26 @@ QList<int> Backend::loadIds()
     return res;
 }
 
+/**
+ * @brief Backend::instanceClosing
+ * @param instance
+ *
+ * Reacts to the closing signal and calls the
+ * removeInstance() routine.
+ * TODO: Needed?
+ */
 void Backend::instanceClosing(IInstance *instance)
 {
     removeInstance(instance);
 }
 
+/**
+ * @brief Backend::instanceDestroyed
+ * @param instance
+ *
+ * Reacts to the destroyed signal and removes
+ * the instance from the backends' memory.
+ */
 void Backend::instanceDestroyed(QObject *instance)
 {
     int id = ((IInstance*)instance)->ID;
@@ -213,6 +231,13 @@ QHash<QString, QVariant> Backend::getSettings(IInstance* instance)
     return getSettings(instance->ID);
 }
 
+/**
+ * @brief Backend::getSettings
+ * @param id
+ * @return a QHash of all the settings for an id.
+ *
+ * looks up the settings for an editor window child.
+ */
 QHash<QString, QVariant> Backend::getSettings(int id)
 {
     return settings.getSettings(id);
@@ -268,10 +293,10 @@ bool Backend::isLast(){
  * reacts to the run SIGNAL by running the code(duh) that is
  * in the editor at the moment.
  */
-
 void Backend::instanceRunCode(IInstance *instance)
 {
     int id = instance->ID;
+    //qDebug() << id;
     if(threads.contains(id)){
         bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
         if(!worked)
@@ -301,29 +326,71 @@ void Backend::instanceRunCode(IInstance *instance)
     }
 }
 
+/**
+ * @brief Backend::instanceStopCode
+ * @param instance
+ *
+ * Reacts to the stopCode signal of an instance.
+ * Stops the executing context.
+ */
 void Backend::instanceStopCode(IInstance *instance)
 {
     terminateThread(instance->ID);
 }
 
+/**
+ * @brief Backend::instanceChangedSetting
+ * @param instance
+ * @param key
+ * @param value
+ *
+ * Reacts to the instance changing settings.
+ * Saves the new settings.
+ */
 void Backend::instanceChangedSetting(IInstance *instance, const QString &key, const QVariant &value)
 {
     settings.saveSettingsFor(instance->ID, key, value);
 }
 
+/**
+ * @brief Backend::instanceRequestSetting
+ * @param instance
+ * @param key
+ * @param value
+ *
+ * Reacts to the instance requesting its settings for
+ * a given key.
+ */
 void Backend::instanceRequestSetting(IInstance *instance, const QString &key, QVariant &value)
 {
     value = settings.getSettingsFor(key, value, instance->ID);
 }
 
+/**
+ * @brief Backend::instanceChangedSettings
+ * @param instance
+ * @param set
+ *
+ * Reacts to the instance changing its settings(as a set).
+ * Saves the new settings.
+ * TODO: Needed(overloaded call)?
+ */
 void Backend::instanceChangedSettings(IInstance *instance, const QHash<QString, QVariant> &set)
 {
     settings.saveSettingsFor(instance->ID, set);
 }
 
+/**
+ * @brief Backend::instanceRequestSettings
+ * @param instance
+ * @param set
+ *
+ * TODO: Needed(overloaded call)?
+ */
 void Backend::instanceRequestSettings(IInstance *instance, QHash<QString, QVariant> &set)
 {
     set = settings.getSettings(instance->ID);
+    //qDebug() << "Request Settings for" << instance->ID << ":" << set;
 }
 
 /**
@@ -444,6 +511,11 @@ void Backend::terminateThread(long id){
     }
 }
 
+/**
+ * @brief Backend::saveIDs
+ *
+ * saves all the IDs in the settings.
+ */
 void Backend::saveIDs(){
     QVariantList vids;
     for(int i : ids)

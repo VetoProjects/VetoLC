@@ -93,6 +93,7 @@ void SettingsBackend::saveSettingsFor(int id, const QString &key, const QVariant
 }
 
 void SettingsBackend::saveSettingsFor(int id, const QHash<QString, QVariant> &settings){
+//    qDebug() << "save settings for" << id << ":" << settings;
     QString relevantSubdir(globalDir + "/" + QString::number(id));
     QSettings set(globalName, relevantSubdir);
     for(QString &key : settings.keys())

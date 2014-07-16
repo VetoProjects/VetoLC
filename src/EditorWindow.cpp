@@ -38,6 +38,7 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
  * if wanted and exits(SLOT).
  */
 void EditorWindow::closeEvent(QCloseEvent *event){
+    //qDebug("closeEvent");
     if(saveDialog()){
         saveSettings();
         emit closing(this);
@@ -114,6 +115,11 @@ bool EditorWindow::saveFileAs(){
     return !fileName.isEmpty() && saveFile(fileName);
 }
 
+/**
+ * @brief EditorWindow::saveSettings
+ *
+ * saves own settings.
+ */
 void EditorWindow::saveSettings(){
     QHash<QString, QVariant> settings;
     settings.insert("pos", this->pos());
@@ -199,17 +205,27 @@ void EditorWindow::showResults(const QString &returnedValue){
     runAction->setIcon(QIcon(":/images/run.png"));
 }
 
+/**
+ * @brief EditorWindow::getSourceCode
+ * @return plain text in editor
+ *
+ * returns code in editor.
+ */
 QString EditorWindow::getSourceCode() const
 {
     return codeEditor->toPlainText();
 }
 
+/**
+ * @brief EditorWindow::getTitle
+ * @return current file name as string.
+ *
+ * returns current file name.
+ */
 QString EditorWindow::getTitle() const
 {
     return currentFile;
 }
-
-
 
 /**
  * @brief EditorWindow::addActions
