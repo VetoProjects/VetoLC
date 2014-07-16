@@ -1,6 +1,10 @@
 Veto-LiveCoding
 ===============
 
+![general version](http://img.shields.io/badge/version-0.1.1-orange.svg)
+![qt version](http://img.shields.io/badge/qt_version-5.1--5.3-blue.svg)
+![python version](http://img.shields.io/badge/python_version-2.5--2.7-red.svg)
+
 A Live Coding Environment for AudioPython, QML and GLSL(also rudimentary Python IDE capabilities) in QT/C++.
 In order to get AudioPython to work from source, you will have to install QT as well(naturally). 
 No additional Python packages are required. The editor is platform-independent.
@@ -8,29 +12,18 @@ No additional Python packages are required. The editor is platform-independent.
 Table of Contents
 -----------------
 1. **[Maintainers](#maintainers)**
-2. **[Version & General Info](#version--general-infos)**
-3. **[Capabilities](#capabilities)**
-4. **[Compilation](#compilation)**
-5. **[Usage](#usage)**
-6. **[Settings](#settings)**
-7. **[Examples & Resources](#examples--resources)**
-8. **[Contribute](#contribute)**
+2. **[Capabilities](#capabilities)**
+3. **[Compilation](#compilation)**
+4. **[Usage](#usage)**
+5. **[Settings](#settings)**
+6. **[Examples & Resources](#examples--resources)**
+7. **[Contribute](#contribute)**
 
 Maintainers
 -----------
 
 * Tobias Brosge (<s0539713@htw-berlin.de>)
 * Veit Heller (<s0539501@htw-berlin.de>, <veit.heller@htw-berlin.de>)
-
-Version & General Infos
------------------------
-
-Package Version:    `0.1.2 Alpha/Test`
-
-Packages used to develop this application(and their versions):
-
-    Qt:     5.1-5.3 (QT 5 is necessary)
-    Python: 2.7 (Python 3.x support is experimental and not really working, sorry for that)
 
 Capabilities
 ------------
