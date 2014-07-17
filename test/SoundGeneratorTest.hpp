@@ -10,12 +10,11 @@ Q_OBJECT
 private slots:
     void initTestCase(){
         thread = new QtSoundThread(0);
-        connect(thread, SIGNAL(doneSignal(LiveThread*, QtSoundException)),
-                this, SLOT(finishedTest(LiveThread*, QtSoundException)));
+        connect(thread, SIGNAL(doneSignal(QtSoundThread*, QString)),
+                this, SLOT(finishedTest(QtSoundThread*, QString)));
         thread->initialize((char *)"", (char *)"int i;");
     }
     void objectCreationTest() {
-
         QVERIFY(thread);
     }
     void runTest(){
@@ -23,10 +22,9 @@ private slots:
         QTest::qWait(200);
         thread->terminate();
     }
-    void finishedTest(LiveThread* returnedThread, QtSoundException returned){
+    void finishedTest(QtSoundThread* returnedThread, QString returned){
         QVERIFY(returnedThread == thread);
-        QVERIFY(returned.what() == QString("Terminated successfully."));
-        QVERIFY(thread == returnedThread);
+        QVERIFY(returned == QString("Terminated successfully."));
     }
     void cleanupTestCase(){
         delete soundGenerator;

@@ -3,9 +3,10 @@
 #include <QApplication>
 #include "CodeEditorTest.hpp"
 #include "EditorWindowTest.hpp"
-#include "CodeHighlighterTest.hpp"
-#include "SettingsTabTest.hpp"
-#include "SettingsWindowTest.hpp"
+#include "BackendTest.hpp"
+#include "RendererTest.hpp"
+#include "SettingsBackendTest.hpp"
+#include "RendererTest.hpp"
 #include "SoundGeneratorTest.hpp"
 #ifdef WITH_PYTHON
 #include "PySoundGeneratorTest.hpp"
@@ -26,16 +27,16 @@ int main(int argc, char** argv){
     int status = 0, statusSum = 0;
 
     struct Tests testcases[] = {
-            {new QString("Code Editor"), factory<CodeEditorTest>},
-            {new QString("Editor Window"), factory<EditorWindowTest>},
-            {new QString("Code Highlighter"), factory<CodeHighlighterTest>},
-            {new QString("Settings Tab"), factory<SettingsTabTest>},
-            {new QString("Layout Tab"), factory<LayoutTabTest>},
-            {new QString("Behaviour Tab"), factory<BehaviourTabTest>},
-            {new QString("Settings Window"), factory<SettingsWindowTest>},
-            {new QString("Sound Generator"), factory<SoundGeneratorTest>}
+            {new QString("CodeEditor"), factory<CodeEditorTest>},
+            {new QString("EditorWindow"), factory<EditorWindowTest>},
+            {new QString("AudioInputProcessor"), factory<AudioInputProcessor>},
+            {new QString("Backend"), factory<BackendTest>},
+            {new QString("SoundGenerator"), factory<SoundGeneratorTest>},
+            {new QString("SettingsBackend"), factory<SettingsBackendTest>},
+            {new QString("Renderer"), factory<RendererTest>},
+            {new QString("SoundGenerator"), factory<SoundGeneratorTest>}
 #ifdef with_python
-           ,{new QString("PySound Generator"), factory<PySoundGeneratorTest>}
+           ,{new QString("PySoundGenerator"), factory<PySoundGeneratorTest>}
 #endif							
             };
 	    

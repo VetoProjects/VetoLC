@@ -17,6 +17,7 @@ private slots:
         QVERIFY(editorWindow);
     }
     void cleanupTestCase() {
+        delete editorWindow;
         delete backend;
     }
 private:

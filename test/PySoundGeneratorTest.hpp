@@ -1,32 +1,40 @@
 #ifndef PYSOUNDGENERATORTEST
 #define PYSOUNDGENERATORTEST
 #ifdef with_python
+
 #include <QObject>
 #include <QTest>
-#include "../src/PySoundGenerator.hpp"
+#include "../src/LiveThread.hpp"
 
 class PySoundGeneratorTest : public QObject{
 Q_OBJECT
 private slots:
-    void initTestCase() {
-        pySoundGenerator = new PySoundGenerator((char*)"Test", (char*)"raise ImportError(\"Not valid\")");
-        connect(pySoundGenerator, SIGNAL(doneSignal(PythonException)), this, SLOT(finishedTest(PythonException)));
+    void initTestCase(){
+        thread = new PySoundThread(0);
+        connect(thread, SIGNAL(doneSignal(PySoundThread*, QString)),
+                this, SLOT(finishedTest(PySoundThread*, QString)));
+        thread->initialize("Test", "raise ImportError('Not valid')");
     }
     void objectCreationTest() {
-        QVERIFY(pySoundGenerator);
+        QVERIFY(thread);
     }
     void runTest(){
-        pySoundGenerator->start();
+        thread->start();
         QTest::qWait(200);
+        thread->terminate();
     }
-    void finishedTest(PythonException returned){
-        QVERIFY(returned.what() == NULL);
+    void finishedTest(PySoundThread* returnedThread, QString returned){
+        QVERIFY(returnedThread == thread);
+        qDebug() << returned;
+        QVERIFY(returned != NULL);
+        QVERIFY(thread == returnedThread);
     }
-    void cleanupTestCase() {
-        delete pySoundGenerator;
+    void cleanupTestCase(){
+        delete thread;
     }
+
 private:
-    PySoundGenerator *pySoundGenerator;
+    LiveThread* thread;
 };
 #endif
 #endif // PYSOUNDGENERATORTEST

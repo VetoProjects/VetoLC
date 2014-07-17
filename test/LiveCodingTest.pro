@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia opengl testlib
+QT       += core gui multimedia testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -38,11 +38,7 @@ HEADERS += \
     ../src/CodeEditor.hpp \
     ../src/CodeHighlighter.hpp \
     ../src/EditorWindow.hpp \
-    ../src/LiveCodingSetup.hpp \
     ../src/SoundGenerator.hpp \
-    CodeHighlighterTest.hpp \
-    SettingsTabTest.hpp \
-    SettingsWindowTest.hpp \
     SoundGeneratorTest.hpp \
     ../src/Backend.hpp \
     ../src/LiveThread.hpp \
@@ -53,13 +49,16 @@ HEADERS += \
     ../src/CodeEditorTest.hpp \
     ../src/QtGlException.hpp \
     ../src/Instances/IInstance.hpp \
-    ../src/Instances/WindowInstance.hpp
+    ../src/Instances/WindowInstance.hpp \
+    SettingsBackendTest.hpp \
+    AudioInputProcessorTest.hpp \
+    RendererTest.hpp \
+    ../src/AudioOutputProcessor.hpp
 
 SOURCES += \
     ../src/CodeEditor.cpp \
     ../src/CodeHighlighter.cpp \
     ../src/EditorWindow.cpp \
-    ../src/LiveCodingSetup.cpp \
     ../src/SoundGenerator.cpp \
     ../src/SettingsWindow.cpp \
     ../src/SettingsTab.cpp \
@@ -69,4 +68,5 @@ SOURCES += \
     ../src/SettingsBackend.cpp \
     ../src/AudioInputProcessor.cpp \
     ../src/BootLoader.cpp \
-    ../src/Instances/WindowInstance.cpp
+    ../src/Instances/WindowInstance.cpp \
+    ../src/AudioOutputProcessor.cpp
