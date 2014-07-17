@@ -50,14 +50,15 @@ void SoundGenerator::run(){
     try{
         while(true){
             loop();
-            if(stopflag)
-                throw QtSoundException("Terminated successfully.");
+            if(stopflag){
+                ownExcept = "Terminated successfully.";
+                break;
+            }
         }
-    }catch(QtSoundException e){
-        ownExcept = e.what();
     }catch(std::exception& e){
         ownExcept = e.what();
     }
+     disconnect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
     delete abortAction;
     emit doneSignal(ownExcept);
 }

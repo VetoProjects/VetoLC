@@ -16,6 +16,10 @@ BootLoader::BootLoader(const QString &socketName, Backend *parent) :
     QObject(parent), backend(parent), socketName(socketName)
 { }
 
+BootLoader::~BootLoader(){
+    delete server;
+}
+
 /**
  * @brief BootLoader::start
  *
@@ -27,6 +31,7 @@ void BootLoader::start()
     connect(server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
     server->listen(socketName);
 }
+
 
 /**
  * @brief BootLoader::acceptConnection

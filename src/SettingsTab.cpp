@@ -22,16 +22,22 @@ LayoutTab::LayoutTab(QHash<QString, QVariant> *Settings, QWidget* parent) : Sett
     addLayout();
 }
 
+LayoutTab::~LayoutTab(){
+    delete design;
+    delete highlighting;
+    delete language;
+}
+
 /**
  * @brief LayoutTab::addLayout
  *
  * Creates the layout tab UI and makes it interactive.
  */
 void LayoutTab::addLayout(){
-    QGroupBox* design = new QGroupBox(tr("Design"));
+    design = new QGroupBox(tr("Design"));
 
-    QLabel* designBoxLabel = new QLabel(tr("Design:"));
-    QComboBox* designBox = new QComboBox;
+    designBoxLabel = new QLabel(tr("Design:"));
+    designBox = new QComboBox;
     QString designConfig = settings->value("Design").toString();
     for(QString style : QStyleFactory::keys()){
         designBox->addItem(style);
@@ -41,18 +47,18 @@ void LayoutTab::addLayout(){
 
     connect(designBox, SIGNAL(currentTextChanged(QString)), this, SLOT(designSettings(QString)));
 
-    QHBoxLayout* verticalDesign = new QHBoxLayout;
+    verticalDesign = new QHBoxLayout;
     verticalDesign->addWidget(designBoxLabel);
     verticalDesign->addWidget(designBox);
 
-    QVBoxLayout* horizontalDesign = new QVBoxLayout;
+    horizontalDesign = new QVBoxLayout;
     horizontalDesign->addLayout(verticalDesign);
     design->setLayout(horizontalDesign);
 
-    QGroupBox* highlighting = new QGroupBox(tr("Highlighting"));
+    highlighting = new QGroupBox(tr("Highlighting"));
 
-    QLabel* hlBoxLabel = new QLabel(tr("Highlighting:"));
-    QComboBox* hlBox = new QComboBox;
+    hlBoxLabel = new QLabel(tr("Highlighting:"));
+    hlBox = new QComboBox;
     hlBox->addItem(tr("GLSL"));
     hlBox->addItem(tr("Python"));
     hlBox->addItem(tr("QT"));
@@ -66,18 +72,18 @@ void LayoutTab::addLayout(){
     connect(hlBox, SIGNAL(currentIndexChanged(int)),
             this, SLOT(hlSettings(int)));
 
-    QHBoxLayout*  verticalHl = new QHBoxLayout;
+    verticalHl = new QHBoxLayout;
     verticalHl->addWidget(hlBoxLabel);
     verticalHl->addWidget(hlBox);
 
-    QVBoxLayout* horizontalHl = new QVBoxLayout;
+    horizontalHl = new QVBoxLayout;
     horizontalHl->addLayout(verticalHl);
     highlighting->setLayout(horizontalHl);
 
-    QGroupBox* language = new QGroupBox(tr("Language"));
+    language = new QGroupBox(tr("Language"));
 
-    QLabel* languageBoxLabel = new QLabel(tr("Language:"));
-    QComboBox* languageBox = new QComboBox;
+    languageBoxLabel = new QLabel(tr("Language:"));
+    languageBox = new QComboBox;
     languageBox->addItem(tr("English"));
     languageBox->addItem(tr("German"));
 
@@ -88,15 +94,15 @@ void LayoutTab::addLayout(){
     connect(languageBox, SIGNAL(currentIndexChanged(int)),
             this, SLOT(languageSettings(int)));
 
-    QHBoxLayout*  verticalLanguage = new QHBoxLayout;
+    verticalLanguage = new QHBoxLayout;
     verticalLanguage->addWidget(languageBoxLabel);
     verticalLanguage->addWidget(languageBox);
 
-    QVBoxLayout* horizontalLanguage = new QVBoxLayout;
+    horizontalLanguage = new QVBoxLayout;
     horizontalLanguage->addLayout(verticalLanguage);
     language->setLayout(horizontalLanguage);
 
-    QVBoxLayout* main = new QVBoxLayout;
+    main = new QVBoxLayout;
     main->addWidget(design);
     main->addWidget(highlighting);
     main->addWidget(language);
@@ -152,15 +158,22 @@ BehaviourTab::BehaviourTab(QHash<QString, QVariant> *Settings, QWidget* parent) 
     addLayout();
 }
 
+BehaviourTab::~BehaviourTab(){
+    delete startup;
+    delete startupCompiler;
+    delete compilerChoiceLabel;
+    delete compilerChoice;
+}
+
 /**
  * @brief BehaviourTab::addLayout
  *
  * Creates the layout tab UI and makes it interactive.
  */
 void BehaviourTab::addLayout(){
-    QGroupBox* startup = new QGroupBox(tr("Startup Behaviour"));
-    QCheckBox* openCheck = new QCheckBox(tr("Open Last Files On Startup"));
-    QCheckBox* sizeCheck = new QCheckBox(tr("Remember Size Of Application"));
+    startup = new QGroupBox(tr("Startup Behaviour"));
+    openCheck = new QCheckBox(tr("Open Last Files On Startup"));
+    sizeCheck = new QCheckBox(tr("Remember Size Of Application"));
 
     if(settings->value("OpenFiles") == 1)
         openCheck->toggle();
@@ -172,9 +185,9 @@ void BehaviourTab::addLayout(){
     else
         settings->insert("RememberSize", 0);
 
-    QButtonGroup* startupCompiler = new QButtonGroup(this);
-    QCheckBox* rememberCompiler = new QCheckBox(tr("Remember Compiler that was used last"));
-    QCheckBox* askForCompiler = new QCheckBox(tr("Always ask"));
+    startupCompiler = new QButtonGroup(this);
+    rememberCompiler = new QCheckBox(tr("Remember Compiler that was used last"));
+    askForCompiler = new QCheckBox(tr("Always ask"));
     startupCompiler->addButton(rememberCompiler);
     startupCompiler->addButton(askForCompiler);
 
@@ -189,10 +202,10 @@ void BehaviourTab::addLayout(){
     connect(sizeCheck, SIGNAL(toggled(bool)), this, SLOT(sizeSlot(bool)));
     connect(rememberCompiler, SIGNAL(toggled(bool)), this, SLOT(rememberCompilerSlot(bool)));
 
-    QGroupBox* compiler = new QGroupBox(tr("Compiler to be used:"));
+    compiler = new QGroupBox(tr("Compiler to be used:"));
 
-    QLabel* compilerChoiceLabel = new QLabel(tr("Compiler:"));
-    QComboBox* compilerChoice = new QComboBox;
+    compilerChoiceLabel = new QLabel(tr("Compiler:"));
+    compilerChoice = new QComboBox;
     compilerChoice->addItem(tr("AudioPython"));
     compilerChoice->addItem(tr("AudioQT"));
     compilerChoice->addItem(tr("GLSL"));
@@ -204,7 +217,7 @@ void BehaviourTab::addLayout(){
 
     connect(compilerChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(useCompilerSlot(int)));
 
-    QVBoxLayout* startupLayout = new QVBoxLayout;
+    startupLayout = new QVBoxLayout;
     startupLayout->addWidget(openCheck);
     startupLayout->addWidget(sizeCheck);
     startupLayout->addSpacing(10);
@@ -212,12 +225,12 @@ void BehaviourTab::addLayout(){
     startupLayout->addWidget(askForCompiler);
     startup->setLayout(startupLayout);
 
-    QVBoxLayout* compilerLayout = new QVBoxLayout;
+    compilerLayout = new QVBoxLayout;
     compilerLayout->addWidget(compilerChoiceLabel);
     compilerLayout->addWidget(compilerChoice);
     compiler->setLayout(compilerLayout);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout;
+    mainLayout = new QVBoxLayout;
     mainLayout->addWidget(startup);
     mainLayout->addWidget(compiler);
     mainLayout->addSpacing(12);

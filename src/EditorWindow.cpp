@@ -30,6 +30,23 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
+EditorWindow::~EditorWindow(){
+    delete codeEditor;
+    delete newAction;
+    delete openAction;
+    delete saveAction;
+    delete saveAsAction;
+    delete exitAction;
+    delete runAction;
+    delete settingsAction;
+    delete helpAction;
+    delete fMenu;
+    delete eMenu;
+    delete hMenu;
+    delete fileBar;
+    delete editBar;
+}
+
 /**
  * @brief EditorWindow::closeEvent
  * @param event
@@ -158,7 +175,7 @@ void EditorWindow::warningDisplay(const QString &message){
     QMessageBox::warning(this, tr("VeTo Live Coding Editor"), message);
 }
 
-void EditorWindow::codeStoped()
+void EditorWindow::codeStopped()
 {
     runAction->setIcon(QIcon(":/images/run.png"));
 }

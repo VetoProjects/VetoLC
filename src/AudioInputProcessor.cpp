@@ -23,6 +23,10 @@ AudioInputProcessor::AudioInputProcessor(QObject *parent) :
     input = new QAudioInput(format, this);
 }
 
+AudioInputProcessor::~AudioInputProcessor(){
+    //delete input;
+}
+
 void AudioInputProcessor::start()
 {
     this->open(QIODevice::WriteOnly);

@@ -35,7 +35,6 @@ class Backend : public QObject
 public:
     explicit Backend(QObject *parent = 0);
     ~Backend();
-    int getNumOfChildren();
     void addInstance(IInstance *, bool = true);
     void createChild();
     void childExited(IInstance *, QString);

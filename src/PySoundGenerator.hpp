@@ -11,7 +11,6 @@
 /**
  * @brief The PySoundGenerator class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.0
  *
  * A subclass of QThread that implements an environment for sound
  * live coding while keeping the main codeeditor thread clean by

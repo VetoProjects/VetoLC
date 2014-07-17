@@ -15,7 +15,7 @@ CodeHighlighter::CodeHighlighter(QTextDocument *parent) : QSyntaxHighlighter(par
     Rule rule;
 
     // Keyword
-    rule.format.setForeground(Qt::blue); // rule.format already fresh initialized
+    rule.format.setForeground(Qt::blue); // rule.format already freshly initialized
 //    rule.format.setFontWeight(QFont::Bold);
     QStringList keywordPatterns;
     keywordPatterns << "\\battribute\\b" << "\\bbool\\b" << "\\bchar\\b"
@@ -99,7 +99,6 @@ CodeHighlighter::CodeHighlighter(QTextDocument *parent) : QSyntaxHighlighter(par
     rule.pattern = QRegExp("\\bQ[A-Za-z]+\\b");
     Rules.append(rule);
 }
-
 
 /**
  * @brief CodeHighlighter::highlightBlock

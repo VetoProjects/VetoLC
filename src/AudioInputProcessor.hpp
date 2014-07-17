@@ -12,7 +12,7 @@ class AudioInputProcessor : public QIODevice
     Q_OBJECT
 public:
     explicit AudioInputProcessor(QObject *parent = 0);
-    //~AudioInputProcessor(){delete input;}
+    ~AudioInputProcessor();
     void start();
     const QAudioFormat format() const;
 

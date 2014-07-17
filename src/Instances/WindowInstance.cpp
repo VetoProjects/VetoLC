@@ -36,7 +36,7 @@ void WindowInstance::WindowInstance::reportWarning(const QString &text)
 
 void WindowInstance::codeStoped()
 {
-    _window->codeStoped();
+    _window->codeStopped();
 }
 
 bool WindowInstance::close()

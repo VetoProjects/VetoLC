@@ -121,8 +121,22 @@ const char * Renderer::juliaFragmentShader =
         "    }\n"
         "}\n";
 
+/**
+ * @brief Renderer::Renderer
+ * @param parent Parent object of the render window
+ *
+ * Create a new Renderer with default shader
+ */
 Renderer::Renderer(QWindow *parent) : Renderer::Renderer("new", defaultFragmentShader, parent){ }
 
+/**
+ * @brief Renderer::Renderer
+ * @param filename Name that should shown in the title
+ * @param instructions Shader code for execution
+ * @param parent Parent object of the render window
+ *
+ * Create a new Renderer with given code and set filename as title
+ */
 Renderer::Renderer(const QString &filename, const QString &instructions, QWindow *parent) :
     QWindow(parent),
     clearColor(Qt::black),
@@ -162,12 +176,27 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
     show();
 }
 
+/**
+ * @brief Renderer::~Renderer
+ *
+ * Free resources
+ */
 Renderer::~Renderer(){
     glDeleteBuffers(1, &uvBuffer);
     glDeleteTextures(1, &audioLeftTexture);
     glDeleteTextures(1, &audioRightTexture);
+    delete time;
+    delete vao;
+    delete device;
+    delete m_logger;
 }
 
+/**
+ * @brief Renderer::init
+ * @return True on success, otherwise false
+ *
+ * Allocates grafic memory and initialize the shader program
+ */
 bool Renderer::init(){
     delete vao;
     vao = new QOpenGLVertexArrayObject(this);
@@ -192,11 +221,20 @@ bool Renderer::init(){
     glGenTextures(1, &audioRightTexture);
 
     glClearColor(0,0,.3,1);
-    return initShaders(fragmentSource);
+    bool result = initShaders(fragmentSource);
 
     vao->release();
+
+    return result;
 }
 
+/**
+ * @brief Renderer::initShaders
+ * @param fragmentShader Code to compile as shader
+ * @return True on success, otherwise false
+ *
+ * Initialze and compile the shader program
+ */
 bool Renderer::initShaders(const QString &fragmentShader){
     QOpenGLShaderProgram *newShaderProgram = new QOpenGLShaderProgram(this);
     if(!newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, defaultVertexShader)){
@@ -255,6 +293,13 @@ bool Renderer::initShaders(const QString &fragmentShader){
     return true;
 }
 
+
+
+/**
+ * @brief Renderer::render
+ *
+ * Initialize output device, execute the shader and display the result
+ */
 void Renderer::render(){
     if(!device)
         device = new QOpenGLPaintDevice();
@@ -262,12 +307,7 @@ void Renderer::render(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     device->setSize(size());
-    QPainter painter;
-    //QPainter painter(device);
-    render(&painter);
-}
 
-void Renderer::render(QPainter *){
 //    qDebug() << QLatin1String(reinterpret_cast<const char*>(glGetString(GL_VERSION))) << " " << QLatin1String(reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, width() * retinaScale, height() * retinaScale);
@@ -286,6 +326,11 @@ void Renderer::render(QPainter *){
     shaderProgramMutex.unlock();
 }
 
+/**
+ * @brief Renderer::renderLater
+ *
+ * Enqueue an update event to event queue
+ */
 void Renderer::renderLater(){
     if(!pendingUpdate){
         QCoreApplication::postEvent(this, new QEvent(QEvent::UpdateRequest));
@@ -293,6 +338,11 @@ void Renderer::renderLater(){
     }
 }
 
+/**
+ * @brief Renderer::renderNow
+ *
+ * Use the compiled shader to render on the widget
+ */
 void Renderer::renderNow(){
     pendingUpdate = false;
 
@@ -331,6 +381,14 @@ void Renderer::renderNow(){
     renderLater();
 }
 
+/**
+ * @brief Renderer::event
+ * @param event The event that should be proccessed
+ * @return True if the event was successful proccessed, otherwise false
+ *
+ * Called if a new event is poped from the event-queue to render on update event
+ * and emit doneSignal on close event.
+ */
 bool Renderer::event(QEvent *event){
     switch(event->type()){
     case QEvent::UpdateRequest:
@@ -346,11 +404,24 @@ bool Renderer::event(QEvent *event){
     }
 }
 
+/**
+ * @brief Renderer::exposeEvent
+ *
+ * Called if the window is ready to start rendering
+ */
 void Renderer::exposeEvent(QExposeEvent *){
     if(isExposed())
         renderNow();
 }
 
+/**
+ * @brief Renderer::updateCode
+ * @param filename Text for the title
+ * @param code New shader program code
+ * @return True on success, otherwise false.
+ *
+ * Set new title and compile new code for the shader program
+ */
 bool Renderer::updateCode(const QString &filename, const QString &code){
     if(!initShaders(code))
         return false;
@@ -358,10 +429,17 @@ bool Renderer::updateCode(const QString &filename, const QString &code){
     return true;
 }
 
+/**
+ * @brief Renderer::updateAudioData
+ * @param data New audio data
+ *
+ * Copy the new sound-data to the graphics memory for visualisation
+ */
 void Renderer::updateAudioData(QByteArray data){
     if(!shaderProgram)
         return;
     GLenum type, internalType;
+    Q_UNUSED(internalType);
     char typeSize;
     switch(audio->format().sampleType() + audio->format().sampleSize()){
         case  8: case 10: type = GL_UNSIGNED_BYTE;  internalType = GL_R8UI;  typeSize = 1; break;
@@ -410,7 +488,12 @@ void Renderer::updateAudioData(QByteArray data){
         delete[] right;
 }
 
-
+/**
+ * @brief Renderer::onMessageLogged
+ * @param message Message text
+ *
+ * Write the message text in the debug output
+ */
 void Renderer::onMessageLogged(QOpenGLDebugMessage message){
     qDebug() << message;
 }

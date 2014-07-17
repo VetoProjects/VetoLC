@@ -207,18 +207,6 @@ void Backend::childExited(IInstance *child, QString file){
 //    children.removeOne(child);
 }
 
-
-/**
- * @brief Backend::getNumOfChildren
- * @return number of children
- *
- * Gets the window count from the settings.
- */
-int Backend::getNumOfChildren(){
-    int set = settings.getSettingsFor("WindowCount", 1).toInt();
-    return set < 1 ? 1 : set;
-}
-
 /**
  * @brief Backend::getSettings
  * @param child

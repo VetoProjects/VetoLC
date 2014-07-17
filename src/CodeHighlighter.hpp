@@ -8,7 +8,6 @@
 /**
  * @brief The CodeHighlighter class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.0
  *
  * A subclass of QSyntaxHighlighter that implements Syntax
  * Highlighting(duh!) for the Code Editor class.
@@ -18,7 +17,6 @@ class CodeHighlighter : public QSyntaxHighlighter{
 
 public:
     CodeHighlighter(QTextDocument *parent = 0);
-    //~CodeHighlighter(){}
 
 protected:
     void highlightBlock(const QString &text);

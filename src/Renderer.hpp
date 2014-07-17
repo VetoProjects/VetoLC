@@ -50,7 +50,6 @@ protected:
 private:
     bool init();
     void render();
-    void render(QPainter*);
     bool initShaders(const QString &);
     QColor clearColor;
     QOpenGLContext *context;

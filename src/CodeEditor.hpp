@@ -15,7 +15,6 @@ class LineHighlighting;
 /**
  * @brief The CodeEditor class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.0
  *
  * A subclass of QPlainTextEdit that is optimized for code;
  * with Syntax Highlighting, line numbers and highlighting of
@@ -26,7 +25,7 @@ class CodeEditor : public QPlainTextEdit{
 
 public:
     CodeEditor(QWidget *parent = 0);
-    //~CodeEditor(){}
+    ~CodeEditor();
     void lineHighlightingPaintEvent(QPaintEvent *event);
     int lineHighlightingWidth();
 
@@ -48,7 +47,6 @@ private:
 /**
  * @brief The LineHighlighting helper class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.0
  *
  * A helping subclass of QWidget for the codeEditor that is
  * responsible for highlighting the current line.

@@ -15,7 +15,6 @@
 /**
  * @brief The EditorWindow class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.0
  *
  * A subclass of QMainWindow that makes the CodeEditor more
  * interactive by implementing save/load and open/close features.
@@ -25,9 +24,10 @@ class EditorWindow : public QMainWindow{
 
 public:
     EditorWindow(const QHash<QString, QVariant> &settings, QWidget *parent = 0);
+    ~EditorWindow();
     void showResults(const QString &);
-    void warningDisplay(const QString &message);
-    void codeStoped();
+    void warningDisplay(const QString &);
+    void codeStopped();
 
     QString getSourceCode() const;
     QString getTitle() const;
@@ -35,7 +35,7 @@ public:
 protected:
     virtual void closeEvent(QCloseEvent *);
 
-public slots:
+private slots:
     void newFile();
     void openFile();
 

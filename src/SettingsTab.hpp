@@ -19,7 +19,6 @@
 /**
  * @brief The SettingsTab class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.0
  *
  * A subclass of QWidget that implements a base class(not abstract)
  *
@@ -37,7 +36,6 @@ protected:
 /**
  * @brief The LayoutTab class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.0
  *
  * A subclass of SettingsTab that implements one of the tabs
  * of the SettingsWindow in which all configurations regarding
@@ -47,17 +45,34 @@ class LayoutTab : public SettingsTab{
 Q_OBJECT
 public:
     LayoutTab(QHash<QString, QVariant> *Settings, QWidget* parent = 0);
+    ~LayoutTab();
 private slots:
     void addLayout();
     void designSettings(QString);
     void hlSettings(int);
     void languageSettings(int);
+private:
+    QGroupBox* design;
+    QLabel* designBoxLabel;
+    QComboBox* designBox;
+    QHBoxLayout* verticalDesign;
+    QVBoxLayout* horizontalDesign;
+    QGroupBox* highlighting;
+    QLabel* hlBoxLabel;
+    QComboBox* hlBox;
+    QHBoxLayout* verticalHl;
+    QVBoxLayout* horizontalHl;
+    QGroupBox* language;
+    QComboBox* languageBox;
+    QLabel* languageBoxLabel;
+    QHBoxLayout* verticalLanguage;
+    QVBoxLayout* horizontalLanguage;
+    QVBoxLayout* main;
 };
 
 /**
  * @brief The LayoutTab class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.0
  *
  * A subclass of SettingsTab that implements one of the tabs
  * of the SettingsWindow in which all configurations regarding
@@ -67,6 +82,7 @@ class BehaviourTab : public SettingsTab{
 Q_OBJECT
 public:
     BehaviourTab(QHash<QString, QVariant> *Settings, QWidget* parent = 0);
+    ~BehaviourTab();
 private:
     void addLayout();
 private slots:
@@ -74,6 +90,19 @@ private slots:
     void sizeSlot(bool);
     void rememberCompilerSlot(bool);
     void useCompilerSlot(int);
+private:
+    QGroupBox* startup;
+    QCheckBox* openCheck;
+    QCheckBox* sizeCheck;
+    QButtonGroup* startupCompiler;
+    QCheckBox* rememberCompiler;
+    QCheckBox* askForCompiler;
+    QGroupBox* compiler;
+    QLabel* compilerChoiceLabel;
+    QComboBox* compilerChoice;
+    QVBoxLayout* startupLayout;
+    QVBoxLayout* compilerLayout;
+    QVBoxLayout* mainLayout;
 };
 
 #endif // SETTINGTABS

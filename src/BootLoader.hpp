@@ -21,7 +21,7 @@ private:
     QString socketName;
 public:
     explicit BootLoader(const QString &socketName, Backend *parent = 0);
-    //~BootLoader(){}
+    ~BootLoader();
     void start();
 
 signals:

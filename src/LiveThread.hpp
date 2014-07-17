@@ -32,6 +32,10 @@ public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){
         runObj = 0;
     }
+    ~PySoundThread(){
+        if(runObj)
+            delete runObj;
+    }
     void run(){
         if(runObj)
             runObj->run();
@@ -86,6 +90,12 @@ public:
         runObj = 0;
 #endif
     }
+    ~PyLiveThread(){
+#ifdef WITH_PYTHON
+        if(runObj)
+            delete runObj;
+#endif
+    }
     void run(){
 #ifdef WITH_PYTHON
         if(runObj)
@@ -131,9 +141,9 @@ public:
         runObj = 0;
     }
     ~GlLiveThread(){
-        delete runObj;
+        if(runObj)
+            delete runObj;
     }
-
     void run(){
         if(runObj)
             runObj->show();
@@ -163,6 +173,10 @@ class QtSoundThread : public LiveThread{
 public:
     QtSoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){
         runObj = 0;
+    }
+    ~QtSoundThread(){
+        if(runObj)
+            delete runObj;
     }
     void run(){
         if(runObj)
