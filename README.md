@@ -1,7 +1,7 @@
 Veto-LiveCoding
 ===============
 
-![general version](http://img.shields.io/badge/version-0.1.1-orange.svg)
+![general version](http://img.shields.io/badge/version-0.2.0-yellow.svg)
 ![qt version](http://img.shields.io/badge/qt_version-5.1--5.3-blue.svg)
 ![python version](http://img.shields.io/badge/python_version-2.5--2.7-red.svg)
 
@@ -118,12 +118,15 @@ best users for scale).
 ![Highlighting](images/Documentation/glsl.png "Highlighting in a nutshell")
 
 You might want to take a ride and you can(on every platform we know of, provided there is OpenGL
-and GLSL installed). There is an example for Graphics Live Coding called `default.glsl` in the 
-source directory. If you open and run it, you can play around with it very well(run it by 
-hitting the systems refresh action(`F5` on Windows and Linux, `Cmd+R` on OS X)). A new window 
-will pop open that renders the shader. Our personal preference is to drag that window to a 
-different screen so you have a clean workbench. If you change something, you can hit refresh 
-at every point in your development and the updated code will be run.
+and GLSL installed). There are examples for Graphics and Audio Live Coding within the `examples`
+directory; the audio examples are rather basic, while the graphics files are partially very advanced. 
+If you open and run them, you can play around with it very well(run it by hitting the systems refresh 
+action(`F5` on Windows and Linux, `Cmd+R` on OS X)). If you are doing graphics, a new window 
+will pop open that renders the shader, concerning audio there will be sound playing. 
+Our personal preference is to drag rendering windows to a different screen so you have a clean 
+workbench. If you change something, you can hit refresh at every point in your development and the 
+updated code will be run. If it does not compile, a message will tell you so(either as a popup or
+as an exception in the bottom part of the editor).
 
 (Here be dragons... err - pictures.)
 
