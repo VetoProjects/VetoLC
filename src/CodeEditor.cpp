@@ -28,11 +28,6 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent){
     setTabStopWidth(4 * fontMetrics.width(' '));
 }
 
-CodeEditor::~CodeEditor(){
-    //delete lineHighlighting;
-    //delete syntaxEngine;
-}
-
 /**
  * @brief CodeEditor::lineHighlightingWidth
  * @return the width of the line to be highlighted

@@ -16,6 +16,12 @@ BootLoader::BootLoader(const QString &socketName, Backend *parent) :
     QObject(parent), backend(parent), socketName(socketName)
 { }
 
+/**
+ * @brief BootLoader::~BootLoader
+ *
+ * Destructor of the Bootloader class.
+ * Cleans up the server.
+ */
 BootLoader::~BootLoader(){
     delete server;
 }

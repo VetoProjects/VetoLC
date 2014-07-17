@@ -25,7 +25,6 @@ class CodeEditor : public QPlainTextEdit{
 
 public:
     CodeEditor(QWidget *parent = 0);
-    ~CodeEditor();
     void lineHighlightingPaintEvent(QPaintEvent *event);
     int lineHighlightingWidth();
 

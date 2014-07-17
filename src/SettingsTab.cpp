@@ -13,6 +13,18 @@ SettingsTab::SettingsTab(QHash<QString, QVariant> *Settings, QWidget* parent) : 
 }
 
 /**
+ * @brief LayoutTab::~LayoutTab
+ *
+ * Destructor of the LayoutTab class.
+ * Deletes the GUI elements.
+ */
+LayoutTab::~LayoutTab(){
+    delete design;
+    delete highlighting;
+    delete language;
+}
+
+/**
  * @brief LayoutTab::LayoutTab
  *
  * Constructor of the LayoutTab class.
@@ -20,12 +32,6 @@ SettingsTab::SettingsTab(QHash<QString, QVariant> *Settings, QWidget* parent) : 
  */
 LayoutTab::LayoutTab(QHash<QString, QVariant> *Settings, QWidget* parent) : SettingsTab(Settings, parent){
     addLayout();
-}
-
-LayoutTab::~LayoutTab(){
-    delete design;
-    delete highlighting;
-    delete language;
 }
 
 /**
@@ -158,6 +164,12 @@ BehaviourTab::BehaviourTab(QHash<QString, QVariant> *Settings, QWidget* parent) 
     addLayout();
 }
 
+/**
+ * @brief BehaviourTab::~BehaviourTab
+ *
+ * Destructor of the BehaviourTab class.
+ * Deletes the GUI elements.
+ */
 BehaviourTab::~BehaviourTab(){
     delete startup;
     delete startupCompiler;

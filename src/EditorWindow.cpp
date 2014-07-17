@@ -30,6 +30,12 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
+/**
+ * @brief EditorWindow::~EditorWindow
+ *
+ * Destructor of the EditorWindow class.
+ * Deletes all the GUI elements.
+ */
 EditorWindow::~EditorWindow(){
     delete codeEditor;
     delete newAction;
