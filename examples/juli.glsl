@@ -13,9 +13,9 @@ float left (float val){ return texture(audioLeftData , val).r ; }
 float right(float val){ return texture(audioRightData, val).r ; }
 
 float clamp(float val){ return clamp(val, 0.0, 1.0); }
-vec2  clamp(vec2  val){ return clamp(val, 0.0, 1.0); }
-vec3  clamp(vec3  val){ return clamp(val, 0.0, 1.0); }
-vec4  clamp(vec4  val){ return clamp(val, 0.0, 1.0); }
+//vec2  clamp(vec2  val){ return clamp(val, 0.0, 1.0); }
+//vec3  clamp(vec3  val){ return clamp(val, 0.0, 1.0); }
+//vec4  clamp(vec4  val){ return clamp(val, 0.0, 1.0); }
 
 void main() {
 	int i;
@@ -43,9 +43,13 @@ void main() {
 		z.y = y;
 	}
 	if(i < iter){
-		color.b = clamp( float(i) * 5.0 / float(iter)			);
-		color.g = clamp((float(i) * 5.0 / float(iter) - .3) / .7);
-		color.r = clamp((float(i) * 5.0 / float(iter) - .7) / .3);
+//		color.b = clamp( float(i) * 5.0 / float(iter)			);
+//		color.g = clamp((float(i) * 5.0 / float(iter) - .3) / .7);
+//		color.r = clamp((float(i) * 5.0 / float(iter) - .7) / .3);
+
+		color.b =  float(i) * 5.0 / float(iter)		   ;
+		color.g = (float(i) * 5.0 / float(iter) - .3) / .7;
+		color.r = (float(i) * 5.0 / float(iter) - .7) / .3;
 	}
 //*/
 
@@ -53,7 +57,9 @@ void main() {
 	if(p.y < max(0, audioVal) && p.y > min(0, audioVal)){
 		intensity = abs(p.y - audioVal / 2) / abs(audioVal) * 2;
 		color.rgb *= intensity;
-		color.rgb += clamp(1 - intensity - intensity * vec3(-.2, .8, 2.333));
+//		color.rgb += clamp(1 - intensity - intensity * vec3(-.2, .8, 2.333));
+
+		color.rgb += 1 - intensity - intensity * vec3(-.2, .8, 2.333);
 		
 	}
 //*/
