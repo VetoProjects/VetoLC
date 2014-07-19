@@ -53,7 +53,8 @@ HEADERS += \
     SettingsBackendTest.hpp \
     AudioInputProcessorTest.hpp \
     RendererTest.hpp \
-    ../src/AudioOutputProcessor.hpp
+    ../src/AudioOutputProcessor.hpp \
+    ../src/Instances/WindowInstance.hpp
 
 SOURCES += \
     ../src/CodeEditor.cpp \
@@ -68,5 +69,6 @@ SOURCES += \
     ../src/SettingsBackend.cpp \
     ../src/AudioInputProcessor.cpp \
     ../src/BootLoader.cpp \
+    ../src/Instances/WindowInstance.cpp \
     ../src/Instances/WindowInstance.cpp \
     ../src/AudioOutputProcessor.cpp

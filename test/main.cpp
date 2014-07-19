@@ -12,16 +12,38 @@
 #include "PySoundGeneratorTest.hpp"
 #endif
 
+/**
+ * @brief The Tests struct
+ *
+ * Implements a name/factory function pair.
+ */
 struct Tests{
     QString *name;
     QObject *(*testclass)();
 };
 
+/**
+ * @brief The factory function
+ * @return a newly created reference to a QObject
+ *
+ * Factory function that creates a templated object.
+ */
 template<typename T>
 QObject* factory(){
     return new T();
 }
 
+/**
+ * @brief main
+ * @param argc
+ * @param argv
+ * @return a sum of all failed tests
+ *
+ * Minimal testing toolkit. All tests
+ * can be executed at once by either specifiing nothin
+ * or "runall". If tests are to be run individually,
+ * the class name has to be specified.
+ */
 int main(int argc, char** argv){
     QApplication app(argc, argv);
     int status = 0, statusSum = 0;

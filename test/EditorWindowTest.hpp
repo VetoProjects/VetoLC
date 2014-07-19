@@ -6,6 +6,13 @@
 #include "../src/EditorWindow.hpp"
 #include "../src/SettingsBackend.hpp"
 
+/**
+ * @brief The EditorWindowTest class
+ * @author Veit Heller(s0539501) & Tobias Brosge(s0539501)
+ *
+ * Tests the EditorWindow class; functionality tested includes
+ * object creation.
+ */
 class EditorWindowTest : public QObject{
 Q_OBJECT
 private slots:

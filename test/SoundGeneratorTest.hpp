@@ -5,6 +5,14 @@
 #include <QTest>
 #include "../src/LiveThread.hpp"
 
+/**
+ * @brief The SoundGeneratorTest class
+ * @author Veit Heller(s0539501) & Tobias Brosge(s0539501)
+ *
+ * Tests the PySoundGenerator class; functionality tested
+ * includes object creation, thread management, code
+ * execution and return validity.
+ */
 class SoundGeneratorTest : public QObject{
 Q_OBJECT
 private slots:

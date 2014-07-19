@@ -1,5 +1,4 @@
 #include "AudioInputProcessor.hpp"
-#include <cstring>
 
 AudioInputProcessor::AudioInputProcessor(QObject *parent) :
     QIODevice(parent)
@@ -21,10 +20,6 @@ AudioInputProcessor::AudioInputProcessor(QObject *parent) :
     }
 
     input = new QAudioInput(format, this);
-}
-
-AudioInputProcessor::~AudioInputProcessor(){
-    //delete input;
 }
 
 void AudioInputProcessor::start()

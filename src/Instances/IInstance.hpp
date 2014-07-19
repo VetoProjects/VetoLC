@@ -5,7 +5,12 @@
 #include <QSettings>
 
 namespace Instances{
-
+/**
+ * @brief The IInstance class
+ *
+ * Abstract baseclass from which all instances
+ * are derived that are managed by the backend.
+ */
 class IInstance : public QObject{
     Q_OBJECT
 public:

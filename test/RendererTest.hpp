@@ -5,6 +5,14 @@
 #include <QTest>
 #include "../src/LiveThread.hpp"
 
+/**
+ * @brief The RendererTest class
+ * @author Veit Heller(s0539501) & Tobias Brosge(s0539501)
+ *
+ * Tests the Renderer class; functionality tested
+ * includes object creation, thread management, code
+ * execution and return validity.
+ */
 class RendererTest : public QObject{
 Q_OBJECT
 private slots:
