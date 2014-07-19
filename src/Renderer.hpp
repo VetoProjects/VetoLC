@@ -60,7 +60,7 @@ private:
     QOpenGLVertexArrayObject *vao;
     GLuint vertexBuffer, uvBuffer, audioLeftTexture, audioRightTexture;
     int vertexAttr, uvAttr,
-        timeUniform, audioLeftUniform, audioRightUniform;
+        timeUniform, mouseUniform, rationUniform;
     QOpenGLShaderProgram *shaderProgram;
     QMutex shaderProgramMutex;
     QString fragmentSource;
@@ -73,7 +73,7 @@ private:
 //    static bool mapFormat(float *target, char *source, int count, const QAudioFormat &format);
 //    template <typename T>
 //    static void convertArray(float *target, const T *source, int count, qreal div, qreal sub = 0);
-    static const char *defaultVertexShader, *defaultFragmentShader, *juliaFragmentShader, *mandelbrotFragmentShader;
+    static const char *defaultVertexShader, *defaultFragmentShader;
 };
 
 #endif // RENDERER_HPP

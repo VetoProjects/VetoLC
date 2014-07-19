@@ -24,13 +24,9 @@ const char * Renderer::defaultVertexShader =
         "in vec3 position;\n"
         "in vec2 texCoord;\n"
         "\n"
-        "uniform int _time;\n"
-        "\n"
         "out vec2  uv;\n"
-        "out float time;\n"
         "\n"
         "void main(){\n"
-        "   time = float(_time);\n"
         "   gl_Position = vec4(position, 1);\n"
         "   uv = texCoord;\n"
         "}";
@@ -40,86 +36,14 @@ const char * Renderer::defaultFragmentShader =
         "\n"
         "out vec4 color;\n"
         "\n"
-        "uniform in vec2  uv;\n"
-        "uniform in float time;\n"
+        "in vec2 uv;\n"
+        "uniform float time;\n"
+        "uniform vec2 mouse;\n"
+        "uniform float ration;\n"
         "\n"
         "void main(){\n"
         "     color = vec4(cos(uv.x * 5 - time / 1000) / 2 + .5, 0, sin(uv.x * 5 - time / 1000) / 2 + .5, 1);\n"
         "}";
-
-const char * Renderer::mandelbrotFragmentShader =
-        "#version 330 core\n"
-        "\n"
-        "in vec2  uv;\n"
-        "in float time;\n"
-        "\n"
-        "vec2 center = vec2(0,0);\n"
-        "float scale = 4;\n"
-        "int iter = 10;\n"
-        "\n"
-        "void main() {\n"
-        "    gl_FragColor = vec4(0,0,0,1);\n"
-        "    vec2 z, c;\n"
-        " \n"
-        "    c.x = 1.3333 * (uv.x - 0.5) * scale - center.x;\n"
-        "    c.y = (uv.y - 0.5) * scale - center.y;\n"
-        " \n"
-        "    int i;\n"
-        "    z = c;\n"
-        "    for(i=0; i < iter; ++i) {\n"
-        "        float x = (z.x * z.x - z.y * z.y) + c.x;\n"
-        "        float y = (z.y * z.x + z.x * z.y) + c.y;\n"
-        " \n"
-        "        if((x * x + y * y) > 4.0)\n"
-        "            break;\n"
-        "        z.x = x;\n"
-        "        z.y = y;\n"
-        "    }\n"
-        "    if(i < iter)\n"
-        "        gl_FragColor.r = float(i)/10.0;\n"
-        "}\n";
-
-const char * Renderer::juliaFragmentShader =
-        "#version 330 core\n"
-        "\n"
-        "in vec2  uv;\n"
-        "in float time;\n"
-        "uniform in float[10] audioData;\n"
-        "\n"
-        "//uniform highp vec2 c = vec2(.1,.1);\n"
-        "int iter = 100;\n"
-        "out vec4 color;\n"
-        "\n"
-        "void main() {\n"
-//        "   float audioVal = audioData[int(uv.x * 1764)];\n"
-        "   float y = 1 - uv.y * 2;"
-        "   if(y < max(0, audioVal) && y > min(0, audioVal)){\n"
-        "       color = vec4(1.0);\n"
-        "       return;\n"
-        "   }\n"
-        "    vec2 c = vec2(sin(time / 2000.0), cos(time / 1500.0));\n"
-        "    color = vec4(0,audioData[int(uv.x * 1764)],0,1);\n"
-        "    vec2 z;\n"
-        " \n"
-        "    z.x = 3.0 * (uv.x - 0.5);\n"
-        "    z.y = 2.0 * (uv.y - 0.5);\n"
-        " \n"
-        "    int i;\n"
-        "    for(i=0; i < iter; ++i) {\n"
-        "        float x = (z.x * z.x - z.y * z.y) + c.x;\n"
-        "        float y = (z.y * z.x + z.x * z.y) + c.y;\n"
-        " \n"
-        "        if((x * x + y * y) > 4.0)\n"
-        "            break;\n"
-        "        z.x = x;\n"
-        "        z.y = y;\n"
-        "    }\n"
-        "    if(i < iter){\n"
-        "        color.b = float(i) * 5.0 / float(iter);\n"
-        "        color.g = (float(i) * 5.0 / float(iter) - .3) / .7;\n"
-        "        color.r = (float(i) * 5.0 / float(iter) - .7) / .3;\n"
-        "    }\n"
-        "}\n";
 
 /**
  * @brief Renderer::Renderer
@@ -156,10 +80,11 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
              this, SLOT(onMessageLogged(QOpenGLDebugMessage)),
              Qt::DirectConnection );
 
+    setSurfaceType(QWindow::OpenGLSurface);
+
+
     time = new QTime();
     time->start();
-
-    setSurfaceType(QWindow::OpenGLSurface);
 
     audio = new AudioInputProcessor(this);
     connect(audio, SIGNAL(processData(QByteArray)), this, SLOT(updateAudioData(QByteArray)));
@@ -238,28 +163,39 @@ bool Renderer::init(){
 bool Renderer::initShaders(const QString &fragmentShader){
     QOpenGLShaderProgram *newShaderProgram = new QOpenGLShaderProgram(this);
     if(!newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, defaultVertexShader)){
-        int infologLength;
-        glGetShaderiv(newShaderProgram->programId(), GL_INFO_LOG_LENGTH, &infologLength);
-        char *infoLog = new char[infologLength + 1];
-        glGetShaderInfoLog(newShaderProgram->programId(), infologLength + 1, &infologLength, infoLog);
+        qDebug() << newShaderProgram->log();
 
-        qDebug() << infoLog;
-
-        delete[] infoLog;
-
-
-//        qDebug() << newShaderProgram->log();
         delete newShaderProgram;
+
+        if(fragmentShader == defaultFragmentShader)
+            qWarning() << "Faild to compile default shader.";
+        else if(shaderProgram == 0)
+            initShaders(defaultFragmentShader);
+
         return false;
     }
     if(!newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,fragmentShader)){
         qDebug() << newShaderProgram->log();
+
         delete newShaderProgram;
+
+        if(fragmentShader == defaultFragmentShader)
+            qWarning() << "Faild to compile default shader.";
+        else if(shaderProgram == 0)
+            initShaders(defaultFragmentShader);
+
         return false;
     }
     if(!newShaderProgram->link()){
         qDebug() << newShaderProgram->log();
+
         delete newShaderProgram;
+
+        if(fragmentShader == defaultFragmentShader)
+            qWarning() << "Faild to compile default shader.";
+        else if(shaderProgram == 0)
+            initShaders(defaultFragmentShader);
+
         return false;
     }
     shaderProgramMutex.lock();
@@ -277,12 +213,10 @@ bool Renderer::initShaders(const QString &fragmentShader){
         shaderProgram->setAttributeBuffer("texCoord", GL_FLOAT, 0, 2);
         shaderProgram->enableAttributeArray(uvAttr);
 
-        timeUniform  = shaderProgram->uniformLocation("_time");
+        timeUniform  = shaderProgram->uniformLocation("time");
+        mouseUniform = shaderProgram->uniformLocation("mouse");
+        rationUniform = shaderProgram->uniformLocation("ration");
 
-        audioLeftUniform = shaderProgram->uniformLocation("audioDataLeft");
-        audioRightUniform = shaderProgram->uniformLocation("audioDataRight");
-        shaderProgram->setUniformValue(audioLeftUniform, 0);
-        shaderProgram->setUniformValue(audioRightUniform, 0);
         fragmentSource = fragmentShader;
     shaderProgramMutex.unlock();
 
@@ -314,15 +248,23 @@ void Renderer::render(){
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    vao->bind();
+    QPoint mouse = this->mapFromGlobal(QCursor::pos());
+    QVector2D mousePosition((float)mouse.x() / (float)this->width(),
+                            (float)mouse.y() / (float)this->height());
+    float ration = (float)this->width() / (float)this->height();
+
     shaderProgramMutex.lock();
-    shaderProgram->bind();
+        vao->bind();
+        shaderProgram->bind();
 
-    shaderProgram->setUniformValue(timeUniform, time->elapsed());
+        shaderProgram->setUniformValue(mouseUniform,mousePosition);
+        if(this->height() != 0)
+            shaderProgram->setUniformValue(rationUniform, ration);
+        shaderProgram->setUniformValue(timeUniform, (float)time->elapsed());
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    vao->release();
+        vao->release();
     shaderProgramMutex.unlock();
 }
 
