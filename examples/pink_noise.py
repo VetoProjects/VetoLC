@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 from AudioPython import *
+from AudioPython.dsp import *
 import sys
 
-channels = ((sine_wave(440.0, amplitude=0.1),),
-            (sine_wave("C5", amplitude=0.1),))
+channels = ((pink_noise(amplitude=0.01),),)
 
 samples = compute_samples(channels)
 write_wavefile("temp.wav", samples)

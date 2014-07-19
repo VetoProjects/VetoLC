@@ -2,7 +2,9 @@
 
 
 in vec2  uv;
-in float time;
+uniform float time;
+uniform vec2 mouse;
+uniform float ration;
 uniform sampler1D audioLeftData;
 uniform sampler1D audioRightData;
 
@@ -17,7 +19,6 @@ float right(float val){ return texture(audioRightData, val).r ; }
 precision highp float;
 #endif
 
-vec2 mouse = vec2(0.0);
 
 // messing with kali's awesome stuff? yesh... let's
 

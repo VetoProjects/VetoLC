@@ -2,7 +2,10 @@
 
 
 in vec2  uv;
-in float time;
+uniform float time;
+uniform vec2 mouse;
+uniform float ration;
+
 uniform sampler1D audioLeftData;
 uniform sampler1D audioRightData;
 
@@ -42,7 +45,6 @@ float right(float val){ return texture(audioRightData, val).r ; }
 
 // Constants
 
-const vec2 mouse=vec2(0.0);
 const float PI=3.14159;
 const float EPSILON=6e-7;
 const float BAILOUT=4.0;

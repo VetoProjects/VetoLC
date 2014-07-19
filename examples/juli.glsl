@@ -2,11 +2,14 @@
 
 
 in vec2  uv;
-in float time;
+
+uniform float time;
+uniform vec2 mouse;
+uniform float ration;
+
 uniform sampler1D audioLeftData;
 uniform sampler1D audioRightData;
 
-uniform int iter = 100;
 out vec4 color;
 
 float left (float val){ return texture(audioLeftData , val).r ; }
@@ -14,8 +17,16 @@ float right(float val){ return texture(audioRightData, val).r ; }
 
 float clamp(float val){ return clamp(val, 0.0, 1.0); }
 //vec2  clamp(vec2  val){ return clamp(val, 0.0, 1.0); }
-//vec3  clamp(vec3  val){ return clamp(val, 0.0, 1.0); }
+vec3 clamp(vec3 val){
+	return vec3(
+		clamp(val.x, 0.0, 1.0),
+		clamp(val.y, 0.0, 1.0),
+		clamp(val.z, 0.0, 1.0)
+	);
+}
 //vec4  clamp(vec4  val){ return clamp(val, 0.0, 1.0); }
+
+uniform int iter = 100;
 
 void main() {
 	int i;
@@ -26,7 +37,7 @@ void main() {
 	p = uv * 2.0 - 1.0;
 	audioVal = (left(uv.x) + right(uv.x)) / 6;
 
-/* Fractal inner
+//* Fractal inner
 	color = vec4(0, audioVal, 0, 1);
 //*/
 
@@ -47,31 +58,29 @@ void main() {
 //		color.g = clamp((float(i) * 5.0 / float(iter) - .3) / .7);
 //		color.r = clamp((float(i) * 5.0 / float(iter) - .7) / .3);
 
-		color.b =  float(i) * 5.0 / float(iter)		   ;
-		color.g = (float(i) * 5.0 / float(iter) - .3) / .7;
-		color.r = (float(i) * 5.0 / float(iter) - .7) / .3;
+		color.rgb = clamp(vec3(
+			(float(i) * 5.0 / float(iter) - 0.7) / 0.3,
+			(float(i) * 5.0 / float(iter) - 0.3) / 0.7,
+			 float(i) * 5.0 / float(iter)
+		));
 	}
 //*/
 
 //* Wave line
 	if(p.y < max(0, audioVal) && p.y > min(0, audioVal)){
 		intensity = abs(p.y - audioVal / 2) / abs(audioVal) * 2;
-		color.rgb *= intensity;
-//		color.rgb += clamp(1 - intensity - intensity * vec3(-.2, .8, 2.333));
-
-		color.rgb += 1 - intensity - intensity * vec3(-.2, .8, 2.333);
+		color.rgb += clamp(color.rgb * intensity + 1 - intensity - intensity * vec3(-.2, .8, 2.333));
 		
 	}
 //*/
 
 /* Circle
-	c = vec2(sin(time/1000), cos(time/1000)) * .7 - p;
+	c = p - mouse * 2.0 + 1.0;
 	d = length(c);
 	v = left(abs(atan(c.y, c.x) / 3.141592)) / 3;
 	if(d < .2 && d + v >= .2 || d > .2 && d + v <= .2){
-		intensity = abs(d  + v/2 - .2) / abs(v) * 2;
-		color.rgb *= intensity;
-		color.rgb += clamp(1 - intensity - intensity * vec3(1, 0, .5));
+		intensity = clamp(abs(d  + v/2 - .2) / abs(v) * 2);
+		color.rgb = clamp(color.rgb * intensity + 1 - intensity - intensity * vec3(1, 0, .5));
 	}
 //*/
 
@@ -79,31 +88,28 @@ void main() {
 /* Left
 	l = abs(left(uv.y)/2.0);
 	if(l >= uv.x){
-		float intensity = (uv.x - l / 2) / abs(l) * 2;
-		color.rgb *= intensity;
-		color.rgb += clamp((1 - intensity) * vec3(1,0,0));
+		intensity = clamp((uv.x - l / 2) / abs(l) * 2);
+		color.rgb += clamp(color.rgb * intensity + (1 - intensity) * vec3(1,0,0));
 	}
-//*
+//*/
 
 
 /* Right
 	r = abs(right(uv.y)/2.0);
-	if(abs(r/2.0) >= 1-uv.x){
-		intensity = clamp((1 - uv.x - r / 2) / abs(r) * 2, 0, 1);
-		color.rgb *= intensity;
-		color.rgb += (1 - intensity) * clamp(vec3(1,0,0));
+	if(r >= 1.0-uv.x){
+		intensity = clamp((1 - uv.x - r / 2) / abs(r) * 2);
+		color.rgb += clamp(color.rgb * intensity + (1 - intensity) * vec3(1,0,0));
 	}
 //*/
 
 /* Star
-	if(length(p) + sin(atan(p.y, p.x)*5 + time/100)/3 < .5)
+	vec2 center = uv - mouse;
+	if(length(center) * 5 + sin(atan(center.x, center.y) * 5.0 + time / 100.0 ) / 3.0 < .5)
 		color = vec4(1);
 //*/
 
 /* New Waveline
-	vec2 pos = p;
-	vec2 uPos = pos;
-	uPos.y -= 0.5;
+	vec2 uPos = p - vec2(0.0, 0.5);
 	
 	vec3 col = vec3(0.0);
 	float vertColor = 0.0;
@@ -112,7 +118,7 @@ void main() {
 	{
 		float t = time * (.005);
 	
-		uPos.y += left(uPos.x  * exp(i) / 5) * 0.55;
+		uPos.y += left(uv.x  * exp(i) / 5) * 0.55;
 		float fTemp = abs(1.0/(80.0 * k * uPos.y));
 		vertColor += fTemp / i;
 		col += vec3(fTemp*(i*0.9), 0.0, cos(vertColor)*sin(fTemp));

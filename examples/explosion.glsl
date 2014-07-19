@@ -2,7 +2,10 @@
 
 
 in vec2  uv;
-in float time;
+uniform float time;
+uniform vec2 mouse;
+uniform float ration;
+
 uniform sampler1D audioLeftData;
 uniform sampler1D audioRightData;
 
@@ -95,7 +98,7 @@ void main(void)
    // p: position on the ray
    // d: direction of the ray
    vec3 p = vec3(0.,0.,2.);
-   vec3 d = vec3((uv.xy * 2.0 - 1.0), 0.0) - p;
+   vec3 d = vec3((uv.xy * max(vec2(1.0), vec2(ration, 1/ration)) * 2.0 - 1.0), 0.0) - p;
    d = normalize(d); 
    
    // ld, td: local, total density 

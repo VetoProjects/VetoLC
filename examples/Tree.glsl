@@ -2,7 +2,9 @@
 
 
 in vec2  uv;
-in float time;
+uniform float time;
+uniform vec2 mouse;
+uniform float ration;
 uniform sampler1D audioLeftData;
 uniform sampler1D audioRightData;
 

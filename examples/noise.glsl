@@ -2,7 +2,9 @@
 
 
 in vec2  uv;
-in float time;
+uniform float time;
+uniform vec2 mouse;
+uniform float ration;
 uniform sampler1D audioLeftData;
 uniform sampler1D audioRightData;
 
@@ -17,10 +19,6 @@ precision mediump float;
 #endif
 
 //noise examples
-
-// Now with mouse controls!
-
-vec2 mouse = vec2(0);
 
 vec3 mod289(vec3 x);
 vec4 mod289(vec4 x);

@@ -6,11 +6,12 @@ precision mediump float;
 
 
 in vec2  uv;
-in float time;
+uniform float time;
+uniform vec2 mouse;
+uniform float ration;
 uniform sampler1D audioLeftData;
 uniform sampler1D audioRightData;
 
-uniform int iter = 100;
 out vec4 color;
 
 float left (float val){ return texture(audioLeftData , val).r ; }
