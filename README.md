@@ -1,5 +1,5 @@
-Veto-LiveCoding
-===============
+VetoLC
+======
 
 ![general version](http://img.shields.io/badge/version-0.2.0-yellow.svg)
 ![qt version](http://img.shields.io/badge/qt_version-5.1--5.3-blue.svg)
