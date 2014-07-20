@@ -1,29 +1,49 @@
 #include "AudioOutputProcessor.hpp"
 
-AudioOutputProcessor::AudioOutputProcessor(QAudioFormat audioFormat, QObject *parent) :
-    QIODevice(parent),
-    format(audioFormat), offset(0), count(0)
+
+AudioOutputProcessor::AudioOutputProcessor(QObject *parent) : QObject(parent),
+    currentPlaying(0), currentWriting(0), currentLen(0),
+    dataBuffer(new char*[4]), lenBuffer(new qint64[4]),
+    timer(new QTimer(this))
 {
-//    buffer = (char*)malloc(audioFormat.bytesPerFrame() * 1024); // reserve 1024 frames
-    buffer = (char*)malloc(8192 * 10); // reserve 10 chunks of python sound output (to much?)
+    for(int i = 0; i < 4; ++i)
+        dataBuffer[i] = 0;
+    timer->setInterval(10);
+    connect(timer, SIGNAL(timeout()), this, SLOT(writeToDevice()));
 }
 
 AudioOutputProcessor::~AudioOutputProcessor()
 {
-    delete buffer;
+    for(int i = 0; i < 4; ++i)
+        delete dataBuffer[i];
+    delete dataBuffer;
+    delete lenBuffer;
+    delete timer;
 }
 
-qint64 AudioOutputProcessor::readData(char *data, qint64 maxlen)
+
+void AudioOutputProcessor::write(const char *data, qint64 len)
 {
-    Q_UNUSED(data);
-    Q_UNUSED(maxlen);
-    return 0;
+    lenBuffer[currentWriting] = len;
+    dataBuffer[currentWriting] = new char[len];
+    memcpy(dataBuffer[currentWriting], data, (size_t) len);
+    currentWriting = (currentWriting + 1) % 4;
+    if(!timer->isActive()){
+        currentLen = len;
+        timer->start();
+    }
 }
 
-qint64 AudioOutputProcessor::writeData(const char *data, qint64 len)
+
+void AudioOutputProcessor::writeToDevice()
 {
-    Q_UNUSED(data);
-    Q_UNUSED(len);
-    return 0;
-//    memcpy(buffer + offset + count, data, max)
+    if(currentLen == 0){
+        delete dataBuffer[currentPlaying];
+        currentPlaying = (currentPlaying + 1) % 4;
+        if(currentPlaying == currentWriting)
+            timer->stop();
+        else
+            currentLen = lenBuffer[currentPlaying];
+    }
 }
+

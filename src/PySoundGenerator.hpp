@@ -30,13 +30,16 @@ private:
     void stream(PyObject *process);
     QString ownExcept;
     bool triggered;
+    bool ready;
     QAction* abortAction;
+    PyObject* sys;
+    PyObject* audio;
     PyObject* dict;
-    QAudioFormat* format;
     AudioOutputProcessor* device;
 
 private slots:
     void terminated();
+    void setReady(bool);
 
 signals:
     void doneSignal(QString);
