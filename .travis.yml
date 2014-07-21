@@ -1,7 +1,7 @@
 language: cpp
 
 compiler:
-  - gcc
+  - g++-4.8
   - clang
 
 setup:
@@ -17,4 +17,3 @@ install:
 script:
   - qmake -qt=qt5 -project
   - qmake -qt=qt5 LiveCoding.pro
-  - make CPP=g++-4.8
