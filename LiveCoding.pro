@@ -17,8 +17,7 @@ TRANSLATIONS = translations/codeeditor_de.ts \
 
 CODECFORSRC     = UTF-8
 
-QMAKE_CXXFLAGS += -std=c++11
-QMAKE_CFLAGS += -Wall -Werror -DNDEBUG -O2 -pedantic
+QMAKE_CXXFLAGS += -Wall -Werror -DNDEBUG -O2 -pedantic
 QMAKE_EXTRA_TARGETS += valgrind-check
 
 CONFIG+=c++11

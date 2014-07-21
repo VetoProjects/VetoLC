@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = LiveCodingTest
 TEMPLATE = app
-QMAKE_CXXFLAGS += -std=c++11 -Wall -Werror -DNDEBUG -O2 -pedantic
+QMAKE_CXXFLAGS += -Wall -Werror -DNDEBUG -O2 -pedantic
 
 with_python{
     QMAKE_CXXFLAGS += `/usr/bin/python2.7-config --cflags`

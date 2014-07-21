@@ -23,7 +23,6 @@ install:
 script:
   - qmake -qt=qt5 -project
   - qmake -qt=qt5 LiveCoding.pro
-  - ${CXX} --version
   - make
   - cd test
   - qmake -qt=qt5 -project
