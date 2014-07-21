@@ -18,7 +18,8 @@ install:
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.4"; fi
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
-  - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev
+  #- sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev
+  - sudo apt-get qt5-default
 
 script:
   # I need to figure out how to do this.
@@ -30,7 +31,7 @@ script:
   - cd test
   - qmake -qt=qt5 -project
   - qmake -qt=qt5 LiveCodingTest.pro
+  - make
   - qmake -qt=qt5 CONFIG+=with_python QMAKE_CXXFLAGS+=-DWITH_PYTHON LiveCodingTest.pro
   - make CPPFLAGS+="-DWITH_PYTHON"
-  - make
   - ./LiveCodingTest runall
