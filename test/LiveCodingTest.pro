@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = LiveCodingTest
 TEMPLATE = app
+CONFIG += c++11
 QMAKE_CXXFLAGS += -Wall -Werror -DNDEBUG -O2 -pedantic
 
 with_python{
