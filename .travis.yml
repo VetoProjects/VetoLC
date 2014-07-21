@@ -5,10 +5,10 @@ compiler:
     - clang
 
 install:
-  - sudo apt-get update
-  - sudo apt-get install qt5-default qttools5-dev-tools
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev
 
 script:
-  - qmake -project
-  - qmake LiveCoding.pro
+  - qmake -qt=qt5 -project
+  - qmake -qt=qt5 LiveCoding.pro
   - make
