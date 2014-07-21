@@ -7,7 +7,7 @@ compiler:
 install:
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
-  - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev
+  - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev
 
 script:
   - qmake -qt=qt5 -project
