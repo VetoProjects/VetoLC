@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-from AudioPython import *
 from AudioPython import instruments, dsp
 
 def waves():
@@ -10,6 +8,3 @@ def waves():
             default_amplitude=0.5, bar_length=l)
 
 channels = ((waves(),), (waves(), dsp.white_noise(amplitude=0.001),))
-
-samples = compute_samples(channels)
-write_wavefile("temp.wav", samples)

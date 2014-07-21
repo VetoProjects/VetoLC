@@ -1,4 +1,5 @@
 #Idea taken from www.wavepot.com
+import math
 
 from itertools import count
 
@@ -25,8 +26,6 @@ bassline = [
 ]
 
 
-print(melodies)
-
 def melody(t = 0):
     counter = 0
     for i in count(0):
@@ -41,6 +40,4 @@ def sin(t, f, a):
 
 def sqr(t,f,a):
   return  ((sin(t, f, a) > 0) * 2 - 1) * a
-
 channels = ((melody(1),),)
-samples = compute_samples(channels)

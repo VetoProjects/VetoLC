@@ -1,10 +1,6 @@
-#!/usr/bin/env python
 #Idea taken from www.wavepot.com
-
 import math
-
 from itertools import *
-from AudioPython import *
 from AudioPython.dsp import *
 
 def bass_osc(n):
@@ -24,5 +20,3 @@ def sub(gen, amp):
 n = 44100 / 500
 
 channels = ((sub(bass_osc(n), 0.3),),)
-samples = compute_samples(channels)
-write_wavefile("temp.wav", samples)
