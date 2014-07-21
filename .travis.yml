@@ -4,6 +4,11 @@ compiler:
   - gcc
   - clang
 
+setup:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install g++-4.8
+
 install:
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
@@ -12,4 +17,4 @@ install:
 script:
   - qmake -qt=qt5 -project
   - qmake -qt=qt5 LiveCoding.pro
-  - make
+  - make CPP=g++-4.8
