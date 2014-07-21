@@ -19,7 +19,7 @@ install:
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
   #- sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev
-  - sudo apt-get qt5-default
+  - sudo apt-get install qt5-default
 
 script:
   # I need to figure out how to do this.
