@@ -57,20 +57,20 @@ make CPPFLAGS+=&quot;-DWITH_PYTHON&quot;</code></pre>
 <p>This toolchain will essentially do the same thing that the option <code>with_python</code> does on Unix.</p>
 <h2 id="usage">Usage</h2>
 <p>If you open the application for the first time, you will be greeted by an empty editor - that<br />will be your playground.</p>
-<p><img src="images/Documentation/open.png" title="Your playground" alt="Your playground" /></p>
+<p><img src="../images/Documentation/open.png" title="Your playground" alt="Your playground" /></p>
 <p>Default syntax highlighting will be GLSL, but you can tweak the settings to highlight Python<br />code as well. There are a few minor differences, but generally, we use GLSL highlighting for<br />Python, as it is good enough for our lazy asses(but we code in Vim, too, so we might not be the<br />best users for scale).</p>
-<p><img src="images/Documentation/glsl.png" title="Highlighting in a nutshell" alt="Highlighting" /></p>
+<p><img src="../images/Documentation/glsl.png" title="Highlighting in a nutshell" alt="Highlighting" /></p>
 <p>You might want to take a ride and you can(on every platform we know of, provided there is OpenGL<br />and GLSL installed). There are examples for Graphics and Audio Live Coding within the <code>examples</code><br />directory; the audio examples are rather basic, while the graphics files are partially very advanced.<br />The glsl files are mostly from <a href="https://glsl.heroku.com">the glsl playground</a>. Check it out, it's<br />awesome! Some of the sound examples are ported from javascript and the ideas are from<br /><a href="https://wavepot.com">wavepot</a>, check that out as well; we're a bit jealous of both projects, because<br />they are browser-based and hip and all, but we still like to use desktop apps(old-fashioned, huh?).<br />If you open and run them, you can play around with it very well(run it by hitting the systems refresh<br />action(<code>F5</code> on Windows and Linux, <code>Cmd+R</code> on OS X)). If you are doing graphics, a new window<br />will pop open that renders the shader, concerning audio there will be sound playing.<br />Our personal preference is to drag rendering windows to a different screen so you have a clean<br />workbench. If you change something, you can hit refresh at every point in your development and the<br />updated code will be run. If it does not compile, a message will tell you so(either as a popup or<br />as an exception in the bottom part of the editor).</p>
-<p><img src="images/Documentation/glslcompiled.png" title="GLSL example #1" alt="GLSL in action #1" /></p>
+<p><img src="../images/Documentation/glslcompiled.png" title="GLSL example #1" alt="GLSL in action #1" /></p>
 <p>If you want to test out the Python capabilities, go to the Settings(for a tutorial on Settings<br />in our environment refer to <a href="#settings">this</a> section) and choose &quot;Python (Regular)&quot; as compiler.<br />Now you can write and interpret Python code, yay!</p>
-<p><img src="images/Documentation/glslcompiled2.png" title="GLSL example #2" alt="GLSL in actioni #2" /></p>
+<p><img src="../images/Documentation/glslcompiled2.png" title="GLSL example #2" alt="GLSL in actioni #2" /></p>
 <p>That is not too interesting, though, you might want to use Python in the context of Audio Live<br />Coding, as promised earlier. You can do that, too! Just go back to the Settings and select &quot;Audio<br />Python&quot; in the compiler section. For a general tutorial/introduction to AudioPython, refer to<br /><a href="https://github.com/hellerve/AudioPython">this</a> page.</p>
 <p>If you want to play with QML, I have bad news for you, though. This feature is not yet ready. :(</p>
 <p>That's it with the basics. Have fun!</p>
 <h2 id="settings">Settings</h2>
 <p>Settings capabilities are important for every IDE. In our editor preferences are set per-tab,<br />because you might want to code graphics and audio live(if you can pull that off, you are a<br />genius!) and if you set them before the session, that will save an enormous amount of time.</p>
 <p>The settings window(which can be reached by pressing the little cogwheel button) should<br />be pretty self-explaining, but we will explain it non-the-less.</p>
-<p><img src="images/Documentation/settings.png" title="The settings window, I" alt="The settings window I" /></p>
+<p><img src="../images/Documentation/settings.png" title="The settings window, I" alt="The settings window I" /></p>
 <p>In the first tab there are few things you can tweak regarding layout:</p>
 <p><strong>Design</strong>:</p>
 <p>There you can adjust the editor design. It is based on the styles that are available by<br />default from QT(mostly Windows and Fusion, but on certain platforms also other designs,<br />e.g. Mac or KDE).</p>
@@ -78,7 +78,7 @@ make CPPFLAGS+=&quot;-DWITH_PYTHON&quot;</code></pre>
 <p>There you can change the syntax highlighting(or even switch it off).</p>
 <p><strong>Language</strong>:</p>
 <p>At the moment, only english and german are supported. An experimental version<br />of french is being created, but we do not trust our french very much. Not more than<br />our spanish and japanese, so all three of them will take a while.</p>
-<p><img src="images/Documentation/settings2.png" title="The settings window, II" alt="The settings window II" /></p>
+<p><img src="../images/Documentation/settings2.png" title="The settings window, II" alt="The settings window II" /></p>
 <p>In the second tab you can adjust the editors' behaviour to your liking:</p>
 <p><strong>Startup behaviour</strong>:</p>
 <p>In this pane you can adjust the editors behaviour on startup. Most people will keep them<br />as they are, I guess, but if you want to start everything from scratch every time, you might<br />toggle all of them.</p>

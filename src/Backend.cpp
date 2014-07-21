@@ -248,12 +248,41 @@ void Backend::settingsWindowRequested(IInstance *instance){
  * Opens a help window in HTML.
  */
 void Backend::openHelp(IInstance *){
-    QDesktopServices::openUrl(
-                QUrl(QCoreApplication::applicationDirPath().append(
-                         "/../LiveCodingEditor/html/help.html"),
-                QUrl::TolerantMode));
+    QUrl url(directoryOf("html").absoluteFilePath("help.html"));
+    url.setScheme("file");
+    qDebug() << url;
+    QDesktopServices::openUrl(url);
 }
 
+/**
+ * @brief Backend::directoryOf
+ * @param subdir
+ * @return the directory one wants to navigate into
+ *
+ * Platform independent wrapper to changing the directory.
+ */
+QDir Backend::directoryOf(const QString &subdir)
+{
+    QDir dir(QApplication::applicationDirPath());
+
+#if defined(Q_OS_WIN)
+    if (dir.dirName().toLower() == "debug"
+        || dir.dirName().toLower() == "release")
+    dir.cdUp();
+#elif defined(Q_OS_MAC)
+    if (dir.dirName() == "MacOS") {
+    dir.cdUp();
+    dir.cdUp();
+    dir.cdUp();
+    if(dir.dirName().toLower().contains("debug")){
+        dir.cdUp();
+        dir.cd("LiveCodingEditor");
+    }
+    }
+#endif
+    dir.cd(subdir);
+    return dir;
+}
 
 /**
  * @brief Backend::removeSettings

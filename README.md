@@ -138,7 +138,7 @@ If you want to test out the Python capabilities, go to the Settings(for a tutori
 in our environment refer to [this](#settings) section) and choose "Python (Regular)" as compiler.
 Now you can write and interpret Python code, yay!
 
-![GLSL in actioni #2](images/Documentation/glslcompiled2.png "GLSL example #2")
+![GLSL in action #2](images/Documentation/glslcompiled2.png "GLSL example #2")
 
 That is not too interesting, though, you might want to use Python in the context of Audio Live
 Coding, as promised earlier. You can do that, too! Just go back to the Settings and select "Audio

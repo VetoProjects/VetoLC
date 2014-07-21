@@ -9,16 +9,13 @@
 #include <QException>
 #include <QObject>
 #include <QSettings>
+#include <QDir>
 #include "SettingsBackend.hpp"
 #include "SettingsWindow.hpp"
 #include "LiveThread.hpp"
 #include "Instances/IInstance.hpp"
 using namespace Instances;
 
-//class DeleteInstanceEvent : public QEvent{
-//public:
-
-//};
 
 /**
  * @brief The Backend class
@@ -76,6 +73,7 @@ public slots:
     void getExecutionResults(GlLiveThread*, QString);
 
 private:
+    QDir directoryOf(const QString&);
     void runPyFile(IInstance *);
     void runQtSoundFile(IInstance *);
     void runGlFile(IInstance *);
