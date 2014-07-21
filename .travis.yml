@@ -21,11 +21,16 @@ install:
   - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev
 
 script:
+  # I need to figure out how to do this.
   - qmake -qt=qt5 -project
   - qmake -qt=qt5 LiveCoding.pro
-  - make
+  #- make
+  - qmake -qt=qt5 CONFIG+=with_python QMAKE_CXXFLAGS+=-DWITH_PYTHON LiveCoding.pro
+  #- make CPPFLAGS+="-DWITH_PYTHON"
   - cd test
   - qmake -qt=qt5 -project
   - qmake -qt=qt5 LiveCodingTest.pro
-  - make
-  - ./LiveCodingTest runall
+  - qmake -qt=qt5 CONFIG+=with_python QMAKE_CXXFLAGS+=-DWITH_PYTHON LiveCodingTest.pro
+  #- make CPPFLAGS+="-DWITH_PYTHON"
+  #-make
+  #- ./LiveCodingTest runall

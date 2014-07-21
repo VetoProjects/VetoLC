@@ -106,6 +106,8 @@ This toolchain will essentially do the same thing that the option ```with_python
 NOTE: Because Travis CI currently has problems with C++11, I updated the project files to not use
 C++11. If you do want that, you will have to add the flag `std=c++11` to your build.
 
+You can have a look at the .travis.yml to get a slight idea of how your build process could look like.
+
 Usage
 -----
 
