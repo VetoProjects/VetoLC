@@ -7,8 +7,9 @@ VetoLC
 [![Build Status](https://travis-ci.org/hellerve/VetoLC.png?branch=master)](https://travis-ci.org/hellerve/VetoLC)
 
 A Live Coding Environment for AudioPython, QML and GLSL(also rudimentary Python IDE capabilities) in QT/C++.
-In order to get AudioPython to work from source, you will have to install QT as well(naturally). 
-No additional Python packages are required. The editor is platform-independent.
+In order to get VetoLC to compile from source, you will have to install QT as well(naturally). If you want
+to use AudioPython, you will have to install that as well(link to the repository down in 
+[Capabilities](#capabilities)). The editor is platform-independent.
 
 Table of Contents
 -----------------
