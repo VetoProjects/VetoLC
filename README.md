@@ -120,6 +120,10 @@ best users for scale).
 You might want to take a ride and you can(on every platform we know of, provided there is OpenGL
 and GLSL installed). There are examples for Graphics and Audio Live Coding within the `examples`
 directory; the audio examples are rather basic, while the graphics files are partially very advanced. 
+The glsl files are mostly from [the glsl playground](https://glsl.heroku.com). Check it out, it's 
+awesome! Some of the sound examples are ported from javascript and the ideas are from 
+[wavepot](https://wavepot.com), check that out as well; we're a bit jealous of both projects, because
+they are browser-based and hip and all, but we still like to use desktop apps(old-fashioned, huh?).
 If you open and run them, you can play around with it very well(run it by hitting the systems refresh 
 action(`F5` on Windows and Linux, `Cmd+R` on OS X)). If you are doing graphics, a new window 
 will pop open that renders the shader, concerning audio there will be sound playing. 
@@ -128,11 +132,13 @@ workbench. If you change something, you can hit refresh at every point in your d
 updated code will be run. If it does not compile, a message will tell you so(either as a popup or
 as an exception in the bottom part of the editor).
 
-(Here be dragons... err - pictures.)
+![GLSL in action #1](images/Documentation/glslcompiled.png "GLSL example #1")
 
 If you want to test out the Python capabilities, go to the Settings(for a tutorial on Settings 
 in our environment refer to [this](#settings) section) and choose "Python (Regular)" as compiler.
 Now you can write and interpret Python code, yay!
+
+![GLSL in actioni #2](images/Documentation/glslcompiled2.png "GLSL example #2")
 
 That is not too interesting, though, you might want to use Python in the context of Audio Live
 Coding, as promised earlier. You can do that, too! Just go back to the Settings and select "Audio
