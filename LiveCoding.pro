@@ -17,7 +17,7 @@ TRANSLATIONS = translations/codeeditor_de.ts \
 
 CODECFORSRC     = UTF-8
 
-QMAKE_CXXFLAGS += -Wall -Werror -DNDEBUG -O2 -pedantic
+QMAKE_CXXFLAGS += -Wall -DNDEBUG -O2 -pedantic
 QMAKE_EXTRA_TARGETS += valgrind-check
 
 CONFIG+=c++11
@@ -55,17 +55,12 @@ HEADERS += src/Instances/IInstance.hpp \
     src/CodeEditor.hpp \
     src/CodeHighlighter.hpp \
     src/EditorWindow.hpp \
-    src/LiveCodingSetup.hpp \
     src/LiveThread.hpp \
-    src/PythonException.hpp \
-    src/QtGlException.hpp \
-    src/QtSoundException.hpp \
     src/Renderer.hpp \
     src/SettingsBackend.hpp \
     src/SettingsTab.hpp \
     src/SettingsWindow.hpp \
     src/SoundGenerator.hpp \
-    AudioOutputProcessor.hpp \
     src/AudioOutputProcessor.hpp
 
 SOURCES += src/Instances/WindowInstance.cpp \
@@ -75,12 +70,10 @@ SOURCES += src/Instances/WindowInstance.cpp \
     src/CodeEditor.cpp \
     src/CodeHighlighter.cpp \
     src/EditorWindow.cpp \
-    src/LiveCodingSetup.cpp \
     src/main.cpp \
     src/Renderer.cpp \
     src/SettingsBackend.cpp \
     src/SettingsTab.cpp \
     src/SettingsWindow.cpp \
     src/SoundGenerator.cpp \
-    AudioOutputProcessor.cpp \
     src/AudioOutputProcessor.cpp

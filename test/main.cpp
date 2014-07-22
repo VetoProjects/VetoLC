@@ -1,6 +1,8 @@
 #include <exception>
 #include <QException>
 #include <QApplication>
+#include "AudioInputProcessorTest.hpp"
+#include "AudioOutputProcessorTest.hpp"
 #include "CodeEditorTest.hpp"
 #include "EditorWindowTest.hpp"
 #include "BackendTest.hpp"
@@ -51,7 +53,8 @@ int main(int argc, char** argv){
     struct Tests testcases[] = {
             {new QString("CodeEditor"), factory<CodeEditorTest>},
             {new QString("EditorWindow"), factory<EditorWindowTest>},
-            {new QString("AudioInputProcessor"), factory<AudioInputProcessor>},
+            {new QString("AudioOutputProcessor"), factory<AudioOutputProcessorTest>},
+            {new QString("AudioInputProcessor"), factory<AudioInputProcessorTest>},
             {new QString("Backend"), factory<BackendTest>},
             {new QString("SoundGenerator"), factory<SoundGeneratorTest>},
             {new QString("SettingsBackend"), factory<SettingsBackendTest>},

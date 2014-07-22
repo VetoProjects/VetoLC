@@ -10,8 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = LiveCodingTest
 TEMPLATE = app
-CONFIG += c++11
-QMAKE_CXXFLAGS += -Wall -Werror -DNDEBUG -O2 -pedantic
+QMAKE_CXXFLAGS += -std=c++11 -Wall -Werror -DNDEBUG -O2 -pedantic
 
 with_python{
     QMAKE_CXXFLAGS += `/usr/bin/python2.7-config --cflags`
@@ -50,12 +49,12 @@ HEADERS += \
     ../src/CodeEditorTest.hpp \
     ../src/QtGlException.hpp \
     ../src/Instances/IInstance.hpp \
-    ../src/Instances/WindowInstance.hpp \
     SettingsBackendTest.hpp \
     AudioInputProcessorTest.hpp \
     RendererTest.hpp \
     ../src/AudioOutputProcessor.hpp \
-    ../src/Instances/WindowInstance.hpp
+    ../src/Instances/WindowInstance.hpp \
+    AudioOutputProcessorTest.hpp
 
 SOURCES += \
     ../src/CodeEditor.cpp \
@@ -70,6 +69,5 @@ SOURCES += \
     ../src/SettingsBackend.cpp \
     ../src/AudioInputProcessor.cpp \
     ../src/BootLoader.cpp \
-    ../src/Instances/WindowInstance.cpp \
     ../src/Instances/WindowInstance.cpp \
     ../src/AudioOutputProcessor.cpp
