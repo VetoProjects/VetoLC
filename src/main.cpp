@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
     QApplication a(argc, argv);
 
     if(QFontDatabase::addApplicationFont(":/fonts/Inconsolata.otf") == -1)
-        qWarning("Failed to load font Inconsolata.");
+        qWarning(tr("Failed to load font Inconsolata."));
 
     QTranslator translator;
     translator.load(QString("codeeditor_") + QLocale::system().name());

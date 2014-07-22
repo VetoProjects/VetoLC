@@ -11,7 +11,7 @@
  */
 PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     if(pyInstructions == QString("")){
-        emit doneSignal("File is empty. Nothing to execute.");
+        emit doneSignal(tr("File is empty. Nothing to execute."));
         return;
     }
 
@@ -134,7 +134,7 @@ void PySoundGenerator::exceptionOccurred(){
  */
 void PySoundGenerator::terminated(){
     triggered = true;
-    ownExcept = "User Terminated.";
+    ownExcept = tr("User Terminated.");
 }
 
 /**

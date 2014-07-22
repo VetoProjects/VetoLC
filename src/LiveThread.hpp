@@ -67,7 +67,7 @@ public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){ }
     void run(){ }
     void initialize(const QString &, const QString &){
-        emit doneSignal(this, "Python is not supported in this version");
+        emit doneSignal(this, tr("Python is not supported in this version"));
     }
     bool updateCode(const QString &, const QString &){
         return false;
@@ -109,7 +109,7 @@ public:
 #else
         Q_UNUSED(title);
         Q_UNUSED(instructions);
-        emit doneSignal(this, "Python is not supported in this version");
+        emit doneSignal(this, tr("Python is not supported in this version");
 #endif
     }
     bool updateCode(const QString &filename, const QString &code){

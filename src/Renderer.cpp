@@ -168,7 +168,7 @@ bool Renderer::initShaders(const QString &fragmentShader){
         delete newShaderProgram;
 
         if(fragmentShader == defaultFragmentShader)
-            qWarning() << "Faild to compile default shader.";
+            qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
             initShaders(defaultFragmentShader);
 
@@ -180,7 +180,7 @@ bool Renderer::initShaders(const QString &fragmentShader){
         delete newShaderProgram;
 
         if(fragmentShader == defaultFragmentShader)
-            qWarning() << "Faild to compile default shader.";
+            qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
             initShaders(defaultFragmentShader);
 
@@ -192,7 +192,7 @@ bool Renderer::initShaders(const QString &fragmentShader){
         delete newShaderProgram;
 
         if(fragmentShader == defaultFragmentShader)
-            qWarning() << "Faild to compile default shader.";
+            qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
             initShaders(defaultFragmentShader);
 
@@ -338,7 +338,7 @@ bool Renderer::event(QEvent *event){
         renderNow();
         return true;
     case QEvent::Close:
-        emit doneSignal("User closed renderer");
+        emit doneSignal(tr("User closed renderer"));
         return true;
     default:
         return QWindow::event(event);

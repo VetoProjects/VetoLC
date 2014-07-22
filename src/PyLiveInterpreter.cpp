@@ -11,15 +11,14 @@
  */
 PyLiveInterpreter::PyLiveInterpreter(char* progName, char* pyInstructions){
     if(pyInstructions == QString("")){
-        emit doneSignal(PythonException("File is empty. Nothing to execute."));
+        emit doneSignal(tr("File is empty. Nothing to execute."));
         return;
     }
-    qRegisterMetaType<PythonException>("PythonException");
 
     Py_SetProgramName(progName);
     Py_Initialize();
     instructions = pyInstructions;
-    ownExcept = PythonException("Script terminated successfully.");
+    ownExcept = tr("Script terminated successfully.");
     abortAction = new QAction(this);
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
@@ -92,7 +91,7 @@ void PyLiveInterpreter::exceptionOccurred(){
     QString exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
     exceptionText.append(": ");
     exceptionText.append(PyString_AsString(PyObject_Str(errvalue)));
-    ownExcept = PythonException(exceptionText);
+    ownExcept = exceptionText;
 }
 
 /**
@@ -102,5 +101,5 @@ void PyLiveInterpreter::exceptionOccurred(){
  * is emitted.
  */
 void PyLiveInterpreter::terminated(){
-    ownExcept = PythonException("User Terminated.");
+    ownExcept = tr("User Terminated.");
 }

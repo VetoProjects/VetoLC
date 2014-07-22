@@ -1,30 +1,32 @@
 #ifndef AUDIOOUTPUTPROCESSOR_HPP
 #define AUDIOOUTPUTPROCESSOR_HPP
 
-#include <QTimer>
+#include <QThread>
+#include <QAudioOutput>
+#include <QIODevice>
 
-class AudioOutputProcessor : public QObject
+class AudioOutputProcessor : public QThread
 {
     Q_OBJECT
 public:
     explicit AudioOutputProcessor(QObject *parent = 0);
     ~AudioOutputProcessor();
 
-public:
-    void write(const char *data, qint64 len);
+    bool write(const char *data, qint64 len);
 
 signals:
     void stopWriting();
     void startWriting();
 
 private:
-    quint64 currentPlaying, currentWriting, currentLen;
+    int currentPlaying, currentWriting;
     char **dataBuffer;
     qint64 *lenBuffer;
-    QTimer *timer;
+    QAudioOutput *audioOut;
+    QIODevice *device;
 
 private slots:
-    void writeToDevice();
+    virtual void run() Q_DECL_OVERRIDE;
 
 };
 

@@ -317,7 +317,7 @@ void Backend::instanceRunCode(IInstance *instance)
     if(threads.contains(id)){
         bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
         if(!worked)
-            instances[id]->reportError("Code is faulty.");
+            instances[id]->reportError(tr("Code is faulty."));
     }else{
         bool ok;
         int compiler = settings.getSettingsFor("UseCompiler", -1, id).toInt(&ok);
@@ -338,7 +338,7 @@ void Backend::instanceRunCode(IInstance *instance)
                 break;
             default:
                 instance->codeStoped();
-                instance->reportError("Compiler not found.");
+                instance->reportError(tr("Compiler not found."));
         }
     }
 }
