@@ -1,9 +1,9 @@
 VetoLC
 ======
 
-![general version](http://img.shields.io/badge/version-0.2.1-yellow.svg)
+![general version](http://img.shields.io/badge/version-0.2.2-yellow.svg)
 ![qt version](http://img.shields.io/badge/qt_version-5.1--5.3-blue.svg)
-![python version](http://img.shields.io/badge/python_version-2.5--2.7-red.svg)
+![python version](http://img.shields.io/badge/python_version-2.5--3.4-green.svg)
 <!--[![Build Status](https://travis-ci.org/hellerve/VetoLC.png?branch=master)](https://travis-ci.org/hellerve/VetoLC)-->
 
 A Live Coding Environment for AudioPython, QML and GLSL(also rudimentary Python IDE capabilities) in QT/C++.

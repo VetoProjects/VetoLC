@@ -16,7 +16,7 @@ static const QString socketName = "VeTo";
  * @param argv
  * @return return code of the QApplication
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
- * @version 0.1.1
+ * @version 0.2.2
  *
  * The main class. Sets up the application and returns its' return code.
  */
