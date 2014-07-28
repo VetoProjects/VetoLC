@@ -2,6 +2,7 @@
 #define AUDIOINPUTPROCESSOR_HPP
 
 #include <QIODevice>
+#include <QDebug>
 #include <QAudioInput>
 #include <QMutex>
 #include <QByteArray>

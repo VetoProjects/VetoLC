@@ -11,12 +11,12 @@ AudioInputProcessor::AudioInputProcessor(QObject *parent) :
     format.setSampleSize(32);
     format.setSampleType(QAudioFormat::Float);
     if(!QAudioDeviceInfo::defaultInputDevice().isFormatSupported(format)){
-        qWarning(tr("Format is not supported"));
+        qWarning() << tr("Format is not supported");
         format = QAudioDeviceInfo::defaultInputDevice().nearestFormat(format);
-        qDebug(tr("\tchannels: %d"), format.channelCount());
-        qDebug(tr("\tsample rate: %d"), format.sampleRate());
-        qDebug(tr("\tsample size: %d"), format.sampleSize());
-        qDebug(tr("\tsample type: %d"), format.sampleType());
+        qDebug() << tr("\tchannels: %d") << format.channelCount();
+        qDebug() << tr("\tsample rate: %d") << format.sampleRate();
+        qDebug() << tr("\tsample size: %d") << format.sampleSize();
+        qDebug() << tr("\tsample type: %d") << format.sampleType();
     }
 
     input = new QAudioInput(format, this);

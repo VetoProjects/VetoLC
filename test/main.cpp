@@ -10,6 +10,9 @@
 #include "SettingsBackendTest.hpp"
 #include "RendererTest.hpp"
 #include "SoundGeneratorTest.hpp"
+#include "SettingsTabTest.hpp"
+#include "SettingsWindowTest.hpp"
+#include "CodeHighlighterTest.hpp"
 #ifdef WITH_PYTHON
 #include "PySoundGeneratorTest.hpp"
 #endif
@@ -58,8 +61,11 @@ int main(int argc, char** argv){
             {new QString("Backend"), factory<BackendTest>},
             {new QString("SoundGenerator"), factory<SoundGeneratorTest>},
             {new QString("SettingsBackend"), factory<SettingsBackendTest>},
+            {new QString("SettingsTab"), factory<SettingsTabTest>},
+            {new QString("SettingsWindow"), factory<SettingsWindowTest>},
             {new QString("Renderer"), factory<RendererTest>},
-            {new QString("SoundGenerator"), factory<SoundGeneratorTest>}
+            {new QString("SoundGenerator"), factory<SoundGeneratorTest>},
+            {new QString("CodeHighlighter"), factory<CodeHighlighterTest>}
 #ifdef with_python
            ,{new QString("PySoundGenerator"), factory<PySoundGeneratorTest>}
 #endif							

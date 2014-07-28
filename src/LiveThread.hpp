@@ -109,7 +109,7 @@ public:
 #else
         Q_UNUSED(title);
         Q_UNUSED(instructions);
-        emit doneSignal(this, tr("Python is not supported in this version");
+        emit doneSignal(this, tr("Python is not supported in this version"));
 #endif
     }
     bool updateCode(const QString &filename, const QString &code){

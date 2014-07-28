@@ -20,7 +20,7 @@ AudioOutputProcessor::AudioOutputProcessor(QObject *parent) : QThread(parent),
 
     QAudioDeviceInfo info(QAudioDeviceInfo::defaultOutputDevice());
     if (!info.isFormatSupported(format)) {
-        qWarning(tr("raw audio format not supported by backend, cannot play audio."));
+        qWarning() << tr("raw audio format not supported by backend, cannot play audio.");
         return;
     }
 
@@ -44,7 +44,7 @@ AudioOutputProcessor::~AudioOutputProcessor()
 bool AudioOutputProcessor::write(const char *data, qint64 len)
 {
     if(isRunning() && currentPlaying == currentWriting){
-        qDebug(tr("failed to write: buffer is full"));
+        qDebug() << tr("failed to write: buffer is full");
         return false;
     }
 
