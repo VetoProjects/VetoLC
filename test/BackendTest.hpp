@@ -43,10 +43,8 @@ private slots:
     void settingsTest(){
         instance = new WindowInstance(1, QHash<QString, QVariant>());
         backend->addInstance(instance);
-        int id = backend->nextID();
-        QVERIFY(id >= 0);
-        while(id){
-            id = backend->nextID();
+        QList<int> ids = backend->loadIds();
+        for(int id : ids){
             QVERIFY(id >= 0);
         }
         backend->removeSettings(instance);

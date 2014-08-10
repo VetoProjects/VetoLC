@@ -33,6 +33,8 @@ Backend::~Backend(){
         }
     if(!ids.isEmpty())
         qDebug() << "Orphaned children: " << ids;
+    if(!threads.isEmpty())
+        qDebug() << "Orphaned threads: " << threads;
 }
 
 /**

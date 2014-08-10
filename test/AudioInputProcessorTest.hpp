@@ -16,16 +16,16 @@
 class AudioInputProcessorTest : public QObject{
 Q_OBJECT
 private slots:
-    void initTestCase() {
+    void initTestCase(){
         processor = new AudioInputProcessor();
     }
-    void objectCreationTest() {
+    void objectCreationTest(){
         QVERIFY(processor);
     }
     void formatTest(){
         QVERIFY(processor->format().isValid());
     }
-    void cleanupTestCase() {
+    void cleanupTestCase(){
         delete processor;
     }
 private:

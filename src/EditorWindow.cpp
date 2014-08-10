@@ -23,10 +23,7 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
 
     applySettings(settings);
 
-    /*
-     * Mac quirks
-     * TODO: Check if there are things like that on other platforms
-     */
+    // Mac quirks
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
@@ -178,7 +175,7 @@ void EditorWindow::docModified(){
  * Displays a warning box containing message.
  */
 void EditorWindow::warningDisplay(const QString &message){
-    QMessageBox::warning(this, tr("VeTo Live Coding Editor"), message);
+    QMessageBox::warning(this, tr("VeToLC"), message);
 }
 
 void EditorWindow::codeStopped()
@@ -360,7 +357,7 @@ void EditorWindow::addStatusBar(){
 bool EditorWindow::saveDialog(){
     if(codeEditor->document()->isModified()){
         QMessageBox::StandardButton question;
-        question = QMessageBox::warning(this, tr("VeTo Live Coding Editor"),
+        question = QMessageBox::warning(this, tr("VeToLC"),
                                 tr("The document has been modified"
                                    " but is unsaved.\n"
                                 "Do you want to save your changes?"),
@@ -384,7 +381,7 @@ void EditorWindow::loadFile(const QString &path){
     QFile file(path);
     //display an error message if the file cannot be opened and why
     if(!file.open(QFile::ReadOnly | QFile::Text)){
-        QMessageBox::warning(this, tr("VeTo Live Coding Editor"),
+        QMessageBox::warning(this, tr("VeToLC"),
                              tr("Cannot read file %1:\n%2.")
                               .arg(path)
                               .arg(file.errorString()));
@@ -461,7 +458,7 @@ void EditorWindow::setAsCurrentFile(const QString &name){
     setWindowModified(false);
 
     setWindowFilePath(currentFile);
-    setWindowTitle("VeTo Live Coding Editor - " + stripName(currentFile) + "[*]");
+    setWindowTitle("VeToLC | " + stripName(currentFile) + "[*]");
 }
 
 /**

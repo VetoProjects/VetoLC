@@ -3,12 +3,14 @@
 #include <QLocalServer>
 #include <QTranslator>
 #include <QFontDatabase>
+#include <QDebug>
 #include "EditorWindow.hpp"
 #include "Renderer.hpp"
 #include "BootLoader.hpp"
 #include "Instances/WindowInstance.hpp"
 
 static const QString socketName = "VeTo";
+
 
 /**
  * @brief main
@@ -23,7 +25,7 @@ static const QString socketName = "VeTo";
 int main(int argc, char *argv[]){
     QLocalSocket socket;
     socket.connectToServer(socketName);
-    if(socket.waitForConnected(500)){
+    if(socket.waitForConnected(600)){
         socket.write("");
         return 0;
     }
@@ -31,7 +33,7 @@ int main(int argc, char *argv[]){
     QApplication a(argc, argv);
 
     if(QFontDatabase::addApplicationFont(":/fonts/Inconsolata.otf") == -1)
-        qWarning(tr("Failed to load font Inconsolata."));
+        qWarning() << a.tr("Failed to load font Inconsolata.");
 
     QTranslator translator;
     translator.load(QString("codeeditor_") + QLocale::system().name());

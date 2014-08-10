@@ -49,7 +49,7 @@ SettingsWindow::SettingsWindow(int subDirNum){
     main->addLayout(buttons);
 
     setLayout(main);
-    setWindowTitle(tr("VeTo Live Coding Editor Settings"));
+    setWindowTitle(tr("VeToLC | Editor Settings"));
 }
 
 /**
@@ -105,7 +105,7 @@ void SettingsWindow::applyClose(){
 void SettingsWindow::tryClose(){
     if(changed){
         QMessageBox::StandardButton question;
-        question = QMessageBox::warning(this, tr("VeTo Live Coding Editor"),
+        question = QMessageBox::warning(this, tr("VeToLC"),
                                 tr("The settings have been modified"
                                    " but are unsaved.\n"
                                 "Do you want to save your changes?"),

@@ -26,7 +26,6 @@ private slots:
         QVERIFY(thread);
     }
     void runTest(){
-        thread->start();
         QTest::qWait(200);
         thread->terminate();
     }

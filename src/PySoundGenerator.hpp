@@ -27,9 +27,9 @@ public:
 private:
     PyObject* execute(QString instruct);
     void exceptionOccurred();
+    void write();
     void stream(PyObject *process);
     QString ownExcept;
-    bool triggered;
     bool ready;
     QAction* abortAction;
     PyObject* sys;
@@ -39,7 +39,7 @@ private:
 
 private slots:
     void terminated();
-    void setReady(bool);
+    void setReady();
 
 signals:
     void doneSignal(QString);
