@@ -8,9 +8,9 @@
  * Sets up the highlighting of syntax and current line
  * and connects slots and signals.
  */
-CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent){
+CodeEditor::CodeEditor(QWidget *parent, int file) : QPlainTextEdit(parent){
     lineHighlighting = new LineHighlighting(this);
-    syntaxEngine = new CodeHighlighter(this->document());
+    syntaxEngine = new CodeHighlighter(this->document(), file);
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updatelineHighlightingWidth()));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updatelineHighlighting(QRect,int)));

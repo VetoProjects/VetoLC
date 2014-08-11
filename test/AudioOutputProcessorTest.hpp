@@ -112,7 +112,7 @@ private slots:
     }
     void writeTest(){
         api->start();
-        QTest::qWait(10000);
+        QTest::qWait(1000);
         api->terminate();
     }
     void cleanupTestCase(){

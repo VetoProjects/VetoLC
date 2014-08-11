@@ -187,15 +187,15 @@ void BehaviourTab::addLayout(){
     openCheck = new QCheckBox(tr("Open Last Files On Startup"));
     sizeCheck = new QCheckBox(tr("Remember Size Of Application"));
 
-    if(settings->value("OpenFiles") == 1)
+    if(settings->value("OpenFiles").toBool())
         openCheck->toggle();
     else
-        settings->insert("OpenFiles", 0);
+        settings->insert("OpenFiles", true);
 
-    if(settings->value("RememberSize") == 1)
+    if(settings->value("RememberSize").toBool())
         sizeCheck->toggle();
     else
-        settings->insert("RememberSize", 0);
+        settings->insert("RememberSize", true);
 
     startupCompiler = new QButtonGroup(this);
     rememberCompiler = new QCheckBox(tr("Remember Compiler that was used last"));
@@ -203,10 +203,10 @@ void BehaviourTab::addLayout(){
     startupCompiler->addButton(rememberCompiler);
     startupCompiler->addButton(askForCompiler);
 
-    if(settings->value("RememberCompiler") == 1)
+    if(settings->value("RememberCompiler").toBool())
         rememberCompiler->toggle();
     else{
-        settings->insert("RememberCompiler", 0);
+        settings->insert("RememberCompiler", true);
         askForCompiler->toggle();
     }
 
@@ -224,7 +224,7 @@ void BehaviourTab::addLayout(){
     compilerChoice->addItem(tr("Python (Regular)"));
 
     int useCompilerConfig = settings->value("UseCompiler").toInt();
-    if(useCompilerConfig >= 0 || useCompilerConfig <= 2)
+    if(useCompilerConfig >= 0 || useCompilerConfig <= 3)
         compilerChoice->setCurrentIndex(useCompilerConfig);
 
     connect(compilerChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(useCompilerSlot(int)));
@@ -259,7 +259,7 @@ void BehaviourTab::addLayout(){
  * a contentChanged signal.
  */
 void BehaviourTab::openSlot(bool toggled){
-    settings->insert("OpenFiles", (int)toggled);
+    settings->insert("OpenFiles", toggled);
     emit contentChanged();
 }
 
@@ -272,7 +272,7 @@ void BehaviourTab::openSlot(bool toggled){
  * a contentChanged signal.
  */
 void BehaviourTab::sizeSlot(bool toggled){
-    settings->insert("RememberSize", (int)toggled);
+    settings->insert("RememberSize", toggled);
     emit contentChanged();
 }
 
@@ -285,7 +285,7 @@ void BehaviourTab::sizeSlot(bool toggled){
  * a contentChanged signal.
  */
 void BehaviourTab::rememberCompilerSlot(bool toggled){
-    settings->insert("RememberCompiler", (int)toggled);
+    settings->insert("RememberCompiler", toggled);
     emit contentChanged();
 }
 

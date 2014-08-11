@@ -11,7 +11,7 @@
  * Also, it deals with platform-specific displaying quirks.
  */
 EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *parent) : QMainWindow(parent){
-    codeEditor = new CodeEditor(this);
+    codeEditor = new CodeEditor(this, settings.value("UseCompiler").toInt());
     setCentralWidget(codeEditor);
 
     addActions();
@@ -190,15 +190,19 @@ void EditorWindow::codeStopped()
  * application settings" and gets the settings.
  */
 void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
-    const QPoint  pos  = settings.value("pos", QPoint(200,200)).toPoint();
-    const QSize   size = settings.value("size", QSize(600, 600)).toSize();
-    const QString file = settings.value("file", "").toString();
-    move(pos);
-    resize(size);
-    if(file.isEmpty())
-        setAsCurrentFile("");
-    else
-        loadFile(file);
+    if(settings.value("RememberSize").toBool()){
+        const QPoint  pos  = settings.value("pos", QPoint(200,200)).toPoint();
+        const QSize   size = settings.value("size", QSize(600, 600)).toSize();
+        move(pos);
+        resize(size);
+    }
+    if(settings.value("OpenFiles").toBool()){
+        const QString file = settings.value("file", "").toString();
+        if(file.isEmpty())
+            setAsCurrentFile("");
+        else
+            loadFile(file);
+    }
 }
 
 /**
@@ -458,7 +462,10 @@ void EditorWindow::setAsCurrentFile(const QString &name){
     setWindowModified(false);
 
     setWindowFilePath(currentFile);
-    setWindowTitle("VeToLC | " + stripName(currentFile) + "[*]");
+    if(currentFile != "")
+        setWindowTitle("VeToLC | " + stripName(currentFile) + "[*]");
+    else
+        setWindowTitle("VeToLC [*]");
 }
 
 /**

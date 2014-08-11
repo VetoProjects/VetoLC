@@ -54,7 +54,8 @@ HEADERS += \
     RendererTest.hpp \
     ../src/AudioOutputProcessor.hpp \
     ../src/Instances/WindowInstance.hpp \
-    AudioOutputProcessorTest.hpp
+    AudioOutputProcessorTest.hpp \
+    CodeHighlighterTest.hpp
 
 SOURCES += \
     ../src/CodeEditor.cpp \

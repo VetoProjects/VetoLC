@@ -4,6 +4,8 @@
 #include <QSyntaxHighlighter>
 #include <QHash>
 #include <QTextCharFormat>
+#include <QTextStream>
+#include <QFileInfo>
 
 /**
  * @brief The CodeHighlighter class
@@ -16,7 +18,9 @@ class CodeHighlighter : public QSyntaxHighlighter{
     Q_OBJECT
 
 public:
-    CodeHighlighter(QTextDocument *parent = 0);
+    CodeHighlighter(QTextDocument *parent = 0, int file = 0);
+    bool setupHighlighting(int file);
+    ~CodeHighlighter();
 
 protected:
     void highlightBlock(const QString &text);
@@ -27,6 +31,7 @@ private:
         QTextCharFormat format;
     };
     QVector<Rule> Rules;
+    int python;
 
     QRegExp commentStartExpression;
     QRegExp commentEndExpression;

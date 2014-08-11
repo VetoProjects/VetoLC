@@ -43,9 +43,7 @@ Backend::~Backend(){
  *
  * Is called by one of the editor window instances;
  * enlists the child and creates an empty thread entry
- * in the list so that the two correlate. Emits the
- * added() signal so that the child can adjust its UI
- * to the current settings.
+ * in the list so that the two correlate.
  */
 void Backend::addInstance(IInstance *instance, bool removeSettings){
     int id = instance->ID;
@@ -91,8 +89,8 @@ int Backend::nextID(){
  * @brief Backend::loadIds
  * @return A list of used IDs
  *
- * Lookup the saved id-list, for that settings
- * should exists
+ * Return the list of ids for which settings
+ * should exist.
  */
 QList<int> Backend::loadIds()
 {

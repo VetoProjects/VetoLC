@@ -10,6 +10,7 @@
 #include "SettingsBackendTest.hpp"
 #include "RendererTest.hpp"
 #include "SoundGeneratorTest.hpp"
+#include "CodeHighlighterTest.hpp"
 #ifdef WITH_PYTHON
 #include "PySoundGeneratorTest.hpp"
 #endif
@@ -59,7 +60,8 @@ int main(int argc, char** argv){
             {new QString("SoundGenerator"), factory<SoundGeneratorTest>},
             {new QString("SettingsBackend"), factory<SettingsBackendTest>},
             {new QString("Renderer"), factory<RendererTest>},
-            {new QString("SoundGenerator"), factory<SoundGeneratorTest>}
+            {new QString("SoundGenerator"), factory<SoundGeneratorTest>},
+            {new QString("CodeHighlighter"), factory<CodeHighlighterTest>}
 #ifdef with_python
            ,{new QString("PySoundGenerator"), factory<PySoundGeneratorTest>}
 #endif							
@@ -99,7 +101,8 @@ int main(int argc, char** argv){
 
     for(unsigned int i = 0; i < size; i++)
         if(codes[i] != 0)
-            qDebug() << "Test" << *(testcases[i+1].name) << "failed" << codes[i] << "test(s).";
+            qDebug() << "Testclass" << *(testcases[i+1].name) << "failed" << codes[i] << "test(s).";
+    qDebug() << "Ran tests for" << size << "classes.";
     qDebug() << "Total failed tests:" << statusSum;
 
     for(struct Tests &t: testcases)
