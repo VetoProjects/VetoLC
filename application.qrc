@@ -7,5 +7,8 @@
         <file>images/run.png</file>
         <file>images/refresh.png</file>
         <file>fonts/Inconsolata.otf</file>
+        <file>highlighting/qt</file>
+        <file>highlighting/glsl</file>
+        <file>highlighting/python</file>
     </qresource>
 </RCC>
