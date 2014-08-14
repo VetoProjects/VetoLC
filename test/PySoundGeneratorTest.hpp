@@ -1,6 +1,6 @@
 #ifndef PYSOUNDGENERATORTEST
 #define PYSOUNDGENERATORTEST
-#ifdef with_python
+#ifdef WITH_PYTHON
 
 #include <QObject>
 #include <QTest>

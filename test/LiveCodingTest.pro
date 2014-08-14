@@ -8,19 +8,24 @@ QT       += core gui multimedia testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = LiveCodingTest
+TARGET = VetoLCTest
 TEMPLATE = app
+
 QMAKE_CXXFLAGS += -std=c++11 -Wall -Werror -DNDEBUG -O2 -pedantic
 
 with_python{
     QMAKE_CXXFLAGS += `/usr/bin/python2.7-config --cflags`
     QMAKE_LFLAGS += `/usr/bin/python2.7-config --ldflags`
     LIBS += -lpython2.7
-}with_python_custom || with_python{
-    SOURCES += ../src/PySoundGenerator.cpp
+}
+with_python_custom || with_python{
+    SOURCES += ../src/PySoundGenerator.cpp\
+    ../src/PyLiveInterpreter.cpp
 
     HEADERS  += PySoundGeneratorTest.hpp \
-    ../src/PySoundGenerator.hpp
+    ../src/PySoundGenerator.hpp \
+    PyLiveTest.hpp \
+    ../src/PyLiveInterpreter.hpp
 
 }
 
@@ -30,8 +35,6 @@ RESOURCES += \
 HEADERS += \
     EditorWindowTest.hpp \
     CodeEditorTest.hpp \
-    ../src/PythonException.hpp \
-    ../src/QtSoundException.hpp \
     ../src/SettingsWindow.hpp \
     ../src/SettingsTab.hpp \
     ../src/Renderer.hpp \
@@ -47,7 +50,6 @@ HEADERS += \
     ../src/AudioInputProcessor.hpp \
     ../src/BootLoader.hpp \
     ../src/CodeEditorTest.hpp \
-    ../src/QtGlException.hpp \
     ../src/Instances/IInstance.hpp \
     SettingsBackendTest.hpp \
     AudioInputProcessorTest.hpp \

@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">VetoLC
-   &#160;<span id="projectnumber">0.2.2</span>
+   &#160;<span id="projectnumber">0.2.4</span>
    </div>
   </td>
  </tr>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,9 +100,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a93e50bcc9c34e0ba5a26a02a28b9794b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_code_editor.html#a93e50bcc9c34e0ba5a26a02a28b9794b">CodeEditor</a> (QWidget *parent=0)</td></tr>
-<tr class="memdesc:a93e50bcc9c34e0ba5a26a02a28b9794b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_code_editor.html#a93e50bcc9c34e0ba5a26a02a28b9794b" title="CodeEditor::CodeEditor. ">CodeEditor::CodeEditor</a>.  <a href="#a93e50bcc9c34e0ba5a26a02a28b9794b">More...</a><br /></td></tr>
-<tr class="separator:a93e50bcc9c34e0ba5a26a02a28b9794b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c9d3d8aad039e7d0b0166737baac51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_code_editor.html#a77c9d3d8aad039e7d0b0166737baac51">CodeEditor</a> (QWidget *parent=0, int file=0)</td></tr>
+<tr class="memdesc:a77c9d3d8aad039e7d0b0166737baac51"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_code_editor.html#a77c9d3d8aad039e7d0b0166737baac51" title="CodeEditor::CodeEditor. ">CodeEditor::CodeEditor</a>.  <a href="#a77c9d3d8aad039e7d0b0166737baac51">More...</a><br /></td></tr>
+<tr class="separator:a77c9d3d8aad039e7d0b0166737baac51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf6208c8c957341c1834cbe38c61d989"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_code_editor.html#aaf6208c8c957341c1834cbe38c61d989">lineHighlightingPaintEvent</a> (QPaintEvent *event)</td></tr>
 <tr class="memdesc:aaf6208c8c957341c1834cbe38c61d989"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_code_editor.html#aaf6208c8c957341c1834cbe38c61d989" title="CodeEditor::lineHighlightingPaintEvent. ">CodeEditor::lineHighlightingPaintEvent</a>.  <a href="#aaf6208c8c957341c1834cbe38c61d989">More...</a><br /></td></tr>
 <tr class="separator:aaf6208c8c957341c1834cbe38c61d989"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,7 +121,7 @@ Protected Member Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Veit Heller(s0539501) &amp; Tobias Brosge(s0539713)</dd></dl>
 <p>A subclass of QPlainTextEdit that is optimized for code; with Syntax Highlighting, line numbers and highlighting of the current line. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a93e50bcc9c34e0ba5a26a02a28b9794b"></a>
+<a class="anchor" id="a77c9d3d8aad039e7d0b0166737baac51"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -129,13 +129,23 @@ Protected Member Functions</h2></td></tr>
           <td class="memname">CodeEditor::CodeEditor </td>
           <td>(</td>
           <td class="paramtype">QWidget *&#160;</td>
-          <td class="paramname"><em>parent</em> = <code>0</code></td><td>)</td>
+          <td class="paramname"><em>parent</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>file</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="class_code_editor.html#a93e50bcc9c34e0ba5a26a02a28b9794b" title="CodeEditor::CodeEditor. ">CodeEditor::CodeEditor</a>. </p>
+<p><a class="el" href="class_code_editor.html#a77c9d3d8aad039e7d0b0166737baac51" title="CodeEditor::CodeEditor. ">CodeEditor::CodeEditor</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parent</td><td>The constructor of the code editor. Sets up the highlighting of syntax and current line and connects slots and signals. </td></tr>
@@ -228,7 +238,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 3 2014 14:13:40 for VetoLC by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 14 2014 14:29:32 for VetoLC by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

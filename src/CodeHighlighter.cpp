@@ -153,9 +153,6 @@ bool CodeHighlighter::setupHighlighting(int file){
     return true;
 }
 
-CodeHighlighter::~CodeHighlighter(){
-}
-
 /**
  * @brief CodeHighlighter::highlightBlock
  * @param text

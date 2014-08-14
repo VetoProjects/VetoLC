@@ -25,7 +25,7 @@ private slots:
    void apply();
    void applyClose();
    void tryClose();
-   void setChanged();
+   void changedTrue();
 
 private:
     void addButtons();

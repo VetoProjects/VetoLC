@@ -9,8 +9,8 @@ var searchData=
   ['closeall',['closeAll',['../class_editor_window.html#a8e82f25b8aaa98fdcbd80ffbf4f2f01c',1,'EditorWindow']]],
   ['closeevent',['closeEvent',['../class_editor_window.html#a70f0ac46ae9cd0362e1c4b80322c5fd6',1,'EditorWindow']]],
   ['closing',['closing',['../class_editor_window.html#ab5059ac20da670e1c2bb3e7e6e498aa1',1,'EditorWindow']]],
-  ['codeeditor',['CodeEditor',['../class_code_editor.html#a93e50bcc9c34e0ba5a26a02a28b9794b',1,'CodeEditor']]],
-  ['codehighlighter',['CodeHighlighter',['../class_code_highlighter.html#a49c497043c1fd1310fc2550889e7686b',1,'CodeHighlighter']]],
+  ['codeeditor',['CodeEditor',['../class_code_editor.html#a77c9d3d8aad039e7d0b0166737baac51',1,'CodeEditor']]],
+  ['codehighlighter',['CodeHighlighter',['../class_code_highlighter.html#aefbf2c4ec8b87c39aac8b4caf516765b',1,'CodeHighlighter']]],
   ['codestopped',['codeStopped',['../class_editor_window.html#a03cc1e6ae0c550c6f5fff486eaf6b508',1,'EditorWindow']]],
   ['contentchanged',['contentChanged',['../class_settings_tab.html#ab72744b5433a111f3e79da0ef1d9af74',1,'SettingsTab']]],
   ['createchild',['createChild',['../class_backend.html#af3add13d84efb30e198cd6ce08204696',1,'Backend']]]

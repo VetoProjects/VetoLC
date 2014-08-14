@@ -11,11 +11,10 @@
 #include <QOpenGLDebugLogger>
 #include <QTime>
 #include <QMutex>
-//#include <QAudioBuffer>
-//#include <QAudioRecorder>
-//#include <QAudioProbe>
 #include <QAudioInput>
 #include <QBuffer>
+#include <QOpenGLShader>
+#include <QCoreApplication>
 
 #include "AudioInputProcessor.hpp"
 

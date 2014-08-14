@@ -1,13 +1,5 @@
 #include "Renderer.hpp"
 
-#include <QOpenGLShader>
-#include <QMessageBox>
-#include <typeinfo>
-#include <QCoreApplication>
-#include <QPainter>
-#include <QThread>
-
-#include <QAudioDeviceInfo>
 
 static GLfloat vertices[] = {
     1, 1,0,  1,-1,0, -1,1,0,

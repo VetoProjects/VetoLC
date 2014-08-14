@@ -4,5 +4,6 @@ var searchData=
   ['addinstance',['addInstance',['../class_backend.html#af5d23c3090d7b3643ed0df364ddfb70c',1,'Backend']]],
   ['addsettings',['addSettings',['../class_settings_backend.html#a18dfcb349fe2a052878e0a77b14a56f9',1,'SettingsBackend']]],
   ['audioinputprocessor',['AudioInputProcessor',['../class_audio_input_processor.html#a4a53c5a1979a9d74ac58a834d3093ef9',1,'AudioInputProcessor']]],
-  ['audiooutputprocessor',['AudioOutputProcessor',['../class_audio_output_processor.html#ac345d660fcd1556450464f74973a8899',1,'AudioOutputProcessor']]]
+  ['audiooutputprocessor',['AudioOutputProcessor',['../class_audio_output_processor.html#ac345d660fcd1556450464f74973a8899',1,'AudioOutputProcessor']]],
+  ['audiotest',['AudioTest',['../class_audio_test.html#a9f71022559cbac2c7a583f37022eda32',1,'AudioTest']]]
 ];

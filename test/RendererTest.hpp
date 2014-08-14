@@ -27,7 +27,7 @@ private slots:
     }
     void runTest(){
         thread->start();
-        QTest::qWait(200);
+        QTest::qWait(1000);
         thread->terminate();
     }
     void finishedTest(GlLiveThread* returnedThread, QString returned){

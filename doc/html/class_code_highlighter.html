@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">VetoLC
-   &#160;<span id="projectnumber">0.2.2</span>
+   &#160;<span id="projectnumber">0.2.4</span>
    </div>
   </td>
  </tr>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,9 +101,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a49c497043c1fd1310fc2550889e7686b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_code_highlighter.html#a49c497043c1fd1310fc2550889e7686b">CodeHighlighter</a> (QTextDocument *parent=0)</td></tr>
-<tr class="memdesc:a49c497043c1fd1310fc2550889e7686b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_code_highlighter.html#a49c497043c1fd1310fc2550889e7686b" title="CodeHighlighter::CodeHighlighter. ">CodeHighlighter::CodeHighlighter</a>.  <a href="#a49c497043c1fd1310fc2550889e7686b">More...</a><br /></td></tr>
-<tr class="separator:a49c497043c1fd1310fc2550889e7686b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefbf2c4ec8b87c39aac8b4caf516765b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_code_highlighter.html#aefbf2c4ec8b87c39aac8b4caf516765b">CodeHighlighter</a> (QTextDocument *parent=0, int file=0)</td></tr>
+<tr class="memdesc:aefbf2c4ec8b87c39aac8b4caf516765b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_code_highlighter.html#aefbf2c4ec8b87c39aac8b4caf516765b" title="CodeHighlighter::CodeHighlighter. ">CodeHighlighter::CodeHighlighter</a>.  <a href="#aefbf2c4ec8b87c39aac8b4caf516765b">More...</a><br /></td></tr>
+<tr class="separator:aefbf2c4ec8b87c39aac8b4caf516765b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61d21b1d88b955403a5d1e3601a22353"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_code_highlighter.html#a61d21b1d88b955403a5d1e3601a22353">setupHighlighting</a> (int file)</td></tr>
+<tr class="memdesc:a61d21b1d88b955403a5d1e3601a22353"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_code_highlighter.html#a61d21b1d88b955403a5d1e3601a22353" title="CodeHighlighter::setupHighlighting. ">CodeHighlighter::setupHighlighting</a>.  <a href="#a61d21b1d88b955403a5d1e3601a22353">More...</a><br /></td></tr>
+<tr class="separator:a61d21b1d88b955403a5d1e3601a22353"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -116,7 +119,7 @@ Protected Member Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Veit Heller(s0539501) &amp; Tobias Brosge(s0539713)</dd></dl>
 <p>A subclass of QSyntaxHighlighter that implements Syntax Highlighting(duh!) for the Code Editor class. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a49c497043c1fd1310fc2550889e7686b"></a>
+<a class="anchor" id="aefbf2c4ec8b87c39aac8b4caf516765b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -124,16 +127,26 @@ Protected Member Functions</h2></td></tr>
           <td class="memname">CodeHighlighter::CodeHighlighter </td>
           <td>(</td>
           <td class="paramtype">QTextDocument *&#160;</td>
-          <td class="paramname"><em>parent</em> = <code>0</code></td><td>)</td>
+          <td class="paramname"><em>parent</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>file</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="class_code_highlighter.html#a49c497043c1fd1310fc2550889e7686b" title="CodeHighlighter::CodeHighlighter. ">CodeHighlighter::CodeHighlighter</a>. </p>
+<p><a class="el" href="class_code_highlighter.html#aefbf2c4ec8b87c39aac8b4caf516765b" title="CodeHighlighter::CodeHighlighter. ">CodeHighlighter::CodeHighlighter</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td>The constructor of the syntax highlighter. Sets up the highlighting rules. TODO: Make it more flexible - File format? TODO: Highlight bracket-pairs TODO: Build quot-pairs ( "bla " bla " bla " -&gt; all is highlighted) TODO: don't let the multi line comment trust preview format (see function highlightBlock(...) ) </td></tr>
+    <tr><td class="paramname">parent</td><td>The constructor of the syntax highlighter. </td></tr>
   </table>
   </dd>
 </dl>
@@ -173,6 +186,30 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a61d21b1d88b955403a5d1e3601a22353"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CodeHighlighter::setupHighlighting </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_code_highlighter.html#a61d21b1d88b955403a5d1e3601a22353" title="CodeHighlighter::setupHighlighting. ">CodeHighlighter::setupHighlighting</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>Sets up the highlighting rules. TODO: Make it more flexible - File format? TODO: Highlight bracket-pairs TODO: Build quot-pairs ( "bla " bla " bla " -&gt; all is highlighted) TODO: don't let the multi line comment trust preview format (see function highlightBlock(...) ) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="_code_highlighter_8hpp_source.html">CodeHighlighter.hpp</a></li>
 <li>src/<a class="el" href="_code_highlighter_8cpp.html">CodeHighlighter.cpp</a></li>
@@ -180,7 +217,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 3 2014 14:13:40 for VetoLC by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 14 2014 14:29:32 for VetoLC by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

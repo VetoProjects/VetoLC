@@ -26,7 +26,7 @@ private slots:
         QVERIFY(thread);
     }
     void runTest(){
-        QTest::qWait(200);
+        QTest::qWait(1000);
         thread->terminate();
     }
     void finishedTest(QtSoundThread* returnedThread, QString returned){
@@ -34,12 +34,10 @@ private slots:
         QVERIFY(returned == QString("Terminated successfully."));
     }
     void cleanupTestCase(){
-        delete soundGenerator;
         delete thread;
     }
 
 private:
-    SoundGenerator* soundGenerator;
     LiveThread* thread;
 };
 #endif // SOUNDGENERATORTEST

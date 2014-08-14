@@ -8,6 +8,7 @@
 #include "Renderer.hpp"
 #include "BootLoader.hpp"
 #include "Instances/WindowInstance.hpp"
+#include "AudioTest.hpp"
 
 static const QString socketName = "VeTo";
 
@@ -51,5 +52,6 @@ int main(int argc, char *argv[]){
     }
     BootLoader *bootLoader = new BootLoader(socketName, &server);
     bootLoader->start();
+
     return a.exec();
 }

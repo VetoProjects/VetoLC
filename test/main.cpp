@@ -13,6 +13,7 @@
 #include "CodeHighlighterTest.hpp"
 #ifdef WITH_PYTHON
 #include "PySoundGeneratorTest.hpp"
+#include "PyLiveTest.hpp"
 #endif
 
 /**
@@ -63,7 +64,8 @@ int main(int argc, char** argv){
             {new QString("SoundGenerator"), factory<SoundGeneratorTest>},
             {new QString("CodeHighlighter"), factory<CodeHighlighterTest>}
 #ifdef with_python
-           ,{new QString("PySoundGenerator"), factory<PySoundGeneratorTest>}
+           ,{new QString("PySoundGenerator"), factory<PySoundGeneratorTest>},
+            {new QString("PyLiveTest"), factory<PyLiveTest>},
 #endif							
             };
 	    
@@ -105,9 +107,9 @@ int main(int argc, char** argv){
     qDebug() << "Ran tests for" << size << "classes.";
     qDebug() << "Total failed tests:" << statusSum;
 
-    for(struct Tests &t: testcases)
+    /*for(struct Tests &t: testcases)
         delete t.name;
-    delete[] codes;
+    delete[] codes;*/
 
     return statusSum;
 }

@@ -22,9 +22,9 @@ SettingsWindow::SettingsWindow(int subDirNum){
     behaviour = new BehaviourTab(&settingsDict, this);
     changed = false;
     tabs->addTab(layout, "Layout");
-    connect(layout, SIGNAL(contentChanged()), this, SLOT(setChanged()));
+    connect(layout, SIGNAL(contentChanged()), this, SLOT(changedTrue()));
     tabs->addTab(behaviour, "Behaviour");
-    connect(behaviour, SIGNAL(contentChanged()), this, SLOT(setChanged()));
+    connect(behaviour, SIGNAL(contentChanged()), this, SLOT(changedTrue()));
 
     QHBoxLayout* horizontal = new QHBoxLayout;
     horizontal->addWidget(tabs, 1);
@@ -73,13 +73,11 @@ SettingsWindow::~SettingsWindow(){
  */
 void SettingsWindow::apply(){
     if(changed){
-//        QHash<QString, int> tabSettings = layout->getSettings();
-//        tabSettings.unite(behaviour->getSettings());
-//        QHash<QString, int>::iterator i;
-//        for(i = tabSettings.begin(); i != tabSettings.end(); i++)
         globalSettings->setValue("Design", settingsDict["Design"]);
         QApplication::setStyle(settingsDict["Design"].toString());
         settingsDict.remove("Design");
+        repaint();
+        update();
         for(const QString &key : settingsDict.keys())
             settings->setValue(key, settingsDict[key]);
         changed = false;
@@ -121,11 +119,10 @@ void SettingsWindow::tryClose(){
 
 /**
  * @brief SettingsWindow::setChanged
- * @param set
  *
- * setter for the changed flag. Sets the flag to the bool provided.
+ * setter for the changed flag. Sets the flag to true.
  * This will result in the apply function having effect.
  */
-void SettingsWindow::setChanged(){
+void SettingsWindow::changedTrue(){
     changed = true;
 }
