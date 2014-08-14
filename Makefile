@@ -1,8 +1,8 @@
 ${QMAKE}=qmake
 
-all: test app
+all: testing app
 
-test:
+testing:
 	mkdir testbin
 	cd test && ${QMAKE} LiveCodingTest.pro -o ../testbin/Makefile
 	cd ../testbin && make && rm *.o *[ch]pp
