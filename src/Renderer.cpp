@@ -310,6 +310,7 @@ void Renderer::renderNow(){
 
     if(shaderProgram)
         render();
+
     context->swapBuffers(this);
 
     renderLater();
@@ -375,13 +376,41 @@ void Renderer::updateAudioData(QByteArray data){
     Q_UNUSED(internalType);
     char typeSize;
     switch(audio->format().sampleType() + audio->format().sampleSize()){
-        case  8: case 10: type = GL_UNSIGNED_BYTE;  internalType = GL_R8UI;  typeSize = 1; break;
-        case  9:          type = GL_BYTE;           internalType = GL_R8I;   typeSize = 1; break;
-        case 16: case 18: type = GL_UNSIGNED_SHORT; internalType = GL_R16UI; typeSize = 2; break;
-        case 17:          type = GL_SHORT;          internalType = GL_R16I;  typeSize = 2; break;
-        case 32: case 34: type = GL_UNSIGNED_INT;   internalType = GL_R32UI; typeSize = 4; break;
-        case 33:          type = GL_INT;            internalType = GL_R32I;  typeSize = 4; break;
-        case 35:          type = GL_FLOAT;          internalType = GL_R32F;  typeSize = 4; break;
+        case  8: case 10:
+            type = GL_UNSIGNED_BYTE;
+            internalType = GL_R8UI;
+            typeSize = 1;
+            break;
+        case  9:
+            type = GL_BYTE;
+            internalType = GL_R8I;
+            typeSize = 1;
+            break;
+        case 16: case 18:
+            type = GL_UNSIGNED_SHORT;
+            internalType = GL_R16UI;
+            typeSize = 2;
+            break;
+        case 17:
+            type = GL_SHORT;
+            internalType = GL_R16I;
+            typeSize = 2;
+            break;
+        case 32: case 34:
+            type = GL_UNSIGNED_INT;
+            internalType = GL_R32UI;
+            typeSize = 4;
+            break;
+        case 33:
+            type = GL_INT;
+            internalType = GL_R32I;
+            typeSize = 4;
+            break;
+        case 35:
+            type = GL_FLOAT;
+            internalType = GL_R32F;
+            typeSize = 4;
+            break;
         default: return;
     }
     char *left, *right;
@@ -392,7 +421,7 @@ void Renderer::updateAudioData(QByteArray data){
         right = new char[count];
         for(int i = 0; i < count; i += typeSize){
             for(int j = 0; j < typeSize; ++j){
-                left [i+j] = data[i*2+j         ];
+                left [i+j] = data[i*2+j];
                 right[i+j] = data[i*2+j+typeSize];
             }
         }

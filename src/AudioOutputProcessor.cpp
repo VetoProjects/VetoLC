@@ -1,14 +1,40 @@
 #include "AudioOutputProcessor.hpp"
 #include <QThread>
 #include <QDebug>
+#include <QCoreApplication>
 
 
-AudioOutputProcessor::AudioOutputProcessor(QObject *parent) : QThread(parent),
-    currentPlaying(0), currentWriting(0),
-    dataBuffer(new char*[4]), lenBuffer(new qint64[4])
+AudioOutputProcessor::AudioOutputProcessor(QObject *parent) : QThread(parent)
+{ }
+
+AudioOutputProcessor::~AudioOutputProcessor()
 {
-    for(int i = 0; i < 4; ++i)
+    if(audioOut){
+        audioOut->stop();
+        delete audioOut;
+    }
+
+    if(dataBuffer){
+        for(int i = 0; i < 4; ++i)
+            delete dataBuffer[i];
+        delete[] dataBuffer;
+    }
+    delete[] lenBuffer;
+}
+
+void AudioOutputProcessor::run()
+{
+    currentLen = 0;
+    currentWriting = 0;
+    currentPlaying = 0;
+
+    dataBuffer = new char*[4];
+    lenBuffer = new qint64[4];
+
+    for(int i = 0; i < 4; ++i){
         dataBuffer[i] = 0;
+        lenBuffer[i] = 0;
+    }
 
     QAudioFormat format;
     format.setSampleRate(96000); // Usually this is specified through an UI option
@@ -24,58 +50,66 @@ AudioOutputProcessor::AudioOutputProcessor(QObject *parent) : QThread(parent),
         return;
     }
 
-    audioOut = new QAudioOutput(format, this);
+    audioOut = new QAudioOutput(format);
     device = audioOut->start();
-}
 
-AudioOutputProcessor::~AudioOutputProcessor()
-{
-    quit();
-    audioOut->stop();
+    queued = false;
+    connect(this, SIGNAL(postWriteToDevice()), this, SLOT(writeToDevice()), Qt::QueuedConnection);
 
-    for(int i = 0; i < 4; ++i)
-        delete dataBuffer[i];
-    delete dataBuffer;
-    delete lenBuffer;
-    delete audioOut;
+    exec();
 }
 
 
 bool AudioOutputProcessor::write(const char *data, qint64 len)
 {
-    if(isRunning() && currentPlaying == currentWriting){
-        qDebug() << tr("failed to write: buffer is full");
+//    qDebug() << "write to buffer";
+//    qDebug() << "buffering" << currentPlaying << "/" << currentWriting;
+    if(currentPlaying == currentWriting && currentLen > 0){
+        qWarning() << tr("failed to write: buffer is full");
         return false;
     }
 
     lenBuffer[currentWriting] = len;
-    delete dataBuffer[currentWriting];
     dataBuffer[currentWriting] = new char[len];
     memcpy(dataBuffer[currentWriting], data, (size_t) len);
 
     currentWriting = (currentWriting + 1) % 4;
-    if(!isRunning()){
-        start();
-    }else if(currentPlaying == currentWriting){
+
+    bool full = (currentPlaying == currentWriting);
+
+    if(full)
         emit stopWriting();
-        return false;
+
+    if(!queued){
+        queued = true;
+        currentLen = lenBuffer[currentPlaying];
+        emit postWriteToDevice();
+//        qDebug() << "write to device posted from buffering";
     }
-    return true;
+
+    return !full;
 }
 
-
-void AudioOutputProcessor::run()
+void AudioOutputProcessor::writeToDevice()
 {
-    do{
-        qint64 currentLen = lenBuffer[currentPlaying];
-        while(currentLen > 0){
-            currentLen -= device->write(dataBuffer[currentPlaying] + lenBuffer[currentPlaying] - currentLen, currentLen);
-            usleep(10);
-        }
-        bool start = currentPlaying == currentWriting;
-        currentPlaying = (currentPlaying + 1) % 4;
-        if(start)
+//    qDebug() << "write to device. left:" << currentLen;
+    queued = false;
+    currentLen -= device->write(dataBuffer[currentPlaying] + lenBuffer[currentPlaying] - currentLen, currentLen);
+
+    if(currentLen <= 0){
+        lenBuffer[currentPlaying] = 0;
+        delete dataBuffer[currentPlaying];
+        if(currentPlaying == currentWriting){
+            currentPlaying = (currentPlaying + 1) % 4;
             emit startWriting();
-    }while(currentPlaying != currentWriting);
-    quit();
+        }else
+            currentPlaying = (currentPlaying + 1) % 4;
+        currentLen = lenBuffer[currentPlaying];
+    }
+
+    if(currentLen > 0 && !queued){
+        queued = true;
+        emit postWriteToDevice();
+//        qDebug() << "write to device posted from writing. left:" << currentLen;
+    }
 }

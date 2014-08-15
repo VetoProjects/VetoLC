@@ -8,7 +8,6 @@
 #include "Renderer.hpp"
 #include "BootLoader.hpp"
 #include "Instances/WindowInstance.hpp"
-#include "AudioTest.hpp"
 
 static const QString socketName = "VeTo";
 

@@ -58,7 +58,6 @@ EditorWindow::~EditorWindow(){
  * if wanted and exits(SLOT).
  */
 void EditorWindow::closeEvent(QCloseEvent *event){
-    //qDebug("closeEvent");
     if(saveDialog()){
         saveSettings();
         emit closing(this);
@@ -223,9 +222,7 @@ void EditorWindow::runFile(){
  * Shows its return code or an exception traceback.
  */
 void EditorWindow::showResults(const QString &returnedValue){
-    statusBar()->showMessage(returnedValue, 5000);/*
-    disconnect(runAction, SIGNAL(triggered()), this, SLOT(runRequest()));
-    connect(runAction, SIGNAL(triggered()), this, SLOT(runFile()));*/
+    statusBar()->showMessage(returnedValue, 5000);
     runAction->setIcon(QIcon(":/images/run.png"));
 }
 

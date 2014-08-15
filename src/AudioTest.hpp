@@ -1,54 +1,48 @@
-#ifndef AUDIOTEST_HPP
-#define AUDIOTEST_HPP
+#ifndef AUDIOPROCESSORINSTANCE
+#define AUDIOPROCESSORINSTANCE
 
 #include <QThread>
 #include <QMutex>
-#include <QCoreApplication>
 #include <cmath>
+#include <QDebug>
 #include "AudioOutputProcessor.hpp"
 
 #define PI (3.1415926535897932384626433832795)
 
-/**
- * @brief The AudioTest class
- *
- * Test thread for direct audio output with AudioOutputProcessor.
- * Generates a 440 Hz sin-wave-ton.
- */
-class AudioTest : public QThread{
+
+class AudioProcessorInstance : public QThread{
     Q_OBJECT
 public:
-    AudioTest(QObject *parent = 0) : QThread(parent){
-    }
-
-    virtual ~AudioTest(){
-        delete mtx;
+    AudioProcessorInstance(QObject *parent = 0) : QThread(parent){
     }
 
     virtual void run() Q_DECL_OVERRIDE {
-        mtx = new QMutex();
-        aop = new AudioOutputProcessor();
-        connect(aop, SIGNAL(startWriting()), this, SLOT(startWriting()));
         cycle = 0;
-        write();
+        aop = new AudioOutputProcessor();
+        connect(this, SIGNAL(startWriting()), this, SLOT(write()), Qt::QueuedConnection);
+        connect(aop, SIGNAL(startWriting()), this, SLOT(write()), Qt::QueuedConnection);
+        connect(aop, SIGNAL(started()), this, SLOT(write()), Qt::QueuedConnection);
+        aop->start();
+        exec();
     }
 
-    void write(){
-//        qDebug("start writing.");
-        short buffer[2048];
-        do{
-            for(int i = 0; i < 1024; ++i)
-                buffer[i * 2] = buffer[i * 2 + 1] = (int)(generate((double)(i + cycle) / 96000.0) * 16000.0);
-            cycle += 1024;
-        }while(aop->write((char*)buffer, 4096));
-    }
+signals:
+    void startWriting();
 
 public slots:
-    void startWriting(){ write(); }
+    void write(){
+        qDebug() << "write 1024 stereo samples."; // not working without!?
+        short buffer[2048];
+        for(int i = 0; i < 1024; ++i)
+            buffer[i * 2] = buffer[i * 2 + 1] = (short)(generate((double)(i + cycle) / 96000.0) * 16000.0);
+        cycle += 1024;
+        if(aop->write((char*)buffer, 4096))
+            emit startWriting();
+        //qDebug() << "stop writing.";
+    }
 
 private:
     AudioOutputProcessor *aop;
-    QMutex *mtx;
     int cycle;
 
     double generate(double t){
@@ -58,4 +52,4 @@ private:
     }
 };
 
-#endif // AUDIOTEST_HPP
+#endif

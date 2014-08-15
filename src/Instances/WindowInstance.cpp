@@ -10,7 +10,6 @@ WindowInstance::WindowInstance(int id, const QHash<QString, QVariant> &settings,
 
 WindowInstance::~WindowInstance()
 {
-    disconnect(_window, SIGNAL(destroyed(QObject*)), this, SLOT(gotDestroying(QObject*)));
     delete _window;
 }
 

@@ -17,6 +17,7 @@ public:
 signals:
     void stopWriting();
     void startWriting();
+    void postWriteToDevice();
 
 private:
     int currentPlaying, currentWriting;
@@ -24,9 +25,12 @@ private:
     qint64 *lenBuffer;
     QAudioOutput *audioOut;
     QIODevice *device;
+    bool queued;
+    qint64 currentLen;
 
 private slots:
     virtual void run() Q_DECL_OVERRIDE;
+    void writeToDevice();
 
 };
 

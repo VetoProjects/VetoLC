@@ -31,10 +31,6 @@ Backend::~Backend(){
                 thread->terminate();
             delete thread;
         }
-    if(!ids.isEmpty())
-        qDebug() << "Orphaned children: " << ids;
-    if(!threads.isEmpty())
-        qDebug() << "Orphaned threads: " << threads;
 }
 
 /**
@@ -51,7 +47,6 @@ void Backend::addInstance(IInstance *instance, bool removeSettings){
         return;
     if(removeSettings)
         settings.removeSettings(id);
-    qDebug() << "Child (" << id << " : " << instance << ") added to backend (" << this << ")";
     instances.insert(id, instance);
     connect(instance, SIGNAL(closing(IInstance*)),  this, SLOT(instanceClosing(IInstance *)));
     connect(instance, SIGNAL(destroyed(QObject*)),  this, SLOT(instanceDestroyed(QObject *)));
@@ -250,7 +245,6 @@ void Backend::settingsWindowRequested(IInstance *instance){
 void Backend::openHelp(IInstance *){
     QUrl url(directoryOf("html").absoluteFilePath("help.html"));
     url.setScheme("file");
-    qDebug() << url;
     QDesktopServices::openUrl(url);
 }
 
@@ -313,7 +307,6 @@ bool Backend::isLast(){
 void Backend::instanceRunCode(IInstance *instance)
 {
     int id = instance->ID;
-    //qDebug() << id;
     if(threads.contains(id)){
         bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
         if(!worked)
@@ -407,7 +400,6 @@ void Backend::instanceChangedSettings(IInstance *instance, const QHash<QString, 
 void Backend::instanceRequestSettings(IInstance *instance, QHash<QString, QVariant> &set)
 {
     set = settings.getSettings(instance->ID);
-    //qDebug() << "Request Settings for" << instance->ID << ":" << set;
 }
 
 /**
@@ -487,7 +479,8 @@ void Backend::runGlFile(IInstance *instance){
  * emitting a showResults SIGNAL for the QWidgets to display
  */
 void Backend::getExecutionResults(QtSoundThread* thread, QString returnedException){
-    disconnect(thread, SIGNAL(doneSignal(QtSoundThread*, QString)),
+
+    (thread, SIGNAL(doneSignal(QtSoundThread*, QString)),
             this, SLOT(getExecutionResults(QtSoundThread*, QString)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
