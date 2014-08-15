@@ -75,9 +75,10 @@ Compilation
 -----------
 
 There is two ways to compile the project: with or without Python support. Per default, Python
-is disabled. If you want to keep it that way, just run your normal `qmake`/`make`toolchain.
-If you want to enable Python, you will have to provide a few extra arguments and the final
-command chain will look like this
+is disabled. If you want to keep it that way, just run your normal `qmake`/`make`toolchain or
+use the default makefile included in the top directory of the project(`make all` or `make app` -
+the former will also create the tests). If you want to enable Python, either call `make python`
+or you will have to provide a few extra arguments and the final command chain will look like this
 
 ```
 qmake CONFIG+=with_python QMAKE_CXXFLAGS+=-DWITH_PYTHON
@@ -103,6 +104,15 @@ make CPPFLAGS+="-DWITH_PYTHON"
 ```
 
 This toolchain will essentially do the same thing that the option ```with_python``` does on Unix.
+This option is only available for handmade builds, our Makefile cannot handle that at the moment.
+
+Please note that if you have a custom command to invoke qmake(Qt 5.1 or later is required, so it
+might be possible that you use a command like `qmake5`if you have both Qt5.x and Qt4.x), you can
+do that by using the `QMAKE` variable like so:
+
+```
+qmake foo QMAKE=/path/to/qmake
+```
 
 You can have a look at the .travis.yml to get a slight idea of how your build process could look like.
 
