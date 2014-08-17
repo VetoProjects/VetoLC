@@ -13,12 +13,17 @@ TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11 -Wall -DNDEBUG -O2 -pedantic
 
-with_python{
+with_python2{
     QMAKE_CXXFLAGS += `/usr/bin/python2.7-config --cflags`
     QMAKE_LFLAGS += `/usr/bin/python2.7-config --ldflags`
     LIBS += -lpython2.7
 }
-with_python_custom || with_python{
+with_python{
+    QMAKE_CXXFLAGS += `/usr/bin/python3.3-config --cflags`
+    QMAKE_LFLAGS += `/usr/bin/python3.3-config --ldflags`
+    LIBS += -lpython3.3
+}
+with_python_custom || with_python2 || with_python{
     SOURCES += ../src/PySoundGenerator.cpp\
     ../src/PyLiveInterpreter.cpp
 

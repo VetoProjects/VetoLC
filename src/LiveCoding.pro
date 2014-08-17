@@ -25,14 +25,17 @@ CONFIG+=c++11
 valgrind-check.depends = check
 valgrind-check.commands = valgrind ./$$TARGET
 
-with_python{
-
+with_python2{
     QMAKE_CXXFLAGS += `/usr/bin/python2.7-config --cflags`
     QMAKE_LFLAGS += `/usr/bin/python2.7-config --ldflags`
     LIBS += -lpython2.7
-
 }
-with_python_custom || with_python{
+with_python{
+    QMAKE_CXXFLAGS += `/usr/bin/python3.3-config --cflags`
+    QMAKE_LFLAGS += `/usr/bin/python3.3-config --ldflags`
+    LIBS += -lpython3.3
+}
+with_python_custom || with_python2 || with_python{
 
     SOURCES += \
     PySoundGenerator.cpp\

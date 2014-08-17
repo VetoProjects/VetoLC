@@ -78,7 +78,8 @@ There is two ways to compile the project: with or without Python support. Per de
 is disabled. If you want to keep it that way, just run your normal `qmake`/`make`toolchain or
 use the default makefile included in the top directory of the project(`make all` or `make app` -
 the former will also create the tests). If you want to enable Python, either call `make python`
-or you will have to provide a few extra arguments and the final command chain will look like this
+(for Python 2.7 use `make python2`) or you will have to provide a few extra arguments and the final 
+command chain will look like this
 
 ```
 qmake CONFIG+=with_python QMAKE_CXXFLAGS+=-DWITH_PYTHON
@@ -87,9 +88,6 @@ make CPPFLAGS+="-DWITH_PYTHON"
 
 You will notice redundance here, this is because the MOC is dumb and we do not know of any
 more elegant ways to cope with that.
-
-Anyway, this will enable Python 2.7 support for you. We do not provide any guarantees for 
-Python 3.x just yet.
 
 **Additional info:**
 Please note that there are actually three ways to compile the project. There is an option
@@ -103,7 +101,7 @@ qmake CONFIG+=with_python_custom QMAKE_CXXFLAGS+=-DWITH_PYTHON \
 make CPPFLAGS+="-DWITH_PYTHON"
 ```
 
-This toolchain will essentially do the same thing that the option ```with_python``` does on Unix.
+This toolchain will essentially do the same thing that the option ```with_python2``` does on Unix.
 This option is only available for handmade builds, our Makefile cannot handle that at the moment.
 
 Please note that if you have a custom command to invoke qmake(Qt 5.1 or later is required, so it
