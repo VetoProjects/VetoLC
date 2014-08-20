@@ -480,7 +480,7 @@ void Backend::runGlFile(IInstance *instance){
  */
 void Backend::getExecutionResults(QtSoundThread* thread, QString returnedException){
 
-    (thread, SIGNAL(doneSignal(QtSoundThread*, QString)),
+    disconnect(thread, SIGNAL(doneSignal(QtSoundThread*, QString)),
             this, SLOT(getExecutionResults(QtSoundThread*, QString)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
