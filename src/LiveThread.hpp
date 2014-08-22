@@ -23,6 +23,9 @@ public:
     virtual void initialize(const QString &title, const QString &instructions) = 0;
     virtual bool updateCode(const QString &title, const QString &instructions) = 0;
     const long ID;
+private:
+    LiveThread& operator=(const LiveThread& rhs);
+    LiveThread& operator=(LiveThread&& rhs);
 };
 
 #ifdef WITH_PYTHON
@@ -36,7 +39,7 @@ public:
         if(runObj)
             delete runObj;
     }
-    void run(){
+    void run() Q_DECL_OVERRIDE{
         if(runObj)
             runObj->run();
     }
@@ -65,7 +68,7 @@ class PySoundThread : public LiveThread{
     Q_OBJECT
 public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){ }
-    void run(){ }
+    void run()Q_DECL_OVERRIDE{ }
     void initialize(const QString &, const QString &){
         emit doneSignal(this, tr("Python is not supported in this version"));
     }
@@ -96,7 +99,7 @@ public:
             delete runObj;
 #endif
     }
-    void run(){
+    void run() Q_DECL_OVERRIDE{
 #ifdef WITH_PYTHON
         if(runObj)
             runObj->run();
@@ -144,7 +147,7 @@ public:
         if(runObj)
             delete runObj;
     }
-    void run(){
+    void run() Q_DECL_OVERRIDE{
         if(runObj)
             runObj->show();
     }
@@ -178,7 +181,7 @@ public:
         if(runObj)
             delete runObj;
     }
-    void run(){
+    void run() Q_DECL_OVERRIDE{
         if(runObj)
             runObj->run();
     }

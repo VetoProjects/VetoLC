@@ -10,7 +10,7 @@
  * which it will be fed, the class variables and the break shortcut.
  */
 PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
-    if(pyInstructions == QString("")){
+    if(pyInstructions == QString()){
         emit doneSignal(tr("File is empty. Nothing to execute."));
         return;
     }

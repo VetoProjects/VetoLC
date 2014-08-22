@@ -22,8 +22,8 @@ private slots:
         QVERIFY(backend);
     }
     void settingsWriteTest(){
-        backend->saveSettingsFor(4711, QString("testkey"), QVariant(25));
-        backend->saveSettingsFor(4711, QString("testkey2"), QVariant("joy"));
+        backend->saveSettingsFor(4711, QStringLiteral("testkey"), QVariant(25));
+        backend->saveSettingsFor(4711, QStringLiteral("testkey2"), QVariant("joy"));
     }
     void settingsReadTest(){
         QHash<QString, QVariant> settings = backend->getSettings(4711);
@@ -31,7 +31,7 @@ private slots:
         QVERIFY(settings.contains("testkey"));
         QVERIFY(settings.value("testkey").toInt() == 25);
         QVERIFY(settings.contains("testkey2"));
-        QVERIFY(settings.value("testkey2").toString() == QString("joy"));
+        QVERIFY(settings.value("testkey2").toString() == QStringLiteral("joy"));
     }
     void settingsRemoveTest(){
         backend->removeSettings(4711);

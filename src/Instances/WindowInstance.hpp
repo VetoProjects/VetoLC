@@ -20,6 +20,9 @@ public:
     virtual void codeStoped();
 
 private:
+    WindowInstance& operator=(const WindowInstance& rhs);
+    WindowInstance& operator=(WindowInstance&& rhs);
+
     void createWindow();
     void createWindow(const QHash<QString, QVariant> &settings);
     EditorWindow *_window;

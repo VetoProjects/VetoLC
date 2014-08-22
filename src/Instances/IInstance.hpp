@@ -39,6 +39,10 @@ signals:
     void changeSettings(IInstance *, const QHash<QString, QVariant> &);
     void getSetting(IInstance *, const QString &key, QVariant &value);
     void getSettings(IInstance *, QHash<QString, QVariant> &settings);
+
+protected:
+    IInstance& operator=(const IInstance& rhs);
+    IInstance& operator=(IInstance&& rhs);
 };
 
 }

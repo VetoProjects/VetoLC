@@ -31,7 +31,7 @@ private slots:
     }
     void finishedTest(QtSoundThread* returnedThread, QString returned){
         QVERIFY(returnedThread == thread);
-        QVERIFY(returned == QString("Terminated successfully."));
+        QVERIFY(returned == QStringLiteral("Terminated successfully."));
     }
     void cleanupTestCase(){
         delete thread;

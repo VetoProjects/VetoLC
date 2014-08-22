@@ -23,7 +23,7 @@ private slots:
     }
     void writingTest(){
         QTest::keyClicks(codeEditor, "I am an int and that is code;");
-        QCOMPARE(codeEditor->toPlainText(), QString("I am an int and that is code;"));
+        QCOMPARE(codeEditor->toPlainText(), QStringLiteral("I am an int and that is code;"));
     }
     void cleanupTestCase() {
         delete codeEditor;

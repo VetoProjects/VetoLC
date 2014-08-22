@@ -60,6 +60,9 @@ signals:
     void changedSettings(EditorWindow *, const QHash<QString, QVariant> &);
 
 private:
+    EditorWindow& operator=(const EditorWindow& rhs);
+    EditorWindow& operator=(EditorWindow&& rhs);
+
     void addActions();
     void addMenus();
     void addToolBars();

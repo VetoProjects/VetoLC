@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
         qWarning() << a.tr("Failed to load font Inconsolata.");
 
     QTranslator translator;
-    translator.load(QString("codeeditor_") + QLocale::system().name());
+    translator.load(QStringLiteral("codeeditor_") + QLocale::system().name());
     a.installTranslator(&translator);
 
     Backend server(&a);

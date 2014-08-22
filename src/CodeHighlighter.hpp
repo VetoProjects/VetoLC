@@ -25,6 +25,9 @@ protected:
     void highlightBlock(const QString &text);
 
 private:
+    CodeHighlighter& operator=(const CodeHighlighter& rhs);
+    CodeHighlighter& operator=(CodeHighlighter&& rhs);
+
     struct Rule{
         QRegExp pattern;
         QTextCharFormat format;
