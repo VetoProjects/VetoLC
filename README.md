@@ -87,7 +87,10 @@ make CPPFLAGS+="-DWITH_PYTHON"
 ```
 
 You will notice redundance here, this is because the MOC is dumb and we do not know of any
-more elegant ways to cope with that.
+more elegant ways to cope with that. This will install your default Python version. In other words,
+if that is Python 2.7, it will do the same thing as `make python2.7`.
+
+At the moment there is no build for Python 3 specifically.
 
 **Additional info:**
 Please note that there are actually three ways to compile the project. There is an option
