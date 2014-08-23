@@ -31,9 +31,8 @@ with_python2{
     LIBS += -lpython2.7
 }
 with_python{
-    QMAKE_CXXFLAGS += `/usr/bin/python3.3-config --cflags`
-    QMAKE_LFLAGS += `/usr/bin/python3.3-config --ldflags`
-    LIBS += -lpython3.3
+    QMAKE_CXXFLAGS += `/usr/bin/python-config --cflags`
+    QMAKE_LFLAGS += `/usr/bin/python-config --ldflags`
 }
 with_python_custom || with_python2 || with_python{
 
