@@ -26,7 +26,7 @@ SoundGenerator::SoundGenerator(const QString &progName, const QString &qtInstruc
 /**
  * @brief SoundGenerator::updateCode
  * @param filename
- * @param instructions
+ * @param qtInstructions
  * @return true when name and instructions are valid, false otherwise
  *
  *

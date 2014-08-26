@@ -9,6 +9,6 @@ var searchData=
   ['audiooutputprocessor',['AudioOutputProcessor',['../class_audio_output_processor.html',1,'AudioOutputProcessor'],['../class_audio_output_processor.html#ac345d660fcd1556450464f74973a8899',1,'AudioOutputProcessor::AudioOutputProcessor()']]],
   ['audiooutputprocessor_2ecpp',['AudioOutputProcessor.cpp',['../_audio_output_processor_8cpp.html',1,'']]],
   ['audiooutputprocessor_2ehpp',['AudioOutputProcessor.hpp',['../_audio_output_processor_8hpp.html',1,'']]],
-  ['audiotest',['AudioTest',['../class_audio_test.html',1,'AudioTest'],['../class_audio_test.html#a9f71022559cbac2c7a583f37022eda32',1,'AudioTest::AudioTest()']]],
+  ['audioprocessorinstance',['AudioProcessorInstance',['../class_audio_processor_instance.html',1,'AudioProcessorInstance'],['../class_audio_processor_instance.html#a1c8bfccd3b95be0b6d8e65595a5ce794',1,'AudioProcessorInstance::AudioProcessorInstance()']]],
   ['audiotest_2ehpp',['AudioTest.hpp',['../_audio_test_8hpp.html',1,'']]]
 ];

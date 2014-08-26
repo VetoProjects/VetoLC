@@ -3,8 +3,10 @@
 /**
  * @brief CodeHighlighter::CodeHighlighter
  * @param parent
+ * @param file
  *
  * The constructor of the syntax highlighter.
+ * Needs a highlighting file.
  */
 CodeHighlighter::CodeHighlighter(QTextDocument *parent, int file) : QSyntaxHighlighter(parent){
     setupHighlighting(file);

@@ -35,7 +35,8 @@ Backend::~Backend(){
 
 /**
  * @brief Backend::addChild
- * @param child
+ * @param instance
+ * @param removeSettings
  *
  * Is called by one of the editor window instances;
  * enlists the child and creates an empty thread entry
@@ -204,7 +205,7 @@ void Backend::childExited(IInstance *child, QString file){
 
 /**
  * @brief Backend::getSettings
- * @param child
+ * @param instance
  * @return a list of current settings
  *
  * Gets all settings for a specific window.
@@ -228,7 +229,7 @@ QHash<QString, QVariant> Backend::getSettings(int id)
 
 /**
  * @brief Backend::settingsWindowRequested
- * @param child
+ * @param instance
  *
  * Creates a settings window instance.
  */
@@ -280,7 +281,7 @@ QDir Backend::directoryOf(const QString &subdir)
 
 /**
  * @brief Backend::removeSettings
- * @param child
+ * @param instance
  *
  * removes the settings for a specific file.
  */

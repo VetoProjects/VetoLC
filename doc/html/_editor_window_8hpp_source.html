@@ -143,49 +143,52 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_editor_window.html#a7ae350466d88e3d4aeadb5926217809a">changedSettings</a>(<a class="code" href="class_editor_window.html">EditorWindow</a> *, <span class="keyword">const</span> QHash&lt;QString, QVariant&gt; &amp;);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> addActions();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> addMenus();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> addToolBars();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> addStatusBar();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> applySettings(<span class="keyword">const</span> QHash&lt;QString, QVariant&gt; &amp;);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> loadFile(<span class="keyword">const</span> QString &amp;);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">bool</span> saveFile(<span class="keyword">const</span> QString &amp;);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">bool</span> saveDialog();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> saveSettings();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> setAsCurrentFile(<span class="keyword">const</span> QString &amp;);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    QString stripName(<span class="keyword">const</span> QString &amp;);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="class_code_editor.html">CodeEditor</a> *codeEditor;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    QString currentFile;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="class_editor_window.html">EditorWindow</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="class_editor_window.html">EditorWindow</a>&amp; rhs);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="class_editor_window.html">EditorWindow</a>&amp; operator=(<a class="code" href="class_editor_window.html">EditorWindow</a>&amp;&amp; rhs);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> addActions();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> addMenus();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> addToolBars();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> addStatusBar();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> applySettings(<span class="keyword">const</span> QHash&lt;QString, QVariant&gt; &amp;);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> loadFile(<span class="keyword">const</span> QString &amp;);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">bool</span> saveFile(<span class="keyword">const</span> QString &amp;);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">bool</span> saveDialog();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> saveSettings();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> setAsCurrentFile(<span class="keyword">const</span> QString &amp;);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    QString stripName(<span class="keyword">const</span> QString &amp;);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    QMenu *fMenu;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    QMenu *eMenu;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    QMenu *hMenu;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    QToolBar *fileBar;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    QToolBar *editBar;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    QAction *newAction;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    QAction *openAction;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    QAction *saveAction;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    QAction *saveAsAction;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    QAction *exitAction;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    QAction *runAction;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    QAction *settingsAction;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    QAction *helpAction;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif // EDITORWINDOW</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="class_code_editor.html">CodeEditor</a> *codeEditor;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    QString currentFile;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    QMenu *fMenu;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    QMenu *eMenu;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    QMenu *hMenu;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    QToolBar *fileBar;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    QToolBar *editBar;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    QAction *newAction;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    QAction *openAction;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    QAction *saveAction;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    QAction *saveAsAction;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    QAction *exitAction;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    QAction *runAction;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    QAction *settingsAction;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    QAction *helpAction;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;};</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif // EDITORWINDOW</span></div>
 <div class="ttc" id="class_editor_window_html_a3927cefb23e1026ca7362c99da5f144c"><div class="ttname"><a href="class_editor_window.html#a3927cefb23e1026ca7362c99da5f144c">EditorWindow::titleChanged</a></div><div class="ttdeci">void titleChanged(EditorWindow *)</div></div>
-<div class="ttc" id="class_editor_window_html_a03cc1e6ae0c550c6f5fff486eaf6b508"><div class="ttname"><a href="class_editor_window.html#a03cc1e6ae0c550c6f5fff486eaf6b508">EditorWindow::codeStopped</a></div><div class="ttdeci">void codeStopped()</div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:181</div></div>
+<div class="ttc" id="class_editor_window_html_a03cc1e6ae0c550c6f5fff486eaf6b508"><div class="ttname"><a href="class_editor_window.html#a03cc1e6ae0c550c6f5fff486eaf6b508">EditorWindow::codeStopped</a></div><div class="ttdeci">void codeStopped()</div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:180</div></div>
 <div class="ttc" id="class_editor_window_html_af4ca2e0be1bb3098a8c94473c753d9c2"><div class="ttname"><a href="class_editor_window.html#af4ca2e0be1bb3098a8c94473c753d9c2">EditorWindow::stopCode</a></div><div class="ttdeci">void stopCode(EditorWindow *)</div></div>
 <div class="ttc" id="class_editor_window_html_a099b128c5e948867df18babd7c6b14ca"><div class="ttname"><a href="class_editor_window.html#a099b128c5e948867df18babd7c6b14ca">EditorWindow::runCode</a></div><div class="ttdeci">void runCode(EditorWindow *)</div></div>
 <div class="ttc" id="class_editor_window_html_a7ae350466d88e3d4aeadb5926217809a"><div class="ttname"><a href="class_editor_window.html#a7ae350466d88e3d4aeadb5926217809a">EditorWindow::changedSettings</a></div><div class="ttdeci">void changedSettings(EditorWindow *, const QHash&lt; QString, QVariant &gt; &amp;)</div></div>
-<div class="ttc" id="class_editor_window_html_a4f42ffd31afc2a5e312f49048eab82ad"><div class="ttname"><a href="class_editor_window.html#a4f42ffd31afc2a5e312f49048eab82ad">EditorWindow::getSourceCode</a></div><div class="ttdeci">QString getSourceCode() const </div><div class="ttdoc">EditorWindow::getSourceCode. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:238</div></div>
+<div class="ttc" id="class_editor_window_html_a4f42ffd31afc2a5e312f49048eab82ad"><div class="ttname"><a href="class_editor_window.html#a4f42ffd31afc2a5e312f49048eab82ad">EditorWindow::getSourceCode</a></div><div class="ttdeci">QString getSourceCode() const </div><div class="ttdoc">EditorWindow::getSourceCode. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:235</div></div>
 <div class="ttc" id="class_editor_window_html_a512fc6a54509b75d26cdd3b13eae03eb"><div class="ttname"><a href="class_editor_window.html#a512fc6a54509b75d26cdd3b13eae03eb">EditorWindow::changedSetting</a></div><div class="ttdeci">void changedSetting(EditorWindow *, const QString &amp;, const QVariant &amp;)</div></div>
-<div class="ttc" id="class_editor_window_html_a73910f42d7ffc26999f2d985fdc78686"><div class="ttname"><a href="class_editor_window.html#a73910f42d7ffc26999f2d985fdc78686">EditorWindow::getTitle</a></div><div class="ttdeci">QString getTitle() const </div><div class="ttdoc">EditorWindow::getTitle. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:249</div></div>
+<div class="ttc" id="class_editor_window_html_a73910f42d7ffc26999f2d985fdc78686"><div class="ttname"><a href="class_editor_window.html#a73910f42d7ffc26999f2d985fdc78686">EditorWindow::getTitle</a></div><div class="ttdeci">QString getTitle() const </div><div class="ttdoc">EditorWindow::getTitle. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:246</div></div>
 <div class="ttc" id="class_editor_window_html_a5a18c4334a66f2152f814690f27423c7"><div class="ttname"><a href="class_editor_window.html#a5a18c4334a66f2152f814690f27423c7">EditorWindow::openSettings</a></div><div class="ttdeci">void openSettings(EditorWindow *)</div></div>
 <div class="ttc" id="class_editor_window_html_a6917407d81bd85ebc2af2f3915f62d56"><div class="ttname"><a href="class_editor_window.html#a6917407d81bd85ebc2af2f3915f62d56">EditorWindow::EditorWindow</a></div><div class="ttdeci">EditorWindow(const QHash&lt; QString, QVariant &gt; &amp;settings, QWidget *parent=0)</div><div class="ttdoc">EditorWindow::EditorWindow. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:13</div></div>
 <div class="ttc" id="class_editor_window_html_ab5059ac20da670e1c2bb3e7e6e498aa1"><div class="ttname"><a href="class_editor_window.html#ab5059ac20da670e1c2bb3e7e6e498aa1">EditorWindow::closing</a></div><div class="ttdeci">void closing(EditorWindow *)</div></div>
-<div class="ttc" id="class_editor_window_html_a0ad1d080a548df7eb21ce05c50775e70"><div class="ttname"><a href="class_editor_window.html#a0ad1d080a548df7eb21ce05c50775e70">EditorWindow::showResults</a></div><div class="ttdeci">void showResults(const QString &amp;)</div><div class="ttdoc">EditorWindow::showResults. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:225</div></div>
+<div class="ttc" id="class_editor_window_html_a0ad1d080a548df7eb21ce05c50775e70"><div class="ttname"><a href="class_editor_window.html#a0ad1d080a548df7eb21ce05c50775e70">EditorWindow::showResults</a></div><div class="ttdeci">void showResults(const QString &amp;)</div><div class="ttdoc">EditorWindow::showResults. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:224</div></div>
 <div class="ttc" id="class_editor_window_html_a7dd5c84136960d8ba831b04993811cf3"><div class="ttname"><a href="class_editor_window.html#a7dd5c84136960d8ba831b04993811cf3">EditorWindow::~EditorWindow</a></div><div class="ttdeci">~EditorWindow()</div><div class="ttdoc">EditorWindow::~EditorWindow. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:36</div></div>
 <div class="ttc" id="_code_editor_8hpp_html"><div class="ttname"><a href="_code_editor_8hpp.html">CodeEditor.hpp</a></div></div>
 <div class="ttc" id="class_editor_window_html_a70f0ac46ae9cd0362e1c4b80322c5fd6"><div class="ttname"><a href="class_editor_window.html#a70f0ac46ae9cd0362e1c4b80322c5fd6">EditorWindow::closeEvent</a></div><div class="ttdeci">virtual void closeEvent(QCloseEvent *)</div><div class="ttdoc">EditorWindow::closeEvent. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:60</div></div>
@@ -193,11 +196,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="class_editor_window_html_a12b01e035aef46c087d4fa972748b4c9"><div class="ttname"><a href="class_editor_window.html#a12b01e035aef46c087d4fa972748b4c9">EditorWindow::openHelp</a></div><div class="ttdeci">void openHelp(EditorWindow *)</div></div>
 <div class="ttc" id="class_editor_window_html"><div class="ttname"><a href="class_editor_window.html">EditorWindow</a></div><div class="ttdoc">The EditorWindow class. </div><div class="ttdef"><b>Definition:</b> EditorWindow.hpp:22</div></div>
 <div class="ttc" id="class_editor_window_html_a8e82f25b8aaa98fdcbd80ffbf4f2f01c"><div class="ttname"><a href="class_editor_window.html#a8e82f25b8aaa98fdcbd80ffbf4f2f01c">EditorWindow::closeAll</a></div><div class="ttdeci">void closeAll(EditorWindow *)</div></div>
-<div class="ttc" id="class_editor_window_html_ac40c7db381c4aa179667cc3803503880"><div class="ttname"><a href="class_editor_window.html#ac40c7db381c4aa179667cc3803503880">EditorWindow::warningDisplay</a></div><div class="ttdeci">void warningDisplay(const QString &amp;)</div><div class="ttdoc">EditorWindow::warningDisplay. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:177</div></div>
+<div class="ttc" id="class_editor_window_html_ac40c7db381c4aa179667cc3803503880"><div class="ttname"><a href="class_editor_window.html#ac40c7db381c4aa179667cc3803503880">EditorWindow::warningDisplay</a></div><div class="ttdeci">void warningDisplay(const QString &amp;)</div><div class="ttdoc">EditorWindow::warningDisplay. </div><div class="ttdef"><b>Definition:</b> EditorWindow.cpp:176</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 14 2014 14:29:32 for VetoLC by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 26 2014 19:22:12 for VetoLC by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

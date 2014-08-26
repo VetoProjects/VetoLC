@@ -13,7 +13,7 @@ var searchData=
   ['sizehint',['sizeHint',['../class_line_highlighting.html#a125e4c4fb6f09b82ef1617ed9d6c936a',1,'LineHighlighting']]],
   ['soundgenerator',['SoundGenerator',['../class_sound_generator.html#a2b80d41c44e091422cdcb6b4e18a2f4e',1,'SoundGenerator']]],
   ['start',['start',['../class_audio_input_processor.html#a676d6ed660c621e1d3bf9700d757c688',1,'AudioInputProcessor::start()'],['../class_boot_loader.html#ada1e862287e0cdc87da083f475fbf68b',1,'BootLoader::start()']]],
-  ['startwriting',['startWriting',['../class_audio_output_processor.html#a668b50fd985816d2d8a33f8546d72f42',1,'AudioOutputProcessor::startWriting()'],['../class_audio_test.html#a902c27fd25e54710f49b9b9531360be4',1,'AudioTest::startWriting()']]],
+  ['startwriting',['startWriting',['../class_audio_output_processor.html#a668b50fd985816d2d8a33f8546d72f42',1,'AudioOutputProcessor::startWriting()'],['../class_audio_processor_instance.html#a5c75fa4f596fc9e0b8fd049394b99fff',1,'AudioProcessorInstance::startWriting()']]],
   ['stopcode',['stopCode',['../class_editor_window.html#af4ca2e0be1bb3098a8c94473c753d9c2',1,'EditorWindow']]],
   ['stopwriting',['stopWriting',['../class_audio_output_processor.html#ac5b95db59cbdb8d60f832653ae0a9793',1,'AudioOutputProcessor']]]
 ];

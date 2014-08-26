@@ -3,10 +3,12 @@
 /**
  * @brief CodeEditor::CodeEditor
  * @param parent
+ * @param file
  *
  * The constructor of the code editor.
  * Sets up the highlighting of syntax and current line
- * and connects slots and signals.
+ * and connects slots and signals. Needs a highlighting
+ * file.
  */
 CodeEditor::CodeEditor(QWidget *parent, int file) : QPlainTextEdit(parent){
     lineHighlighting = new LineHighlighting(this);

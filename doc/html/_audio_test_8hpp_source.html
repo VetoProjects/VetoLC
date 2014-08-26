@@ -88,75 +88,74 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">AudioTest.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_audio_test_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef AUDIOTEST_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define AUDIOTEST_HPP</span></div>
+<a href="_audio_test_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef AUDIOPROCESSORINSTANCE</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define AUDIOPROCESSORINSTANCE</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QThread&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QMutex&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QCoreApplication&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QDebug&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_audio_output_processor_8hpp.html">AudioOutputProcessor.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="_audio_test_8hpp.html#a598a3330b3c21701223ee0ca14316eca">   10</a></span>&#160;<span class="preprocessor">#define PI (3.1415926535897932384626433832795)</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_audio_test.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_audio_test.html">AudioTest</a> : <span class="keyword">public</span> QThread{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    Q_OBJECT</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_audio_test.html#a9f71022559cbac2c7a583f37022eda32">   21</a></span>&#160;    <a class="code" href="class_audio_test.html#a9f71022559cbac2c7a583f37022eda32">AudioTest</a>(QObject *parent = 0) : QThread(parent){</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_audio_test.html#ae98b960f86c4b9642b08d8bfed663186">   24</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_audio_test.html#ae98b960f86c4b9642b08d8bfed663186">~AudioTest</a>(){</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">delete</span> mtx;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_audio_test.html#a31f0771404d03c9bf7fb1050973d387d">   28</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_audio_test.html#a31f0771404d03c9bf7fb1050973d387d">run</a>() Q_DECL_OVERRIDE {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        mtx = <span class="keyword">new</span> QMutex();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        aop = <span class="keyword">new</span> <a class="code" href="class_audio_output_processor.html">AudioOutputProcessor</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        connect(aop, SIGNAL(<a class="code" href="class_audio_test.html#a902c27fd25e54710f49b9b9531360be4">startWriting</a>()), <span class="keyword">this</span>, SLOT(<a class="code" href="class_audio_test.html#a902c27fd25e54710f49b9b9531360be4">startWriting</a>()));</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        cycle = 0;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="class_audio_test.html#aea2ac8f11aacc46bedc8331bf37fe923">write</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_audio_test.html#aea2ac8f11aacc46bedc8331bf37fe923">   36</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_audio_test.html#aea2ac8f11aacc46bedc8331bf37fe923">write</a>(){</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">//        qDebug(&quot;start writing.&quot;);</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">short</span> buffer[2048];</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">do</span>{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; 1024; ++i)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                buffer[i * 2] = buffer[i * 2 + 1] = (<span class="keywordtype">int</span>)(generate((<span class="keywordtype">double</span>)(i + cycle) / 96000.0) * 16000.0);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            cycle += 1024;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }<span class="keywordflow">while</span>(aop-&gt;<a class="code" href="class_audio_output_processor.html#a3b5cb028b28051a7840cfe348683b472">write</a>((<span class="keywordtype">char</span>*)buffer, 4096));</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_audio_test.html#a902c27fd25e54710f49b9b9531360be4">   47</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_audio_test.html#a902c27fd25e54710f49b9b9531360be4">startWriting</a>(){ <a class="code" href="class_audio_test.html#aea2ac8f11aacc46bedc8331bf37fe923">write</a>(); }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_audio_output_processor.html">AudioOutputProcessor</a> *aop;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    QMutex *mtx;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span> cycle;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">double</span> generate(<span class="keywordtype">double</span> t){</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">double</span> sin440 = sin(2.0 * <a class="code" href="_audio_test_8hpp.html#a598a3330b3c21701223ee0ca14316eca">PI</a> * t * 440.0);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">//        double sin445 = sin(2.0 * PI * t * 445.0);</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> sin440;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif // AUDIOTEST_HPP</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_audio_processor_instance.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_audio_processor_instance.html">AudioProcessorInstance</a> : <span class="keyword">public</span> QThread{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_audio_processor_instance.html#a1c8bfccd3b95be0b6d8e65595a5ce794">   16</a></span>&#160;    <a class="code" href="class_audio_processor_instance.html#a1c8bfccd3b95be0b6d8e65595a5ce794">AudioProcessorInstance</a>(QObject *parent = 0) : QThread(parent){</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_audio_processor_instance.html#a560cd34c16cf1254f88647dceba53e42">   19</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_audio_processor_instance.html#a560cd34c16cf1254f88647dceba53e42">run</a>() Q_DECL_OVERRIDE {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        cycle = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        aop = <span class="keyword">new</span> <a class="code" href="class_audio_output_processor.html">AudioOutputProcessor</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        connect(<span class="keyword">this</span>, SIGNAL(<a class="code" href="class_audio_processor_instance.html#a5c75fa4f596fc9e0b8fd049394b99fff">startWriting</a>()), <span class="keyword">this</span>, SLOT(<a class="code" href="class_audio_processor_instance.html#a189a8cfa80d80c59179ea7f0ba6aa25d">write</a>()), Qt::QueuedConnection);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        connect(aop, SIGNAL(<a class="code" href="class_audio_processor_instance.html#a5c75fa4f596fc9e0b8fd049394b99fff">startWriting</a>()), <span class="keyword">this</span>, SLOT(<a class="code" href="class_audio_processor_instance.html#a189a8cfa80d80c59179ea7f0ba6aa25d">write</a>()), Qt::QueuedConnection);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        connect(aop, SIGNAL(started()), <span class="keyword">this</span>, SLOT(<a class="code" href="class_audio_processor_instance.html#a189a8cfa80d80c59179ea7f0ba6aa25d">write</a>()), Qt::QueuedConnection);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        aop-&gt;start();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        exec();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;signals:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_audio_processor_instance.html#a5c75fa4f596fc9e0b8fd049394b99fff">startWriting</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_audio_processor_instance.html#a189a8cfa80d80c59179ea7f0ba6aa25d">   33</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_audio_processor_instance.html#a189a8cfa80d80c59179ea7f0ba6aa25d">write</a>(){</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        qDebug() &lt;&lt; <span class="stringliteral">&quot;write 1024 stereo samples.&quot;</span>; <span class="comment">// not working without!?</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordtype">short</span> buffer[2048];</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; 1024; ++i)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            buffer[i * 2] = buffer[i * 2 + 1] = (<span class="keywordtype">short</span>)(generate((<span class="keywordtype">double</span>)(i + cycle) / 96000.0) * 16000.0);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        cycle += 1024;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span>(aop-&gt;<a class="code" href="class_audio_output_processor.html#a3b5cb028b28051a7840cfe348683b472">write</a>((<span class="keywordtype">char</span>*)buffer, 4096))</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            emit <a class="code" href="class_audio_processor_instance.html#a5c75fa4f596fc9e0b8fd049394b99fff">startWriting</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="comment">//qDebug() &lt;&lt; &quot;stop writing.&quot;;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="class_audio_output_processor.html">AudioOutputProcessor</a> *aop;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">int</span> cycle;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">double</span> generate(<span class="keywordtype">double</span> t){</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">double</span> sin440 = sin(2.0 * <a class="code" href="_audio_test_8hpp.html#a598a3330b3c21701223ee0ca14316eca">PI</a> * t * 440.0);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">//        double sin445 = sin(2.0 * PI * t * 445.0);</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> sin440;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_audio_output_processor_html"><div class="ttname"><a href="class_audio_output_processor.html">AudioOutputProcessor</a></div><div class="ttdef"><b>Definition:</b> AudioOutputProcessor.hpp:8</div></div>
-<div class="ttc" id="class_audio_test_html_a31f0771404d03c9bf7fb1050973d387d"><div class="ttname"><a href="class_audio_test.html#a31f0771404d03c9bf7fb1050973d387d">AudioTest::run</a></div><div class="ttdeci">virtual void run() Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:28</div></div>
-<div class="ttc" id="class_audio_test_html_a9f71022559cbac2c7a583f37022eda32"><div class="ttname"><a href="class_audio_test.html#a9f71022559cbac2c7a583f37022eda32">AudioTest::AudioTest</a></div><div class="ttdeci">AudioTest(QObject *parent=0)</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:21</div></div>
-<div class="ttc" id="class_audio_test_html"><div class="ttname"><a href="class_audio_test.html">AudioTest</a></div><div class="ttdoc">The AudioTest class. </div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:18</div></div>
 <div class="ttc" id="_audio_test_8hpp_html_a598a3330b3c21701223ee0ca14316eca"><div class="ttname"><a href="_audio_test_8hpp.html#a598a3330b3c21701223ee0ca14316eca">PI</a></div><div class="ttdeci">#define PI</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:10</div></div>
-<div class="ttc" id="class_audio_test_html_ae98b960f86c4b9642b08d8bfed663186"><div class="ttname"><a href="class_audio_test.html#ae98b960f86c4b9642b08d8bfed663186">AudioTest::~AudioTest</a></div><div class="ttdeci">virtual ~AudioTest()</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:24</div></div>
-<div class="ttc" id="class_audio_output_processor_html_a3b5cb028b28051a7840cfe348683b472"><div class="ttname"><a href="class_audio_output_processor.html#a3b5cb028b28051a7840cfe348683b472">AudioOutputProcessor::write</a></div><div class="ttdeci">bool write(const char *data, qint64 len)</div><div class="ttdef"><b>Definition:</b> AudioOutputProcessor.cpp:44</div></div>
-<div class="ttc" id="class_audio_test_html_a902c27fd25e54710f49b9b9531360be4"><div class="ttname"><a href="class_audio_test.html#a902c27fd25e54710f49b9b9531360be4">AudioTest::startWriting</a></div><div class="ttdeci">void startWriting()</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:47</div></div>
-<div class="ttc" id="class_audio_test_html_aea2ac8f11aacc46bedc8331bf37fe923"><div class="ttname"><a href="class_audio_test.html#aea2ac8f11aacc46bedc8331bf37fe923">AudioTest::write</a></div><div class="ttdeci">void write()</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:36</div></div>
+<div class="ttc" id="class_audio_processor_instance_html_a1c8bfccd3b95be0b6d8e65595a5ce794"><div class="ttname"><a href="class_audio_processor_instance.html#a1c8bfccd3b95be0b6d8e65595a5ce794">AudioProcessorInstance::AudioProcessorInstance</a></div><div class="ttdeci">AudioProcessorInstance(QObject *parent=0)</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:16</div></div>
+<div class="ttc" id="class_audio_output_processor_html_a3b5cb028b28051a7840cfe348683b472"><div class="ttname"><a href="class_audio_output_processor.html#a3b5cb028b28051a7840cfe348683b472">AudioOutputProcessor::write</a></div><div class="ttdeci">bool write(const char *data, qint64 len)</div><div class="ttdef"><b>Definition:</b> AudioOutputProcessor.cpp:63</div></div>
+<div class="ttc" id="class_audio_processor_instance_html_a5c75fa4f596fc9e0b8fd049394b99fff"><div class="ttname"><a href="class_audio_processor_instance.html#a5c75fa4f596fc9e0b8fd049394b99fff">AudioProcessorInstance::startWriting</a></div><div class="ttdeci">void startWriting()</div></div>
+<div class="ttc" id="class_audio_processor_instance_html_a560cd34c16cf1254f88647dceba53e42"><div class="ttname"><a href="class_audio_processor_instance.html#a560cd34c16cf1254f88647dceba53e42">AudioProcessorInstance::run</a></div><div class="ttdeci">virtual void run() Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:19</div></div>
+<div class="ttc" id="class_audio_processor_instance_html"><div class="ttname"><a href="class_audio_processor_instance.html">AudioProcessorInstance</a></div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:13</div></div>
+<div class="ttc" id="class_audio_processor_instance_html_a189a8cfa80d80c59179ea7f0ba6aa25d"><div class="ttname"><a href="class_audio_processor_instance.html#a189a8cfa80d80c59179ea7f0ba6aa25d">AudioProcessorInstance::write</a></div><div class="ttdeci">void write()</div><div class="ttdef"><b>Definition:</b> AudioTest.hpp:33</div></div>
 <div class="ttc" id="_audio_output_processor_8hpp_html"><div class="ttname"><a href="_audio_output_processor_8hpp.html">AudioOutputProcessor.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 14 2014 14:29:32 for VetoLC by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 26 2014 19:22:12 for VetoLC by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>
