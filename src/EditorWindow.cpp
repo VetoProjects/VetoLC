@@ -1,4 +1,5 @@
 #include "EditorWindow.hpp"
+#include <QDebug>
 
 /**
  * @brief EditorWindow::EditorWindow
@@ -22,6 +23,7 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
     connect(codeEditor->document(), SIGNAL(contentsChanged()), this, SLOT(docModified()));
 
     applySettings(settings);
+    templateNum = settings.value("UseCompiler").toInt();
 
     // Mac quirks
     setUnifiedTitleAndToolBarOnMac(true);
@@ -85,6 +87,10 @@ void EditorWindow::newFile(){
     if(saveDialog()){
         codeEditor->clear();
         setAsCurrentFile("");
+        if(templateNum == 0)
+            loadFile(":/rc/template.py");
+        else if(templateNum == 2)
+            loadFile(":/rc/template.glsl");
     }
 }
 
@@ -197,8 +203,13 @@ void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
     }
     if(settings.value("OpenFiles").toBool()){
         const QString file = settings.value("file", "").toString();
-        if(file.isEmpty())
+        if(file.isEmpty()){
+            if(templateNum == 0)
+                loadFile(":/rc/template.py");
+            else if(templateNum == 2)
+                loadFile(":/rc/template.glsl");
             setAsCurrentFile("");
+        }
         else
             loadFile(file);
     }
@@ -459,7 +470,7 @@ void EditorWindow::setAsCurrentFile(const QString &name){
     setWindowModified(false);
 
     setWindowFilePath(currentFile);
-    if(currentFile != "")
+    if(currentFile != "" && !currentFile.contains("template."))
         setWindowTitle("VeToLC | " + stripName(currentFile) + "[*]");
     else
         setWindowTitle("VeToLC [*]");

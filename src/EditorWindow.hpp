@@ -74,6 +74,7 @@ private:
     void saveSettings();
     void setAsCurrentFile(const QString &);
     QString stripName(const QString &);
+    int templateNum;
 
     CodeEditor *codeEditor;
     QString currentFile;
