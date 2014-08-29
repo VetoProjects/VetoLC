@@ -10,5 +10,7 @@
         <file>highlighting/qt</file>
         <file>highlighting/glsl</file>
         <file>highlighting/python</file>
+        <file>rc/template.py</file>
+        <file>rc/template.glsl</file>
     </qresource>
 </RCC>

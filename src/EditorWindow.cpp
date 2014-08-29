@@ -149,7 +149,8 @@ void EditorWindow::saveSettings(){
     QHash<QString, QVariant> settings;
     settings.insert("pos", this->pos());
     settings.insert("size", this->size());
-    settings.insert("file", currentFile);
+    if(!currentFile.contains("template."))
+        settings.insert("file", currentFile);
     emit changedSettings(this, settings);
 }
 
