@@ -22,8 +22,8 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
 
     connect(codeEditor->document(), SIGNAL(contentsChanged()), this, SLOT(docModified()));
 
-    applySettings(settings);
     templateNum = settings.value("UseCompiler").toInt();
+    applySettings(settings);
 
     // Mac quirks
     setUnifiedTitleAndToolBarOnMac(true);
@@ -151,6 +151,8 @@ void EditorWindow::saveSettings(){
     settings.insert("size", this->size());
     if(!currentFile.contains("template."))
         settings.insert("file", currentFile);
+    else
+        settings.insert("file", "");
     emit changedSettings(this, settings);
 }
 
@@ -205,6 +207,7 @@ void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
     if(settings.value("OpenFiles").toBool()){
         const QString file = settings.value("file", "").toString();
         if(file.isEmpty()){
+            qDebug() << templateNum;
             if(templateNum == 0)
                 loadFile(":/rc/template.py");
             else if(templateNum == 2)
@@ -244,8 +247,7 @@ void EditorWindow::showResults(const QString &returnedValue){
  *
  * returns code in editor.
  */
-QString EditorWindow::getSourceCode() const
-{
+QString EditorWindow::getSourceCode() const{
     return codeEditor->toPlainText();
 }
 
@@ -255,8 +257,7 @@ QString EditorWindow::getSourceCode() const
  *
  * returns current file name.
  */
-QString EditorWindow::getTitle() const
-{
+QString EditorWindow::getTitle() const{
     return currentFile;
 }
 
