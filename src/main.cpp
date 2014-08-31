@@ -35,9 +35,14 @@ int main(int argc, char *argv[]){
     if(QFontDatabase::addApplicationFont(":/fonts/Inconsolata.otf") == -1)
         qWarning() << a.tr("Failed to load font Inconsolata.");
 
-    QTranslator translator;
-    translator.load(QStringLiteral("codeeditor_") + QLocale::system().name());
-    a.installTranslator(&translator);
+    QString language = QLocale::system().name();
+    language.chop(3);
+
+    //qDebug() << QUrl(QStringLiteral(":/translations/codeeditor_") + language + QStringLiteral(".ts")).isValid();
+
+    //QTranslator translator;
+    /*translator.load(QUrl(QStringLiteral(":/translations/codeeditor_") + language + ".ts"));
+    a.installTranslator(&translator);*/
 
     Backend server(&a);
 

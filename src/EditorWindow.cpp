@@ -1,5 +1,4 @@
 #include "EditorWindow.hpp"
-#include <QDebug>
 
 /**
  * @brief EditorWindow::EditorWindow
@@ -207,7 +206,6 @@ void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
     if(settings.value("OpenFiles").toBool()){
         const QString file = settings.value("file", "").toString();
         if(file.isEmpty()){
-            qDebug() << templateNum;
             if(templateNum == 0)
                 loadFile(":/rc/template.py");
             else if(templateNum == 2)
