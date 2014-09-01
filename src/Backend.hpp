@@ -30,6 +30,7 @@ class Backend : public QObject
 {
     Q_OBJECT
 public:
+    static QDir directoryOf(const QString&);
     explicit Backend(QObject *parent = 0);
     ~Backend();
     void addInstance(IInstance *, bool = true);
@@ -73,7 +74,6 @@ public slots:
     void getExecutionResults(GlLiveThread*, QString);
 
 private:
-    QDir directoryOf(const QString&);
     void runPyFile(IInstance *);
     void runQtSoundFile(IInstance *);
     void runGlFile(IInstance *);

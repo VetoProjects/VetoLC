@@ -256,8 +256,7 @@ void Backend::openHelp(IInstance *){
  *
  * Platform independent wrapper to changing the directory.
  */
-QDir Backend::directoryOf(const QString &subdir)
-{
+QDir Backend::directoryOf(const QString &subdir){
     QDir dir(QApplication::applicationDirPath());
 
 #if defined(Q_OS_WIN)

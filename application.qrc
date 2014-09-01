@@ -12,8 +12,5 @@
         <file>highlighting/python</file>
         <file>rc/template.py</file>
         <file>rc/template.glsl</file>
-        <file>translations/codeeditor_de.ts</file>
-        <file>translations/codeeditor_en.ts</file>
-        <file>translations/codeeditor_fr.ts</file>
     </qresource>
 </RCC>
