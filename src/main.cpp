@@ -11,6 +11,22 @@
 
 static const QString socketName = "VeTo";
 
+/**
+ * @brief installTranslator
+ * @param a
+ *
+ * Installs a translator to a qapplication given as parameter.
+ */
+void installTranslator(QApplication a){
+    QString language = QLocale::system().name();
+    language.chop(3);
+    QDir dir = Backend::directoryOf(QStringLiteral("translations/codeeditor_") + language);
+    dir.cdUp();
+
+    QTranslator translator;
+    translator.load(dir.absoluteFilePath("translations/codeeditor_" + language));
+    a.installTranslator(&translator);
+}
 
 /**
  * @brief main
@@ -34,15 +50,6 @@ int main(int argc, char *argv[]){
 
     if(QFontDatabase::addApplicationFont(":/fonts/Inconsolata.otf") == -1)
         qWarning() << a.tr("Failed to load font Inconsolata.");
-
-    QString language = QLocale::system().name();
-    language.chop(3);
-    QDir dir = Backend::directoryOf(QStringLiteral("translations/codeeditor_") + language);
-    dir.cdUp();
-
-    QTranslator translator;
-    translator.load(dir.absoluteFilePath("translations/codeeditor_" + language));
-    a.installTranslator(&translator);
 
     Backend server(&a);
 
