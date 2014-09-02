@@ -12,5 +12,6 @@
         <file>highlighting/python</file>
         <file>rc/template.py</file>
         <file>rc/template.glsl</file>
+        <file>images/x.png</file>
     </qresource>
 </RCC>

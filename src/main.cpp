@@ -56,5 +56,10 @@ int main(int argc, char *argv[]){
     BootLoader *bootLoader = new BootLoader(socketName, &server);
     bootLoader->start();
 
+    QFile style(dir.absoluteFilePath("style/flat.css"));
+    style.open(QFile::ReadOnly | QFile::Text);
+
+    a.setStyleSheet(QTextStream(&style).readAll());
+
     return a.exec();
 }
