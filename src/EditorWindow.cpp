@@ -106,9 +106,15 @@ void EditorWindow::openFile(){
             if(fileName.endsWith("py")){
                 templateNum = 0;
                 codeEditor->setHighlighting(0);
+                emit changedSetting(this, "UseCompiler", 0);
+            }else if(fileName.endsWith("qml")){
+                templateNum = 1;
+                codeEditor->setHighlighting(1);
+                emit changedSetting(this, "UseCompiler", 1);
             }else if(fileName.endsWith("glsl")){
                 templateNum = 2;
                 codeEditor->setHighlighting(2);
+                emit changedSetting(this, "UseCompiler", 2);
             }
             loadFile(fileName);
         }
