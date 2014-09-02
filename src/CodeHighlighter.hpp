@@ -20,6 +20,7 @@ class CodeHighlighter : public QSyntaxHighlighter{
 public:
     CodeHighlighter(QTextDocument *parent = 0, int file = 0);
     bool setupHighlighting(int file);
+    int getHighlighting();
 
 protected:
     void highlightBlock(const QString &text);

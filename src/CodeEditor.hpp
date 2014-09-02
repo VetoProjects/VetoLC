@@ -27,6 +27,7 @@ public:
     CodeEditor(QWidget *parent = 0, int file = 0);
     void lineHighlightingPaintEvent(QPaintEvent *event);
     int lineHighlightingWidth();
+    void setHighlighting(int highlighting);
 
 protected:
     void resizeEvent(QResizeEvent *event);

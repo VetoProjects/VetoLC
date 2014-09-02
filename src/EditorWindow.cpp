@@ -102,8 +102,16 @@ void EditorWindow::newFile(){
 void EditorWindow::openFile(){
     if(saveDialog()){
         QString fileName = QFileDialog::getOpenFileName(this);
-        if (!fileName.isEmpty())
+        if (!fileName.isEmpty()){
+            if(fileName.endsWith("py")){
+                templateNum = 0;
+                codeEditor->setHighlighting(0);
+            }else if(fileName.endsWith("glsl")){
+                templateNum = 2;
+                codeEditor->setHighlighting(2);
+            }
             loadFile(fileName);
+        }
     }
 }
 

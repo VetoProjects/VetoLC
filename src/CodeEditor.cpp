@@ -150,3 +150,15 @@ void CodeEditor::lineHighlightingPaintEvent(QPaintEvent *event){
         bottom = top + (int)blockBoundingRect(textBlock).height();
     }
 }
+
+/**
+ * @brief CodeEditor::setHighlighting
+ * @param highlighting
+ *
+ * Tells the syntax highlighter to change highlighting by
+ * using a code where 0 and 3 stand for Python, 1 stands for Qt
+ * and 2 stands for GLSL.
+ */
+void CodeEditor::setHighlighting(int highlighting){
+    syntaxEngine->setupHighlighting(highlighting);
+}
