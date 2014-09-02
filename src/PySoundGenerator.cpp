@@ -11,13 +11,14 @@
  */
 PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     if(pyInstructions == QString()){
-        emit doneSignal(tr("File is empty. Nothing to execute."));
+        emit doneSignal(tr("File is empty. Nothing to execute."), 0);
         return;
     }
 
     Py_SetProgramName(progName);
     Py_Initialize();
     ownExcept = QString();
+    exceptNum = 0;
     abortAction = new QAction(this);
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
@@ -30,7 +31,7 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     dict = PyModule_GetDict(module);
     if(!dict){
         exceptionOccurred();
-        emit doneSignal(ownExcept);
+        emit doneSignal(ownExcept, 0);
         return;
     }
     execute("import AudioPython");
@@ -76,7 +77,7 @@ void PySoundGenerator::write(){
         PyObject* check = execute("AudioPython.yield_raw(samples, None)");
         if(!check){
             exceptionOccurred();
-            emit doneSignal(ownExcept);
+            emit doneSignal(ownExcept, exceptNum);
             break;
         }
         if(PyBytes_Check(check))
@@ -130,10 +131,28 @@ bool PySoundGenerator::updateCode(QString filename, QString instructions){
  */
 void PySoundGenerator::exceptionOccurred(){
     PyObject *errtype, *errvalue, *traceback;
+    PyObject *mod;
+    PyObject *ret, *list, *string;
     PyErr_Fetch(&errtype, &errvalue, &traceback);
     PyErr_NormalizeException(&errtype, &errvalue, &traceback);
     QString exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
-    exceptionText.append(": ").append(PyString_AsString(PyObject_Str(errvalue)));
+    exceptionText.append(": '");
+    exceptionText.append(PyString_AsString(PyObject_Str(errvalue)));
+    mod = PyImport_ImportModule("traceback");
+    list = PyObject_CallMethod(mod, (char*)"format_exception",
+                               (char*)"OOO", errtype, errvalue, traceback);
+    string = PyString_FromString("\n");
+    ret = _PyString_Join(string, list);
+    QRegExp line("line [0-9]+");
+    line.indexIn(PyString_AsString(ret));
+    QString text = line.capturedTexts().at(0);
+    exceptionText.append("' at " + text);
+    text.replace("line ", "");
+    exceptNum = text.toInt();
+    Py_DECREF(list);
+    Py_DECREF(string);
+    Py_DECREF(ret);
+    PyErr_Clear();
     ownExcept = exceptionText;
 }
 

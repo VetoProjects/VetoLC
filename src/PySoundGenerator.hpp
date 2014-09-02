@@ -29,6 +29,7 @@ private:
     void exceptionOccurred();
     void write();
     void stream(PyObject *process);
+    int exceptNum;
     QString ownExcept;
     bool ready;
     QAction* abortAction;
@@ -42,7 +43,7 @@ private slots:
     void setReady();
 
 signals:
-    void doneSignal(QString);
+    void doneSignal(QString, int);
 };
 
 #endif // PYSOUNDGENERATOR

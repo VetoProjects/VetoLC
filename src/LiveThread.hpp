@@ -45,7 +45,7 @@ public:
     }
     void initialize(const QString &title, const QString &instructions){
         runObj = new PySoundGenerator(title.toLocal8Bit().data(), instructions.toLocal8Bit().data());
-        connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
+        connect(runObj, SIGNAL(doneSignal(QString, int)), this, SLOT(doneSignalReceived(QString, int)));
     }
     bool updateCode(const QString &filename, const QString &code){
        if(runObj)
@@ -53,11 +53,11 @@ public:
        return false;
     }
 public slots:
-    void doneSignalReceived(QString exception){
-        emit doneSignal(this, exception);
+    void doneSignalReceived(QString exception, int lineno){
+        emit doneSignal(this, exception, lineno);
     }
 signals:
-    void doneSignal(PySoundThread*, QString);
+    void doneSignal(PySoundThread*, QString, int);
 private:
     PySoundGenerator* runObj;
 };
@@ -70,72 +70,74 @@ public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){ }
     void run()Q_DECL_OVERRIDE{ }
     void initialize(const QString &, const QString &){
-        emit doneSignal(this, tr("Python is not supported in this version"));
+        emit doneSignal(this, tr("Python is not supported in this version"), 0);
     }
     bool updateCode(const QString &, const QString &){
         return false;
     }
-public slots:
-    void doneSignalReceived(QString exception){
-        emit doneSignal(this, exception);
-    }
 signals:
-    void doneSignal(PySoundThread*, QString);
+    void doneSignal(PySoundThread*, QString, int);
 private:
 };
 #endif
 
+#ifdef WITH_PYTHON
 class PyLiveThread : public LiveThread{
     Q_OBJECT
 public:
     PyLiveThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){
-#ifdef WITH_PYTHON
         runObj = 0;
-#endif
-    }
-    ~PyLiveThread(){
-#ifdef WITH_PYTHON
-        if(runObj)
-            delete runObj;
-#endif
     }
     void run() Q_DECL_OVERRIDE{
-#ifdef WITH_PYTHON
         if(runObj)
             runObj->run();
-#endif
+    }
+    ~PyLiveThread(){
+        if(runObj)
+            delete runObj;
     }
     void initialize(const QString &title, const QString &instructions){
-#ifdef WITH_PYTHON
         runObj = new PyLiveInterpreter(title.toLocal8Bit().data(), instructions.toLocal8Bit().data());
-        connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
-#else
-        Q_UNUSED(title);
-        Q_UNUSED(instructions);
-        emit doneSignal(this, tr("Python is not supported in this version"));
-#endif
+        connect(runObj, SIGNAL(doneSignal(QString, int)), this, SLOT(doneSignalReceived(QString, int)));
     }
     bool updateCode(const QString &filename, const QString &code){
-#ifdef WITH_PYTHON
        if(runObj)
            return runObj->updateCode(filename, code);
-#else
-        Q_UNUSED(filename)
-        Q_UNUSED(code)
-#endif
         return false;
     }
 public slots:
-    void doneSignalReceived(QString exception){
-        emit doneSignal(this, exception);
+    void doneSignalReceived(QString exception, int lineno){
+        emit doneSignal(this, exception, lineno);
     }
 signals:
-    void doneSignal(PyLiveThread*, QString);
+    void doneSignal(PyLiveThread*, QString, int);
 private:
-#ifdef WITH_PYTHON
     PyLiveInterpreter* runObj;
-#endif
 };
+#else
+class PyLiveThread : public LiveThread{
+    Q_OBJECT
+public:
+    PyLiveThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){
+    }
+    ~PyLiveThread(){
+    }
+    void run() Q_DECL_OVERRIDE{
+    }
+    void initialize(const QString &title, const QString &instructions){
+        Q_UNUSED(title);
+        Q_UNUSED(instructions);
+        emit doneSignal(this, tr("Python is not supported in this version"), 0);
+    }
+    bool updateCode(const QString &filename, const QString &code){
+        Q_UNUSED(filename)
+        Q_UNUSED(code)
+        return false;
+    }
+signals:
+    void doneSignal(PyLiveThread*, QString, int);
+};
+#endif
 
 class GlLiveThread: public LiveThread{
     Q_OBJECT

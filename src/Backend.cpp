@@ -306,14 +306,18 @@ bool Backend::isLast(){
  */
 void Backend::instanceRunCode(IInstance *instance)
 {
-    int id = instance->ID;
+    long id = instance->ID;
     if(threads.contains(id)){
         bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
-        if(!worked)
+        if(!worked){
+            instances[id]->codeStopped();
             instances[id]->reportError(tr("Code is faulty."));
+            if(!threads[id]->isRunning())
+                terminateThread(id);
+        }
     }else{
         bool ok;
-        int compiler = settings.getSettingsFor("UseCompiler", -1, id).toInt(&ok);
+        int compiler = settings.getSettingsFor("UseCompiler", -1, (int)id).toInt(&ok);
         if(!ok)
             compiler = -1;
         switch(compiler){
@@ -330,7 +334,7 @@ void Backend::instanceRunCode(IInstance *instance)
                 this->runPyFile(instance);
                 break;
             default:
-                instance->codeStoped();
+                instance->codeStopped();
                 instance->reportError(tr("Compiler not found."));
         }
     }
@@ -412,8 +416,8 @@ void Backend::instanceRequestSettings(IInstance *instance, QHash<QString, QVaria
  */
 void Backend::runPyFile(IInstance *instance){
     PyLiveThread *thread = new PyLiveThread(instance->ID, this);
-    connect(thread, SIGNAL(doneSignal(PyLiveThread*, QString)),
-            this, SLOT(getExecutionResults(PyLiveThread*, QString)));
+    connect(thread, SIGNAL(doneSignal(PyLiveThread*, QString, int)),
+            this, SLOT(getExecutionResults(PyLiveThread*, QString, int)));
     thread->initialize(instance->title(), instance->sourceCode());
     thread->start();
     threads.insert(thread->ID, thread);
@@ -479,23 +483,26 @@ void Backend::runGlFile(IInstance *instance){
  * emitting a showResults SIGNAL for the QWidgets to display
  */
 void Backend::getExecutionResults(QtSoundThread* thread, QString returnedException){
-
     disconnect(thread, SIGNAL(doneSignal(QtSoundThread*, QString)),
             this, SLOT(getExecutionResults(QtSoundThread*, QString)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
 }
-void Backend::getExecutionResults(PySoundThread* thread, QString returnedException){
+void Backend::getExecutionResults(PySoundThread* thread, QString returnedException, int lineno){
     disconnect(thread, SIGNAL(doneSignal(PySoundThread*, QString)),
             this, SLOT(getExecutionResults(PySoundThread*, QString)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
+    if(lineno > 0)
+        instances[thread->ID]->highlightErroredLine(lineno);
 }
-void Backend::getExecutionResults(PyLiveThread* thread, QString returnedException){
-    disconnect(thread, SIGNAL(doneSignal(PyLiveThread*, QString)),
-            this, SLOT(getExecutionResults(PyLiveThread*, QString)));
+void Backend::getExecutionResults(PyLiveThread* thread, QString returnedException, int lineno){
+    disconnect(thread, SIGNAL(doneSignal(PyLiveThread*, QString, int)),
+            this, SLOT(getExecutionResults(PyLiveThread*, QString, int)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
+    if(lineno > 0)
+        instances[thread->ID]->highlightErroredLine(lineno);
 }
 void Backend::getExecutionResults(GlLiveThread* thread, QString returnedException){
     // Already gone?
@@ -512,7 +519,6 @@ void Backend::getExecutionResults(GlLiveThread* thread, QString returnedExceptio
  * terminates a specific thread and deletes it from the list.
  */
 void Backend::terminateThread(long id){
-    //NOTE: Can a thread change its address implicitly? Check back
     if(threads.contains(id)){
         if(threads[id]->isRunning())
             threads[id]->terminate();

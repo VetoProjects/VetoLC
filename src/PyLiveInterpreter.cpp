@@ -1,4 +1,5 @@
 #include "PyLiveInterpreter.hpp"
+#include <QDebug>
 
 /**
  * @brief PyLiveInterpreter::PyLiveInterpreter
@@ -11,7 +12,7 @@
  */
 PyLiveInterpreter::PyLiveInterpreter(char* progName, char* pyInstructions){
     if(pyInstructions == QString()){
-        emit doneSignal(tr("File is empty. Nothing to execute."));
+        emit doneSignal(tr("File is empty. Nothing to execute."), 0);
         return;
     }
 
@@ -24,6 +25,7 @@ PyLiveInterpreter::PyLiveInterpreter(char* progName, char* pyInstructions){
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
     PyObject* module = PyImport_AddModule("__main__");
     dict = PyModule_GetDict(module);
+    exceptNum = 0;
 }
 
 /**
@@ -47,7 +49,7 @@ void PyLiveInterpreter::run(){
     PyObject* check = execute();
     if(check == NULL)
         exceptionOccurred();
-    emit doneSignal(ownExcept);
+    emit doneSignal(ownExcept, exceptNum);
 }
 
 /**
@@ -81,16 +83,33 @@ bool PyLiveInterpreter::updateCode(QString filename, QString instructions){
  * @brief PyLiveInterpreter::exceptionOccurred
  * @return PythonException
  *
- * Fetches the Python Exception and translates it to a C++
- * exception.
+ * Fetches the Python Exception and translates it to a QString
+ * and an int representing exception and line number.
  */
 void PyLiveInterpreter::exceptionOccurred(){
     PyObject *errtype, *errvalue, *traceback;
+    PyObject *mod;
+    PyObject *ret, *list, *string;
     PyErr_Fetch(&errtype, &errvalue, &traceback);
     PyErr_NormalizeException(&errtype, &errvalue, &traceback);
     QString exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
-    exceptionText.append(": ");
+    exceptionText.append(": '");
     exceptionText.append(PyString_AsString(PyObject_Str(errvalue)));
+    mod = PyImport_ImportModule("traceback");
+    list = PyObject_CallMethod(mod, (char*)"format_exception",
+                               (char*)"OOO", errtype, errvalue, traceback);
+    string = PyString_FromString("\n");
+    ret = _PyString_Join(string, list);
+    QRegExp line("line [0-9]+");
+    line.indexIn(PyString_AsString(ret));
+    QString text = line.capturedTexts().at(0);
+    exceptionText.append("' at " + text);
+    text.replace("line ", "");
+    exceptNum = text.toInt();
+    Py_DECREF(list);
+    Py_DECREF(string);
+    Py_DECREF(ret);
+    PyErr_Clear();
     ownExcept = exceptionText;
 }
 

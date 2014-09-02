@@ -33,7 +33,12 @@ void WindowInstance::WindowInstance::reportWarning(const QString &text)
     _window->showResults(text);
 }
 
-void WindowInstance::codeStoped()
+void WindowInstance::highlightErroredLine(int lineno)
+{
+    _window->highlightErroredLine(lineno);
+}
+
+void WindowInstance::codeStopped()
 {
     _window->codeStopped();
 }

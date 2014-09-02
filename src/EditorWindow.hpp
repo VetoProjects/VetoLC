@@ -27,6 +27,7 @@ public:
     ~EditorWindow();
     void showResults(const QString &);
     void warningDisplay(const QString &);
+    void highlightErroredLine(int);
     void codeStopped();
 
     QString getSourceCode() const;

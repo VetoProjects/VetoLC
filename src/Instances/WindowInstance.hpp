@@ -17,7 +17,8 @@ public:
     virtual bool close();
     virtual void reportError(const QString &message);
     virtual void reportWarning(const QString &);
-    virtual void codeStoped();
+    virtual void highlightErroredLine(int);
+    virtual void codeStopped();
 
 private:
     WindowInstance& operator=(const WindowInstance& rhs);

@@ -69,8 +69,8 @@ public slots:
     void childSaidCloseAll();
 
     void getExecutionResults(QtSoundThread*, QString);
-    void getExecutionResults(PySoundThread*, QString);
-    void getExecutionResults(PyLiveThread*, QString);
+    void getExecutionResults(PySoundThread*, QString, int);
+    void getExecutionResults(PyLiveThread*, QString, int);
     void getExecutionResults(GlLiveThread*, QString);
 
 private:

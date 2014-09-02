@@ -1,4 +1,5 @@
 #include "CodeEditor.hpp"
+#include <QDebug>
 
 /**
  * @brief CodeEditor::CodeEditor
@@ -149,6 +150,14 @@ void CodeEditor::lineHighlightingPaintEvent(QPaintEvent *event){
         top = bottom;
         bottom = top + (int)blockBoundingRect(textBlock).height();
     }
+}
+
+void CodeEditor::highlightErroredLine(int lineno){
+
+}
+
+void CodeEditor::removeErroredLine(){
+
 }
 
 /**

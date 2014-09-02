@@ -85,6 +85,7 @@ void EditorWindow::gotCloseAll()
 void EditorWindow::newFile(){
     if(saveDialog()){
         codeEditor->clear();
+        codeEditor->removeErroredLine();
         setAsCurrentFile("");
         if(templateNum == 0)
             loadFile(":/rc/template.py");
@@ -116,6 +117,7 @@ void EditorWindow::openFile(){
                 codeEditor->setHighlighting(2);
                 emit changedSetting(this, "UseCompiler", 2);
             }
+            codeEditor->removeErroredLine();
             loadFile(fileName);
         }
     }
@@ -199,9 +201,25 @@ void EditorWindow::warningDisplay(const QString &message){
     QMessageBox::warning(this, tr("VeToLC"), message);
 }
 
+/**
+ * @brief EditorWindow::codeStopped
+ *
+ * Sets the icon back to normal.
+ */
 void EditorWindow::codeStopped()
 {
     runAction->setIcon(QIcon(":/images/run.png"));
+}
+
+/**
+ * @brief EditorWindow::highlightErroredLine
+ * @param lineno
+ *
+ * Highlights a given line in red. Signifies an error in
+ * that line.
+ */
+void EditorWindow::highlightErroredLine(int lineno){
+    codeEditor->highlightErroredLine(lineno);
 }
 
 /**
@@ -237,6 +255,7 @@ void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
  * lets the backend run the file.
  */
 void EditorWindow::runFile(){
+    codeEditor->removeErroredLine();
     runAction->setIcon(QIcon(":/images/refresh.png"));
     runCode(this);
 }

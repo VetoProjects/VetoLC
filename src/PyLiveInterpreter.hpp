@@ -2,6 +2,7 @@
 #define PYLIVEINTERPRETER
 
 #include <Python.h>
+#include <frameobject.h>
 #include <QThread>
 #include <QAction>
 #include <QCoreApplication>
@@ -28,7 +29,8 @@ private:
     PyObject* execute();
     void exceptionOccurred();
     QString instructions;
-    PythonException ownExcept;
+    QString ownExcept;
+    int exceptNum;
     QAction* abortAction;
     PyObject* dict;
 
@@ -36,7 +38,7 @@ private slots:
     void terminated();
 
 signals:
-    void doneSignal(PythonException);
+    void doneSignal(QString, int);
 };
 
 #endif // PyLiveInterpreter

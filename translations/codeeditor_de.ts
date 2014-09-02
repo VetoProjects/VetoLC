@@ -236,7 +236,8 @@
         <location filename="../src/EditorWindow.cpp" line="364"/>
         <source>The document has been modified but is unsaved.
 Do you want to save your changes?</source>
-        <translation>Das Dokument wurde bearbeitet, jedoch nicht gespeichert.\nMöchten Sie die Änderungen speichern?</translation>
+        <translation type="unfinished">Das Dokument wurde bearbeitet, jedoch nicht gespeichert.
+Möchten Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <location filename="../src/EditorWindow.cpp" line="388"/>
