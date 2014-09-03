@@ -3,18 +3,18 @@
  */
 
 QComboBox {
-     border: 1px solid gray;
-     border-radius: 3px;
+     border: 1px solid #606060;
+     border-radius: 5px;
      padding: 1px 18px 1px 3px;
      min-width: 6em;
  }
 
 QComboBox:!editable {
-    background: white;
+    background: #C0C0C0;
  }
 
  QComboBox:!editable:on, QComboBox::drop-down:!editable:on, QComboBox:!editable:off {
-     background: #D0D0D0;
+     background: #909090;
  }
 
  QComboBox:on {
@@ -42,7 +42,7 @@ QTabWidget::tab-bar {
 }
 
 QTabBar::tab {
-     background: #D0D0D0;
+     background: #909090;
      border: 2px solid #C4C4C3;
      border-bottom: 0px; 
      border-top-left-radius: 4px;
@@ -52,7 +52,7 @@ QTabBar::tab {
 }
 
 QTabBar::tab:selected, QTabBar::tab:hover {
-     background: white;
+     background: #C0C0C0;
 }
 
 QTabBar::tab:selected {
@@ -93,17 +93,17 @@ QTabBar::tab:only-one {
  QCheckBox::indicator {
      width: 13px;
      height: 13px;
-     border: 1px solid grey;
-     border-radius: 3px;
+     border: 1px solid #606060;
+     border-radius: 5px;
      background: white;
  }
 
  QCheckBox::indicator:unchecked:hover {
-     background: #D0D0D0;
+     background: #909090;
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     background: #909090;
+     background: #606060;
  }
 
  QCheckBox::indicator:checked {
@@ -112,12 +112,12 @@ QTabBar::tab:only-one {
  }
 
  QCheckBox::indicator:checked:hover {
-     background: #D0D0D0;
+     background: #909090;
      image: url(:/images/x.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     background: #909090;
+     background: #606060;
      image: url(:/images/x.png);
  }
 
@@ -133,9 +133,9 @@ QTabBar::tab:only-one {
  */
 
 QPushButton {
-     border: 1px solid grey;
-     border-radius: 3px;
-     background-color: white;
+     border: 1px solid #606060;
+     border-radius: 5px;
+     background-color: #C0C0C0;
      min-width: 80px;
      margin-left: 5px;
      margin-right: 5px;
@@ -143,7 +143,7 @@ QPushButton {
  }
 
  QPushButton:pressed {
-     background-color: #909090;
+     background-color: #606060;
  }
 
  QPushButton:flat {
@@ -151,7 +151,7 @@ QPushButton {
  }
 
  QPushButton:default {
-     background-color: #D0D0D0; 
+     background-color: #909090; 
  }
 
 
@@ -159,13 +159,20 @@ QPushButton {
  *  QStatusBar, QToolBar
  */
 QStatusBar, QToolBar {
-     background: #D0D0D0;
+     background: #909090;
  }
 
 QToolBar {
-     border-bottom: 1px solid #909090;
+     border-bottom: 1px solid #606060;
 }
 
 QStatusBar {
-     border-top: 1px solid #909090;
+     border-top: 1px solid #606060;
+}
+
+/*
+ *  QDialog
+ */
+QDialog{
+    background: #909090;
 }

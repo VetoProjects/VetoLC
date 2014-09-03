@@ -37,7 +37,6 @@ int main(int argc, char *argv[]){
     QString language = QLocale::system().name();
     language.chop(3);
     QDir dir = Backend::directoryOf(QStringLiteral("translations/codeeditor_") + language);
-    dir.cdUp();
 
     QTranslator translator;
     translator.load(dir.absoluteFilePath("translations/codeeditor_" + language));
