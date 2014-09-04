@@ -85,7 +85,6 @@ void EditorWindow::gotCloseAll()
 void EditorWindow::newFile(){
     if(saveDialog()){
         codeEditor->clear();
-        codeEditor->removeErroredLine();
         setAsCurrentFile("");
         if(templateNum == 0)
             loadFile(":/rc/template.py");
@@ -117,7 +116,6 @@ void EditorWindow::openFile(){
                 codeEditor->setHighlighting(2);
                 emit changedSetting(this, "UseCompiler", 2);
             }
-            codeEditor->removeErroredLine();
             loadFile(fileName);
         }
     }
@@ -255,7 +253,6 @@ void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
  * lets the backend run the file.
  */
 void EditorWindow::runFile(){
-    codeEditor->removeErroredLine();
     runAction->setIcon(QIcon(":/images/refresh.png"));
     runCode(this);
 }

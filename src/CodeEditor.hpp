@@ -28,11 +28,11 @@ public:
     void lineHighlightingPaintEvent(QPaintEvent *event);
     int lineHighlightingWidth();
     void highlightErroredLine(int);
-    void removeErroredLine();
     void setHighlighting(int highlighting);
 
 protected:
     void resizeEvent(QResizeEvent *event);
+    void keyPressEvent(QKeyEvent *e);
 
 private slots:
     void updatelineHighlightingWidth();

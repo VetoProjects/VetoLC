@@ -27,8 +27,6 @@ CodeEditor::CodeEditor(QWidget *parent, int file) : QPlainTextEdit(parent){
     font.setBold(true);
     font.setStyleStrategy(QFont::PreferAntialias);
     setFont(font);
-    QFontMetrics fontMetrics(font);
-    setTabStopWidth(4 * fontMetrics.width(' '));
 }
 
 /**
@@ -152,11 +150,28 @@ void CodeEditor::lineHighlightingPaintEvent(QPaintEvent *event){
     }
 }
 
+/**
+ * @brief CodeEditor::highlightErroredLine
+ * @param lineno
+ *
+ * highlights the line given as argument as errored.
+ */
 void CodeEditor::highlightErroredLine(int lineno){
+    QTextCursor cursor(document()->findBlockByLineNumber(lineno-1));
+    QTextEdit::ExtraSelection selection;
 
-}
+    cursor.movePosition(QTextCursor::EndOfLine);
+    setTextCursor(cursor);
 
-void CodeEditor::removeErroredLine(){
+    QColor lineColor = QColor(Qt::red).lighter(180);
+
+    selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+    selection.format.setBackground(lineColor);
+    selection.cursor = cursor;
+    selection.cursor.clearSelection();
+    QList<QTextEdit::ExtraSelection> selections;
+    selections.append(selection);
+    setExtraSelections(selections);
 
 }
 
@@ -170,4 +185,20 @@ void CodeEditor::removeErroredLine(){
  */
 void CodeEditor::setHighlighting(int highlighting){
     syntaxEngine->setupHighlighting(highlighting);
+}
+
+/**
+ * @brief CodeEditor::keyPressEvent
+ * @param e
+ *
+ * intercepts the keyPressEvent e so that a tab is rendered
+ * as 4 spaces.
+ */
+void CodeEditor::keyPressEvent(QKeyEvent *e){
+    if(e->key() == Qt::Key_Tab){
+        insertPlainText("    ");
+        e->accept();
+    }
+    else
+        QPlainTextEdit::keyPressEvent(e);
 }

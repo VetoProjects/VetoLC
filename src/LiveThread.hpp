@@ -75,6 +75,10 @@ public:
     bool updateCode(const QString &, const QString &){
         return false;
     }
+public slots:
+    void doneSignalReceived(QString exception, int lineno){
+        emit doneSignal(this, exception, lineno);
+    }
 signals:
     void doneSignal(PySoundThread*, QString, int);
 private:
@@ -133,6 +137,10 @@ public:
         Q_UNUSED(filename)
         Q_UNUSED(code)
         return false;
+    }
+public slots:
+    void doneSignalReceived(QString exception, int lineno){
+        emit doneSignal(this, exception, lineno);
     }
 signals:
     void doneSignal(PyLiveThread*, QString, int);
