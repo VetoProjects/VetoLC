@@ -1,5 +1,4 @@
 #include "PyLiveInterpreter.hpp"
-#include <QDebug>
 
 /**
  * @brief PyLiveInterpreter::PyLiveInterpreter

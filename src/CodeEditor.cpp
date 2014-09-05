@@ -1,5 +1,4 @@
 #include "CodeEditor.hpp"
-#include <QDebug>
 
 /**
  * @brief CodeEditor::CodeEditor
