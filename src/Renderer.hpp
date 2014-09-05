@@ -34,6 +34,7 @@ public:
 
 signals:
     void doneSignal(QString);
+    void errored(QString, int);
 
 public slots:
     void renderNow();

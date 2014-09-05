@@ -471,6 +471,8 @@ void Backend::runGlFile(IInstance *instance){
     GlLiveThread* thread = new GlLiveThread(instance->ID, this);
     connect(thread, SIGNAL(doneSignal(GlLiveThread*, QString)),
             this, SLOT(getExecutionResults(GlLiveThread*, QString)));
+    connect(thread, SIGNAL(errorSignal(GlLiveThread*, QString, int)),
+            this, SLOT(getError(GlLiveThread*, QString, int)));
     thread->initialize(instance->title(), instance->sourceCode());
     thread->start();
     threads.insert(thread->ID, thread);
@@ -510,6 +512,15 @@ void Backend::getExecutionResults(GlLiveThread* thread, QString returnedExceptio
             this, SLOT(getExecutionResults(GlLiveThread*, QString)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
+}
+
+void Backend::getError(GlLiveThread* thread, QString error, int lineno){
+    qDebug() << "+++";
+    qDebug() << error << lineno;
+    qDebug() << "+++";
+    instances[thread->ID]->reportWarning(error);
+    if(lineno > 0)
+        instances[thread->ID]->highlightErroredLine(lineno);
 }
 
 /**

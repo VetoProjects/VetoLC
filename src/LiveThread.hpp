@@ -165,6 +165,11 @@ public:
     void initialize(const QString &title, const QString &instructions){
         runObj = new Renderer(title, instructions);
         connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
+        connect(runObj, SIGNAL(errored(QString,int)), this, SLOT(erroredReceived(QString)));
+
+        runObj->resize(800, 600);
+        runObj->show();
+
     }
     bool updateCode(const QString &filename, const QString &code){
         if(runObj)
@@ -175,8 +180,12 @@ public slots:
     void doneSignalReceived(QString exception){
         emit doneSignal(this, exception);
     }
+    void erroredReceived(QString error, int lineno){
+        emit errorSignal(this, error, lineno);
+    }
 signals:
     void doneSignal(GlLiveThread*, QString);
+    void errorSignal(GlLiveThread*, QString, int);
 private:
     Renderer* runObj;
 };

@@ -126,8 +126,8 @@ bool PySoundGenerator::updateCode(QString filename, QString instructions){
  * @brief PySoundGenerator::exceptionOccurred
  * @return PythonException
  *
- * Fetches the Python Exception and translates it to a C++
- * exception.
+ * Fetches the Python Exception and translates it to a QString
+ * and an int representing exception and line number.
  */
 void PySoundGenerator::exceptionOccurred(){
     PyObject *errtype, *errvalue, *traceback;
@@ -138,20 +138,36 @@ void PySoundGenerator::exceptionOccurred(){
     QString exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
     exceptionText.append(": '");
     exceptionText.append(PyString_AsString(PyObject_Str(errvalue)));
-    mod = PyImport_ImportModule("traceback");
-    list = PyObject_CallMethod(mod, (char*)"format_exception",
-                               (char*)"OOO", errtype, errvalue, traceback);
-    string = PyString_FromString("\n");
-    ret = _PyString_Join(string, list);
     QRegExp line("line [0-9]+");
-    line.indexIn(PyString_AsString(ret));
-    QString text = line.capturedTexts().at(0);
-    exceptionText.append("' at " + text);
-    text.replace("line ", "");
-    exceptNum = text.toInt();
-    Py_DECREF(list);
-    Py_DECREF(string);
-    Py_DECREF(ret);
+    if(line.indexIn(exceptionText) != -1){
+        QString text = line.capturedTexts().at(0);
+        exceptionText.replace(" (<string>, " + text + ")", "");
+        exceptionText.append("' at " + text);
+        text.replace("line ", "");
+        exceptNum = text.toInt();
+    } else{
+        mod = PyImport_ImportModule("traceback");
+        list = PyObject_CallMethod(mod, (char*)"format_exception",
+                               (char*)"OOO", errtype, errvalue, traceback);
+        if(list == 0){
+            ownExcept = exceptionText;
+            exceptNum = 0;
+            return;
+        }
+        string = PyString_FromString("\n");
+        ret = _PyString_Join(string, list);
+        if(line.indexIn(PyString_AsString(ret)) != -1){
+            QString text = line.capturedTexts().at(0);
+            exceptionText.append("' at " + text);
+            text.replace("line ", "");
+            exceptNum = text.toInt();
+        } else{
+            exceptNum = 0;
+        }
+        Py_DECREF(list);
+        Py_DECREF(string);
+        Py_DECREF(ret);
+    }
     PyErr_Clear();
     ownExcept = exceptionText;
 }

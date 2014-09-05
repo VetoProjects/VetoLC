@@ -88,9 +88,6 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
     format.setSamples(4);
     format.setProfile(QSurfaceFormat::CoreProfile);
     setFormat(format);
-
-    resize(800, 600);
-    show();
 }
 
 /**
@@ -154,8 +151,9 @@ bool Renderer::init(){
  */
 bool Renderer::initShaders(const QString &fragmentShader){
     QOpenGLShaderProgram *newShaderProgram = new QOpenGLShaderProgram(this);
+    QString error = "";
     if(!newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, defaultVertexShader)){
-        qDebug() << newShaderProgram->log();
+        error = newShaderProgram->log();
 
         delete newShaderProgram;
 
@@ -163,11 +161,9 @@ bool Renderer::initShaders(const QString &fragmentShader){
             qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
             initShaders(defaultFragmentShader);
-
-        return false;
     }
     if(!newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,fragmentShader)){
-        qDebug() << newShaderProgram->log();
+        error = newShaderProgram->log();
 
         delete newShaderProgram;
 
@@ -175,11 +171,9 @@ bool Renderer::initShaders(const QString &fragmentShader){
             qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
             initShaders(defaultFragmentShader);
-
-        return false;
     }
     if(!newShaderProgram->link()){
-        qDebug() << newShaderProgram->log();
+        error = newShaderProgram->log();
 
         delete newShaderProgram;
 
@@ -187,7 +181,13 @@ bool Renderer::initShaders(const QString &fragmentShader){
             qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
             initShaders(defaultFragmentShader);
-
+    }
+    if(error != ""){
+        QRegExp errorline(":[0-9]+:");
+        errorline.indexIn(error);
+        QString text = errorline.capturedTexts().at(0);
+        text.replace(":", "");
+        emit errored(error, text.toInt());
         return false;
     }
     shaderProgramMutex.lock();
@@ -360,6 +360,7 @@ bool Renderer::updateCode(const QString &filename, const QString &code){
     if(!initShaders(code))
         return false;
     setTitle(filename);
+    show();
     return true;
 }
 

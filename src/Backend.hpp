@@ -73,6 +73,8 @@ public slots:
     void getExecutionResults(PyLiveThread*, QString, int);
     void getExecutionResults(GlLiveThread*, QString);
 
+    void getError(GlLiveThread*, QString, int);
+
 private:
     void runPyFile(IInstance *);
     void runQtSoundFile(IInstance *);
