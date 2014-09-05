@@ -11,14 +11,14 @@
  */
 PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     if(pyInstructions == QString()){
-        emit doneSignal(tr("File is empty. Nothing to execute."), 0);
+        emit doneSignal(tr("File is empty. Nothing to execute."), -1);
         return;
     }
 
     Py_SetProgramName(progName);
     Py_Initialize();
     ownExcept = QString();
-    exceptNum = 0;
+    exceptNum = -1;
     abortAction = new QAction(this);
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
@@ -31,7 +31,7 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     dict = PyModule_GetDict(module);
     if(!dict){
         exceptionOccurred();
-        emit doneSignal(ownExcept, 0);
+        emit doneSignal(ownExcept, -1);
         return;
     }
     execute("import AudioPython");
@@ -151,7 +151,7 @@ void PySoundGenerator::exceptionOccurred(){
                                (char*)"OOO", errtype, errvalue, traceback);
         if(list == 0){
             ownExcept = exceptionText;
-            exceptNum = 0;
+            exceptNum = -1;
             return;
         }
         string = PyString_FromString("\n");
@@ -162,7 +162,7 @@ void PySoundGenerator::exceptionOccurred(){
             text.replace("line ", "");
             exceptNum = text.toInt();
         } else{
-            exceptNum = 0;
+            exceptNum = -1;
         }
         Py_DECREF(list);
         Py_DECREF(string);

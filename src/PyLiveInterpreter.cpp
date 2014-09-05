@@ -12,7 +12,7 @@
  */
 PyLiveInterpreter::PyLiveInterpreter(char* progName, char* pyInstructions){
     if(pyInstructions == QString()){
-        emit doneSignal(tr("File is empty. Nothing to execute."), 0);
+        emit doneSignal(tr("File is empty. Nothing to execute."), -1);
         return;
     }
 
@@ -25,7 +25,7 @@ PyLiveInterpreter::PyLiveInterpreter(char* progName, char* pyInstructions){
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
     PyObject* module = PyImport_AddModule("__main__");
     dict = PyModule_GetDict(module);
-    exceptNum = 0;
+    exceptNum = -1;
 }
 
 /**
@@ -108,7 +108,7 @@ void PyLiveInterpreter::exceptionOccurred(){
                                (char*)"OOO", errtype, errvalue, traceback);
         if(list == 0){
             ownExcept = exceptionText;
-            exceptNum = 0;
+            exceptNum = -1;
             return;
         }
         string = PyString_FromString("\n");
@@ -119,7 +119,7 @@ void PyLiveInterpreter::exceptionOccurred(){
             text.replace("line ", "");
             exceptNum = text.toInt();
         } else{
-            exceptNum = 0;
+            exceptNum = -1;
         }
         Py_DECREF(list);
         Py_DECREF(string);

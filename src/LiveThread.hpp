@@ -165,7 +165,7 @@ public:
     void initialize(const QString &title, const QString &instructions){
         runObj = new Renderer(title, instructions);
         connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
-        connect(runObj, SIGNAL(errored(QString,int)), this, SLOT(erroredReceived(QString)));
+        connect(runObj, SIGNAL(errored(QString,int)), this, SLOT(erroredReceived(QString, int)));
 
         runObj->resize(800, 600);
         runObj->show();

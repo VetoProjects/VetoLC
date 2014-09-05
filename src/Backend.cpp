@@ -495,7 +495,7 @@ void Backend::getExecutionResults(PySoundThread* thread, QString returnedExcepti
             this, SLOT(getExecutionResults(PySoundThread*, QString)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
-    if(lineno > 0)
+    if(lineno >= 0)
         instances[thread->ID]->highlightErroredLine(lineno);
 }
 void Backend::getExecutionResults(PyLiveThread* thread, QString returnedException, int lineno){
@@ -503,7 +503,7 @@ void Backend::getExecutionResults(PyLiveThread* thread, QString returnedExceptio
             this, SLOT(getExecutionResults(PyLiveThread*, QString, int)));
     terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
-    if(lineno > 0)
+    if(lineno >= 0)
         instances[thread->ID]->highlightErroredLine(lineno);
 }
 void Backend::getExecutionResults(GlLiveThread* thread, QString returnedException){
@@ -515,11 +515,8 @@ void Backend::getExecutionResults(GlLiveThread* thread, QString returnedExceptio
 }
 
 void Backend::getError(GlLiveThread* thread, QString error, int lineno){
-    qDebug() << "+++";
-    qDebug() << error << lineno;
-    qDebug() << "+++";
     instances[thread->ID]->reportWarning(error);
-    if(lineno > 0)
+    if(lineno >= 0)
         instances[thread->ID]->highlightErroredLine(lineno);
 }
 
