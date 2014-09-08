@@ -19,8 +19,8 @@ Q_OBJECT
 private slots:
     void initTestCase(){
         thread = new PyLiveThread(0);
-        connect(thread, SIGNAL(doneSignal(PyLiveThread*, QString)),
-                this, SLOT(finishedTest(PyLiveThread*, QString)));
+        connect(thread, SIGNAL(doneSignal(PyLiveThread*, QString, int)),
+                this, SLOT(finishedTest(PyLiveThread*, QString, int)));
         thread->initialize("Test", "raise ImportError('Not valid')");
     }
     void objectCreationTest() {
@@ -31,10 +31,11 @@ private slots:
         QTest::qWait(200);
         thread->terminate();
     }
-    void finishedTest(PyLiveThread* returnedThread, QString returned){
+    void finishedTest(PyLiveThread* returnedThread, QString returned, int lineno){
         QVERIFY(returnedThread == thread);
         qDebug() << returned;
         QVERIFY(returned != NULL);
+        QVERIFY(lineno == 1);
         QVERIFY(thread == returnedThread);
     }
     void cleanupTestCase(){
