@@ -27,5 +27,4 @@ python:
 	cd bin && make CPPFLAGS+=WITH_PYTHON && rm *.o *[ch]pp
 
 clean:
-	rm -r testbin
-	rm -r bin
+	rm -r testbin || rm -r bin
