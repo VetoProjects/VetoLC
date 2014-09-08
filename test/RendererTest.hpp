@@ -18,8 +18,8 @@ Q_OBJECT
 private slots:
     void initTestCase(){
         thread = new GlLiveThread(0);
-        connect(thread, SIGNAL(errorSignal(QString, int)),
-                this, SLOT(finishedTest(QString, int)));
+        connect(thread, SIGNAL(errorSignal(GlLiveThread*, QString, int)),
+                this, SLOT(finishedTest(GlLiveThread*, QString, int)));
         connect(thread, SIGNAL(doneSignal(GlLiveThread*, QString)),
                  this, SLOT(doneTest(GlLiveThread*, QString)));
         thread->initialize("Test", "This is not valid code;");
@@ -32,14 +32,15 @@ private slots:
         QTest::qWait(1000);
         thread->terminate();
     }
-    void finishedTest(QString returned, int lineno){
+    void finishedTest(GlLiveThread* returnedThread, QString returned, int lineno){
+        QVERIFY(returnedThread == thread);
         QVERIFY(returned != NULL);
-        QVERIFY(returned == "ERROR: 0:4: 'This' : syntax error syntax error");
+        QCOMPARE(returned, QStringLiteral("ERROR: 0:1: '' :  #version required and missing.\nERROR: 0:4: 'This' : syntax error syntax error\n"));
         QVERIFY(lineno == 1);
     }
     void doneTest(GlLiveThread* returnedThread, QString err){
         QVERIFY(returnedThread == thread);
-        QVERIFY(err == "ERROR: 0:4: 'This' : syntax error syntax error");
+        QCOMPARE(err, QStringLiteral("ERROR: 0:1: '' :  #version required and missing.\nERROR: 0:4: 'This' : syntax error syntax error\n"));
     }
     void cleanupTestCase(){
         delete thread;

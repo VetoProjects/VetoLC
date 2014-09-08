@@ -25,6 +25,9 @@ private slots:
         QTest::keyClicks(codeEditor, "I am an int and that is code;");
         QCOMPARE(codeEditor->toPlainText(), QStringLiteral("I am an int and that is code;"));
     }
+    void LineHighlightingTest(){
+        QVERIFY(codeEditor->lineHighlightingWidth() == 10);
+    }
     void cleanupTestCase() {
         delete codeEditor;
     }

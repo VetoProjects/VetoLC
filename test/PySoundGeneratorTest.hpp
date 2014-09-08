@@ -33,7 +33,6 @@ private slots:
     }
     void finishedTest(PySoundThread* returnedThread, QString returned){
         QVERIFY(returnedThread == thread);
-        qDebug() << returned;
         QVERIFY(returned != NULL);
         QVERIFY(thread == returnedThread);
     }

@@ -32,7 +32,6 @@ private slots:
             backend->addInstance(list[i]);
         }
         backend->addInstance(instance);
-        qDebug() << ids << backend->loadIds().length();
         QVERIFY(ids + 1 == backend->loadIds().length());
         QVERIFY(backend->removeInstance(instance));
         QVERIFY(ids == backend->loadIds().length());

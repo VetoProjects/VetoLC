@@ -187,7 +187,10 @@ bool Renderer::initShaders(const QString &fragmentShader){
         errorline.indexIn(error);
         QString text = errorline.capturedTexts().at(0);
         text.replace(":", "");
-        emit errored(error, text.toInt()-3);
+        if(text.toInt()-3 > 0)
+            emit errored(error, text.toInt()-3);
+        else
+            emit errored(error, text.toInt());
         return false;
     }
     shaderProgramMutex.lock();

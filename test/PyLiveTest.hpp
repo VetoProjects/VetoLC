@@ -33,7 +33,6 @@ private slots:
     }
     void finishedTest(PyLiveThread* returnedThread, QString returned, int lineno){
         QVERIFY(returnedThread == thread);
-        qDebug() << returned;
         QVERIFY(returned != NULL);
         QVERIFY(lineno == 1);
         QVERIFY(thread == returnedThread);
