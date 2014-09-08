@@ -39,6 +39,7 @@ private slots:
     }
     void doneTest(GlLiveThread* returnedThread, QString err){
         QVERIFY(returnedThread == thread);
+        QVERIFY(err == "ERROR: 0:4: 'This' : syntax error syntax error");
     }
     void cleanupTestCase(){
         delete thread;
