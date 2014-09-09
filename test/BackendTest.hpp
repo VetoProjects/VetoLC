@@ -11,8 +11,8 @@
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539501)
  *
  * Tests the Backend class; functionality tested includes
- * object creation, instance creation and removing and
- * settings management.
+ * object creation, instance creation and removing, settings
+ * management and finding directories.
  */
 class BackendTest : public QObject{
 Q_OBJECT
@@ -47,6 +47,12 @@ private slots:
             QVERIFY(id >= 0);
         }
         backend->removeSettings(instance);
+    }
+    void dirTest(){
+        QDir dir = Backend::directoryOf(QStringLiteral("/translations"));
+        QVERIFY(dir.exists());
+        dir = Backend::directoryOf(QStringLiteral("/dirDoesNotExist"));
+        QVERIFY(!dir.exists());
     }
     void cleanupTestCase() {
         delete backend;

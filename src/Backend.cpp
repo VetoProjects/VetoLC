@@ -265,17 +265,19 @@ QDir Backend::directoryOf(const QString &subdir){
     dir.cdUp();
 #elif defined(Q_OS_MAC)
     if (dir.dirName() == "MacOS") {
-    dir.cdUp();
-    dir.cdUp();
-    dir.cdUp();
-    if(dir.dirName().toLower().contains("debug")){
         dir.cdUp();
-        dir.cd("LiveCodingEditor");
-    }
+        dir.cdUp();
+        dir.cdUp();
+        if(dir.dirName().toLower().contains("debug")){
+            dir.cdUp();
+            dir.cd("LiveCodingEditor");
+        }
     }
 #endif
-    dir.cd(subdir);
-    return dir;
+    if(dir.cd(subdir))
+        return dir;
+    else
+        return QDir(dir.absolutePath() + subdir);
 }
 
 /**
