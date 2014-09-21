@@ -259,11 +259,7 @@ void Backend::openHelp(IInstance *){
 QDir Backend::directoryOf(const QString &subdir){
     QDir dir(QApplication::applicationDirPath());
 
-#if defined(Q_OS_WIN)
-    if (dir.dirName().toLower() == "debug"
-        || dir.dirName().toLower() == "release")
-    dir.cdUp();
-#elif defined(Q_OS_MAC)
+#if defined(Q_OS_MAC)
     if (dir.dirName() == "MacOS") {
         dir.cdUp();
         dir.cdUp();
@@ -273,6 +269,8 @@ QDir Backend::directoryOf(const QString &subdir){
             dir.cd("LiveCodingEditor");
         }
     }
+#else
+    dir.cdUp();
 #endif
     if(dir.cd(subdir))
         return dir;
