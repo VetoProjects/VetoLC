@@ -401,7 +401,7 @@ bool EditorWindow::saveDialog(){
         QMessageBox::StandardButton question;
         question = QMessageBox::warning(this, tr("VeToLC"),
                                 tr("The document has been modified"
-                                   " but is unsaved.\n"
+                                   " but is unsaved. "
                                 "Do you want to save your changes?"),
                                 QMessageBox::Save | QMessageBox::Discard
                                 | QMessageBox::Cancel);
