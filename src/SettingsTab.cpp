@@ -198,8 +198,8 @@ void BehaviourTab::addLayout(){
         settings->insert("RememberSize", true);
 
     startupCompiler = new QButtonGroup(this);
-    rememberCompiler = new QCheckBox(tr("Remember Compiler that was used last"));
-    askForCompiler = new QCheckBox(tr("Always ask"));
+    rememberCompiler = new QRadioButton(tr("Remember Compiler that was used last"));
+    askForCompiler = new QRadioButton(tr("Always ask"));
     startupCompiler->addButton(rememberCompiler);
     startupCompiler->addButton(askForCompiler);
 
@@ -213,6 +213,16 @@ void BehaviourTab::addLayout(){
     connect(openCheck, SIGNAL(toggled(bool)), this, SLOT(openSlot(bool)));
     connect(sizeCheck, SIGNAL(toggled(bool)), this, SLOT(sizeSlot(bool)));
     connect(rememberCompiler, SIGNAL(toggled(bool)), this, SLOT(rememberCompilerSlot(bool)));
+
+    editor = new QGroupBox(tr("Editor Behaviour"));
+    replaceTabs = new QCheckBox(tr("Replace Tabs with Spaces"));
+
+    if(settings->value("ReplaceTabs").toBool())
+        replaceTabs->toggle();
+    else
+        settings->insert("ReplaceTabs", false);
+
+    connect(replaceTabs, SIGNAL(toggled(bool)), this, SLOT(replaceSlot(bool)));
 
     compiler = new QGroupBox(tr("Compiler to be used:"));
 
@@ -242,9 +252,14 @@ void BehaviourTab::addLayout(){
     compilerLayout->addWidget(compilerChoice);
     compiler->setLayout(compilerLayout);
 
+    editorLayout = new QVBoxLayout;
+    editorLayout->addWidget(replaceTabs);
+    editor->setLayout(editorLayout);
+
     mainLayout = new QVBoxLayout;
     mainLayout->addWidget(startup);
     mainLayout->addWidget(compiler);
+    mainLayout->addWidget(editor);
     mainLayout->addSpacing(12);
     mainLayout->addStretch(1);
     setLayout(mainLayout);
@@ -299,5 +314,18 @@ void BehaviourTab::rememberCompilerSlot(bool toggled){
  */
 void BehaviourTab::useCompilerSlot(int index){
     settings->insert("UseCompiler", index);
+    emit contentChanged();
+}
+
+/**
+ * @brief BehaviourTab::replaceSlot
+ * @param bool
+ *
+ * SLOT that reacts to the toggled() SIGNAL of
+ * replaceTabs. Writes change to Hashlist
+ * and emits a contentChanged signal.
+ */
+void BehaviourTab::replaceSlot(bool toggled){
+    settings->insert("ReplaceTabs", toggled);
     emit contentChanged();
 }

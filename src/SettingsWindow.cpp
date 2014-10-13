@@ -76,8 +76,8 @@ void SettingsWindow::apply(){
         globalSettings->setValue("Design", settingsDict["Design"]);
         QApplication::setStyle(settingsDict["Design"].toString());
         settingsDict.remove("Design");
-        repaint();
         update();
+        repaint();
         for(const QString &key : settingsDict.keys())
             settings->setValue(key, settingsDict[key]);
         changed = false;

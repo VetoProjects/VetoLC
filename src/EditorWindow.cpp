@@ -11,7 +11,7 @@
  * Also, it deals with platform-specific displaying quirks.
  */
 EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *parent) : QMainWindow(parent){
-    codeEditor = new CodeEditor(this, settings.value("UseCompiler").toInt());
+    codeEditor = new CodeEditor(this, settings.value("UseCompiler").toInt(), settings.value("ReplaceTabs").toBool());
     setCentralWidget(codeEditor);
 
     addActions();
@@ -204,8 +204,7 @@ void EditorWindow::warningDisplay(const QString &message){
  *
  * Sets the icon back to normal.
  */
-void EditorWindow::codeStopped()
-{
+void EditorWindow::codeStopped(){
     runAction->setIcon(QIcon(":/images/run.png"));
 }
 
@@ -245,6 +244,16 @@ void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
         else
             loadFile(file);
     }
+}
+
+/**
+ * @brief EditorWindow::gotSettingsChanged
+ * @param settings
+ *
+ * replaces the settings after they have changed.
+ */
+void EditorWindow::gotSettingsChanged(const QHash<QString, QVariant> &settings){
+    codeEditor->setReplaceTabs(settings.value("ReplaceTabs").toBool());
 }
 
 /**
@@ -401,7 +410,7 @@ bool EditorWindow::saveDialog(){
         QMessageBox::StandardButton question;
         question = QMessageBox::warning(this, tr("VeToLC"),
                                 tr("The document has been modified"
-                                   " but is unsaved.\n"
+                                   " but is unsaved. "
                                 "Do you want to save your changes?"),
                                 QMessageBox::Save | QMessageBox::Discard
                                 | QMessageBox::Cancel);

@@ -236,6 +236,7 @@ QHash<QString, QVariant> Backend::getSettings(int id)
 void Backend::settingsWindowRequested(IInstance *instance){
     SettingsWindow settingsWin(instance->ID);
     settingsWin.exec();
+    instance->settingsChanged(getSettings(instance->ID));
 }
 
 /**

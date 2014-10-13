@@ -12,8 +12,8 @@ uniform sampler1D audioRightData;
 
 out vec4 color;
 
-float left (float val){ return texture(audioLeftData , val).r ; }
-float right(float val){ return texture(audioRightData, val).r ; }
+float left (float val){ return texture(audioLeftData, val).r; }
+float right(float val){ return texture(audioRightData, val).r; }
 
 float clamp(float val){ return clamp(val, 0.0, 1.0); }
 //vec2  clamp(vec2  val){ return clamp(val, 0.0, 1.0); }
