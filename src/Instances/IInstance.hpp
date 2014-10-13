@@ -25,6 +25,7 @@ public:
     virtual void highlightErroredLine(int) = 0;
     virtual QString sourceCode() const = 0;
     virtual QString title() const = 0;
+    virtual void settingsChanged(const QHash<QString, QVariant> &) = 0;
 
 signals:
     void runCode(IInstance *);

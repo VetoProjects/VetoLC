@@ -40,6 +40,7 @@ public slots:
     void gotOpenSettings(EditorWindow *);
     void gotChangedSetting(EditorWindow*, const QString &, const QVariant &);
     void gotChangedSettings(EditorWindow*, const QHash<QString,QVariant> &);
+    void settingsChanged(const QHash<QString, QVariant> &);
 };
 
 }

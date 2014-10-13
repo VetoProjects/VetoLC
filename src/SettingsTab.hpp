@@ -15,6 +15,7 @@
 #include <QButtonGroup>
 #include <QMessageBox>
 #include <QSettings>
+#include <QRadioButton>
 
 /**
  * @brief The SettingsTab class
@@ -90,18 +91,22 @@ private slots:
     void sizeSlot(bool);
     void rememberCompilerSlot(bool);
     void useCompilerSlot(int);
+    void replaceSlot(bool);
 private:
     QGroupBox* startup;
     QCheckBox* openCheck;
     QCheckBox* sizeCheck;
     QButtonGroup* startupCompiler;
-    QCheckBox* rememberCompiler;
-    QCheckBox* askForCompiler;
+    QRadioButton* rememberCompiler;
+    QRadioButton* askForCompiler;
+    QGroupBox* editor;
+    QCheckBox* replaceTabs;
     QGroupBox* compiler;
     QLabel* compilerChoiceLabel;
     QComboBox* compilerChoice;
     QVBoxLayout* startupLayout;
     QVBoxLayout* compilerLayout;
+    QVBoxLayout* editorLayout;
     QVBoxLayout* mainLayout;
 };
 

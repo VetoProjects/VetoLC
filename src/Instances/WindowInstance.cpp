@@ -86,6 +86,10 @@ void WindowInstance::gotChangedSetting(EditorWindow *, const QString &key, const
     emit changeSetting(this, key, value);
 }
 
+void WindowInstance::settingsChanged(const QHash<QString, QVariant> &settings){
+    _window->gotSettingsChanged(settings);
+}
+
 void WindowInstance::gotDestroying(QObject*)
 {
     _window = 0;

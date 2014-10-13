@@ -29,6 +29,7 @@ public:
     void warningDisplay(const QString &);
     void highlightErroredLine(int);
     void codeStopped();
+    void gotSettingsChanged(const QHash<QString, QVariant> &);
 
     QString getSourceCode() const;
     QString getTitle() const;
@@ -48,6 +49,7 @@ private slots:
     void gotOpenHelp();
     void gotOpenSettings();
     void gotCloseAll();
+
 
 signals:
     void closing(EditorWindow *);

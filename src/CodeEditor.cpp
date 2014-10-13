@@ -10,9 +10,10 @@
  * and connects slots and signals. Needs a highlighting
  * file.
  */
-CodeEditor::CodeEditor(QWidget *parent, int file) : QPlainTextEdit(parent){
+CodeEditor::CodeEditor(QWidget *parent, int file, bool replace) : QPlainTextEdit(parent){
     lineHighlighting = new LineHighlighting(this);
     syntaxEngine = new CodeHighlighter(this->document(), file);
+    replaceTabs = replace;
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updatelineHighlightingWidth()));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updatelineHighlighting(QRect,int)));
@@ -26,6 +27,9 @@ CodeEditor::CodeEditor(QWidget *parent, int file) : QPlainTextEdit(parent){
     font.setBold(true);
     font.setStyleStrategy(QFont::PreferAntialias);
     setFont(font);
+
+    QFontMetrics metrics(font);
+    setTabStopWidth(4 * metrics.width(' '));
 }
 
 /**
@@ -191,13 +195,23 @@ void CodeEditor::setHighlighting(int highlighting){
  * @param e
  *
  * intercepts the keyPressEvent e so that a tab is rendered
- * as 4 spaces.
+ * as 4 spaces if replaceTabs is set.
  */
 void CodeEditor::keyPressEvent(QKeyEvent *e){
-    if(e->key() == Qt::Key_Tab){
+    if(replaceTabs && e->key() == Qt::Key_Tab){
         insertPlainText("    ");
         e->accept();
     }
     else
         QPlainTextEdit::keyPressEvent(e);
+}
+
+/**
+ * @brief CodeEditor::keyPressEvent
+ * @param set
+ *
+ * setter for replaceTabs.
+ */
+void CodeEditor::setReplaceTabs(bool set){
+    replaceTabs = set;
 }

@@ -24,11 +24,12 @@ class CodeEditor : public QPlainTextEdit{
     Q_OBJECT
 
 public:
-    CodeEditor(QWidget *parent = 0, int file = 0);
+    CodeEditor(QWidget *parent = 0, int file = 0, bool replace = false);
     void lineHighlightingPaintEvent(QPaintEvent *event);
     int lineHighlightingWidth();
     void highlightErroredLine(int);
     void setHighlighting(int highlighting);
+    void setReplaceTabs(bool);
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -42,6 +43,7 @@ private slots:
 private:
     QWidget *lineHighlighting;
     CodeHighlighter *syntaxEngine;
+    bool replaceTabs;
 };
 
 
