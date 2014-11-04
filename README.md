@@ -223,6 +223,9 @@ that contains a paper we wrote about this project.
 Contribute
 ----------
 
+All current issues are filed as Github issues. If you want to contribute, have a look. 
+There's plenty to do already.
+
 At the time being, most issues are in integrating the interpreters/compilers. We are working
 on making the AudioPython interpreter more stable. QML is up next.
 
