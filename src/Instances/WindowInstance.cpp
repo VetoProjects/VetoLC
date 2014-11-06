@@ -28,7 +28,7 @@ void WindowInstance::reportError(const QString &message)
     _window->warningDisplay(message);
 }
 
-void WindowInstance::WindowInstance::reportWarning(const QString &text)
+void WindowInstance::reportWarning(const QString &text)
 {
     _window->showResults(text);
 }
