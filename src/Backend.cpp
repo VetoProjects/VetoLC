@@ -310,10 +310,11 @@ void Backend::instanceRunCode(IInstance *instance)
     if(threads.contains(id)){
         bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
         if(!worked){
-            instances[id]->codeStopped();
+            // Dont't stop!
+//            instances[id]->codeStopped();
             instances[id]->reportError(tr("Code is faulty."));
-            if(!threads[id]->isRunning())
-                terminateThread(id);
+//            if(!threads[id]->isRunning())
+//                terminateThread(id);
         }
     }else{
         bool ok;
