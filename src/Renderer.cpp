@@ -151,38 +151,36 @@ bool Renderer::init(){
  */
 bool Renderer::initShaders(const QString &fragmentShader){
     QOpenGLShaderProgram *newShaderProgram = new QOpenGLShaderProgram(this);
+    bool hasError = false;
     QString error = "";
-    if(!newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, defaultVertexShader)){
+
+    if(!hasError && !newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, defaultVertexShader)){
+        hasError = true;
         error = newShaderProgram->log();
 
-        delete newShaderProgram;
+        qWarning() << tr("Failed to compile default shader.");
+    }
+    if(!hasError && !newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,fragmentShader)){
+        hasError = true;
+        error = newShaderProgram->log();
 
         if(fragmentShader == defaultFragmentShader)
             qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
             initShaders(defaultFragmentShader);
     }
-    if(!newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,fragmentShader)){
+    if(!hasError && !newShaderProgram->link()){
+        hasError = true;
         error = newShaderProgram->log();
-
-        delete newShaderProgram;
 
         if(fragmentShader == defaultFragmentShader)
             qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
             initShaders(defaultFragmentShader);
     }
-    if(!newShaderProgram->link()){
-        error = newShaderProgram->log();
-
+    if(hasError){
         delete newShaderProgram;
 
-        if(fragmentShader == defaultFragmentShader)
-            qWarning() << tr("Failed to compile default shader.");
-        else if(shaderProgram == 0)
-            initShaders(defaultFragmentShader);
-    }
-    if(error != ""){
         QRegExp errorline(":[0-9]+:");
         errorline.indexIn(error);
         QString text = errorline.capturedTexts().at(0);
