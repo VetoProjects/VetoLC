@@ -181,14 +181,16 @@ bool Renderer::initShaders(const QString &fragmentShader){
     if(hasError){
         delete newShaderProgram;
 
-        QRegExp errorline(":[0-9]+:");
-        errorline.indexIn(error);
-        QString text = errorline.capturedTexts().at(0);
-        text.replace(":", "");
-        if(text.toInt()-3 > 0)
-            emit errored(error, text.toInt()-3);
-        else
-            emit errored(error, text.toInt());
+        //mac  :<line>:
+        //mesa :<line>(<errorcode>):
+        QRegExp errorline(":([0-9]+)(\\([0-9]+\\))?:");
+        if(errorline.indexIn(error) > -1){
+            QString text = errorline.cap(1);
+            if(text.toInt()-3 > 0)  // because: "#define lowp", "#define mediump" and "#define highp"
+                emit errored(error, text.toInt()-3);
+            else
+                emit errored(error, text.toInt());
+        }
         return false;
     }
     shaderProgramMutex.lock();
