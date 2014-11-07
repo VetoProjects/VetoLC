@@ -40,13 +40,14 @@ public:
     bool removeInstance(IInstance*, bool = true);
     bool removeInstance(int, bool = true);
     void removeSettings(IInstance*);
+    void removeSettings(int);
     void saveAllSettings();
     void saveSettings(IInstance *, QString);
     QHash<QString, QVariant> getSettings(IInstance *);
     QHash<QString, QVariant> getSettings(int id);
     int nextID();
     QList<int> loadIds();
-
+    QVariant getSetting(QString key, QVariant defaultValue = QVariant());
 signals:
     void warningSignal(QWidget*, QString);
     void closeAction();

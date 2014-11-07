@@ -90,8 +90,7 @@ int Backend::nextID(){
  */
 QList<int> Backend::loadIds()
 {
-    QVariantList ids = settings.getSettingsFor("Instances",
-                                               QVariantList()).toList();
+    QVariantList ids = settings.getSettingsFor("Instances", QVariantList()).toList();
     QList<int> res;
     for(QVariant id : ids){
         bool ok;
@@ -288,6 +287,10 @@ void Backend::removeSettings(IInstance* instance){
     settings.removeSettings(instance->ID);
 }
 
+void Backend::removeSettings(int id){
+    settings.removeSettings(id);
+}
+
 /**
  * @brief Backend::isLast
  * @return true if the child is the last one, false otherwise
@@ -379,6 +382,10 @@ void Backend::instanceChangedSetting(IInstance *instance, const QString &key, co
 void Backend::instanceRequestSetting(IInstance *instance, const QString &key, QVariant &value)
 {
     value = settings.getSettingsFor(key, value, instance->ID);
+}
+
+QVariant Backend::getSetting(QString key, QVariant defaultValue){
+    return settings.getSettingsFor(key, defaultValue);
 }
 
 /**

@@ -16,6 +16,7 @@ SettingsWindow::SettingsWindow(int subDirNum){
         settingsDict.insert(key, settings->value(key));
     globalSettings = new QSettings("VeTo", "Live Code Editor");
     settingsDict.insert("Design", globalSettings->value("Design"));
+    settingsDict.insert("OpenFiles", globalSettings->value("OpenFiles"));
 
     tabs = new QTabWidget;
     layout = new LayoutTab(&settingsDict, this);
@@ -73,13 +74,19 @@ SettingsWindow::~SettingsWindow(){
  */
 void SettingsWindow::apply(){
     if(changed){
-        globalSettings->setValue("Design", settingsDict["Design"]);
         QApplication::setStyle(settingsDict["Design"].toString());
-        settingsDict.remove("Design");
         repaint();
         update();
+
+        globalSettings->setValue("Design", settingsDict["Design"]);
+        globalSettings->setValue("OpenFiles", settingsDict["OpenFiles"]);
+
+        settingsDict.remove("Design");
+        settingsDict.remove("OpenFiles");
+
         for(const QString &key : settingsDict.keys())
             settings->setValue(key, settingsDict[key]);
+
         changed = false;
     }
 }
