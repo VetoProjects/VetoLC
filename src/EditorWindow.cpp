@@ -26,6 +26,8 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
 
     // Mac quirks
     setUnifiedTitleAndToolBarOnMac(true);
+
+    setWindowIcon(QIcon("Icon.icns"));
 }
 
 /**
