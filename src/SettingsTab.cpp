@@ -187,15 +187,8 @@ void BehaviourTab::addLayout(){
     openCheck = new QCheckBox(tr("Open Last Files On Startup"));
     sizeCheck = new QCheckBox(tr("Remember Size Of Application"));
 
-    if(settings->value("OpenFiles").toBool())
-        openCheck->toggle();
-    else
-        settings->insert("OpenFiles", true);
-
-    if(settings->value("RememberSize").toBool())
-        sizeCheck->toggle();
-    else
-        settings->insert("RememberSize", true);
+    openCheck->setChecked(settings->value("OpenFiles").toBool());
+    sizeCheck->setChecked(settings->value("RememberSize").toBool());
 
     startupCompiler = new QButtonGroup(this);
     rememberCompiler = new QRadioButton(tr("Remember Compiler that was used last"));
@@ -203,12 +196,9 @@ void BehaviourTab::addLayout(){
     startupCompiler->addButton(rememberCompiler);
     startupCompiler->addButton(askForCompiler);
 
-    if(settings->value("RememberCompiler").toBool())
-        rememberCompiler->toggle();
-    else{
-        settings->insert("RememberCompiler", true);
-        askForCompiler->toggle();
-    }
+    bool remember = settings->value("RememberCompiler").toBool();
+    rememberCompiler->setChecked(remember);
+    askForCompiler->setChecked(!remember);
 
     connect(openCheck, SIGNAL(toggled(bool)), this, SLOT(openSlot(bool)));
     connect(sizeCheck, SIGNAL(toggled(bool)), this, SLOT(sizeSlot(bool)));

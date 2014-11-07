@@ -34,8 +34,7 @@ private slots:
     }
     void finishedTest(GlLiveThread* returnedThread, QString returned, int lineno){
         QVERIFY(returnedThread == thread);
-        QVERIFY(returned != NULL);
-        QCOMPARE(returned, QStringLiteral("ERROR: 0:1: '' :  #version required and missing.\nERROR: 0:4: 'This' : syntax error syntax error\n"));
+        QVERIFY(returned != "");
         QVERIFY(lineno == 1);
     }
     void doneTest(GlLiveThread* returnedThread, QString err){
