@@ -33,37 +33,51 @@ with_python_custom || with_python2 || with_python{
 
 }
 
+
 RESOURCES += \
     ../application.qrc
 
+translations.target = $$OUT_PWD/translations
+src = $$PWD/../translations
+win32 {
+    translations.target ~= s,/,\\,g
+    src ~= s,/,\\,g
+}
+translations.commands = $(COPY_DIR) \"$$src\" \"$$translations.target\"
+first.depends = $(first) translations
+export(first.depends)
+export(translations.commands)
+
+QMAKE_EXTRA_TARGETS += first translations
+
 HEADERS += \
     EditorWindowTest.hpp \
+    ../src/EditorWindow.hpp \
     CodeEditorTest.hpp \
+    ../src/CodeEditor.hpp \
+    SoundGeneratorTest.hpp \
+    ../src/SoundGenerator.hpp \
+    BackendTest.hpp \
+    ../src/Backend.hpp \
+    SettingsBackendTest.hpp \
+    ../src/SettingsBackend.hpp \
+    AudioInputProcessorTest.hpp \
+    ../src/AudioInputProcessor.hpp \
+    RendererTest.hpp \
+    ../src/Instances/WindowInstance.hpp \
+    AudioOutputProcessorTest.hpp \
+    ../src/AudioOutputProcessor.hpp \
+    CodeHighlighterTest.hpp \
     ../src/SettingsWindow.hpp \
     ../src/SettingsTab.hpp \
     ../src/Renderer.hpp \
-    ../src/CodeEditor.hpp \
     ../src/CodeHighlighter.hpp \
-    ../src/EditorWindow.hpp \
-    ../src/SoundGenerator.hpp \
-    SoundGeneratorTest.hpp \
-    ../src/Backend.hpp \
     ../src/LiveThread.hpp \
-    BackendTest.hpp \
-    ../src/SettingsBackend.hpp \
-    ../src/AudioInputProcessor.hpp \
     ../src/BootLoader.hpp \
-    ../src/CodeEditorTest.hpp \
-    ../src/Instances/IInstance.hpp \
-    SettingsBackendTest.hpp \
-    AudioInputProcessorTest.hpp \
-    RendererTest.hpp \
-    ../src/AudioOutputProcessor.hpp \
-    ../src/Instances/WindowInstance.hpp \
-    AudioOutputProcessorTest.hpp \
-    CodeHighlighterTest.hpp
+    ../src/Instances/IInstance.hpp
 
 SOURCES += \
+    main.cpp \
     ../src/CodeEditor.cpp \
     ../src/CodeHighlighter.cpp \
     ../src/EditorWindow.cpp \
@@ -71,7 +85,6 @@ SOURCES += \
     ../src/SettingsWindow.cpp \
     ../src/SettingsTab.cpp \
     ../src/Renderer.cpp \
-    main.cpp \
     ../src/Backend.cpp \
     ../src/SettingsBackend.cpp \
     ../src/AudioInputProcessor.cpp \
