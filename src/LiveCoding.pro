@@ -10,6 +10,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = VeToLC
 TEMPLATE = app
+win32:RC_ICONS += ../rc/Icon.ico
+ICON = ../rc/Icon.icns
 
 TRANSLATIONS = ../translations/codeeditor_de.ts \
                ../translations/codeeditor_en.ts \
