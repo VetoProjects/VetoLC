@@ -49,6 +49,19 @@ with_python_custom || with_python2 || with_python{
 RESOURCES += \
     ../application.qrc
 
+translations.target = $$OUT_PWD/translations
+src = $$PWD/../translations
+win32 {
+    translations.target ~= s,/,\\,g
+    src ~= s,/,\\,g
+}
+translations.commands = $(COPY_DIR) \"$$src\" \"$$translations.target\"
+first.depends = $(first) translations
+export(first.depends)
+export(translations.commands)
+
+QMAKE_EXTRA_TARGETS += first translations
+
 HEADERS += Instances/IInstance.hpp \
     Instances/WindowInstance.hpp \
     AudioInputProcessor.hpp \

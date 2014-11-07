@@ -232,18 +232,15 @@ void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
         move(pos);
         resize(size);
     }
-    if(settings.value("OpenFiles").toBool()){
-        const QString file = settings.value("file", "").toString();
-        if(file.isEmpty()){
-            if(templateNum == 0)
-                loadFile(":/rc/template.py");
-            else if(templateNum == 2)
-                loadFile(":/rc/template.glsl");
-            setAsCurrentFile("");
-        }
-        else
-            loadFile(file);
-    }
+    const QString file = settings.value("file", "").toString();
+    if(file.isEmpty()){
+        if(templateNum == 0)
+            loadFile(":/rc/template.py");
+        else if(templateNum == 2)
+            loadFile(":/rc/template.glsl");
+        setAsCurrentFile("");
+    } else
+        loadFile(file);
 }
 
 /**

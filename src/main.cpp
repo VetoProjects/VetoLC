@@ -44,9 +44,18 @@ int main(int argc, char *argv[]){
 
     Backend server(&a);
 
-    QList<int> ids = server.loadIds();
+    QList<int> ids;
+
+    ids = server.loadIds();
+    if(!server.getSetting("OpenFiles").toBool()){
+        for(int id : ids)
+            server.removeSettings(id);
+        ids.clear();
+    }
+
     if(ids.length() == 0)
         ids.append(server.nextID());
+
     for(int id : ids){
         QHash<QString,QVariant> settings = server.getSettings(id);
         Instances::WindowInstance *instance = new Instances::WindowInstance(id, settings, &server);

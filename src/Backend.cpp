@@ -90,8 +90,7 @@ int Backend::nextID(){
  */
 QList<int> Backend::loadIds()
 {
-    QVariantList ids = settings.getSettingsFor("Instances",
-                                               QVariantList()).toList();
+    QVariantList ids = settings.getSettingsFor("Instances", QVariantList()).toList();
     QList<int> res;
     for(QVariant id : ids){
         bool ok;
@@ -260,11 +259,7 @@ void Backend::openHelp(IInstance *){
 QDir Backend::directoryOf(const QString &subdir){
     QDir dir(QApplication::applicationDirPath());
 
-#if defined(Q_OS_WIN)
-    if (dir.dirName().toLower() == "debug"
-        || dir.dirName().toLower() == "release")
-    dir.cdUp();
-#elif defined(Q_OS_MAC)
+#if defined(Q_OS_MAC)
     if (dir.dirName() == "MacOS") {
         dir.cdUp();
         dir.cdUp();
@@ -274,6 +269,8 @@ QDir Backend::directoryOf(const QString &subdir){
             dir.cd("LiveCodingEditor");
         }
     }
+#else
+    dir.cdUp();
 #endif
     if(dir.cd(subdir))
         return dir;
@@ -289,6 +286,10 @@ QDir Backend::directoryOf(const QString &subdir){
  */
 void Backend::removeSettings(IInstance* instance){
     settings.removeSettings(instance->ID);
+}
+
+void Backend::removeSettings(int id){
+    settings.removeSettings(id);
 }
 
 /**
@@ -313,10 +314,11 @@ void Backend::instanceRunCode(IInstance *instance)
     if(threads.contains(id)){
         bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
         if(!worked){
-            instances[id]->codeStopped();
+            // Dont't stop!
+//            instances[id]->codeStopped();
             instances[id]->reportError(tr("Code is faulty."));
-            if(!threads[id]->isRunning())
-                terminateThread(id);
+//            if(!threads[id]->isRunning())
+//                terminateThread(id);
         }
     }else{
         bool ok;
@@ -381,6 +383,10 @@ void Backend::instanceChangedSetting(IInstance *instance, const QString &key, co
 void Backend::instanceRequestSetting(IInstance *instance, const QString &key, QVariant &value)
 {
     value = settings.getSettingsFor(key, value, instance->ID);
+}
+
+QVariant Backend::getSetting(QString key, QVariant defaultValue){
+    return settings.getSettingsFor(key, defaultValue);
 }
 
 /**
