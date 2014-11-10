@@ -1,37 +1,30 @@
 #version 330 core
 
-
 in vec2  uv;
+out vec4 color;
 
 uniform float time;
 uniform vec2 mouse;
 uniform float ration;
 
-uniform sampler1D audioLeftData;
-uniform sampler1D audioRightData;
+uniform sampler1D audioLeft;
+uniform sampler1D audioRight;
 
-out vec4 color;
+float left (float val){ return texture(audioLeft , val).r; }
+float right(float val){ return texture(audioRight, val).r; }
 
-float left (float val){ return texture(audioLeftData , val).r ; }
-float right(float val){ return texture(audioRightData, val).r ; }
-
-float clamp(float val){ return clamp(val, 0.0, 1.0); }
-//vec2  clamp(vec2  val){ return clamp(val, 0.0, 1.0); }
-vec3 clamp(vec3 val){
-	return vec3(
-		clamp(val.x, 0.0, 1.0),
-		clamp(val.y, 0.0, 1.0),
-		clamp(val.z, 0.0, 1.0)
-	);
-}
-//vec4  clamp(vec4  val){ return clamp(val, 0.0, 1.0); }
+float _clamp(float val, float minimum, float maximum){ return min(max(val, minimum), maximum); }
+float _clamp(float val){ return _clamp(val, 0.0, 1.0); }
+vec2  _clamp(vec2  val){ return vec2(_clamp(val.r  ), _clamp(val.g)); }
+vec3  _clamp(vec3  val){ return vec3(_clamp(val.rg ), _clamp(val.b)); }
+vec4  _clamp(vec4  val){ return vec4(_clamp(val.rgb), _clamp(val.a)); }
 
 uniform int iter = 100;
 
 void main() {
 	int i;
 	float x, y, d, v, l, r, intensity, audioVal;
-	vec2 p, c, z;	
+	vec2 p, c, z;
 
 	color = vec4(1);
 	p = uv * 2.0 - 1.0;
@@ -54,11 +47,11 @@ void main() {
 		z.y = y;
 	}
 	if(i < iter){
-//		color.b = clamp( float(i) * 5.0 / float(iter)			);
-//		color.g = clamp((float(i) * 5.0 / float(iter) - .3) / .7);
-//		color.r = clamp((float(i) * 5.0 / float(iter) - .7) / .3);
+//		color.b = _clamp( float(i) * 5.0 / float(iter)			);
+//		color.g = _clamp((float(i) * 5.0 / float(iter) - .3) / .7);
+//		color.r = _clamp((float(i) * 5.0 / float(iter) - .7) / .3);
 
-		color.rgb = clamp(vec3(
+		color.rgb = _clamp(vec3(
 			(float(i) * 5.0 / float(iter) - 0.7) / 0.3,
 			(float(i) * 5.0 / float(iter) - 0.3) / 0.7,
 			 float(i) * 5.0 / float(iter)
@@ -69,8 +62,8 @@ void main() {
 //* Wave line
 	if(p.y < max(0, audioVal) && p.y > min(0, audioVal)){
 		intensity = abs(p.y - audioVal / 2) / abs(audioVal) * 2;
-		color.rgb += clamp(color.rgb * intensity + 1 - intensity - intensity * vec3(-.2, .8, 2.333));
-		
+		color.rgb += _clamp(color.rgb * intensity + 1 - intensity - intensity * vec3(-.2, .8, 2.333));
+
 	}
 //*/
 
@@ -79,8 +72,8 @@ void main() {
 	d = length(c);
 	v = left(abs(atan(c.y, c.x) / 3.141592)) / 3;
 	if(d < .2 && d + v >= .2 || d > .2 && d + v <= .2){
-		intensity = clamp(abs(d  + v/2 - .2) / abs(v) * 2);
-		color.rgb = clamp(color.rgb * intensity + 1 - intensity - intensity * vec3(1, 0, .5));
+		intensity = _clamp(abs(d  + v/2 - .2) / abs(v) * 2);
+		color.rgb = _clamp(color.rgb * intensity + 1 - intensity - intensity * vec3(1, 0, .5));
 	}
 //*/
 
@@ -88,8 +81,8 @@ void main() {
 /* Left
 	l = abs(left(uv.y)/2.0);
 	if(l >= uv.x){
-		intensity = clamp((uv.x - l / 2) / abs(l) * 2);
-		color.rgb += clamp(color.rgb * intensity + (1 - intensity) * vec3(1,0,0));
+		intensity = _clamp((uv.x - l / 2) / abs(l) * 2);
+		color.rgb += _clamp(color.rgb * intensity + (1 - intensity) * vec3(1,0,0));
 	}
 //*/
 
@@ -97,8 +90,8 @@ void main() {
 /* Right
 	r = abs(right(uv.y)/2.0);
 	if(r >= 1.0-uv.x){
-		intensity = clamp((1 - uv.x - r / 2) / abs(r) * 2);
-		color.rgb += clamp(color.rgb * intensity + (1 - intensity) * vec3(1,0,0));
+		intensity = _clamp((1 - uv.x - r / 2) / abs(r) * 2);
+		color.rgb += _clamp(color.rgb * intensity + (1 - intensity) * vec3(1,0,0));
 	}
 //*/
 
@@ -110,20 +103,20 @@ void main() {
 
 /* New Waveline
 	vec2 uPos = p - vec2(0.0, 0.5);
-	
+
 	vec3 col = vec3(0.0);
 	float vertColor = 0.0;
 	const float k = 5.0;
 	for( float i = 1.0; i < k; ++i )
 	{
 		float t = time * (.005);
-	
+
 		uPos.y += left(uv.x  * exp(i) / 5) * 0.55;
 		float fTemp = abs(1.0/(80.0 * k * uPos.y));
 		vertColor += fTemp / i;
 		col += vec3(fTemp*(i*0.9), 0.0, cos(vertColor)*sin(fTemp));
 	}
-	
+
 	color = vec4(col, 1.0);
 //*/
 

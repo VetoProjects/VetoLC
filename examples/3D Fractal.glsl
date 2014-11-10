@@ -6,13 +6,13 @@ uniform float time;
 uniform vec2 mouse;
 uniform float ration;
 
-uniform sampler1D audioLeftData;
-uniform sampler1D audioRightData;
+uniform sampler1D audioLeft;
+uniform sampler1D audioRight;
 
 out vec4 color;
 
-float left (float val){ return texture(audioLeftData , val).r ; }
-float right(float val){ return texture(audioRightData, val).r ; }
+float left (float val){ return texture(audioLeft , val).r ; }
+float right(float val){ return texture(audioRight, val).r ; }
 
 
 // Ray Marching
@@ -80,7 +80,7 @@ mat3 u_mLight=mat3(
 float u_fPower=0.2;
 vec3 u_vJulia=vec3(0.0);
 vec3 u_vOffset=vec3(0.0);
-vec3 u_vClamp=vec3(0.0);
+vec3 u_v_clamp=vec3(0.0);
 float u_fBounds=120.0;
 
 float u_fDetail=0.0008;
@@ -173,7 +173,7 @@ vec3 rand3(const vec2 vSeed)
 #ifdef CUBEFIELD
 float deCubefield(vec3 vRay)
 {
-	vec3 v=abs(vRay-(floor(vRay)+u_vOffset))*u_vClamp;
+	vec3 v=abs(vRay-(floor(vRay)+u_vOffset))*u_v_clamp;
 	float r=max(max(v.x,v.y),v.z)-u_fPower;
 
 	if(r<fMinDist) fMinDist=r;
@@ -194,7 +194,7 @@ float deSponge(vec3 vRay)
 	vec3 c=(vRay*0.5)+0.5;
 	vec3 v=abs(c-0.5)-0.5;
 
-	float m=u_vClamp.x;
+	float m=u_v_clamp.x;
 	float r=max(v.x,max(v.y,v.z));
 
 	if(r<fMinDist) fMinDist=r;
@@ -203,8 +203,8 @@ float deSponge(vec3 vRay)
 	{
 		if(n>nSteps) break;
 
-		m*=u_vClamp.y;
-		v=(0.5-abs(mod(c*m,u_vClamp.z)-1.5))+u_vOffset;
+		m*=u_v_clamp.y;
+		v=(0.5-abs(mod(c*m,u_v_clamp.z)-1.5))+u_vOffset;
 		r=max(r,min(max(v.x,v.z),min(max(v.x,v.y),max(v.y,v.z)))/m);
 
 		if(r<fMinDist) fMinDist=r;
@@ -249,7 +249,7 @@ float deSierpinski(vec3 vRay)
 		d=length(v-a4);
 		if(d<r) {c=a4; r=d;}
 
-		v=u_fPower*v-c*u_vClamp;
+		v=u_fPower*v-c*u_v_clamp;
 		r=length(v);
 
 		if(r<fMinDist) fMinDist=r;
@@ -290,9 +290,9 @@ float deMandelbulb(vec3 vRay)
 
 		v=(vec3(sin(theta)*cos(phi),sin(phi)*sin(theta),cos(theta))*zr)+c;
 
-		if(u_vClamp.x!=0.0) v.x=max(v.x,u_vClamp.x);
-		if(u_vClamp.y!=0.0) v.y=max(v.y,u_vClamp.y);
-		if(u_vClamp.z!=0.0) v.z=max(v.z,u_vClamp.z);
+		if(u_v_clamp.x!=0.0) v.x=max(v.x,u_v_clamp.x);
+		if(u_v_clamp.y!=0.0) v.y=max(v.y,u_v_clamp.y);
+		if(u_v_clamp.z!=0.0) v.z=max(v.z,u_v_clamp.z);
 
 		v+=u_vOffset;
 	}
@@ -312,8 +312,8 @@ float deMandelbox(vec3 vRay)
 	vec3 vOffset=u_vOffset*2.0;
 	vec3 vNegOffset=-u_vOffset;
 
-	float m=u_vClamp.x*u_vClamp.x;
-	float f=u_vClamp.y*m;
+	float m=u_v_clamp.x*u_v_clamp.x;
+	float f=u_v_clamp.y*m;
 
 	vec4 sv=vec4(u_fPower,u_fPower,u_fPower,abs(u_fPower))/m;
 
@@ -391,7 +391,7 @@ float deDodecahedron(vec3 vRay)
 		t=p2.z*v.x-p2.x*v.y+p2.y*v.z;
 		if(t<0.0) v+=vec3(-2.0,2.0,-2.0)*t*p2.zxy;
 
-		v=v*2.0-u_vClamp;
+		v=v*2.0-u_v_clamp;
 		r=length(v);
 
 		if(r<fMinDist) fMinDist=r;
@@ -421,8 +421,8 @@ float deKnot(vec3 p)
 		vec3 p=vec3(r,y,ang+2.0*PI*float(n-1));
 		p.x-=u_vOffset.z;
 
-		float ra=p.z*u_vClamp.x/u_vClamp.z;
-		float raz=p.z*u_vClamp.y/u_vClamp.z;
+		float ra=p.z*u_v_clamp.x/u_v_clamp.z;
+		float raz=p.z*u_v_clamp.y/u_v_clamp.z;
 
 		d=min(d,length(p.xy-vec2(u_vOffset.y*cos(ra)+u_vOffset.z,u_vOffset.y*sin(raz)+u_vOffset.z))-u_vOffset.x);
 
@@ -890,13 +890,13 @@ void main(void)
 	#ifdef CUBEFIELD
 	u_fPower=0.2;
 	u_vOffset=vec3(0.5,0.5,0.5);
-	u_vClamp=vec3(1.0,1.0,1.0);
+	u_v_clamp=vec3(1.0,1.0,1.0);
 	u_vLight=vec3(0.0,0.0,0.0);
 	#endif // CUBEFIELD
 
 	#ifdef SPONGE
 	u_fPower=3.0;
-	u_vClamp=vec3(1.0,3.0,3.0);
+	u_v_clamp=vec3(1.0,3.0,3.0);
 	u_fBounds=5.0;
 	u_vCamera.z-=3.2;
 	#endif // SPONGE
@@ -904,7 +904,7 @@ void main(void)
 	#ifdef SIERPINSKI
 	u_fPower=2.0;
 	u_vOffset=vec3(1.0,1.0,1.0);
-	u_vClamp=vec3(1.0,1.0,1.0);
+	u_v_clamp=vec3(1.0,1.0,1.0);
 	u_fBounds=5.0;
 	u_fSmooth=0.5;
 	u_vCamera.z-=3.2;
@@ -919,7 +919,7 @@ void main(void)
 	#ifdef MANDELBOX
 	u_fPower=-1.77;
 	u_vOffset=vec3(1.0,1.0,1.0);
-	u_vClamp=vec3(0.5,1.0,0.0);
+	u_v_clamp=vec3(0.5,1.0,0.0);
 	u_fBounds=25.0;
 	u_fDetail=0.1;
 	u_vCamera.z-=6.5;
@@ -927,7 +927,7 @@ void main(void)
 
 	#ifdef DODECAHEDRON
 	u_fPower=1.61803399;
-	u_vClamp=vec3(1.0,1.0,1.0);
+	u_v_clamp=vec3(1.0,1.0,1.0);
 	u_fBounds=10.0;
 	u_vCamera.z-=3.5;
 	#endif // DODECAHEDRON
@@ -935,7 +935,7 @@ void main(void)
 	#ifdef KNOT
 	u_fPower=3.0;
 	u_vOffset=vec3(0.07,0.29,0.43);
-	u_vClamp=vec3(-2.0,-4.0,3.0);
+	u_v_clamp=vec3(-2.0,-4.0,3.0);
 	u_fBounds=10.0;
 	u_fSmooth=0.5;
 	u_vCamera.z-=3.5;
@@ -950,12 +950,12 @@ void main(void)
 	#endif // QUATERNION
 
 	u_vCamera.z *= surfaceSize.y * 0.5 + 0.4;
-	
+
 	vec2 centerPosition = (1 - 2 * uv) * surfaceSize + surfacePosition;
 	u_mObject=rotate(centerPosition.y*-120.0+15.0,1.0,0.0,0.0,u_mObject);
 	u_mObject=rotate(centerPosition.x*120.0+10.0,0.0,1.0,0.0,u_mObject);
 	u_mObject=rotate(time*.002,0.0,0.0,1.0,u_mObject);
-	
+
 	u_mLight=rotate(mouse.y*-100.0,1.0,0.0,0.0,u_mLight);
 	u_mLight=rotate(mouse.x*100.0-20.0,0.0,1.0,0.0,u_mLight);
 
@@ -965,7 +965,7 @@ void main(void)
 //	u_fPower=mod(abs(n),1.0);//-(1.5+m);
 //	u_vJulia=vec3(m,m,m);
 //	u_vOffset=vec3(m,m,m);
-//	u_vClamp=vec3(m,m,m);
+//	u_v_clamp=vec3(m,m,m);
 
 	// get ray point
 	vec2 vPoint=1 - 2 * uv;

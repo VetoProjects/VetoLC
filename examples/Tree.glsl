@@ -5,18 +5,19 @@ in vec2  uv;
 uniform float time;
 uniform vec2 mouse;
 uniform float ration;
-uniform sampler1D audioLeftData;
-uniform sampler1D audioRightData;
+uniform sampler1D audioLeft;
+uniform sampler1D audioRight;
 
 out vec4 color;
 
-float left (float val){ return texture(audioLeftData , val).r ; }
-float right(float val){ return texture(audioRightData, val).r ; }
+float left (float val){ return texture(audioLeft , val).r; }
+float right(float val){ return texture(audioRight, val).r; }
 
-float clamp(float val){ return clamp(val, 0.0, 1.0); }
-vec2  clamp(vec2  val){ return clamp(val, 0.0, 1.0); }
-vec3  clamp(vec3  val){ return clamp(val, 0.0, 1.0); }
-vec4  clamp(vec4  val){ return clamp(val, 0.0, 1.0); }
+float _clamp(float val, float minimum, float maximum){ return min(max(val, minimum), maximum); }
+float _clamp(float val){ return _clamp(val, 0.0, 1.0); }
+vec2  _clamp(vec2  val){ return vec2(_clamp(val.r  ), _clamp(val.g)); }
+vec3  _clamp(vec3  val){ return vec3(_clamp(val.rg ), _clamp(val.b)); }
+vec4  _clamp(vec4  val){ return vec4(_clamp(val.rgb), _clamp(val.a)); }
 
 
 
@@ -35,7 +36,7 @@ struct ray{
 struct light{
 	vec3 p, d, c;
 };
-    
+
 struct mat{
 	vec3  dc, sc;
 	float r, i;
@@ -45,7 +46,7 @@ struct env{
 	vec3  l;
 	float f;
 };
-    
+
 float 	sphere(vec3 rp, vec3 sp, float r);
 float   capsule( vec3 p, vec3 a, vec3 b, float r );
 
@@ -71,40 +72,40 @@ void main() {
 	r.o = vec3(-.65, 1.1, -2.65);
 	r.p = vec3(0.);
 	r.c = vec3(0.0);
-    
-      
+
+
 	float m = 0;//(mouse.x-.5)*6.28;
 	mat2 rot = mat2(cos(m), sin(m), -sin(m), cos(m));
 	#ifdef modulus
 	r.d.xz *= rot;
 	#endif
-    
+
 	r = trace(r);
 
 	vec3 n = derivate(r.p);
-	
+
 	env e;
 	e.f = length(r.c);
-    
+
 	if(r.l < farplane){
 		light l;
         	l.p = vec3(16., 13., -3.);
 		#ifndef modulus
 		l.p.xz*=rot;
-        	#endif 
-		
+        	#endif
+
         	l.c = vec3(.8, .8, .75);
 		l.d	= normalize(l.p-r.p);
-        
+
         	e.l = harmonic(vec4(n, 1.))+e.f;
         	r.c = e.f+e.l*.005;
-        
+
         	mat m;
         	if(material == 0)
         	{
 			vec3 c0 = vec3(.85, .5, .4);
 			vec3 c1 = vec3(.45, .5, .1);
-            		float b = clamp(.25+r.p.y*.125, 0., 1.);
+            		float b = _clamp(.25+r.p.y*.125, 0., 1.);
 			m.dc = mix(c0, c1, b);
 			m.sc = vec3(.75);
 			m.r = .65;
@@ -115,7 +116,7 @@ void main() {
 		{
 			vec3 c0 = vec3(.4, .76, .51);
 			vec3 c1 = vec3(.6, .8, .3);
-			float b = clamp(1.-length(r.p)*.25, 0., 1.);
+			float b = _clamp(1.-length(r.p)*.25, 0., 1.);
 			m.dc = mix(c0, c1, b);
 			m.sc = vec3(.75, .75, .85);
 			m.r = .9132;
@@ -125,13 +126,13 @@ void main() {
         	{
          	   	vec3 c0 = vec3(.24, .6, .2);
 			vec3 c1 = vec3(.6, .8, .3);
-         	   	float b = clamp(1.-length(r.p)*.25, 0., 1.);
+         	   	float b = _clamp(1.-length(r.p)*.25, 0., 1.);
             		m.dc = mix(c0, c1, b);
             		m.sc = vec3(.75, .75, .85);
             		m.r = .7132;
             		m.i = 15.32;
         	}
-		
+
         	r.c = shade(r, l, m, e, n);
         	r.c += e.f * .95 * r.c;
 	}
@@ -140,21 +141,21 @@ void main() {
 		r.p.xz *= rot; //h4x
         	e.l = harmonic(vec4(normalize(r.p), 1.));
         	r.c += e.l;
-    	}	
-	
+    	}
+
 	color = vec4(r.c, 1.);
 }//sphinx
 
 float sphere(vec3 rp, vec3 sp, float r){
-	return length(rp - sp)-r;		
+	return length(rp - sp)-r;
 }
 
 float capsule( vec3 p, vec3 a, vec3 b, float r )
 {
 	vec3 pa = p - a;
 	vec3 ba = b - a;
-	float h = clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
-	
+	float h = _clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
+
 	return length( pa - ba*h ) - r;
 }
 
@@ -164,7 +165,7 @@ vec3 foldY(vec3 P, float n)
 	float a = atan(P.z, P.x);
 	float c = 3.14159265358979 / n;
 
-	a = mod(a, 2.0 * c) - c; 
+	a = mod(a, 2.0 * c) - c;
 
 	P.x = r * cos(a);
 	P.z = r * sin(a);
@@ -194,7 +195,7 @@ float tree(float a, float p, vec2 uv){
 	t = fract(uv.y*p) + .5;
 	t *= a;
     return t;
-}  
+}
 
 float cylinder(vec3 p, vec3 c, float h, float r)
 {
@@ -204,27 +205,27 @@ float cylinder(vec3 p, vec3 c, float h, float r)
 }
 
 float map(vec3 p)
-{ 
+{
     vec3  o = p; //origin
     vec3 np = p;
-    
+
     #ifdef modulus
     o.xz    = mod(o.xz, 7.)-3.5;
     #endif
-    
+
     np = vec3(p.x-p.z-.4, p.y, p.z-p.x+.015);
     float lp = length(16.*(p+p.x+p.z)-vec3(0., 13., 0.));
-    
+
     vec4 n = vec4(1.); //removed noise
-  
+
    o +=  .05 * n.xyz * (2. - max(1., 5.-p.y));
 
 //  vec2 m = mouse;
     vec2 m = vec2(.95, .65);
-    
+
     float r = m.y;                                 //rotation
 //  float r = sin45deg;
-    
+
     float w = m.x*.2/length(o+vec3(0., .3+r, 0.)); //branch width
 
     float f = 1.;
@@ -242,23 +243,23 @@ float map(vec3 p)
 		o.x -= -r;                                  //rotate
 		o.y -= .5+r;                                //translate and rotate
     }
-    
+
     t += .005;                                      //additioal thickness adjustment
-	
+
     float l = length(o*vec3(4., 1., 9.)+a);         //leaves
 	l *= .00785;
-    
+
     material = t < l ? 0 : 1;
-    
+
     t = min(t, l);
     float g = p.y+(n.w+n.z)*.05;
     p.xz = mod(o.xz*.025-p.xz+a*2.+p.y*.05, .05)-.025;
     g = min(g, cylinder(p, vec3(0.0), n.x*.325+n.w, .01-.01*n.x));
-   
+
     t = min(t, g);
 
     material = t < g ? material : 2;
-   
+
     return min(t,g);
 }
 
@@ -270,7 +271,7 @@ ray trace(ray r){
 	float res	 = 32.;
 	bool hit	 = false;
     float f      = .0;
-	
+
     for( int i = 0; i < 128; i++ )
     {
       	if (!hit && t < farplane)
@@ -284,7 +285,7 @@ ray trace(ray r){
 			}
 			t += h * .8;
 			precis *= 1.03;
-            f += .01/abs(t-h); 
+            f += .01/abs(t-h);
 		}
     }
     r.c += f;
@@ -307,15 +308,15 @@ float smoothmin(float a, float b, float k)
 	return -(log(exp(k*-a)+exp(k*-b))/k);
 }
 
-//physically based lighting model largely from Simon Brown - http://www.sjbrown.co.uk/ 
+//physically based lighting model largely from Simon Brown - http://www.sjbrown.co.uk/
 vec3 shade(ray r, light l, mat m, env e, vec3 n){
 	float ll    = distance(r.p, l.p);
 
-	m.r 		= clamp(m.r, 0.02,  1.);
-	m.i 		= clamp(m.i, 1., 20.);    				
-	
+	m.r 		= _clamp(m.r, 0.02,  1.);
+	m.i 		= _clamp(m.i, 1., 20.);
+
 	vec3 v    =  normalize(r.o-r.p);
-	vec3 h	  =  normalize(v + l.d); 
+	vec3 h	  =  normalize(v + l.d);
 
 	float ndl = dot(n, l.d);
 	float ndv = dot(n, v);
@@ -336,7 +337,7 @@ vec3 shade(ray r, light l, mat m, env e, vec3 n){
 	float ss  	= shadow(r.p, l.d, ndl);
 	float oc  	= occlusion(r.p, n);
 
-	vec3 c; 
+	vec3 c;
 	c  = m.dc * e.l + ndl * nf * m.dc * l.c * oc;
 	c += brdf * m.sc;
 	c *= ss * l.c * oc;
@@ -345,7 +346,7 @@ vec3 shade(ray r, light l, mat m, env e, vec3 n){
 }
 
 float fresnel(float i, float ndv)
-{   
+{
 	i = (1.33 - i)/(1.33 + i);
 	i *= i;
 	return i + (1.-i) * pow(1.-max(ndv, 0.), 5.);
@@ -365,7 +366,7 @@ float geometry(float r, float ndl, float ndv, float hdn, float hdv, float hdl)
 }
 
 float distribution(float r, float ndh)
-{  
+{
 	//blinn phong
 	//	float m= 2./(r*r) - 2.;
 	//	return (m+2.) * pow(max(ndh, 0.0), m) / tau;
@@ -378,10 +379,10 @@ float distribution(float r, float ndh)
 }
 
 //via peter pike sloan
-vec3 harmonic(in vec4 n){ 	
-  
+vec3 harmonic(in vec4 n){
+
 	vec3 l1, l2, l3;
-    
+
     vec4 c[7];
 	c[0] = vec4(0.2, .47, .2, 0.25);
 	c[1] = vec4(0.2, .33, .2, 0.25);
@@ -390,28 +391,28 @@ vec3 harmonic(in vec4 n){
 	c[4] = vec4(0.1,-0.1, 0.1, 0.0);
 	c[5] = vec4(0.2, 0.2, 0.2, 0.0);
 	c[6] = vec4(0.0, 0.0, 0.0, 0.0);
-    
+
 	l1.r = dot(c[0], n);
 	l1.g = dot(c[1], n);
 	l1.b = dot(c[2], n);
-	
+
 	vec4 m2 = n.xyzz * n.yzzx;
 	l2.r = dot(c[3], m2);
 	l2.g = dot(c[4], m2);
 	l2.b = dot(c[5], m2);
-	
+
 	float m3 = n.x*n.x - n.y*n.y;
 	l3 = c[6].xyz * m3;
-    	
+
 	vec3 sh = vec3(l1 + l2 + l3);
-	
+
 	return clamp(sh, 0., 1.);
 }
 
-#define odist 	.5	
-#define obias 	.05	
-#define omin 	.2	
-#define oiter    5	
+#define odist 	.5
+#define obias 	.05
+#define omin 	.2
+#define oiter    5
 
 float occlusion(vec3 p, vec3 n)
 {
@@ -425,13 +426,13 @@ float occlusion(vec3 p, vec3 n)
         oc 		 += -(l-hr)*d;
         d	   	 *= 0.75;
     }
-    return clamp( 1. - 4.*oc, omin, 1. );
+    return _clamp( 1. - 4.*oc, omin, 1. );
 }
 
 #define sblend	 5.
-#define sproj	.25 
-#define smax	.8  
-#define smin	.25  
+#define sproj	.25
+#define smax	.8
+#define smin	.25
 #define siter    20
 
 float shadow(vec3 p, vec3 d, float ndl)
@@ -446,5 +447,5 @@ float shadow(vec3 p, vec3 d, float ndl)
         k -= .5;
         t += max(0.1, sproj);
     }
-	return clamp(s,smin,1.0);
+	return _clamp(s,smin,1.0);
 }

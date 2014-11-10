@@ -6,13 +6,13 @@ uniform float time;
 uniform vec2 mouse;
 uniform float ration;
 
-uniform sampler1D audioLeftData;
-uniform sampler1D audioRightData;
+uniform sampler1D audioLeft;
+uniform sampler1D audioRight;
 
 out vec4 color;
 
-float left (float val){ return texture(audioLeftData , val).r ; }
-float right(float val){ return texture(audioRightData, val).r ; }
+float left (float val){ return texture(audioLeft , val).r ; }
+float right(float val){ return texture(audioRight, val).r ; }
 
 
 // http://glsl.heroku.com/e#13587.0
@@ -33,7 +33,7 @@ precision mediump float;
 #define pi 3.14159265
 #define speed 0.003
 #define R(p, a) p=cos(a)*p+sin(a)*vec2(p.y, -p.x)
-#define hsv(h,s,v) mix(vec3(1.), clamp((abs(fract(h+vec3(3., 2., 1.)/3.)*6.-3.)-1.), 0., 1.), s)*v
+#define hsv(h,s,v) mix(vec3(1.), _clamp((abs(fract(h+vec3(3., 2., 1.)/3.)*6.-3.)-1.), 0., 1.), s)*v
 
 float pn(vec3 p) {
    vec3 i = floor(p);

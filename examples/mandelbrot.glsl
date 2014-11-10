@@ -1,11 +1,16 @@
 #version 330 core
 
 in vec2  uv;
+out vec4 color;
+
 uniform float time;
 uniform vec2 mouse;
 uniform float ration;
 
-out vec4 color;
+uniform sampler1D audioLeft, audioRight;
+
+float left (float val){ return texture(audioLeft , val).r; }
+float right(float val){ return texture(audioRight, val).r; }
 
 float scale = 4;
 int iter = 10;
@@ -23,7 +28,7 @@ void main() {
 	for(i=0; i < iter; ++i) {
 		float x = (z.x * z.x - z.y * z.y) + c.x;
 		float y = (z.y * z.x + z.x * z.y) + c.y;
-	
+
 		if((x * x + y * y) > 4.0)
 			break;
 		z.x = x;

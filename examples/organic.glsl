@@ -5,13 +5,13 @@ in vec2  uv;
 uniform float time;
 uniform vec2 mouse;
 uniform float ration;
-uniform sampler1D audioLeftData;
-uniform sampler1D audioRightData;
+uniform sampler1D audioLeft;
+uniform sampler1D audioRight;
 
 out vec4 color;
 
-float left (float val){ return texture(audioLeftData , val).r ; }
-float right(float val){ return texture(audioRightData, val).r ; }
+float left (float val){ return texture(audioLeft , val).r ; }
+float right(float val){ return texture(audioRight, val).r ; }
 
 // http://glsl.heroku.com/e#17593.0
 

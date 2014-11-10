@@ -6,17 +6,16 @@ precision mediump float;
 
 
 in vec2  uv;
+out vec4 color;
+
 uniform float time;
 uniform vec2 mouse;
 uniform float ration;
-uniform sampler1D audioLeftData;
-uniform sampler1D audioRightData;
+uniform sampler1D audioLeft;
+uniform sampler1D audioRight;
 
-out vec4 color;
-
-float left (float val){ return texture(audioLeftData , val).r ; }
-float right(float val){ return texture(audioRightData, val).r ; }
-
+float left (float val){ return texture(audioLeft , val).r ; }
+float right(float val){ return texture(audioRight, val).r ; }
 
 
 const float pi=3.1415926535;
@@ -81,7 +80,7 @@ void main()
 //	vec2 scaled=p/vec2(log(256.0),2.0*pi);
 //	vec2 translated=scaled-vec2(0.35+time*0.1,0.0);
 	vec2 translated=scaled-vec2(time*0.001 + uv.x*10.000,0.0);
-	
+
 //	color=checkerboard(translated*2.0);
 //	color=wave(translated*8.0+0.3);
 	color=rainbow(translated);

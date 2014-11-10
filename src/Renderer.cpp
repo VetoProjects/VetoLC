@@ -131,6 +131,7 @@ bool Renderer::init(){
 
     glDeleteTextures(1, &audioLeftTexture);
     glGenTextures(1, &audioLeftTexture);
+
     glDeleteTextures(1, &audioRightTexture);
     glGenTextures(1, &audioRightTexture);
 
@@ -212,6 +213,9 @@ bool Renderer::initShaders(const QString &fragmentShader){
         mouseUniform = shaderProgram->uniformLocation("mouse");
         rationUniform = shaderProgram->uniformLocation("ration");
 
+        shaderProgram->setUniformValue("audioLeft" , GLint(0));
+        shaderProgram->setUniformValue("audioRight", GLint(1));
+
         fragmentSource = fragmentShader;
     shaderProgramMutex.unlock();
 
@@ -246,16 +250,21 @@ void Renderer::render(){
     QPoint mouse = this->mapFromGlobal(QCursor::pos());
     QVector2D mousePosition((float)mouse.x() / (float)this->width(),
                             (float)mouse.y() / (float)this->height());
-    float ration = (float)this->width() / (float)this->height();
+    float ration = this->height() == 0 ? 1 : (float)this->width() / (float)this->height();
 
     shaderProgramMutex.lock();
-        vao->bind();
         shaderProgram->bind();
+        vao->bind();
 
-        shaderProgram->setUniformValue(mouseUniform,mousePosition);
-        if(this->height() != 0)
-            shaderProgram->setUniformValue(rationUniform, ration);
-        shaderProgram->setUniformValue(timeUniform, (float)time->elapsed());
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_1D, audioLeftTexture);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_1D, audioRightTexture);
+
+        shaderProgram->setUniformValue(mouseUniform, mousePosition);
+        shaderProgram->setUniformValue(rationUniform, ration);
+        shaderProgram->setUniformValue(timeUniform, GLfloat(time->elapsed()));
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
@@ -436,11 +445,13 @@ void Renderer::updateAudioData(QByteArray data){
     shaderProgramMutex.lock();
     shaderProgram->bind();
 
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_1D, audioLeftTexture);
     glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage1D(GL_TEXTURE_1D, 0, GL_R32F, count / typeSize, 0, GL_RED, type, left);
 
+    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_1D, audioRightTexture);
     glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
