@@ -3,6 +3,16 @@
 AudioInputProcessor::AudioInputProcessor(QObject *parent) :
     QIODevice(parent)
 {
+    QAudioDeviceInfo inputDevice = QAudioDeviceInfo::defaultInputDevice();
+    qDebug() << "Available input devices:";
+    for(QAudioDeviceInfo &dev : QAudioDeviceInfo::availableDevices(QAudio::AudioInput)){
+        if(dev.deviceName().contains("output", Qt::CaseInsensitive)){
+            inputDevice = dev;
+            if(dev.deviceName().contains("analog", Qt::CaseInsensitive))
+                break;
+        }
+    }
+
     QAudioFormat format;
 //    format.setByteOrder(QAudioFormat::LittleEndian);
     format.setChannelCount(2);
@@ -10,16 +20,21 @@ AudioInputProcessor::AudioInputProcessor(QObject *parent) :
     format.setSampleRate(8000);
     format.setSampleSize(32);
     format.setSampleType(QAudioFormat::Float);
-    if(!QAudioDeviceInfo::defaultInputDevice().isFormatSupported(format)){
+
+    if(!inputDevice.isFormatSupported(format)){
         qWarning() << tr("Format is not supported");
-        format = QAudioDeviceInfo::defaultInputDevice().nearestFormat(format);
-        qDebug() << tr("\tchannels: %d") << format.channelCount();
-        qDebug() << tr("\tsample rate: %d") << format.sampleRate();
-        qDebug() << tr("\tsample size: %d") << format.sampleSize();
-        qDebug() << tr("\tsample type: %d") << format.sampleType();
+        format = inputDevice.nearestFormat(format);
+        qDebug() << tr("\tchannels:") << format.channelCount();
+        qDebug() << tr("\tsample rate:") << format.sampleRate();
+        qDebug() << tr("\tsample size:") << format.sampleSize();
+        qDebug() << tr("\tsample type:") << format.sampleType();
     }
 
-    input = new QAudioInput(format, this);
+    input = new QAudioInput(inputDevice, format, this);
+}
+
+AudioInputProcessor::~AudioInputProcessor(){
+    delete input;
 }
 
 void AudioInputProcessor::start()
@@ -42,9 +57,9 @@ qint64 AudioInputProcessor::readData(char *data, qint64 maxlen)
 
 qint64 AudioInputProcessor::writeData(const char *data, qint64 len)
 {
-    int bufSize = input->bufferSize() / 5;
-    if(len < bufSize)
-        return 0;
-    emit processData(QByteArray(data + len - bufSize, bufSize));
+//    int bufSize = input->bufferSize() / 5;
+//    if(len < bufSize)
+//        return 0;
+    emit processData(QByteArray(data, len));
     return len;
 }
