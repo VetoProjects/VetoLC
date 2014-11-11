@@ -59,8 +59,8 @@ private:
 
     QOpenGLVertexArrayObject *vao;
     GLuint vertexBuffer, uvBuffer, audioLeftTexture, audioRightTexture;
-    int vertexAttr, uvAttr,
-        timeUniform, mouseUniform, rationUniform;
+    GLint vertexAttr, uvAttr,
+        timeUniform, mouseUniform, rationUniform, samplerLeft, samplerRight;
     QOpenGLShaderProgram *shaderProgram;
     QMutex shaderProgramMutex;
     QString fragmentSource;

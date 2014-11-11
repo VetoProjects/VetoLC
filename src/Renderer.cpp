@@ -131,11 +131,18 @@ bool Renderer::init(){
 
     glDeleteTextures(1, &audioLeftTexture);
     glGenTextures(1, &audioLeftTexture);
+    glBindTexture(GL_TEXTURE_1D, audioLeftTexture);
+    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
 
     glDeleteTextures(1, &audioRightTexture);
     glGenTextures(1, &audioRightTexture);
+    glBindTexture(GL_TEXTURE_1D, audioRightTexture);
+    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-    glClearColor(0,0,.3,1);
+    glClearColor(0, 0, 0.3, 1);
     bool result = initShaders(fragmentSource);
 
     vao->release();
@@ -159,7 +166,7 @@ bool Renderer::initShaders(const QString &fragmentShader){
         hasError = true;
         error = newShaderProgram->log();
 
-        qWarning() << tr("Failed to compile default shader.");
+        qWarning() << tr("Failed to compile default vertex shader.");
     }
     if(!hasError && !newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,fragmentShader)){
         hasError = true;
@@ -209,12 +216,11 @@ bool Renderer::initShaders(const QString &fragmentShader){
         shaderProgram->setAttributeBuffer("texCoord", GL_FLOAT, 0, 2);
         shaderProgram->enableAttributeArray(uvAttr);
 
-        timeUniform  = shaderProgram->uniformLocation("time");
-        mouseUniform = shaderProgram->uniformLocation("mouse");
+        timeUniform   = shaderProgram->uniformLocation("time");
+        mouseUniform  = shaderProgram->uniformLocation("mouse");
         rationUniform = shaderProgram->uniformLocation("ration");
-
-        shaderProgram->setUniformValue("audioLeft" , GLint(0));
-        shaderProgram->setUniformValue("audioRight", GLint(1));
+        samplerLeft   = shaderProgram->uniformLocation("audioLeft");
+        samplerRight  = shaderProgram->uniformLocation("audioRight");
 
         fragmentSource = fragmentShader;
     shaderProgramMutex.unlock();
@@ -250,11 +256,12 @@ void Renderer::render(){
     QPoint mouse = this->mapFromGlobal(QCursor::pos());
     QVector2D mousePosition((float)mouse.x() / (float)this->width(),
                             (float)mouse.y() / (float)this->height());
-    float ration = this->height() == 0 ? 1 : (float)this->width() / (float)this->height();
+    float ration = ((this->height() == 0) ? 1 : (float)this->width() / (float)this->height());
 
     shaderProgramMutex.lock();
         shaderProgram->bind();
         vao->bind();
+
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_1D, audioLeftTexture);
@@ -262,6 +269,8 @@ void Renderer::render(){
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_1D, audioRightTexture);
 
+        shaderProgram->setUniformValue(samplerLeft , GLint(0));
+        shaderProgram->setUniformValue(samplerRight, GLint(1));
         shaderProgram->setUniformValue(mouseUniform, mousePosition);
         shaderProgram->setUniformValue(rationUniform, ration);
         shaderProgram->setUniformValue(timeUniform, GLfloat(time->elapsed()));
@@ -438,23 +447,18 @@ void Renderer::updateAudioData(QByteArray data){
                 right[i+j] = data[i*2+j+typeSize];
             }
         }
-    }else
+    } else {
         left = right = data.data();
+    }
 
 
     shaderProgramMutex.lock();
     shaderProgram->bind();
 
-    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_1D, audioLeftTexture);
-    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage1D(GL_TEXTURE_1D, 0, GL_R32F, count / typeSize, 0, GL_RED, type, left);
 
-    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_1D, audioRightTexture);
-    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage1D(GL_TEXTURE_1D, 0, GL_R32F, count / typeSize, 0, GL_RED, type, right);
 
     shaderProgram->release();
