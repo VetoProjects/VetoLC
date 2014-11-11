@@ -55,6 +55,7 @@ Renderer::Renderer(QWindow *parent) : Renderer::Renderer("new", defaultFragmentS
  */
 Renderer::Renderer(const QString &filename, const QString &instructions, QWindow *parent) :
     QWindow(parent),
+    currentFile(filename),
     clearColor(Qt::black),
     context(0), device(0),
     time(0),
@@ -62,7 +63,8 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
     vao(0), uvBuffer(0), audioLeftTexture(0), audioRightTexture(0),
     vertexAttr(0), uvAttr(0), timeUniform(0),
     shaderProgram(0),
-    fragmentSource(instructions)
+    fragmentSource(instructions),
+    textureRegEx("(^|\n|\r)\\s*#texture\\s+([A-Za-z_][A-Za-z0-9_]*)\\s+([^\n\r]+)")
 {
     setTitle(filename);
 
@@ -96,6 +98,15 @@ Renderer::Renderer(const QString &filename, const QString &instructions, QWindow
  * Free resources
  */
 Renderer::~Renderer(){
+    context->makeCurrent(this);
+    if(shaderProgram){
+        shaderProgram->bind();
+        for(QOpenGLTexture *texture : textures){
+            texture->destroy();
+            delete texture;
+        }
+        delete shaderProgram;
+    }
     glDeleteBuffers(1, &uvBuffer);
     glDeleteTextures(1, &audioLeftTexture);
     glDeleteTextures(1, &audioRightTexture);
@@ -128,6 +139,7 @@ bool Renderer::init(){
     glBufferData(GL_ARRAY_BUFFER, sizeof(uvs), uvs, GL_STATIC_DRAW);
 
     glEnable(GL_TEXTURE_1D);
+    glEnable(GL_TEXTURE_2D);
 
     glDeleteTextures(1, &audioLeftTexture);
     glGenTextures(1, &audioLeftTexture);
@@ -157,21 +169,55 @@ bool Renderer::init(){
  *
  * Initialze and compile the shader program
  */
-bool Renderer::initShaders(const QString &fragmentShader){
+bool Renderer::initShaders(QString fragmentShader){
+    QList<QString> imageNames;
+    QList<QString> imagePathes;
+	QFileInfo codeFile(currentFile);
+
+    int pos = 0;
+    while((pos = textureRegEx.indexIn(fragmentShader, pos)) != -1){
+        QString imageName = textureRegEx.cap(2).trimmed();
+        QString imagePath = textureRegEx.cap(3).trimmed();
+        QFileInfo textureImage;
+		
+        if(codeFile.exists())
+            textureImage = QFileInfo(codeFile.dir(), imagePath);
+        else
+            textureImage = QFileInfo(imagePath);
+
+        if(!textureImage.isFile()){
+            qDebug() << "Texture image does not exsit: " << imagePath;
+            if(fragmentShader == defaultFragmentShader)
+                qWarning() << tr("Failed to compile default shader.");
+            else if(shaderProgram == 0)
+                initShaders(defaultFragmentShader);
+            emit errored("Image file does not exist: " + imagePath, fragmentShader.mid(0, pos).count('\n'));
+            return false;
+        }
+
+        imageNames.append(imageName);
+        imagePathes.append(textureImage.absoluteFilePath());
+
+        QString textureDefinition(textureRegEx.cap(1) + "uniform sampler2D " + imageName + ";");
+        fragmentShader.remove(pos, textureRegEx.matchedLength());
+        fragmentShader.insert(pos, textureDefinition);
+        pos += textureDefinition.length();
+    }
+	
     QOpenGLShaderProgram *newShaderProgram = new QOpenGLShaderProgram(this);
     bool hasError = false;
     QString error = "";
-
+	
     if(!hasError && !newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, defaultVertexShader)){
         hasError = true;
         error = newShaderProgram->log();
 
         qWarning() << tr("Failed to compile default vertex shader.");
-    }
+	}
     if(!hasError && !newShaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,fragmentShader)){
         hasError = true;
         error = newShaderProgram->log();
-
+		
         if(fragmentShader == defaultFragmentShader)
             qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
@@ -180,7 +226,7 @@ bool Renderer::initShaders(const QString &fragmentShader){
     if(!hasError && !newShaderProgram->link()){
         hasError = true;
         error = newShaderProgram->log();
-
+		
         if(fragmentShader == defaultFragmentShader)
             qWarning() << tr("Failed to compile default shader.");
         else if(shaderProgram == 0)
@@ -201,10 +247,35 @@ bool Renderer::initShaders(const QString &fragmentShader){
         }
         return false;
     }
+
+    QList<QOpenGLTexture*> newTextures;
+    for(int i = 0; i < imageNames.length(); ++i){
+        QString imageName = imageNames[i];
+        QString imagePath = imagePathes[i];
+
+        QOpenGLTexture* texture = new QOpenGLTexture(QImage(imagePath));
+
+        texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+        texture->setMagnificationFilter(QOpenGLTexture::Linear);
+
+        qDebug() << imageName << " from " << imagePath << ": " << texture->textureId() << " (" << texture << ")";
+
+        newTextures.append(texture);
+    }
+
     shaderProgramMutex.lock();
-        if(shaderProgram)
+
+        if(shaderProgram){
+            shaderProgram->bind();
+            for(QOpenGLTexture *texture : textures){
+                texture->destroy();
+                delete texture;
+            }
             delete shaderProgram;
+        }
+        textures = newTextures;
         shaderProgram = newShaderProgram;
+        shaderProgram->bind();
 
         vertexAttr   = shaderProgram->attributeLocation("position");
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -219,8 +290,11 @@ bool Renderer::initShaders(const QString &fragmentShader){
         timeUniform   = shaderProgram->uniformLocation("time");
         mouseUniform  = shaderProgram->uniformLocation("mouse");
         rationUniform = shaderProgram->uniformLocation("ration");
-        samplerLeft   = shaderProgram->uniformLocation("audioLeft");
-        samplerRight  = shaderProgram->uniformLocation("audioRight");
+
+        shaderProgram->setUniformValue("audioLeft", GLint(0));
+        shaderProgram->setUniformValue("audioRight", GLint(1));
+        for(int i = 0; i < imageNames.length(); ++i)
+            shaderProgram->setUniformValue(imageNames[i].toLocal8Bit().data(), GLint(i + 2));
 
         fragmentSource = fragmentShader;
     shaderProgramMutex.unlock();
@@ -269,8 +343,11 @@ void Renderer::render(){
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_1D, audioRightTexture);
 
-        shaderProgram->setUniformValue(samplerLeft , GLint(0));
-        shaderProgram->setUniformValue(samplerRight, GLint(1));
+        for(int i = 0; i < textures.length(); ++i){
+            glActiveTexture(GL_TEXTURE0 + 2 + i);
+            textures[i]->bind();
+        }
+
         shaderProgram->setUniformValue(mouseUniform, mousePosition);
         shaderProgram->setUniformValue(rationUniform, ration);
         shaderProgram->setUniformValue(timeUniform, GLfloat(time->elapsed()));
@@ -380,6 +457,7 @@ void Renderer::exposeEvent(QExposeEvent *){
 bool Renderer::updateCode(const QString &filename, const QString &code){
     if(!initShaders(code))
         return false;
+    currentFile = filename;
     setTitle(filename);
     show();
     return true;

@@ -1,5 +1,7 @@
 #version 330 core
 
+#texture AAA img/6.jpg
+
 in vec2  uv;
 out vec4 color;
 
@@ -23,7 +25,7 @@ uniform int iter = 100;
 
 void main() {
 	int i;
-	float x, y, d, v, l, r, intensity, audioVal;
+	float x, y, d, v, l, r, g, b, y1, y2, intensity, audioVal;
 	vec2 p, c, z;
 
 	color = vec4(1);
@@ -59,7 +61,7 @@ void main() {
 	}
 //*/
 
-//* Wave line
+/* Wave line
 	if(p.y < max(0, audioVal) && p.y > min(0, audioVal)){
 		intensity = abs(p.y - audioVal / 2) / abs(audioVal) * 2;
 		color.rgb += _clamp(color.rgb * intensity + 1 - intensity - intensity * vec3(-.2, .8, 2.333));
@@ -101,23 +103,26 @@ void main() {
 		color = vec4(1);
 //*/
 
-/* New Waveline
-	vec2 uPos = p - vec2(0.0, 0.5);
-
-	vec3 col = vec3(0.0);
-	float vertColor = 0.0;
+//* New Waveline
+	y1 = y2 = p.y - 0.5;
+	r = 0.0;
+	b = 0.0;
+	float vertColor1 = 0.0, vertColor2 = 0.0;
 	const float k = 5.0;
 	for( float i = 1.0; i < k; ++i )
 	{
-		float t = time * (.005);
-
-		uPos.y += left(uv.x  * exp(i) / 5) * 0.55;
-		float fTemp = abs(1.0/(80.0 * k * uPos.y));
-		vertColor += fTemp / i;
-		col += vec3(fTemp*(i*0.9), 0.0, cos(vertColor)*sin(fTemp));
+		y1 += left (uv.x  * exp(i) / 5) * 0.55;
+		y2 += right(uv.x  * exp(i) / 5) * 0.55;
+		float fTemp1 = abs(1.0 / (80.0 * k * y1));
+		float fTemp2 = abs(1.0 / (80.0 * k * y2));
+		vertColor1 += fTemp1 / i;
+		vertColor2 += fTemp2 / i;
+		r += fTemp1 * i * 0.9;
+		b += cos(vertColor2) * sin(fTemp2);
 	}
 
-	color = vec4(col, 1.0);
+	color.r = _clamp(color.r + r);
+	color.b = _clamp(color.b + b);
 //*/
 
 /* Aquarell
@@ -136,5 +141,9 @@ void main() {
 
 /* Random
 	color = vec4(fract(sin(dot(floor(uv * 64),vec2(12.9898,78.233))) * 43758.5453));
+//*/
+
+//* Image
+    color.rgb += texture(AAA, uv + vec2(left(uv.y), right(uv.x)) * 0.05).rgb * 0.5;
 //*/
 }

@@ -9,12 +9,17 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 #include <QOpenGLDebugLogger>
+#include <QOpenGLTexture>
 #include <QTime>
 #include <QMutex>
 #include <QAudioInput>
 #include <QBuffer>
+#include <QList>
 #include <QOpenGLShader>
 #include <QCoreApplication>
+#include <QFileInfo>
+#include <QDir>
+#include <QString>
 
 #include "AudioInputProcessor.hpp"
 
@@ -50,7 +55,8 @@ protected:
 private:
     bool init();
     void render();
-    bool initShaders(const QString &);
+    bool initShaders(QString);
+    QString currentFile;
     QColor clearColor;
     QOpenGLContext *context;
     QOpenGLPaintDevice *device;
@@ -64,11 +70,13 @@ private:
     QOpenGLShaderProgram *shaderProgram;
     QMutex shaderProgramMutex;
     QString fragmentSource;
+    QList<QOpenGLTexture*> textures;
 
     AudioInputProcessor *audio;
 
     QOpenGLDebugLogger* m_logger;
 
+    QRegExp textureRegEx;
 
 //    static bool mapFormat(float *target, char *source, int count, const QAudioFormat &format);
 //    template <typename T>
