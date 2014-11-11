@@ -73,21 +73,21 @@ void main() {
 
 
 //* Left
-	l = abs(left(uv.y)/2.0);
+	l = abs(left(uv.y) / 2.0);
 	if(l >= uv.x){
-		float intensity = (uv.x - l / 2) / abs(l) * 2;
+		intensity = _clamp((uv.x - l / 2) / l * 2);
 		color.rgb *= intensity;
-		color.rgb += _clamp((1 - intensity) * vec3(1,0,0));
+		color.rgb += (1 - intensity) * vec3(1,0,0);
 	}
 //*
 
 
 //* Right
 	r = abs(right(uv.y)/2.0);
-	if(abs(r/2.0) >= 1-uv.x){
-		intensity = _clamp((1 - uv.x - r / 2) / abs(r) * 2, 0, 1);
+	if(r >= 1 - uv.x){
+		intensity = _clamp((1 - uv.x - r / 2) / r * 2);
 		color.rgb *= intensity;
-		color.rgb += (1 - intensity) * _clamp(vec3(1,0,0));
+		color.rgb += (1 - intensity) * vec3(1,0,0);
 	}
 //*/
 
