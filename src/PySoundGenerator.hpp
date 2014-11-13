@@ -39,7 +39,7 @@ private:
     PyObject* dict;
     AudioOutputProcessor* device;
 
-private slots:
+private Q_SLOTS:
     void terminated();
     void setReady();
 

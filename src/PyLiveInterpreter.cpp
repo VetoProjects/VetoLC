@@ -15,7 +15,7 @@ PyLiveInterpreter::PyLiveInterpreter(char* progName, char* pyInstructions){
         return;
     }
 
-    Py_SetProgramName(progName);
+//    Py_SetProgramName(progName);
     Py_Initialize();
     instructions = pyInstructions;
     ownExcept = tr("Script terminated successfully.");
@@ -73,8 +73,8 @@ PyObject* PyLiveInterpreter::execute(){
  * Updates the code of the currently running Python interpreter.
  */
 bool PyLiveInterpreter::updateCode(QString filename, QString instructions){
-    Py_SetProgramName(filename.toLocal8Bit().data());
-    this->instructions = instructions;
+//    Py_SetProgramName(filename.toLocal8Bit().data());
+//    this->instructions = instructions;
     return true;
 }
 
@@ -86,46 +86,46 @@ bool PyLiveInterpreter::updateCode(QString filename, QString instructions){
  * and an int representing exception and line number.
  */
 void PyLiveInterpreter::exceptionOccurred(){
-    PyObject *errtype, *errvalue, *traceback;
-    PyObject *mod;
-    PyObject *ret, *list, *string;
-    PyErr_Fetch(&errtype, &errvalue, &traceback);
-    PyErr_NormalizeException(&errtype, &errvalue, &traceback);
-    QString exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
-    exceptionText.append(": '");
-    exceptionText.append(PyString_AsString(PyObject_Str(errvalue)));
-    QRegExp line("line [0-9]+");
-    if(line.indexIn(exceptionText) != -1){
-        QString text = line.capturedTexts().at(0);
-        exceptionText.replace(" (<string>, " + text + ")", "");
-        exceptionText.append("' at " + text);
-        text.replace("line ", "");
-        exceptNum = text.toInt();
-    } else{
-        mod = PyImport_ImportModule("traceback");
-        list = PyObject_CallMethod(mod, (char*)"format_exception",
-                               (char*)"OOO", errtype, errvalue, traceback);
-        if(list == 0){
-            ownExcept = exceptionText;
-            exceptNum = -1;
-            return;
-        }
-        string = PyString_FromString("\n");
-        ret = _PyString_Join(string, list);
-        if(line.indexIn(PyString_AsString(ret)) != -1){
-            QString text = line.capturedTexts().at(0);
-            exceptionText.append("' at " + text);
-            text.replace("line ", "");
-            exceptNum = text.toInt();
-        } else{
-            exceptNum = -1;
-        }
-        Py_DECREF(list);
-        Py_DECREF(string);
-        Py_DECREF(ret);
-    }
-    PyErr_Clear();
-    ownExcept = exceptionText;
+//    PyObject *errtype, *errvalue, *traceback;
+//    PyObject *mod;
+//    PyObject *ret, *list, *string;
+//    PyErr_Fetch(&errtype, &errvalue, &traceback);
+//    PyErr_NormalizeException(&errtype, &errvalue, &traceback);
+//    QString exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
+//    exceptionText.append(": '");
+//    exceptionText.append(PyString_AsString(PyObject_Str(errvalue)));
+//    QRegExp line("line [0-9]+");
+//    if(line.indexIn(exceptionText) != -1){
+//        QString text = line.capturedTexts().at(0);
+//        exceptionText.replace(" (<string>, " + text + ")", "");
+//        exceptionText.append("' at " + text);
+//        text.replace("line ", "");
+//        exceptNum = text.toInt();
+//    } else{
+//        mod = PyImport_ImportModule("traceback");
+//        list = PyObject_CallMethod(mod, (char*)"format_exception",
+//                               (char*)"OOO", errtype, errvalue, traceback);
+//        if(list == 0){
+//            ownExcept = exceptionText;
+//            exceptNum = -1;
+//            return;
+//        }
+//        string = PyString_FromString("\n");
+//        ret = _PyString_Join(string, list);
+//        if(line.indexIn(PyString_AsString(ret)) != -1){
+//            QString text = line.capturedTexts().at(0);
+//            exceptionText.append("' at " + text);
+//            text.replace("line ", "");
+//            exceptNum = text.toInt();
+//        } else{
+//            exceptNum = -1;
+//        }
+//        Py_DECREF(list);
+//        Py_DECREF(string);
+//        Py_DECREF(ret);
+//    }
+//    PyErr_Clear();
+//    ownExcept = exceptionText;
 }
 
 /**

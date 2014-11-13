@@ -16,7 +16,10 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
         return;
     }
 
-    Py_SetProgramName(QString(progName).toWCharArray());
+    wchar_t *temp = 0;
+    QString(progName).toWCharArray(temp);
+    Py_SetProgramName(temp);
+    delete temp;
     Py_Initialize();
     ownExcept = QString();
     exceptNum = -1;
@@ -125,7 +128,10 @@ void PySoundGenerator::stream(PyObject* data){
  * Updates the code of the currently running Python interpreter.
  */
 bool PySoundGenerator::updateCode(QString filename, QString instructions){
-    Py_SetProgramName(filename.toWCharArray());
+    wchar_t* temp = 0;
+    filename.toWCharArray(temp);
+    Py_SetProgramName(temp);
+    delete temp;
     execute(instructions.toLocal8Bit().data());
     return true;
 }
@@ -285,7 +291,8 @@ void PySoundGenerator::run(){
  */
 void PySoundGenerator::write(){
     while(ready){
-        PyObject* check = execute("AudioPython.yield_raw(samples, None)");
+        PyObject* check = 0;
+        check = execute("AudioPython.yield_raw(samples, None)");
         if(!check){
             exceptionOccurred();
             emit doneSignal(ownExcept, exceptNum);
