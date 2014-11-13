@@ -21,6 +21,7 @@ Q_OBJECT
 public:
     PySoundGenerator(char*, char*);
     void run();
+    void finalize();
     bool updateCode(QString, QString);
     ~PySoundGenerator();
 

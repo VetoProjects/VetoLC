@@ -85,6 +85,12 @@ void PySoundGenerator::write(){
     }
 }
 
+void PySoundGenerator::finalize(){
+    device->terminate();
+    device->wait();
+    device->deleteLater();
+}
+
 /**
  * @brief PySoundGenerator::execute
  * @return PyObject* / NULL if there was an exception
