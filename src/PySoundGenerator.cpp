@@ -40,10 +40,10 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
 
 
 
-    device = new AudioOutputProcessor(this);
+    device = new AudioOutputProcessor();
     connect(device, SIGNAL(startWriting()), this, SLOT(setReady()));
     ready = true;
-    //device->start();
+    device->start();
 }
 
 /**
@@ -57,7 +57,7 @@ PySoundGenerator::~PySoundGenerator(){
     delete abortAction;
     Py_Finalize();
     device->terminate();
-    delete device;
+    device->deleteLater();
 }
 
 /**

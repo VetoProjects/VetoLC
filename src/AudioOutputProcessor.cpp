@@ -4,7 +4,8 @@
 #include <QCoreApplication>
 
 
-AudioOutputProcessor::AudioOutputProcessor(QObject *parent) : QThread(parent)
+AudioOutputProcessor::AudioOutputProcessor(QObject *parent) : QThread(parent),
+    dataBuffer(0), lenBuffer(0), audioOut(0), device(0)
 { }
 
 AudioOutputProcessor::~AudioOutputProcessor()

@@ -489,31 +489,31 @@ void Backend::runGlFile(IInstance *instance){
 void Backend::getExecutionResults(QtSoundThread* thread, QString returnedException){
     disconnect(thread, SIGNAL(doneSignal(QtSoundThread*, QString)),
             this, SLOT(getExecutionResults(QtSoundThread*, QString)));
-    terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
+    terminateThread(thread->ID);
 }
 void Backend::getExecutionResults(PySoundThread* thread, QString returnedException, int lineno){
-    disconnect(thread, SIGNAL(doneSignal(PySoundThread*, QString)),
-            this, SLOT(getExecutionResults(PySoundThread*, QString)));
-    terminateThread(thread->ID);
+    disconnect(thread, SIGNAL(doneSignal(PySoundThread*, QString, int)),
+            this, SLOT(getExecutionResults(PySoundThread*, QString, int)));
     instances[thread->ID]->reportWarning(returnedException);
     if(lineno >= 0)
         instances[thread->ID]->highlightErroredLine(lineno);
+    terminateThread(thread->ID);
 }
 void Backend::getExecutionResults(PyLiveThread* thread, QString returnedException, int lineno){
     disconnect(thread, SIGNAL(doneSignal(PyLiveThread*, QString, int)),
             this, SLOT(getExecutionResults(PyLiveThread*, QString, int)));
-    terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
     if(lineno >= 0)
         instances[thread->ID]->highlightErroredLine(lineno);
+    terminateThread(thread->ID);
 }
 void Backend::getExecutionResults(GlLiveThread* thread, QString returnedException){
     // Already gone?
     disconnect(thread, SIGNAL(doneSignal(GlLiveThread*, QString)),
             this, SLOT(getExecutionResults(GlLiveThread*, QString)));
-    terminateThread(thread->ID);
     instances[thread->ID]->reportWarning(returnedException);
+    terminateThread(thread->ID);
 }
 
 void Backend::getError(GlLiveThread* thread, QString error, int lineno){
@@ -532,6 +532,7 @@ void Backend::terminateThread(long id){
     if(threads.contains(id)){
         if(threads[id]->isRunning())
             threads[id]->terminate();
+        threads[id]->wait();
         threads[id]->deleteLater();
         threads.remove(id);
     }

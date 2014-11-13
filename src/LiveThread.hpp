@@ -37,7 +37,7 @@ public:
     }
     ~PySoundThread(){
         if(runObj)
-            delete runObj;
+            runObj->deleteLater();
     }
     void run() Q_DECL_OVERRIDE{
         if(runObj)
