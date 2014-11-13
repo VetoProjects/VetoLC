@@ -75,6 +75,12 @@ void PySoundGenerator::run(){
         QCoreApplication::processEvents();
 }
 
+/**
+ * @brief PySoundGenerator::write
+ *
+ * Gets samples and does error handling. The actual
+ * main loop, so to say.
+ */
 void PySoundGenerator::write(){
     while(ready){
         PyObject* check = execute("AudioPython.yield_raw(samples, None)");
