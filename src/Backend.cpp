@@ -453,8 +453,8 @@ void Backend::runQtSoundFile(IInstance *instance){
  */
 void Backend::runPySoundFile(IInstance *instance){
     PySoundThread *thread = new PySoundThread(instance->ID, this);
-    connect(thread, SIGNAL(doneSignal(PySoundThread*, QString)),
-            this, SLOT(getExecutionResults(PySoundThread*, QString)));
+    connect(thread, SIGNAL(doneSignal(PySoundThread*, QString, int)),
+            this, SLOT(getExecutionResults(PySoundThread*, QString, int)));
     thread->initialize(instance->title(), instance->sourceCode());
     thread->start();
     threads.insert(thread->ID, thread);
