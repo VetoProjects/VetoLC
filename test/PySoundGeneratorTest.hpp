@@ -65,6 +65,9 @@ private slots:
         QCOMPARE(thread, returnedThread);
         QCOMPARE(lineno, 0);
     }*/
+    void cleanup(){
+        delete thread;
+    }
 
 private:
     LiveThread* thread;
