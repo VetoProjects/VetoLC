@@ -56,8 +56,11 @@ PySoundGenerator::~PySoundGenerator(){
     Py_DECREF(sys);
     delete abortAction;
     Py_Finalize();
-    device->terminate();
-    device->deleteLater();
+    device->exit();
+    // Wait for the end of QThread before deletion, otherwise it raises an error
+    while(device->isRunning())
+        ;
+    delete device;
 }
 
 /**
@@ -83,12 +86,6 @@ void PySoundGenerator::write(){
         if(PyBytes_Check(check))
             stream(check);
     }
-}
-
-void PySoundGenerator::finalize(){
-    device->terminate();
-    device->wait();
-    device->deleteLater();
 }
 
 /**

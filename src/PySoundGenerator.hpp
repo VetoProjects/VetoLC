@@ -7,6 +7,7 @@
 #include <QCoreApplication>
 #include <QIODevice>
 #include "AudioOutputProcessor.hpp"
+#include <QDebug>
 
 /**
  * @brief The PySoundGenerator class
@@ -21,7 +22,6 @@ Q_OBJECT
 public:
     PySoundGenerator(char*, char*);
     void run();
-    void finalize();
     bool updateCode(QString, QString);
     ~PySoundGenerator();
 

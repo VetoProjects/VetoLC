@@ -536,6 +536,7 @@ void Backend::terminateThread(long id){
         threads[id]->deleteLater();
         threads.remove(id);
     }
+
 }
 
 /**
