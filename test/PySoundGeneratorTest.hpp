@@ -1,9 +1,9 @@
 #ifndef PYSOUNDGENERATORTEST
 #define PYSOUNDGENERATORTEST
-#ifdef WITH_PYTHON
 
 #include <QObject>
 #include <QTest>
+#include <QDebug>
 #include "../src/LiveThread.hpp"
 
 /**
@@ -17,31 +17,56 @@
 class PySoundGeneratorTest : public QObject{
 Q_OBJECT
 private slots:
-    void initTestCase(){
+    void init(){
         thread = new PySoundThread(0);
-        connect(thread, SIGNAL(doneSignal(PySoundThread*, QString)),
-                this, SLOT(finishedTest(PySoundThread*, QString)));
-        thread->initialize("Test", "raise ImportError('Not valid')");
-    }
+        }
     void objectCreationTest() {
         QVERIFY(thread);
     }
     void runTest(){
+        connect(thread, SIGNAL(doneSignal(PySoundThread*, QString, int)),
+                this, SLOT(finishedRunTest(PySoundThread*, QString, int)));
+        thread->initialize("Test", "raise ImportError('Not valid')");
         thread->start();
         QTest::qWait(200);
         thread->terminate();
     }
-    void finishedTest(PySoundThread* returnedThread, QString returned){
-        QVERIFY(returnedThread == thread);
-        QVERIFY(returned != NULL);
-        QVERIFY(thread == returnedThread);
+    void finishedRunTest(PySoundThread* returnedThread, QString returned, int lineno){
+        QCOMPARE(returnedThread, thread);
+        QCOMPARE(returned, QStringLiteral("<type 'exceptions.ImportError'>: 'Not valid' at line 1"));
+        QCOMPARE(thread, returnedThread);
+        QCOMPARE(lineno, 1);
     }
-    void cleanupTestCase(){
-        delete thread;
+    void commandTest(){
+        connect(thread, SIGNAL(doneSignal(PySoundThread*, QString, int)),
+                this, SLOT(finishedCommandTest(PySoundThread*, QString, int)));
+        thread->initialize("Test", "\t0 >= 1");
+        thread->start();
+        QTest::qWait(200);
+        thread->terminate();
     }
+    void finishedCommandTest(PySoundThread* returnedThread, QString returned, int lineno){
+        QCOMPARE(returnedThread, thread);
+        QCOMPARE(returned, QStringLiteral("<type 'exceptions.IndentationError'>: 'unexpected indent' at line 1"));
+        QCOMPARE(thread, returnedThread);
+        QCOMPARE(lineno, 1);
+    }
+    /*void validTest(){
+        connect(thread, SIGNAL(doneSignal(PySoundThread*, QString, int)),
+                this, SLOT(finishedValidTest(PySoundThread*, QString, int)));
+        thread->initialize("Test", "channels = ()");
+        thread->start();
+        QTest::qWait(200);
+        thread->terminate();
+    }
+    void finishedValidTest(PySoundThread* returnedThread, QString returned, int lineno){
+        QCOMPARE(returnedThread, thread);
+        QCOMPARE(returned, QStringLiteral(""));
+        QCOMPARE(thread, returnedThread);
+        QCOMPARE(lineno, 0);
+    }*/
 
 private:
     LiveThread* thread;
 };
-#endif
 #endif // PYSOUNDGENERATORTEST

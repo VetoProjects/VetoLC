@@ -63,9 +63,9 @@ int main(int argc, char** argv){
             {new QString("Renderer"), factory<RendererTest>},
             {new QString("SoundGenerator"), factory<SoundGeneratorTest>},
             {new QString("CodeHighlighter"), factory<CodeHighlighterTest>}
-#ifdef with_python
+#ifdef WITH_PYTHON
            ,{new QString("PySoundGenerator"), factory<PySoundGeneratorTest>},
-            {new QString("PyLiveTest"), factory<PyLiveTest>},
+            {new QString("PyLiveInterpreter"), factory<PyLiveTest>},
 #endif							
             };
 	    
