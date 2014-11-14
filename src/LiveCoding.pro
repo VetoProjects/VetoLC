@@ -22,7 +22,7 @@ CODECFORSRC     = UTF-8
 QMAKE_CXXFLAGS += -Wall -DNDEBUG -O2 -pedantic
 QMAKE_EXTRA_TARGETS += valgrind-check
 
-CONFIG+=c++11
+CONFIG+=c++11 no_keywords
 
 valgrind-check.depends = check
 valgrind-check.commands = valgrind ./$$TARGET
