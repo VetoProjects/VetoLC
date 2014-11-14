@@ -2,11 +2,10 @@
 #define PYLIVEINTERPRETER
 
 #include <Python.h>
-#include <frameobject.h>
+#undef B0
 #include <QThread>
 #include <QAction>
 #include <QCoreApplication>
-#include "PythonException.hpp"
 
 /**
  * @brief The PyLiveInterpreter class

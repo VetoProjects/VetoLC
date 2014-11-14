@@ -2,6 +2,7 @@
 #define PYSOUNDGENERATOR
 
 #include <Python.h>
+#undef B0
 #include <QThread>
 #include <QAction>
 #include <QCoreApplication>
