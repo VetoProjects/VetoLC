@@ -21,7 +21,7 @@ public:
     SettingsWindow(int);
     ~SettingsWindow();
 
-private slots:
+private Q_SLOTS:
    void apply();
    void applyClose();
    void tryClose();

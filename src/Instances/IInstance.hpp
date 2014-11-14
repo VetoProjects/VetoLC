@@ -26,7 +26,7 @@ public:
     virtual QString sourceCode() const = 0;
     virtual QString title() const = 0;
 
-signals:
+Q_SIGNALS:
     void runCode(IInstance *);
     void stopCode(IInstance *);
 

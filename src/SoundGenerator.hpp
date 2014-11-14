@@ -48,10 +48,10 @@ private:
     QAction* abortAction;
 //    QQmlEngine* engine;
 
-private slots:
+private Q_SLOTS:
     void terminated();
 
-signals:
+Q_SIGNALS:
     void doneSignal(QString);
 };
 

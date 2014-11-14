@@ -12,7 +12,7 @@
  */
 PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     if(pyInstructions == QString()){
-        emit doneSignal(tr("File is empty. Nothing to execute."), -1);
+        Q_EMIT doneSignal(tr("File is empty. Nothing to execute."), -1);
         return;
     }
 
@@ -32,7 +32,7 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     dict = PyModule_GetDict(module);
     if(!dict){
         exceptionOccurred();
-        emit doneSignal(ownExcept, -1);
+        Q_EMIT doneSignal(ownExcept, -1);
         return;
     }
     execute("import AudioPython");
@@ -66,7 +66,7 @@ PySoundGenerator::~PySoundGenerator(){
  * @brief PySoundGenerator::run
  *
  * The main loop. Calls the user code executing method
- * and emits a signal when it's done.
+ * and Q_EMITs a signal when it's done.
  */
 void PySoundGenerator::run(){
     write();
@@ -85,7 +85,7 @@ void PySoundGenerator::write(){
         PyObject* check = execute("AudioPython.yield_raw(samples, None)");
         if(!check){
             exceptionOccurred();
-            emit doneSignal(ownExcept, exceptNum);
+            Q_EMIT doneSignal(ownExcept, exceptNum);
             break;
         }
         if(PyBytes_Check(check))
@@ -184,7 +184,7 @@ void PySoundGenerator::exceptionOccurred(){
  * @brief PySoundGenerator::terminated
  *
  * SLOT that is called when the user interrupt(CTRL-C) SIGNAL
- * is emitted.
+ * is Q_EMITted.
  */
 void PySoundGenerator::terminated(){
     ownExcept = tr("User Terminated.");
@@ -213,7 +213,7 @@ void PySoundGenerator::setReady(){
  */
 PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     if(pyInstructions == QString()){
-        emit doneSignal(tr("File is empty. Nothing to execute."), -1);
+        Q_EMIT doneSignal(tr("File is empty. Nothing to execute."), -1);
         return;
     }
 
@@ -233,7 +233,7 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     dict = PyModule_GetDict(module);
     if(!dict){
         exceptionOccurred();
-        emit doneSignal(ownExcept, -1);
+        Q_EMIT doneSignal(ownExcept, -1);
         return;
     }
     execute("import AudioPython");
@@ -269,7 +269,7 @@ PySoundGenerator::~PySoundGenerator(){
  * @brief PySoundGenerator::run
  *
  * The main loop. Calls the user code executing method
- * and emits a signal when it's done.
+ * and Q_EMITs a signal when it's done.
  */
 void PySoundGenerator::run(){
     write();
@@ -288,7 +288,7 @@ void PySoundGenerator::write(){
         PyObject* check = execute("AudioPython.yield_raw(samples, None)");
         if(!check){
             exceptionOccurred();
-            emit doneSignal(ownExcept, exceptNum);
+            Q_EMIT doneSignal(ownExcept, exceptNum);
             break;
         }
         if(PyBytes_Check(check))
@@ -387,7 +387,7 @@ void PySoundGenerator::exceptionOccurred(){
  * @brief PySoundGenerator::terminated
  *
  * SLOT that is called when the user interrupt(CTRL-C) SIGNAL
- * is emitted.
+ * is Q_EMITted.
  */
 void PySoundGenerator::terminated(){
     ownExcept = tr("User Terminated.");

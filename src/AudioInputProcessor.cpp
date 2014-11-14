@@ -59,6 +59,6 @@ qint64 AudioInputProcessor::writeData(const char *data, qint64 len)
 //    int bufSize = input->bufferSize() / 5;
 //    if(len < bufSize)
 //        return 0;
-    emit processData(QByteArray(data, len));
+    Q_EMIT processData(QByteArray(data, len));
     return len;
 }

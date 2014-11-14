@@ -67,7 +67,7 @@ EditorWindow::~EditorWindow(){
 void EditorWindow::closeEvent(QCloseEvent *event){
     if(saveDialog()){
         saveSettings();
-        emit closing(this);
+        Q_EMIT closing(this);
         event->accept();
     }else
         event->ignore();
@@ -75,12 +75,12 @@ void EditorWindow::closeEvent(QCloseEvent *event){
 
 void EditorWindow::gotOpenHelp()
 {
-    emit openHelp(this);
+    Q_EMIT openHelp(this);
 }
 
 void EditorWindow::gotCloseAll()
 {
-    emit closeAll(this);
+    Q_EMIT closeAll(this);
 }
 
 /**
@@ -112,15 +112,15 @@ void EditorWindow::openFile(){
             if(fileName.endsWith("py")){
                 templateNum = 0;
                 codeEditor->setHighlighting(0);
-                emit changedSetting(this, "UseCompiler", 0);
+                Q_EMIT changedSetting(this, "UseCompiler", 0);
             }else if(fileName.endsWith("qml")){
                 templateNum = 1;
                 codeEditor->setHighlighting(1);
-                emit changedSetting(this, "UseCompiler", 1);
+                Q_EMIT changedSetting(this, "UseCompiler", 1);
             }else if(fileName.endsWith("glsl")){
                 templateNum = 2;
                 codeEditor->setHighlighting(2);
-                emit changedSetting(this, "UseCompiler", 2);
+                Q_EMIT changedSetting(this, "UseCompiler", 2);
             }
             loadFile(fileName);
         }
@@ -172,7 +172,7 @@ void EditorWindow::saveSettings(){
         settings.insert("file", currentFile);
     else
         settings.insert("file", "");
-    emit changedSettings(this, settings);
+    Q_EMIT changedSettings(this, settings);
 }
 
 /**
@@ -181,7 +181,7 @@ void EditorWindow::saveSettings(){
  * creates an instance of SettingsWindow and executes it.
  */
 void EditorWindow::gotOpenSettings(){
-    emit openSettings(this);
+    Q_EMIT openSettings(this);
 }
 
 /**
@@ -449,7 +449,7 @@ void EditorWindow::loadFile(const QString &path){
     //set current file and display a message in the status bar
     setAsCurrentFile(path);
     statusBar()->showMessage(tr("File was loaded"), 2000);
-    emit changedSetting(this, "file", path);
+    Q_EMIT changedSetting(this, "file", path);
 }
 
 /**

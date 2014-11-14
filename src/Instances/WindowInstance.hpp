@@ -28,9 +28,7 @@ private:
     void createWindow(const QHash<QString, QVariant> &settings);
     EditorWindow *_window;
 
-signals:
-
-public slots:
+public Q_SLOTS:
     void gotDestroying(QObject*);
     void gotClosing(EditorWindow *);
     void gotCloseAll(EditorWindow *);

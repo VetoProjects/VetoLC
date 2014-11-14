@@ -191,7 +191,7 @@ bool Renderer::initShaders(QString fragmentShader){
                 qWarning() << tr("Failed to compile default shader.");
             else if(shaderProgram == 0)
                 initShaders(defaultFragmentShader);
-            emit errored("Image file does not exist: " + imagePath, fragmentShader.mid(0, pos).count('\n'));
+            Q_EMIT errored("Image file does not exist: " + imagePath, fragmentShader.mid(0, pos).count('\n'));
             return false;
         }
 
@@ -241,9 +241,9 @@ bool Renderer::initShaders(QString fragmentShader){
         if(errorline.indexIn(error) > -1){
             QString text = errorline.cap(1);
             if(text.toInt()-3 > 0)  // because: "#define lowp", "#define mediump" and "#define highp"
-                emit errored(error, text.toInt()-3);
+                Q_EMIT errored(error, text.toInt()-3);
             else
-                emit errored(error, text.toInt());
+                Q_EMIT errored(error, text.toInt());
         }
         return false;
     }
@@ -420,7 +420,7 @@ void Renderer::renderNow(){
  * @return True if the event was successful proccessed, otherwise false
  *
  * Called if a new event is poped from the event-queue to render on update event
- * and emit doneSignal on close event.
+ * and Q_EMIT doneSignal on close event.
  */
 bool Renderer::event(QEvent *event){
     switch(event->type()){
@@ -429,7 +429,7 @@ bool Renderer::event(QEvent *event){
         renderNow();
         return true;
     case QEvent::Close:
-        emit doneSignal(tr("User closed renderer"));
+        Q_EMIT doneSignal(tr("User closed renderer"));
         return true;
     default:
         return QWindow::event(event);

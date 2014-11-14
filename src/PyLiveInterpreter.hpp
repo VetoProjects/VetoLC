@@ -31,10 +31,10 @@ private:
     QAction* abortAction;
     PyObject* dict;
 
-private slots:
+private Q_SLOTS:
     void terminated();
 
-signals:
+Q_SIGNALS:
     void doneSignal(QString, int);
 };
 

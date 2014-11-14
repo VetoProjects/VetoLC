@@ -11,7 +11,7 @@
  */
 PyLiveInterpreter::PyLiveInterpreter(char* progName, char* pyInstructions){
     if(pyInstructions == QString()){
-        emit doneSignal(tr("File is empty. Nothing to execute."), -1);
+        Q_EMIT doneSignal(tr("File is empty. Nothing to execute."), -1);
         return;
     }
 
@@ -42,13 +42,13 @@ PyLiveInterpreter::~PyLiveInterpreter(){
  * @brief PyLiveInterpreter::run
  *
  * The main loop. Calls the user code executing method
- * and emits a signal when it's done.
+ * and Q_EMITs a signal when it's done.
  */
 void PyLiveInterpreter::run(){
     PyObject* check = execute();
     if(check == NULL)
         exceptionOccurred();
-    emit doneSignal(ownExcept, exceptNum);
+    Q_EMIT doneSignal(ownExcept, exceptNum);
 }
 
 /**
@@ -132,7 +132,7 @@ void PyLiveInterpreter::exceptionOccurred(){
  * @brief PyLiveInterpreter::terminated
  *
  * SLOT that is called when the user interrupt(CTRL-C) SIGNAL
- * is emitted.
+ * is Q_EMITted.
  */
 void PyLiveInterpreter::terminated(){
     ownExcept = tr("User Terminated.");

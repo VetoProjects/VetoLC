@@ -79,12 +79,12 @@ bool AudioOutputProcessor::write(const char *data, qint64 len)
     bool full = (currentPlaying == currentWriting);
 
     if(full)
-        emit stopWriting();
+        Q_EMIT stopWriting();
 
     if(!queued){
         queued = true;
         currentLen = lenBuffer[currentPlaying];
-        emit postWriteToDevice();
+        Q_EMIT postWriteToDevice();
 //        qDebug() << "write to device posted from buffering";
     }
 
@@ -102,7 +102,7 @@ void AudioOutputProcessor::writeToDevice()
         delete dataBuffer[currentPlaying];
         if(currentPlaying == currentWriting){
             currentPlaying = (currentPlaying + 1) % 4;
-            emit startWriting();
+            Q_EMIT startWriting();
         }else
             currentPlaying = (currentPlaying + 1) % 4;
         currentLen = lenBuffer[currentPlaying];
@@ -110,7 +110,7 @@ void AudioOutputProcessor::writeToDevice()
 
     if(currentLen > 0 && !queued){
         queued = true;
-        emit postWriteToDevice();
+        Q_EMIT postWriteToDevice();
 //        qDebug() << "write to device posted from writing. left:" << currentLen;
     }
 }

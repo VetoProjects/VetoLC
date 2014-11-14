@@ -24,9 +24,7 @@ public:
     ~BootLoader();
     void start();
 
-signals:
-
-public slots:
+public Q_SLOTS:
     void acceptConnection();
 };
 

@@ -53,11 +53,11 @@ public:
            return runObj->updateCode(filename, code);
        return false;
     }
-public slots:
+public Q_SLOTS:
     void doneSignalReceived(QString exception, int lineno){
-        emit doneSignal(this, exception, lineno);
+        Q_EMIT doneSignal(this, exception, lineno);
     }
-signals:
+Q_SIGNALS:
     void doneSignal(PySoundThread*, QString, int);
 private:
     PySoundGenerator* runObj;
@@ -71,16 +71,16 @@ public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){ }
     void run()Q_DECL_OVERRIDE{ }
     void initialize(const QString &, const QString &){
-        emit doneSignal(this, tr("Python is not supported in this version"), 0);
+        Q_EMIT doneSignal(this, tr("Python is not supported in this version"), 0);
     }
     bool updateCode(const QString &, const QString &){
         return false;
     }
-public slots:
+public Q_SLOTS:
     void doneSignalReceived(QString exception, int lineno){
-        emit doneSignal(this, exception, lineno);
+        Q_EMIT doneSignal(this, exception, lineno);
     }
-signals:
+Q_SIGNALS:
     void doneSignal(PySoundThread*, QString, int);
 private:
 };
@@ -110,11 +110,11 @@ public:
            return runObj->updateCode(filename, code);
         return false;
     }
-public slots:
+public Q_SLOTS:
     void doneSignalReceived(QString exception, int lineno){
-        emit doneSignal(this, exception, lineno);
+        Q_EMIT doneSignal(this, exception, lineno);
     }
-signals:
+Q_SIGNALS:
     void doneSignal(PyLiveThread*, QString, int);
 private:
     PyLiveInterpreter* runObj;
@@ -132,18 +132,18 @@ public:
     void initialize(const QString &title, const QString &instructions){
         Q_UNUSED(title);
         Q_UNUSED(instructions);
-        emit doneSignal(this, tr("Python is not supported in this version"), 0);
+        Q_EMIT doneSignal(this, tr("Python is not supported in this version"), 0);
     }
     bool updateCode(const QString &filename, const QString &code){
         Q_UNUSED(filename)
         Q_UNUSED(code)
         return false;
     }
-public slots:
+public Q_SLOTS:
     void doneSignalReceived(QString exception, int lineno){
-        emit doneSignal(this, exception, lineno);
+        Q_EMIT doneSignal(this, exception, lineno);
     }
-signals:
+Q_SIGNALS:
     void doneSignal(PyLiveThread*, QString, int);
 };
 #endif
@@ -177,14 +177,14 @@ public:
             return runObj->updateCode(filename, code);
         return false;
     }
-public slots:
+public Q_SLOTS:
     void doneSignalReceived(QString exception){
-        emit doneSignal(this, exception);
+        Q_EMIT doneSignal(this, exception);
     }
     void erroredReceived(QString error, int lineno){
-        emit errorSignal(this, error, lineno);
+        Q_EMIT errorSignal(this, error, lineno);
     }
-signals:
+Q_SIGNALS:
     void doneSignal(GlLiveThread*, QString);
     void errorSignal(GlLiveThread*, QString, int);
 private:
@@ -214,11 +214,11 @@ public:
             return runObj->updateCode(filename, code);
         return false;
     }
-public slots:
+public Q_SLOTS:
     void doneSignalReceived(QString exception){
-        emit doneSignal(this, exception);
+        Q_EMIT doneSignal(this, exception);
     }
-signals:
+Q_SIGNALS:
     void doneSignal(QtSoundThread*, QString);
 private:
     SoundGenerator* runObj;

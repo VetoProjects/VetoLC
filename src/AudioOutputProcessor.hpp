@@ -14,7 +14,7 @@ public:
 
     bool write(const char *data, qint64 len);
 
-signals:
+Q_SIGNALS:
     void stopWriting();
     void startWriting();
     void postWriteToDevice();
@@ -28,7 +28,7 @@ private:
     bool queued;
     qint64 currentLen;
 
-private slots:
+private Q_SLOTS:
     virtual void run() Q_DECL_OVERRIDE;
     void writeToDevice();
 

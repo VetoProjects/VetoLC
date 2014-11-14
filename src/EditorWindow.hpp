@@ -36,7 +36,7 @@ public:
 protected:
     virtual void closeEvent(QCloseEvent *);
 
-private slots:
+private Q_SLOTS:
     void newFile();
     void openFile();
 
@@ -49,7 +49,7 @@ private slots:
     void gotOpenSettings();
     void gotCloseAll();
 
-signals:
+Q_SIGNALS:
     void closing(EditorWindow *);
     void closeAll(EditorWindow *);
     void openSettings(EditorWindow *);

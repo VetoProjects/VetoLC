@@ -37,11 +37,11 @@ public:
     explicit Renderer(const QString &, const QString &, QWindow *parent = 0);
     ~Renderer();
 
-signals:
+Q_SIGNALS:
     void doneSignal(QString);
     void errored(QString, int);
 
-public slots:
+public Q_SLOTS:
     void renderNow();
     void renderLater();
     bool updateCode(const QString &, const QString &);

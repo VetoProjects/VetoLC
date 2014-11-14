@@ -48,14 +48,14 @@ public:
     int nextID();
     QList<int> loadIds();
     QVariant getSetting(QString key, QVariant defaultValue = QVariant());
-signals:
+Q_SIGNALS:
     void warningSignal(QWidget*, QString);
     void closeAction();
     void saveAction();
     void showResults(const QString &);
     void childDoSaveSettings();
 
-public slots:
+public Q_SLOTS:
     void settingsWindowRequested(IInstance*);
     void openHelp(IInstance *);
     void instanceClosing(IInstance *);

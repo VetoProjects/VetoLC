@@ -11,7 +11,7 @@
  */
 SoundGenerator::SoundGenerator(const QString &progName, const QString &qtInstructions){
     if(qtInstructions == ""){
-        emit doneSignal(tr("File is empty. Nothing to execute."));
+        Q_EMIT doneSignal(tr("File is empty. Nothing to execute."));
         return;
     }
 //    engine = new QQmlEngine(this);
@@ -20,7 +20,7 @@ SoundGenerator::SoundGenerator(const QString &progName, const QString &qtInstruc
     abortAction = new QAction(this);
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
-    emit doneSignal(tr("Terminated successfully."));
+    Q_EMIT doneSignal(tr("Terminated successfully."));
 }
 
 /**
@@ -60,7 +60,7 @@ void SoundGenerator::run(){
     }
      disconnect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
     delete abortAction;
-    emit doneSignal(ownExcept);
+    Q_EMIT doneSignal(ownExcept);
 }
 
 /**
@@ -76,7 +76,7 @@ void SoundGenerator::loop(){
  * @brief SoundGenerator::terminated
  *
  * SLOT that is called when the user interrupt(CTRL-C) SIGNAL
- * is emitted.
+ * is Q_EMITted.
  */
 void SoundGenerator::terminated(){
     stopflag = true;

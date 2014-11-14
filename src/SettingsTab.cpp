@@ -125,7 +125,7 @@ void LayoutTab::addLayout(){
  */
 void LayoutTab::designSettings(QString text){
     settings->insert("Design", text);
-    emit contentChanged();
+    Q_EMIT contentChanged();
 }
 
 
@@ -138,7 +138,7 @@ void LayoutTab::designSettings(QString text){
  */
 void LayoutTab::hlSettings(int index){
     settings->insert("Highlighting", index);
-    emit contentChanged();
+    Q_EMIT contentChanged();
 }
 
 
@@ -151,7 +151,7 @@ void LayoutTab::hlSettings(int index){
  */
 void LayoutTab::languageSettings(int index){
     settings->insert("Language", index);
-    emit contentChanged();
+    Q_EMIT contentChanged();
 }
 
 /**
@@ -245,12 +245,12 @@ void BehaviourTab::addLayout(){
  * @param toggled
  *
  * SLOT that reacts to the toggled() SIGNAL of
- * openCheck. Writes change to Hashlist and emits
+ * openCheck. Writes change to Hashlist and Q_EMITs
  * a contentChanged signal.
  */
 void BehaviourTab::openSlot(bool toggled){
     settings->insert("OpenFiles", toggled);
-    emit contentChanged();
+    Q_EMIT contentChanged();
 }
 
 /**
@@ -258,12 +258,12 @@ void BehaviourTab::openSlot(bool toggled){
  * @param toggled
  *
  * SLOT that reacts to the toggled() SIGNAL of
- * sizeCheck. Writes change to Hashlist and emits
+ * sizeCheck. Writes change to Hashlist and Q_EMITs
  * a contentChanged signal.
  */
 void BehaviourTab::sizeSlot(bool toggled){
     settings->insert("RememberSize", toggled);
-    emit contentChanged();
+    Q_EMIT contentChanged();
 }
 
 /**
@@ -271,12 +271,12 @@ void BehaviourTab::sizeSlot(bool toggled){
  * @param toggled
  *
  * SLOT that reacts to the toggled() SIGNAL of
- * rememberCompiler. Writes change to Hashlist and emits
+ * rememberCompiler. Writes change to Hashlist and Q_EMITs
  * a contentChanged signal.
  */
 void BehaviourTab::rememberCompilerSlot(bool toggled){
     settings->insert("RememberCompiler", toggled);
-    emit contentChanged();
+    Q_EMIT contentChanged();
 }
 
 /**
@@ -285,9 +285,9 @@ void BehaviourTab::rememberCompilerSlot(bool toggled){
  *
  * SLOT that reacts to the currentIndexChanged SIGNAL of
  * the Compiler drop down list. Writes change to Hashlist
- * and emits a contentChanged signal.
+ * and Q_EMITs a contentChanged signal.
  */
 void BehaviourTab::useCompilerSlot(int index){
     settings->insert("UseCompiler", index);
-    emit contentChanged();
+    Q_EMIT contentChanged();
 }

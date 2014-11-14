@@ -34,7 +34,7 @@ protected:
     void resizeEvent(QResizeEvent *event);
     void keyPressEvent(QKeyEvent *e);
 
-private slots:
+private Q_SLOTS:
     void updatelineHighlightingWidth();
     void highlightCurrentLine();
     void updatelineHighlighting(const QRect &, int);

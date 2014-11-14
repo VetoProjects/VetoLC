@@ -25,12 +25,13 @@ Backend::Backend(QObject *parent) : QObject(parent){
  * when all the windows closed.
  */
 Backend::~Backend(){
-    foreach(LiveThread *thread, threads.values())
+    for(LiveThread *thread: threads.values()){
         if(thread){
             if(thread->isRunning())
                 thread->terminate();
             delete thread;
         }
+    }
 }
 
 /**
@@ -484,7 +485,7 @@ void Backend::runGlFile(IInstance *instance){
  * @brief Backend::getExecutionResults
  *
  * reacts to the done SIGNAL by terminating the thread and
- * emitting a showResults SIGNAL for the QWidgets to display
+ * Q_EMITting a showResults SIGNAL for the QWidgets to display
  */
 void Backend::getExecutionResults(QtSoundThread* thread, QString returnedException){
     disconnect(thread, SIGNAL(doneSignal(QtSoundThread*, QString)),

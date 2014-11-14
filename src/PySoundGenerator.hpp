@@ -40,11 +40,11 @@ private:
     PyObject* dict;
     AudioOutputProcessor* device;
 
-private slots:
+private Q_SLOTS:
     void terminated();
     void setReady();
 
-signals:
+Q_SIGNALS:
     void doneSignal(QString, int);
 };
 

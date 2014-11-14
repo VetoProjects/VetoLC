@@ -27,7 +27,7 @@ class SettingsTab : public QWidget{
 Q_OBJECT
 public:
     SettingsTab(QHash<QString,QVariant> *Settings, QWidget* parent = 0);
-signals:
+Q_SIGNALS:
     void contentChanged();
 protected:
     QHash<QString, QVariant> *settings;
@@ -46,7 +46,7 @@ Q_OBJECT
 public:
     LayoutTab(QHash<QString, QVariant> *Settings, QWidget* parent = 0);
     ~LayoutTab();
-private slots:
+private Q_SLOTS:
     void addLayout();
     void designSettings(QString);
     void hlSettings(int);
@@ -83,14 +83,14 @@ Q_OBJECT
 public:
     BehaviourTab(QHash<QString, QVariant> *Settings, QWidget* parent = 0);
     ~BehaviourTab();
-private:
-    void addLayout();
-private slots:
+private Q_SLOTS:
     void openSlot(bool);
     void sizeSlot(bool);
     void rememberCompilerSlot(bool);
     void useCompilerSlot(int);
 private:
+    void addLayout();
+
     QGroupBox* startup;
     QCheckBox* openCheck;
     QCheckBox* sizeCheck;

@@ -12,7 +12,7 @@ SettingsWindow::SettingsWindow(int subDirNum){
     QString subdirectory("Live Code Editor/");
     subdirectory.append(QString::number(subDirNum));
     settings = new QSettings("VeTo", subdirectory);
-    foreach(const QString &key, settings->childKeys())
+    for(const QString &key: settings->childKeys())
         settingsDict.insert(key, settings->value(key));
     globalSettings = new QSettings("VeTo", "Live Code Editor");
     settingsDict.insert("Design", globalSettings->value("Design"));

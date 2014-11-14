@@ -58,32 +58,32 @@ bool WindowInstance::close()
 
 void WindowInstance::gotClosing(EditorWindow *)
 {
-    emit closing(this);
+    Q_EMIT closing(this);
 }
 
 void WindowInstance::gotCloseAll(EditorWindow *)
 {
-    emit closeAll();
+    Q_EMIT closeAll();
 }
 
 void WindowInstance::gotOpenHelp(EditorWindow *)
 {
-    emit openHelp(this);
+    Q_EMIT openHelp(this);
 }
 
 void WindowInstance::gotOpenSettings(EditorWindow *)
 {
-    emit openSettings(this);
+    Q_EMIT openSettings(this);
 }
 
 void WindowInstance::gotChangedSettings(EditorWindow *, const QHash<QString, QVariant> &settings)
 {
-    emit changeSettings(this, settings);
+    Q_EMIT changeSettings(this, settings);
 }
 
 void WindowInstance::gotChangedSetting(EditorWindow *, const QString &key, const QVariant &value)
 {
-    emit changeSetting(this, key, value);
+    Q_EMIT changeSetting(this, key, value);
 }
 
 void WindowInstance::gotDestroying(QObject*)
@@ -94,12 +94,12 @@ void WindowInstance::gotDestroying(QObject*)
 
 void WindowInstance::gotRunCode(EditorWindow *)
 {
-    emit runCode(this);
+    Q_EMIT runCode(this);
 }
 
 void WindowInstance::gotStopCode(EditorWindow *)
 {
-    emit stopCode(this);
+    Q_EMIT stopCode(this);
 }
 
 void WindowInstance::createWindow(const QHash<QString,QVariant> &settings)
@@ -123,7 +123,7 @@ void WindowInstance::createWindow()
 {
     if(!_window){
         QHash<QString, QVariant> settings;
-        emit getSettings(this, settings);
+        Q_EMIT getSettings(this, settings);
         createWindow(settings);
     }
 }

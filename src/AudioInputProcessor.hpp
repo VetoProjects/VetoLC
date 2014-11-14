@@ -17,10 +17,8 @@ public:
     void start();
     const QAudioFormat format() const;
 
-signals:
+Q_SIGNALS:
     void processData(QByteArray);
-
-public slots:
 
 
 private:
