@@ -234,8 +234,8 @@ void EditorWindow::highlightErroredLine(int lineno){
  */
 void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
     if(settings.value("RememberSize").toBool()){
-        const QPoint  pos  = settings.value("pos", QPoint(200,200)).toPoint();
-        const QSize   size = settings.value("size", QSize(600, 600)).toSize();
+        const QPoint  pos  = settings.value("pos", QPoint(0, 0)).toPoint();
+        const QSize   size = settings.value("size", QSize(800, 600)).toSize();
         move(pos);
         resize(size);
     }
