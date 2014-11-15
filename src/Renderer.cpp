@@ -258,7 +258,7 @@ bool Renderer::initShaders(QString fragmentShader){
         texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
         texture->setMagnificationFilter(QOpenGLTexture::Linear);
 
-        qDebug() << imageName << " from " << imagePath << ": " << texture->textureId() << " (" << texture << ")";
+        //qDebug() << imageName << " from " << imagePath << ": " << texture->textureId() << " (" << texture << ")";
 
         newTextures.append(texture);
     }
