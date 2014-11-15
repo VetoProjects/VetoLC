@@ -11,7 +11,6 @@
 #include <QException>
 #include <QThread>
 #include <QAction>
-#include "QtSoundException.hpp"
 
 /**
  * @brief The SoundGenerator class
@@ -19,7 +18,7 @@
  *
  * A subclass of QThread that implements an environment for sound
  * live coding while keeping the main codeeditor thread clean by
- * dispatching. QT-based.
+ * dispatching. QML-based.
  */
 class SoundGenerator : public QObject{
 Q_OBJECT

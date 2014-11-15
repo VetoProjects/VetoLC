@@ -78,8 +78,7 @@ HEADERS += Instances/IInstance.hpp \
     SettingsTab.hpp \
     SettingsWindow.hpp \
     SoundGenerator.hpp \
-    AudioOutputProcessor.hpp \
-    AudioTest.hpp
+    AudioOutputProcessor.hpp
 
 SOURCES += Instances/WindowInstance.cpp \
     AudioInputProcessor.cpp \
