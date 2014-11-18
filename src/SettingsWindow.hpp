@@ -5,6 +5,7 @@
 #include <QStackedWidget>
 #include <QTabWidget>
 #include "SettingsTab.hpp"
+#include "SettingsBackend.hpp"
 
 /**
  * @brief The SettingsWindow class

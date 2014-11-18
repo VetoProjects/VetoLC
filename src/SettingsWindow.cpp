@@ -8,7 +8,6 @@
  * Sets up the SIGNALS, UI and the tabs.
  */
 SettingsWindow::SettingsWindow(int subDirNum){
-
     QString subdirectory("Live Code Editor/");
     subdirectory.append(QString::number(subDirNum));
     settings = new QSettings("VeTo", subdirectory);

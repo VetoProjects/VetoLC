@@ -14,7 +14,7 @@ using namespace Instances;
  * as the settings backend.
  */
 Backend::Backend(QObject *parent) : QObject(parent){
-    QApplication::setStyle(settings.getSettingsFor("Design", "").toString());
+    QApplication::setStyle(SettingsBackend::getSettingsFor("Design", "").toString());
 }
 
 /**
@@ -48,7 +48,7 @@ void Backend::addInstance(IInstance *instance, bool removeSettings){
     if(instances.contains(id))
         return;
     if(removeSettings)
-        settings.removeSettings(id);
+        SettingsBackend::removeSettings(id);
     instances.insert(id, instance);
     connect(instance, SIGNAL(closing(IInstance*)),  this, SLOT(instanceClosing(IInstance *)));
     connect(instance, SIGNAL(destroyed(QObject*)),  this, SLOT(instanceDestroyed(QObject *)));
@@ -91,7 +91,7 @@ int Backend::nextID(){
  */
 QList<int> Backend::loadIds()
 {
-    QVariantList ids = settings.getSettingsFor("Instances", QVariantList()).toList();
+    QVariantList ids = SettingsBackend::getSettingsFor("Instances", QVariantList()).toList();
     QList<int> res;
     for(const QVariant id : ids){
         bool ok;
@@ -157,7 +157,7 @@ bool Backend::removeInstance(int id, bool removeSettings){
     }
     terminateThread(id);
     if(removeSettings && ids.size() > 1){
-        settings.removeSettings(id);
+        SettingsBackend::removeSettings(id);
         ids.removeOne(id);
         saveIDs();
     }
@@ -181,7 +181,7 @@ void Backend::childSaidCloseAll(){
     if(!notRemoved.empty()){
         for(const int id : ids)
             if(!notRemoved.contains(id))
-                settings.removeSettings(id);
+               SettingsBackend::removeSettings(id);
         ids = notRemoved;
     }
     saveIDs();
@@ -224,7 +224,7 @@ QHash<QString, QVariant> Backend::getSettings(IInstance* instance)
  */
 QHash<QString, QVariant> Backend::getSettings(int id)
 {
-    return settings.getSettings(id);
+    return SettingsBackend::getSettings(id);
 }
 
 /**
@@ -279,11 +279,11 @@ QDir Backend::directoryOf(const QString &subdir){
  * removes the settings for a specific file.
  */
 void Backend::removeSettings(IInstance* instance){
-    settings.removeSettings(instance->ID);
+    SettingsBackend::removeSettings(instance->ID);
 }
 
 void Backend::removeSettings(int id){
-    settings.removeSettings(id);
+    SettingsBackend::removeSettings(id);
 }
 
 /**
@@ -316,7 +316,7 @@ void Backend::instanceRunCode(IInstance *instance)
         }
     }else{
         bool ok;
-        int compiler = settings.getSettingsFor("UseCompiler", -1, (int)id).toInt(&ok);
+        int compiler = SettingsBackend::getSettingsFor("UseCompiler", -1, (int)id).toInt(&ok);
         if(!ok)
             compiler = -1;
         switch(compiler){
@@ -362,7 +362,7 @@ void Backend::instanceStopCode(IInstance *instance)
  */
 void Backend::instanceChangedSetting(IInstance *instance, const QString &key, const QVariant &value)
 {
-    settings.saveSettingsFor(instance->ID, key, value);
+    SettingsBackend::saveSettingsFor(instance->ID, key, value);
 }
 
 /**
@@ -376,11 +376,11 @@ void Backend::instanceChangedSetting(IInstance *instance, const QString &key, co
  */
 void Backend::instanceRequestSetting(IInstance *instance, const QString &key, QVariant &value)
 {
-    value = settings.getSettingsFor(key, value, instance->ID);
+    value = SettingsBackend::getSettingsFor(key, value, instance->ID);
 }
 
 QVariant Backend::getSetting(QString key, QVariant defaultValue){
-    return settings.getSettingsFor(key, defaultValue);
+    return SettingsBackend::getSettingsFor(key, defaultValue);
 }
 
 /**
@@ -394,7 +394,7 @@ QVariant Backend::getSetting(QString key, QVariant defaultValue){
  */
 void Backend::instanceChangedSettings(IInstance *instance, const QHash<QString, QVariant> &set)
 {
-    settings.saveSettingsFor(instance->ID, set);
+    SettingsBackend::saveSettingsFor(instance->ID, set);
 }
 
 /**
@@ -406,7 +406,7 @@ void Backend::instanceChangedSettings(IInstance *instance, const QHash<QString, 
  */
 void Backend::instanceRequestSettings(IInstance *instance, QHash<QString, QVariant> &set)
 {
-    set = settings.getSettings(instance->ID);
+    set = SettingsBackend::getSettings(instance->ID);
 }
 
 /**
@@ -549,5 +549,5 @@ void Backend::saveIDs(){
     QVariantList vids;
     for(const int i : ids)
         vids.append(i);
-    settings.addSettings("Instances", vids);
+    SettingsBackend::addSettings("Instances", vids);
 }

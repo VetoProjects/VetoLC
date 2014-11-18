@@ -82,7 +82,6 @@ private:
     void runGlFile(IInstance *);
     void runPySoundFile(IInstance *);
     void terminateThread(long id);
-    SettingsBackend settings;
     QList<int> ids;
     QHash<long, IInstance*> instances;
     QHash<long, LiveThread*> threads;
