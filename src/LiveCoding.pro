@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui multimedia widgets
-equal(QT_MAJOR_VERSION, 4) || equal(QT_MINOR_VERSION, 1) {
+isEqual(QT_MAJOR_VERSION, 4) || isEqual(QT_MINOR_VERSION, 1) {
     message("Cannot build VetoLC with Qt version $${QT_VERSION}.")
     error("Use at least Qt 5.2.")
 }
