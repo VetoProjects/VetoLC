@@ -4,10 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-equal(QT_MAJOR_VERSION, 4) {
+QT       += core gui multimedia widgets
+equal(QT_MAJOR_VERSION, 4) || equal(QT_MINOR_VERSION, 1) {
     message("Cannot build VetoLC with Qt version $${QT_VERSION}.")
     error("Use at least Qt 5.2.")
 }
