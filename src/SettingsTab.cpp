@@ -1,5 +1,4 @@
 #include "SettingsTab.hpp"
-#include <QStyleFactory>
 
 /**
  * @brief SettingsTab::SettingsTab

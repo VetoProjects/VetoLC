@@ -8,6 +8,7 @@
 #endif
 
 #include <QThread>
+
 #include "SoundGenerator.hpp"
 #include "Renderer.hpp"
 /**

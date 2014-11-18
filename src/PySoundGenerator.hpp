@@ -7,8 +7,8 @@
 #include <QAction>
 #include <QCoreApplication>
 #include <QIODevice>
+
 #include "AudioOutputProcessor.hpp"
-#include <QDebug>
 
 /**
  * @brief The PySoundGenerator class

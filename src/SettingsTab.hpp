@@ -15,6 +15,7 @@
 #include <QButtonGroup>
 #include <QMessageBox>
 #include <QSettings>
+#include <QStyleFactory>
 
 /**
  * @brief The SettingsTab class

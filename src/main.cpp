@@ -4,6 +4,7 @@
 #include <QTranslator>
 #include <QFontDatabase>
 #include <QDebug>
+
 #include "EditorWindow.hpp"
 #include "Renderer.hpp"
 #include "BootLoader.hpp"

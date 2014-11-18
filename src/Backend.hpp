@@ -10,10 +10,12 @@
 #include <QObject>
 #include <QSettings>
 #include <QDir>
+
 #include "SettingsBackend.hpp"
 #include "SettingsWindow.hpp"
 #include "LiveThread.hpp"
 #include "Instances/IInstance.hpp"
+
 using namespace Instances;
 
 

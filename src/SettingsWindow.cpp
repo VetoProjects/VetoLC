@@ -1,5 +1,4 @@
 #include "SettingsWindow.hpp"
-#include <QApplication>
 
 /**
  * @brief SettingsWindow::SettingsWindow

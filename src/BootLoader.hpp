@@ -3,6 +3,10 @@
 
 #include <QObject>
 #include <QLocalServer>
+#include <QThread>
+#include <QLocalSocket>
+
+#include "Instances/WindowInstance.hpp"
 #include "Backend.hpp"
 
 /**

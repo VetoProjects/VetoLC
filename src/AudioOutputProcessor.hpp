@@ -4,6 +4,10 @@
 #include <QThread>
 #include <QAudioOutput>
 #include <QIODevice>
+#include <QThread>
+#include <QDebug>
+#include <QCoreApplication>
+
 
 class AudioOutputProcessor : public QThread
 {

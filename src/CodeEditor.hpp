@@ -7,6 +7,7 @@
 #include <QSize>
 #include <QWidget>
 #include <QPainter>
+
 #include "CodeHighlighter.hpp"
 
 class LineHighlighting;

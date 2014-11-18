@@ -1,7 +1,6 @@
 #ifndef EDITORWINDOW
 #define EDITORWINDOW
 
-#include "CodeEditor.hpp"
 #include <QTextStream>
 #include <QApplication>
 #include <QMainWindow>
@@ -11,6 +10,8 @@
 #include <QStatusBar>
 #include <QMessageBox>
 #include <QFileDialog>
+
+#include "CodeEditor.hpp"
 
 /**
  * @brief The EditorWindow class
