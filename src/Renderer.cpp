@@ -170,8 +170,7 @@ bool Renderer::init(){
  * Initialze and compile the shader program
  */
 bool Renderer::initShaders(QString fragmentShader){
-    QList<QString> imageNames;
-    QList<QString> imagePathes;
+    QList<QPair<QString, QString>> images;
 	QFileInfo codeFile(currentFile);
 
     int pos = 0;
@@ -195,8 +194,7 @@ bool Renderer::initShaders(QString fragmentShader){
             return false;
         }
 
-        imageNames.append(imageName);
-        imagePathes.append(textureImage.absoluteFilePath());
+        images.append(QPair<QString, QString>(imageName, textureImage.absoluteFilePath()));
 
         QString textureDefinition(textureRegEx.cap(1) + "uniform sampler2D " + imageName + ";");
         fragmentShader.remove(pos, textureRegEx.matchedLength());
@@ -249,11 +247,9 @@ bool Renderer::initShaders(QString fragmentShader){
     }
 
     QList<QOpenGLTexture*> newTextures;
-    for(int i = 0; i < imageNames.length(); ++i){
-        QString imageName = imageNames[i];
-        QString imagePath = imagePathes[i];
+    for(const QPair<QString, QString> image: images){
 
-        QOpenGLTexture* texture = new QOpenGLTexture(QImage(imagePath));
+        QOpenGLTexture* texture = new QOpenGLTexture(QImage(image.second));
 
         texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
         texture->setMagnificationFilter(QOpenGLTexture::Linear);
@@ -293,8 +289,9 @@ bool Renderer::initShaders(QString fragmentShader){
 
         shaderProgram->setUniformValue("audioLeft", GLint(0));
         shaderProgram->setUniformValue("audioRight", GLint(1));
-        for(int i = 0; i < imageNames.length(); ++i)
-            shaderProgram->setUniformValue(imageNames[i].toLocal8Bit().data(), GLint(i + 2));
+        const int end = images.length();
+        for(int i = 0; i < end; ++i)
+            shaderProgram->setUniformValue(images[i].first.toLocal8Bit().data(), GLint(i + 2));
 
         fragmentSource = fragmentShader;
     shaderProgramMutex.unlock();

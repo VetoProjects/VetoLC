@@ -45,7 +45,7 @@ void LayoutTab::addLayout(){
     designBoxLabel = new QLabel(tr("Design:"));
     designBox = new QComboBox;
     QString designConfig = settings->value("Design").toString();
-    for(QString style : QStyleFactory::keys()){
+    for(const QString style : QStyleFactory::keys()){
         designBox->addItem(style);
         if(designConfig == style)
             designBox->setCurrentIndex(designBox->count() - 1);

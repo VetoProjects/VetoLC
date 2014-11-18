@@ -4,7 +4,7 @@ AudioInputProcessor::AudioInputProcessor(QObject *parent) :
     QIODevice(parent)
 {
     QAudioDeviceInfo inputDevice = QAudioDeviceInfo::defaultInputDevice();
-    for(QAudioDeviceInfo &dev : QAudioDeviceInfo::availableDevices(QAudio::AudioInput)){
+    for(const QAudioDeviceInfo &dev : QAudioDeviceInfo::availableDevices(QAudio::AudioInput)){
         if(dev.deviceName().contains("output", Qt::CaseInsensitive)){
             inputDevice = dev;
             if(dev.deviceName().contains("analog", Qt::CaseInsensitive))

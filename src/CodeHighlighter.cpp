@@ -42,7 +42,7 @@ bool CodeHighlighter::setupHighlighting(int file){
 //    rule.format.setFontWeight(QFont::Bold);
     QStringList keywordPatterns;
     QString keywords = QTextStream(&highlighting).readAll();
-    for(QString in: keywords.split("\n")){
+    for(const QString in: keywords.split("\n")){
         if(in != "")
             keywordPatterns << in;
     }

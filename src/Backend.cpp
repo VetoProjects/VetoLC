@@ -93,7 +93,7 @@ QList<int> Backend::loadIds()
 {
     QVariantList ids = settings.getSettingsFor("Instances", QVariantList()).toList();
     QList<int> res;
-    for(QVariant id : ids){
+    for(const QVariant id : ids){
         bool ok;
         int i = id.toInt(&ok);
         if(ok)
@@ -173,13 +173,13 @@ bool Backend::removeInstance(int id, bool removeSettings){
  */
 void Backend::childSaidCloseAll(){
     QList<int> notRemoved = ids;
-    for(int id : ids){
+    for(const int id : ids){
         disconnect(instances[id], SIGNAL(destroyed(QObject*)), this, SLOT(instanceDestroyed(QObject*)));
         if(removeInstance(id, false))
             notRemoved.removeOne(id);
     }
     if(!notRemoved.empty()){
-        for(int id : ids)
+        for(const int id : ids)
             if(!notRemoved.contains(id))
                 settings.removeSettings(id);
         ids = notRemoved;
@@ -547,7 +547,7 @@ void Backend::terminateThread(long id){
  */
 void Backend::saveIDs(){
     QVariantList vids;
-    for(int i : ids)
+    for(const int i : ids)
         vids.append(i);
     settings.addSettings("Instances", vids);
 }
