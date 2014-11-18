@@ -36,8 +36,8 @@ private:
     QTabWidget *tabs;
     LayoutTab *layout;
     BehaviourTab *behaviour;
-    QSettings *settings, *globalSettings;
     QHash<QString,QVariant> settingsDict;
+    int subDir;
 };
 
 #endif // SETTINGSWINDOW
