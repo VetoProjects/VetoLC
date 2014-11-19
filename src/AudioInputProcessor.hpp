@@ -1,6 +1,8 @@
 #ifndef AUDIOINPUTPROCESSOR_HPP
 #define AUDIOINPUTPROCESSOR_HPP
 
+#include <memory>
+
 #include <QIODevice>
 #include <QDebug>
 #include <QAudioInput>
