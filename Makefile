@@ -1,7 +1,7 @@
-QMAKE=qmake
-PREFIX=/usr/bin/
-BUILDDIR=bin/
-TESTDIR=testbin/
+QMAKE=qmake # Set this for a non-default QMake version
+PREFIX=/usr/bin/ # Set this for different install dir
+BUILDDIR=bin/ # Set this for different build dir
+TESTDIR=testbin/ # Set this for different testing dir
 
 TARGET=VetoLC
 TESTTARGET=VetoLCTest
