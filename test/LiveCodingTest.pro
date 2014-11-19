@@ -22,11 +22,12 @@ macx {
 with_python2{
     QMAKE_CXXFLAGS += `/usr/bin/python2.7-config --cflags`
     QMAKE_LFLAGS += `/usr/bin/python2.7-config --ldflags`
-    LIBS += -lpython2.7
+    LIBS += `/usr/bin/python2.7-config --libs`
 }
 with_python{
     QMAKE_CXXFLAGS += `/usr/bin/python-config --cflags`
     QMAKE_LFLAGS += `/usr/bin/python-config --ldflags`
+    LIBS += `/usr/bin/python-config --libs`
 }
 with_python_custom || with_python2 || with_python{
     SOURCES += ../src/PySoundGenerator.cpp\
