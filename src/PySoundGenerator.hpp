@@ -2,12 +2,13 @@
 #define PYSOUNDGENERATOR
 
 #include <Python.h>
+#undef B0
 #include <QThread>
 #include <QAction>
 #include <QCoreApplication>
 #include <QIODevice>
+
 #include "AudioOutputProcessor.hpp"
-#include <QDebug>
 
 /**
  * @brief The PySoundGenerator class
@@ -43,7 +44,7 @@ private Q_SLOTS:
     void terminated();
     void setReady();
 
-signals:
+Q_SIGNALS:
     void doneSignal(QString, int);
 };
 

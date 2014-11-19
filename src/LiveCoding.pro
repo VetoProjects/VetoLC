@@ -4,9 +4,11 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui multimedia widgets
+isEqual(QT_MAJOR_VERSION, 4) || isEqual(QT_MINOR_VERSION, 1) {
+    message("Cannot build VetoLC with Qt version $${QT_VERSION}.")
+    error("Use at least Qt 5.2.")
+}
 
 TARGET = VeToLC
 TEMPLATE = app
@@ -20,9 +22,13 @@ TRANSLATIONS = ../translations/codeeditor_de.ts \
 CODECFORSRC     = UTF-8
 
 QMAKE_CXXFLAGS += -Wall -DNDEBUG -O2 -pedantic
+macx {
+    QMAKE_CXXFLAGS += -stdlib=libc++ -mmacosx-version-min=10.7
+}
+
 QMAKE_EXTRA_TARGETS += valgrind-check
 
-CONFIG+=c++11
+CONFIG+=c++11 no_keywords
 
 valgrind-check.depends = check
 valgrind-check.commands = valgrind ./$$TARGET
@@ -78,8 +84,7 @@ HEADERS += Instances/IInstance.hpp \
     SettingsTab.hpp \
     SettingsWindow.hpp \
     SoundGenerator.hpp \
-    AudioOutputProcessor.hpp \
-    AudioTest.hpp
+    AudioOutputProcessor.hpp
 
 SOURCES += Instances/WindowInstance.cpp \
     AudioInputProcessor.cpp \

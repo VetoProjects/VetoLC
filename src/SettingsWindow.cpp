@@ -1,5 +1,4 @@
 #include "SettingsWindow.hpp"
-#include <QApplication>
 
 /**
  * @brief SettingsWindow::SettingsWindow
@@ -8,15 +7,8 @@
  * Sets up the SIGNALS, UI and the tabs.
  */
 SettingsWindow::SettingsWindow(int subDirNum){
-
-    QString subdirectory("Live Code Editor/");
-    subdirectory.append(QString::number(subDirNum));
-    settings = new QSettings("VeTo", subdirectory);
-    foreach(const QString &key, settings->childKeys())
-        settingsDict.insert(key, settings->value(key));
-    globalSettings = new QSettings("VeTo", "Live Code Editor");
-    settingsDict.insert("Design", globalSettings->value("Design"));
-    settingsDict.insert("OpenFiles", globalSettings->value("OpenFiles"));
+    subDir = subDirNum;
+    settingsDict = SettingsBackend::getSettings(subDirNum);
 
     tabs = new QTabWidget;
     layout = new LayoutTab(&settingsDict, this);
@@ -60,8 +52,6 @@ SettingsWindow::SettingsWindow(int subDirNum){
  * Cleans up after the window was close.
  */
 SettingsWindow::~SettingsWindow(){
-    delete settings;
-    delete globalSettings;
     delete layout;
     delete behaviour;
     delete tabs;
@@ -78,14 +68,13 @@ void SettingsWindow::apply(){
         repaint();
         update();
 
-        globalSettings->setValue("Design", settingsDict["Design"]);
-        globalSettings->setValue("OpenFiles", settingsDict["OpenFiles"]);
+        SettingsBackend::addSettings("Design", settingsDict["Design"]);
+        SettingsBackend::addSettings("OpenFiles", settingsDict["OpenFiles"]);
 
         settingsDict.remove("Design");
         settingsDict.remove("OpenFiles");
 
-        for(const QString &key : settingsDict.keys())
-            settings->setValue(key, settingsDict[key]);
+        SettingsBackend::saveSettingsFor(subDir, settingsDict);
 
         changed = false;
     }

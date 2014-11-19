@@ -4,7 +4,7 @@ AudioInputProcessor::AudioInputProcessor(QObject *parent) :
     QIODevice(parent)
 {
     QAudioDeviceInfo inputDevice = QAudioDeviceInfo::defaultInputDevice();
-    for(QAudioDeviceInfo &dev : QAudioDeviceInfo::availableDevices(QAudio::AudioInput)){
+    for(const QAudioDeviceInfo &dev : QAudioDeviceInfo::availableDevices(QAudio::AudioInput)){
         if(dev.deviceName().contains("output", Qt::CaseInsensitive)){
             inputDevice = dev;
             if(dev.deviceName().contains("analog", Qt::CaseInsensitive))
@@ -29,11 +29,7 @@ AudioInputProcessor::AudioInputProcessor(QObject *parent) :
         qDebug() << tr("\tsample type:") << format.sampleType();
     }
 
-    input = new QAudioInput(inputDevice, format, this);
-}
-
-AudioInputProcessor::~AudioInputProcessor(){
-    delete input;
+    input = std::unique_ptr<QAudioInput>(new QAudioInput(inputDevice, format, this));
 }
 
 void AudioInputProcessor::start()
@@ -59,6 +55,6 @@ qint64 AudioInputProcessor::writeData(const char *data, qint64 len)
 //    int bufSize = input->bufferSize() / 5;
 //    if(len < bufSize)
 //        return 0;
-    emit processData(QByteArray(data, len));
+    Q_EMIT processData(QByteArray(data, len));
     return len;
 }

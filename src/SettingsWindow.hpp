@@ -4,7 +4,10 @@
 #include <QDialog>
 #include <QStackedWidget>
 #include <QTabWidget>
+#include <QApplication>
+
 #include "SettingsTab.hpp"
+#include "SettingsBackend.hpp"
 
 /**
  * @brief The SettingsWindow class
@@ -21,7 +24,7 @@ public:
     SettingsWindow(int);
     ~SettingsWindow();
 
-private slots:
+private Q_SLOTS:
    void apply();
    void applyClose();
    void tryClose();
@@ -35,8 +38,8 @@ private:
     QTabWidget *tabs;
     LayoutTab *layout;
     BehaviourTab *behaviour;
-    QSettings *settings, *globalSettings;
     QHash<QString,QVariant> settingsDict;
+    int subDir;
 };
 
 #endif // SETTINGSWINDOW

@@ -170,8 +170,7 @@ bool Renderer::init(){
  * Initialze and compile the shader program
  */
 bool Renderer::initShaders(QString fragmentShader){
-    QList<QString> imageNames;
-    QList<QString> imagePathes;
+    QList<QPair<QString, QString>> images;
 	QFileInfo codeFile(currentFile);
 
     int pos = 0;
@@ -191,12 +190,11 @@ bool Renderer::initShaders(QString fragmentShader){
                 qWarning() << tr("Failed to compile default shader.");
             else if(shaderProgram == 0)
                 initShaders(defaultFragmentShader);
-            emit errored("Image file does not exist: " + imagePath, fragmentShader.mid(0, pos).count('\n'));
+            Q_EMIT errored("Image file does not exist: " + imagePath, fragmentShader.mid(0, pos).count('\n'));
             return false;
         }
 
-        imageNames.append(imageName);
-        imagePathes.append(textureImage.absoluteFilePath());
+        images.append(QPair<QString, QString>(imageName, textureImage.absoluteFilePath()));
 
         QString textureDefinition(textureRegEx.cap(1) + "uniform sampler2D " + imageName + ";");
         fragmentShader.remove(pos, textureRegEx.matchedLength());
@@ -241,24 +239,22 @@ bool Renderer::initShaders(QString fragmentShader){
         if(errorline.indexIn(error) > -1){
             QString text = errorline.cap(1);
             if(text.toInt()-3 > 0)  // because: "#define lowp", "#define mediump" and "#define highp"
-                emit errored(error, text.toInt()-3);
+                Q_EMIT errored(error, text.toInt()-3);
             else
-                emit errored(error, text.toInt());
+                Q_EMIT errored(error, text.toInt());
         }
         return false;
     }
 
     QList<QOpenGLTexture*> newTextures;
-    for(int i = 0; i < imageNames.length(); ++i){
-        QString imageName = imageNames[i];
-        QString imagePath = imagePathes[i];
+    for(const QPair<QString, QString> image: images){
 
-        QOpenGLTexture* texture = new QOpenGLTexture(QImage(imagePath));
+        QOpenGLTexture* texture = new QOpenGLTexture(QImage(image.second));
 
         texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
         texture->setMagnificationFilter(QOpenGLTexture::Linear);
 
-        qDebug() << imageName << " from " << imagePath << ": " << texture->textureId() << " (" << texture << ")";
+        //qDebug() << imageName << " from " << imagePath << ": " << texture->textureId() << " (" << texture << ")";
 
         newTextures.append(texture);
     }
@@ -293,8 +289,9 @@ bool Renderer::initShaders(QString fragmentShader){
 
         shaderProgram->setUniformValue("audioLeft", GLint(0));
         shaderProgram->setUniformValue("audioRight", GLint(1));
-        for(int i = 0; i < imageNames.length(); ++i)
-            shaderProgram->setUniformValue(imageNames[i].toLocal8Bit().data(), GLint(i + 2));
+        const int end = images.length();
+        for(int i = 0; i < end; ++i)
+            shaderProgram->setUniformValue(images[i].first.toLocal8Bit().data(), GLint(i + 2));
 
         fragmentSource = fragmentShader;
     shaderProgramMutex.unlock();
@@ -420,7 +417,7 @@ void Renderer::renderNow(){
  * @return True if the event was successful proccessed, otherwise false
  *
  * Called if a new event is poped from the event-queue to render on update event
- * and emit doneSignal on close event.
+ * and Q_EMIT doneSignal on close event.
  */
 bool Renderer::event(QEvent *event){
     switch(event->type()){
@@ -429,7 +426,7 @@ bool Renderer::event(QEvent *event){
         renderNow();
         return true;
     case QEvent::Close:
-        emit doneSignal(tr("User closed renderer"));
+        Q_EMIT doneSignal(tr("User closed renderer"));
         return true;
     default:
         return QWindow::event(event);

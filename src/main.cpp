@@ -4,6 +4,7 @@
 #include <QTranslator>
 #include <QFontDatabase>
 #include <QDebug>
+
 #include "EditorWindow.hpp"
 #include "Renderer.hpp"
 #include "BootLoader.hpp"
@@ -48,7 +49,7 @@ int main(int argc, char *argv[]){
 
     ids = server.loadIds();
     if(!server.getSetting("OpenFiles").toBool()){
-        for(int id : ids)
+        for(const int id : ids)
             server.removeSettings(id);
         ids.clear();
     }
@@ -56,7 +57,7 @@ int main(int argc, char *argv[]){
     if(ids.length() == 0)
         ids.append(server.nextID());
 
-    for(int id : ids){
+    for(const int id : ids){
         QHash<QString,QVariant> settings = server.getSettings(id);
         Instances::WindowInstance *instance = new Instances::WindowInstance(id, settings, &server);
         server.addInstance(instance, false);

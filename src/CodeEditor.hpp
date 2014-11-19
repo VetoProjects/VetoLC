@@ -7,6 +7,7 @@
 #include <QSize>
 #include <QWidget>
 #include <QPainter>
+
 #include "CodeHighlighter.hpp"
 
 class LineHighlighting;
@@ -34,7 +35,7 @@ protected:
     void resizeEvent(QResizeEvent *event);
     void keyPressEvent(QKeyEvent *e);
 
-private slots:
+private Q_SLOTS:
     void updatelineHighlightingWidth();
     void highlightCurrentLine();
     void updatelineHighlighting(const QRect &, int);

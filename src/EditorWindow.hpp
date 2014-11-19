@@ -1,7 +1,6 @@
 #ifndef EDITORWINDOW
 #define EDITORWINDOW
 
-#include "CodeEditor.hpp"
 #include <QTextStream>
 #include <QApplication>
 #include <QMainWindow>
@@ -11,6 +10,8 @@
 #include <QStatusBar>
 #include <QMessageBox>
 #include <QFileDialog>
+
+#include "CodeEditor.hpp"
 
 /**
  * @brief The EditorWindow class
@@ -36,7 +37,7 @@ public:
 protected:
     virtual void closeEvent(QCloseEvent *);
 
-private slots:
+private Q_SLOTS:
     void newFile();
     void openFile();
 
@@ -49,7 +50,7 @@ private slots:
     void gotOpenSettings();
     void gotCloseAll();
 
-signals:
+Q_SIGNALS:
     void closing(EditorWindow *);
     void closeAll(EditorWindow *);
     void openSettings(EditorWindow *);

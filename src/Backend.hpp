@@ -10,10 +10,12 @@
 #include <QObject>
 #include <QSettings>
 #include <QDir>
+
 #include "SettingsBackend.hpp"
 #include "SettingsWindow.hpp"
 #include "LiveThread.hpp"
 #include "Instances/IInstance.hpp"
+
 using namespace Instances;
 
 
@@ -48,14 +50,14 @@ public:
     int nextID();
     QList<int> loadIds();
     QVariant getSetting(QString key, QVariant defaultValue = QVariant());
-signals:
+Q_SIGNALS:
     void warningSignal(QWidget*, QString);
     void closeAction();
     void saveAction();
     void showResults(const QString &);
     void childDoSaveSettings();
 
-public slots:
+public Q_SLOTS:
     void settingsWindowRequested(IInstance*);
     void openHelp(IInstance *);
     void instanceClosing(IInstance *);
@@ -82,7 +84,6 @@ private:
     void runGlFile(IInstance *);
     void runPySoundFile(IInstance *);
     void terminateThread(long id);
-    SettingsBackend settings;
     QList<int> ids;
     QHash<long, IInstance*> instances;
     QHash<long, LiveThread*> threads;

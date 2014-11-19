@@ -26,10 +26,10 @@ public:
         exec();
     }
 
-signals:
+Q_SIGNALS:
     void startWriting();
 
-public slots:
+public Q_SLOTS:
     void write(){
         qDebug() << "write 1024 stereo samples."; // not working without!?
         short buffer[2048];
@@ -37,7 +37,7 @@ public slots:
             buffer[i * 2] = buffer[i * 2 + 1] = (short)(generate((double)(i + cycle) / 96000.0) * 16000.0);
         cycle += 1024;
         if(aop->write((char*)buffer, 4096))
-            emit startWriting();
+            Q_EMIT startWriting();
         //qDebug() << "stop writing.";
     }
 

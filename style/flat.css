@@ -176,3 +176,10 @@ QStatusBar {
 QDialog {
     background: #909090;
 }
+
+/*
+ * QPlainTextEdit
+ */
+QPlainTextEdit {
+    background: #303030;
+}

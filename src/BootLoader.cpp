@@ -1,8 +1,4 @@
-#include <QThread>
 #include "BootLoader.hpp"
-#include "QLocalSocket"
-#include "EditorWindow.hpp"
-#include "Instances/WindowInstance.hpp"
 
 /**
  * @brief BootLoader::BootLoader

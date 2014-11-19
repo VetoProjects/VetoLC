@@ -2,11 +2,10 @@
 #define PYLIVEINTERPRETER
 
 #include <Python.h>
-#include <frameobject.h>
+#undef B0
 #include <QThread>
 #include <QAction>
 #include <QCoreApplication>
-#include "PythonException.hpp"
 
 /**
  * @brief The PyLiveInterpreter class
@@ -35,7 +34,7 @@ private:
 private Q_SLOTS:
     void terminated();
 
-signals:
+Q_SIGNALS:
     void doneSignal(QString, int);
 };
 

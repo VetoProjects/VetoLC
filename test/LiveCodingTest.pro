@@ -4,14 +4,20 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia testlib
+QT       += core gui multimedia testlib widgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+isEqual(QT_MAJOR_VERSION, 4) || isEqual(QT_MINOR_VERSION, 1) {
+    message("Cannot build VetoLC with Qt version $${QT_VERSION}.")
+    error("Use at least Qt 5.2.")
+}
 
 TARGET = VetoLCTest
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11 -Wall -DNDEBUG -O2 -pedantic
+macx {
+    QMAKE_CXXFLAGS += -stdlib=libc++ -mmacosx-version-min=10.7
+}
 
 with_python2{
     QMAKE_CXXFLAGS += `/usr/bin/python2.7-config --cflags`
