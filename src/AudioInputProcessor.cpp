@@ -29,11 +29,7 @@ AudioInputProcessor::AudioInputProcessor(QObject *parent) :
         qDebug() << tr("\tsample type:") << format.sampleType();
     }
 
-    input = new QAudioInput(inputDevice, format, this);
-}
-
-AudioInputProcessor::~AudioInputProcessor(){
-    delete input;
+    input = std::unique_ptr<QAudioInput>(new QAudioInput(inputDevice, format, this));
 }
 
 void AudioInputProcessor::start()

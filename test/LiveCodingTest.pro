@@ -15,6 +15,9 @@ TARGET = VetoLCTest
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11 -Wall -DNDEBUG -O2 -pedantic
+macx {
+    QMAKE_CXXFLAGS += -stdlib=libc++ -mmacosx-version-min=10.7
+}
 
 with_python2{
     QMAKE_CXXFLAGS += `/usr/bin/python2.7-config --cflags`

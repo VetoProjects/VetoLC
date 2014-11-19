@@ -13,7 +13,6 @@ class AudioInputProcessor : public QIODevice
     Q_OBJECT
 public:
     explicit AudioInputProcessor(QObject *parent = 0);
-    ~AudioInputProcessor();
     void start();
     const QAudioFormat format() const;
 
@@ -22,7 +21,7 @@ Q_SIGNALS:
 
 
 private:
-    QAudioInput *input;
+    std::unique_ptr<QAudioInput> input;
 //    QMutex dataAccess;
 //    char *data;
 
