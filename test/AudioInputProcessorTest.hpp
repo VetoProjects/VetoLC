@@ -1,6 +1,8 @@
 #ifndef AUDIOINPUTPROCESSORTEST
 #define AUDIOINPUTPROCESSORTEST
 
+#include <memory>
+
 #include <QObject>
 #include <QTest>
 #include "../src/AudioInputProcessor.hpp"
@@ -17,19 +19,16 @@ class AudioInputProcessorTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase(){
-        processor = new AudioInputProcessor();
+        processor = std::unique_ptr<AudioInputProcessor>(new AudioInputProcessor());
     }
     void objectCreationTest(){
-        QVERIFY(processor);
+        QVERIFY(processor.get());
     }
     void formatTest(){
         QVERIFY(processor->format().isValid());
     }
-    void cleanupTestCase(){
-        delete processor;
-    }
 private:
-    AudioInputProcessor *processor;
+    std::unique_ptr<AudioInputProcessor> processor;
 };
 
 #endif // AUDIOINPUTPROCESSORTEST

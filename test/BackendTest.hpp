@@ -1,6 +1,8 @@
 #ifndef BACKENDTEST
 #define BACKENDTEST
 
+#include <memory>
+
 #include <QObject>
 #include <QTest>
 #include "../src/Backend.hpp"
@@ -18,11 +20,11 @@ class BackendTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase() {
-        backend = new Backend();
-        instance = new WindowInstance(100, QHash<QString, QVariant>());
+        backend = std::unique_ptr<Backend>(new Backend());
+        instance = std::unique_ptr<WindowInstance>(new WindowInstance(100, QHash<QString, QVariant>()));
     }
     void objectCreationTest() {
-        QVERIFY(backend);
+        QVERIFY(backend.get());
     }
     void instanceCreationTest(){
         int ids = backend->loadIds().length();
@@ -31,22 +33,22 @@ private slots:
             list.append(new WindowInstance(i, QHash<QString, QVariant>()));
             backend->addInstance(list[i]);
         }
-        backend->addInstance(instance);
+        backend->addInstance(instance.get());
         QVERIFY(ids + 1 == backend->loadIds().length());
-        QVERIFY(backend->removeInstance(instance));
+        QVERIFY(backend->removeInstance(instance.get()));
         QVERIFY(ids == backend->loadIds().length());
         QVERIFY(backend->loadIds().length() == 1 ? backend->isLast() : !backend->isLast());
         for(int i = 0; i < ids; i++)
             backend->removeInstance(list[i]);
     }
     void settingsTest(){
-        instance = new WindowInstance(1, QHash<QString, QVariant>());
-        backend->addInstance(instance);
+        instance = std::unique_ptr<WindowInstance>(new WindowInstance(1, QHash<QString, QVariant>()));
+        backend->addInstance(instance.get());
         QList<int> ids = backend->loadIds();
         for(int id : ids){
             QVERIFY(id >= 0);
         }
-        backend->removeSettings(instance);
+        backend->removeSettings(instance.get());
     }
     void dirTest(){
         QDir dir = Backend::directoryOf(QStringLiteral("/translations"));
@@ -54,12 +56,9 @@ private slots:
         dir = Backend::directoryOf(QStringLiteral("/dirDoesNotExist"));
         QVERIFY(!dir.exists());
     }
-    void cleanupTestCase() {
-        delete backend;
-    }
 private:
-    Backend *backend;
-    WindowInstance *instance;
+    std::unique_ptr<Backend> backend;
+    std::unique_ptr<WindowInstance> instance;
 };
 
 #endif // BACKENDTEST

@@ -1,6 +1,8 @@
 #ifndef EDITORWINDOWTEST
 #define EDITORWINDOWTEST
 
+#include <memory>
+
 #include <QObject>
 #include <QTest>
 #include "../src/EditorWindow.hpp"
@@ -17,18 +19,12 @@ class EditorWindowTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase() {
-        backend = new SettingsBackend();
-        editorWindow = new EditorWindow(backend->getSettings(0));
+        editorWindow = std::unique_ptr<EditorWindow>(new EditorWindow(SettingsBackend::getSettings(0)));
     }
     void objectCreationTest() {
-        QVERIFY(editorWindow);
-    }
-    void cleanupTestCase() {
-        delete editorWindow;
-        delete backend;
+        QVERIFY(editorWindow.get());
     }
 private:
-    EditorWindow* editorWindow;
-    SettingsBackend* backend;
+    std::unique_ptr<EditorWindow> editorWindow;
 };
 #endif // EDITORWINDOWTEST
