@@ -179,7 +179,7 @@ QDialog {
 
 /*
  * QPlainTextEdit
- */
+ *
 QPlainTextEdit {
     background: #303030;
-}
+}/
