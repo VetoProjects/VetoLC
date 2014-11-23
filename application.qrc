@@ -7,9 +7,9 @@
         <file>images/run.png</file>
         <file>images/refresh.png</file>
         <file>fonts/Inconsolata.otf</file>
-        <file>highlighting/qt</file>
-        <file>highlighting/glsl</file>
-        <file>highlighting/python</file>
+        <file>rc/highlighting/qt</file>
+        <file>rc/highlighting/glsl</file>
+        <file>rc/highlighting/python</file>
         <file>rc/template.py</file>
         <file>rc/template.glsl</file>
         <file>images/x.png</file>
