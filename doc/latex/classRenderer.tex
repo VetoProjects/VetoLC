@@ -1,0 +1,260 @@
+\hypertarget{classRenderer}{\section{Renderer Class Reference}
+\label{classRenderer}\index{Renderer@{Renderer}}
+}
+
+
+The \hyperlink{classRenderer}{Renderer} class.  
+
+
+
+
+{\ttfamily \#include $<$Renderer.\+hpp$>$}
+
+Inheritance diagram for Renderer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classRenderer}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classRenderer_aff000964f75549d4f0089b0d7f914d4e}{render\+Now} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_aff000964f75549d4f0089b0d7f914d4e}{Renderer\+::render\+Now}. \end{DoxyCompactList}\item 
+void \hyperlink{classRenderer_a7a56362ec6a3e9e17f217668152a7252}{render\+Later} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_a7a56362ec6a3e9e17f217668152a7252}{Renderer\+::render\+Later}. \end{DoxyCompactList}\item 
+bool \hyperlink{classRenderer_ada11b323b6e47935245a4ffc3c2f34eb}{update\+Code} (const Q\+String \&, const Q\+String \&)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_ada11b323b6e47935245a4ffc3c2f34eb}{Renderer\+::update\+Code}. \end{DoxyCompactList}\item 
+void \hyperlink{classRenderer_a941e09f5b257fcf3a90e0a19b61096b4}{update\+Audio\+Data} (Q\+Byte\+Array)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_a941e09f5b257fcf3a90e0a19b61096b4}{Renderer\+::update\+Audio\+Data}. \end{DoxyCompactList}\item 
+void \hyperlink{classRenderer_acf65d29d7d1a3062a3d4bdb9e028fb23}{on\+Message\+Logged} (Q\+Open\+G\+L\+Debug\+Message message)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_acf65d29d7d1a3062a3d4bdb9e028fb23}{Renderer\+::on\+Message\+Logged}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classRenderer_a14700ec0055b02afe599c38fbb9fcaaf}{void {\bfseries done\+Signal} (Q\+String)}\label{classRenderer_a14700ec0055b02afe599c38fbb9fcaaf}
+
+\item 
+\hypertarget{classRenderer_a20f6d728a4c5edb06dcadef1b77e5ad4}{void {\bfseries errored} (Q\+String, int)}\label{classRenderer_a20f6d728a4c5edb06dcadef1b77e5ad4}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRenderer_a2d643cc466801828fb8ed0648ef72f4e}{Renderer} (Q\+Window $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_a2d643cc466801828fb8ed0648ef72f4e}{Renderer\+::\+Renderer}. \end{DoxyCompactList}\item 
+\hyperlink{classRenderer_adbcd6b6f408774611cb936f9a781f00d}{Renderer} (const Q\+String \&, const Q\+String \&, Q\+Window $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_a2d643cc466801828fb8ed0648ef72f4e}{Renderer\+::\+Renderer}. \end{DoxyCompactList}\item 
+\hyperlink{classRenderer_afeee408862d5bd6255a6882d47e6d5cd}{$\sim$\+Renderer} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_afeee408862d5bd6255a6882d47e6d5cd}{Renderer\+::$\sim$\+Renderer}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \hyperlink{classRenderer_aa08452b84c6b687b62650322e8a05ec2}{event} (Q\+Event $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_aa08452b84c6b687b62650322e8a05ec2}{Renderer\+::event}. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classRenderer_a58526fa539582364b1e233d917a1d7f0}{expose\+Event} (Q\+Expose\+Event $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRenderer_a58526fa539582364b1e233d917a1d7f0}{Renderer\+::expose\+Event}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classRenderer}{Renderer} class. 
+
+A subclass of Q\+Window and Q\+O\+Pen\+G\+L\+Functions that implements a G\+L\+S\+L fragment shader renderer. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classRenderer_a2d643cc466801828fb8ed0648ef72f4e}{\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\subsubsection[{Renderer}]{\setlength{\rightskip}{0pt plus 5cm}Renderer\+::\+Renderer (
+\begin{DoxyParamCaption}
+\item[{Q\+Window $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{classRenderer_a2d643cc466801828fb8ed0648ef72f4e}
+
+
+\hyperlink{classRenderer_a2d643cc466801828fb8ed0648ef72f4e}{Renderer\+::\+Renderer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Parent object of the render window\\
+\hline
+\end{DoxyParams}
+Create a new \hyperlink{classRenderer}{Renderer} with default shader \hypertarget{classRenderer_adbcd6b6f408774611cb936f9a781f00d}{\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\subsubsection[{Renderer}]{\setlength{\rightskip}{0pt plus 5cm}Renderer\+::\+Renderer (
+\begin{DoxyParamCaption}
+\item[{const Q\+String \&}]{filename, }
+\item[{const Q\+String \&}]{instructions, }
+\item[{Q\+Window $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{classRenderer_adbcd6b6f408774611cb936f9a781f00d}
+
+
+\hyperlink{classRenderer_a2d643cc466801828fb8ed0648ef72f4e}{Renderer\+::\+Renderer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Name that should shown in the title \\
+\hline
+{\em instructions} & Shader code for execution \\
+\hline
+{\em parent} & Parent object of the render window\\
+\hline
+\end{DoxyParams}
+Create a new \hyperlink{classRenderer}{Renderer} with given code and set filename as title 
+
+References on\+Message\+Logged(), and update\+Audio\+Data().
+
+\hypertarget{classRenderer_afeee408862d5bd6255a6882d47e6d5cd}{\index{Renderer@{Renderer}!````~Renderer@{$\sim$\+Renderer}}
+\index{````~Renderer@{$\sim$\+Renderer}!Renderer@{Renderer}}
+\subsubsection[{$\sim$\+Renderer}]{\setlength{\rightskip}{0pt plus 5cm}Renderer\+::$\sim$\+Renderer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRenderer_afeee408862d5bd6255a6882d47e6d5cd}
+
+
+\hyperlink{classRenderer_afeee408862d5bd6255a6882d47e6d5cd}{Renderer\+::$\sim$\+Renderer}. 
+
+Free resources 
+
+\subsection{Member Function Documentation}
+\hypertarget{classRenderer_aa08452b84c6b687b62650322e8a05ec2}{\index{Renderer@{Renderer}!event@{event}}
+\index{event@{event}!Renderer@{Renderer}}
+\subsubsection[{event}]{\setlength{\rightskip}{0pt plus 5cm}bool Renderer\+::event (
+\begin{DoxyParamCaption}
+\item[{Q\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classRenderer_aa08452b84c6b687b62650322e8a05ec2}
+
+
+\hyperlink{classRenderer_aa08452b84c6b687b62650322e8a05ec2}{Renderer\+::event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The event that should be proccessed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the event was successful proccessed, otherwise false
+\end{DoxyReturn}
+Called if a new event is poped from the event-\/queue to render on update event and Q\+\_\+\+E\+M\+I\+T done\+Signal on close event. 
+
+References render\+Now().
+
+\hypertarget{classRenderer_a58526fa539582364b1e233d917a1d7f0}{\index{Renderer@{Renderer}!expose\+Event@{expose\+Event}}
+\index{expose\+Event@{expose\+Event}!Renderer@{Renderer}}
+\subsubsection[{expose\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void Renderer\+::expose\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Expose\+Event $\ast$}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classRenderer_a58526fa539582364b1e233d917a1d7f0}
+
+
+\hyperlink{classRenderer_a58526fa539582364b1e233d917a1d7f0}{Renderer\+::expose\+Event}. 
+
+Called if the window is ready to start rendering 
+
+References render\+Now().
+
+\hypertarget{classRenderer_acf65d29d7d1a3062a3d4bdb9e028fb23}{\index{Renderer@{Renderer}!on\+Message\+Logged@{on\+Message\+Logged}}
+\index{on\+Message\+Logged@{on\+Message\+Logged}!Renderer@{Renderer}}
+\subsubsection[{on\+Message\+Logged}]{\setlength{\rightskip}{0pt plus 5cm}void Renderer\+::on\+Message\+Logged (
+\begin{DoxyParamCaption}
+\item[{Q\+Open\+G\+L\+Debug\+Message}]{message}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classRenderer_acf65d29d7d1a3062a3d4bdb9e028fb23}
+
+
+\hyperlink{classRenderer_acf65d29d7d1a3062a3d4bdb9e028fb23}{Renderer\+::on\+Message\+Logged}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message text\\
+\hline
+\end{DoxyParams}
+Write the message text in the debug output 
+
+Referenced by Renderer().
+
+\hypertarget{classRenderer_a7a56362ec6a3e9e17f217668152a7252}{\index{Renderer@{Renderer}!render\+Later@{render\+Later}}
+\index{render\+Later@{render\+Later}!Renderer@{Renderer}}
+\subsubsection[{render\+Later}]{\setlength{\rightskip}{0pt plus 5cm}void Renderer\+::render\+Later (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classRenderer_a7a56362ec6a3e9e17f217668152a7252}
+
+
+\hyperlink{classRenderer_a7a56362ec6a3e9e17f217668152a7252}{Renderer\+::render\+Later}. 
+
+Enqueue an update event to event queue 
+
+Referenced by render\+Now().
+
+\hypertarget{classRenderer_aff000964f75549d4f0089b0d7f914d4e}{\index{Renderer@{Renderer}!render\+Now@{render\+Now}}
+\index{render\+Now@{render\+Now}!Renderer@{Renderer}}
+\subsubsection[{render\+Now}]{\setlength{\rightskip}{0pt plus 5cm}void Renderer\+::render\+Now (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classRenderer_aff000964f75549d4f0089b0d7f914d4e}
+
+
+\hyperlink{classRenderer_aff000964f75549d4f0089b0d7f914d4e}{Renderer\+::render\+Now}. 
+
+Use the compiled shader to render on the widget 
+
+References render\+Later().
+
+
+
+Referenced by event(), and expose\+Event().
+
+\hypertarget{classRenderer_a941e09f5b257fcf3a90e0a19b61096b4}{\index{Renderer@{Renderer}!update\+Audio\+Data@{update\+Audio\+Data}}
+\index{update\+Audio\+Data@{update\+Audio\+Data}!Renderer@{Renderer}}
+\subsubsection[{update\+Audio\+Data}]{\setlength{\rightskip}{0pt plus 5cm}void Renderer\+::update\+Audio\+Data (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classRenderer_a941e09f5b257fcf3a90e0a19b61096b4}
+
+
+\hyperlink{classRenderer_a941e09f5b257fcf3a90e0a19b61096b4}{Renderer\+::update\+Audio\+Data}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & New audio data\\
+\hline
+\end{DoxyParams}
+Copy the new sound-\/data to the graphics memory for visualisation 
+
+Referenced by Renderer().
+
+\hypertarget{classRenderer_ada11b323b6e47935245a4ffc3c2f34eb}{\index{Renderer@{Renderer}!update\+Code@{update\+Code}}
+\index{update\+Code@{update\+Code}!Renderer@{Renderer}}
+\subsubsection[{update\+Code}]{\setlength{\rightskip}{0pt plus 5cm}bool Renderer\+::update\+Code (
+\begin{DoxyParamCaption}
+\item[{const Q\+String \&}]{filename, }
+\item[{const Q\+String \&}]{code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classRenderer_ada11b323b6e47935245a4ffc3c2f34eb}
+
+
+\hyperlink{classRenderer_ada11b323b6e47935245a4ffc3c2f34eb}{Renderer\+::update\+Code}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Text for the title \\
+\hline
+{\em code} & New shader program code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on success, otherwise false.
+\end{DoxyReturn}
+Set new title and compile new code for the shader program 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Renderer.\+hpp\item 
+src/Renderer.\+cpp\end{DoxyCompactItemize}

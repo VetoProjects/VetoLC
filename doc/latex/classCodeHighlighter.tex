@@ -1,0 +1,112 @@
+\hypertarget{classCodeHighlighter}{\section{Code\+Highlighter Class Reference}
+\label{classCodeHighlighter}\index{Code\+Highlighter@{Code\+Highlighter}}
+}
+
+
+The \hyperlink{classCodeHighlighter}{Code\+Highlighter} class.  
+
+
+
+
+{\ttfamily \#include $<$Code\+Highlighter.\+hpp$>$}
+
+Inheritance diagram for Code\+Highlighter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCodeHighlighter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCodeHighlighter_aefbf2c4ec8b87c39aac8b4caf516765b}{Code\+Highlighter} (Q\+Text\+Document $\ast$parent=0, int file=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeHighlighter_aefbf2c4ec8b87c39aac8b4caf516765b}{Code\+Highlighter\+::\+Code\+Highlighter}. \end{DoxyCompactList}\item 
+bool \hyperlink{classCodeHighlighter_a61d21b1d88b955403a5d1e3601a22353}{setup\+Highlighting} (int file)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeHighlighter_a61d21b1d88b955403a5d1e3601a22353}{Code\+Highlighter\+::setup\+Highlighting}. \end{DoxyCompactList}\item 
+\hypertarget{classCodeHighlighter_a77d779445aeca5953113634e982ffac8}{int {\bfseries get\+Highlighting} ()}\label{classCodeHighlighter_a77d779445aeca5953113634e982ffac8}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classCodeHighlighter_a38e1190233f89b655e84aaef864b2e76}{highlight\+Block} (const Q\+String \&text)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeHighlighter_a38e1190233f89b655e84aaef864b2e76}{Code\+Highlighter\+::highlight\+Block}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classCodeHighlighter}{Code\+Highlighter} class. 
+
+\begin{DoxyAuthor}{Author}
+Veit Heller(s0539501) \& Tobias Brosge(s0539713)
+\end{DoxyAuthor}
+A subclass of Q\+Syntax\+Highlighter that implements Syntax Highlighting(duh!) for the Code Editor class. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classCodeHighlighter_aefbf2c4ec8b87c39aac8b4caf516765b}{\index{Code\+Highlighter@{Code\+Highlighter}!Code\+Highlighter@{Code\+Highlighter}}
+\index{Code\+Highlighter@{Code\+Highlighter}!Code\+Highlighter@{Code\+Highlighter}}
+\subsubsection[{Code\+Highlighter}]{\setlength{\rightskip}{0pt plus 5cm}Code\+Highlighter\+::\+Code\+Highlighter (
+\begin{DoxyParamCaption}
+\item[{Q\+Text\+Document $\ast$}]{parent = {\ttfamily 0}, }
+\item[{int}]{file = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classCodeHighlighter_aefbf2c4ec8b87c39aac8b4caf516765b}
+
+
+\hyperlink{classCodeHighlighter_aefbf2c4ec8b87c39aac8b4caf516765b}{Code\+Highlighter\+::\+Code\+Highlighter}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & \\
+\hline
+{\em file} & The constructor of the syntax highlighter. Needs a highlighting file. \\
+\hline
+\end{DoxyParams}
+
+
+References setup\+Highlighting().
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classCodeHighlighter_a38e1190233f89b655e84aaef864b2e76}{\index{Code\+Highlighter@{Code\+Highlighter}!highlight\+Block@{highlight\+Block}}
+\index{highlight\+Block@{highlight\+Block}!Code\+Highlighter@{Code\+Highlighter}}
+\subsubsection[{highlight\+Block}]{\setlength{\rightskip}{0pt plus 5cm}void Code\+Highlighter\+::highlight\+Block (
+\begin{DoxyParamCaption}
+\item[{const Q\+String \&}]{text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classCodeHighlighter_a38e1190233f89b655e84aaef864b2e76}
+
+
+\hyperlink{classCodeHighlighter_a38e1190233f89b655e84aaef864b2e76}{Code\+Highlighter\+::highlight\+Block}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & Highlights blocks(duh) by evaluating the regexes created in the constructor. T\+O\+D\+O\+: Code and time complexity are suboptimal. Is there a better way? \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCodeHighlighter_a61d21b1d88b955403a5d1e3601a22353}{\index{Code\+Highlighter@{Code\+Highlighter}!setup\+Highlighting@{setup\+Highlighting}}
+\index{setup\+Highlighting@{setup\+Highlighting}!Code\+Highlighter@{Code\+Highlighter}}
+\subsubsection[{setup\+Highlighting}]{\setlength{\rightskip}{0pt plus 5cm}bool Code\+Highlighter\+::setup\+Highlighting (
+\begin{DoxyParamCaption}
+\item[{int}]{file}
+\end{DoxyParamCaption}
+)}}\label{classCodeHighlighter_a61d21b1d88b955403a5d1e3601a22353}
+
+
+\hyperlink{classCodeHighlighter_a61d21b1d88b955403a5d1e3601a22353}{Code\+Highlighter\+::setup\+Highlighting}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & Sets up the highlighting rules. T\+O\+D\+O\+: Make it more flexible -\/ File format? T\+O\+D\+O\+: Highlight bracket-\/pairs T\+O\+D\+O\+: Build quot-\/pairs ( \char`\"{}bla \char`\"{} bla \char`\"{} bla \char`\"{} -\/$>$ all is highlighted) T\+O\+D\+O\+: don't let the multi line comment trust preview format (see function highlight\+Block(...) ) \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by Code\+Highlighter(), and Code\+Editor\+::set\+Highlighting().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Code\+Highlighter.\+hpp\item 
+src/Code\+Highlighter.\+cpp\end{DoxyCompactItemize}

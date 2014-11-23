@@ -1,7 +1,7 @@
 VetoLC
 ======
 
-![general version](http://img.shields.io/badge/version-0.3.0-yellow.svg)
+![general version](http://img.shields.io/badge/version-0.4.0-yellow.svg)
 ![qt version](http://img.shields.io/badge/qt_version-5.1--5.3-blue.svg)
 ![python version](http://img.shields.io/badge/c++_version-11-green.svg)
 ![python version](http://img.shields.io/badge/python_version-2.5--3.4-brightgreen.svg)

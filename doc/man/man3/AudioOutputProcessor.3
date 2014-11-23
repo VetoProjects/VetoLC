@@ -1,0 +1,37 @@
+.TH "AudioOutputProcessor" 3 "Sun Nov 23 2014" "Version 0.4.0" "VetoLC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+AudioOutputProcessor \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits QThread\&.
+.SS "Signals"
+
+.in +1c
+.ti -1c
+.RI "void \fBstopWriting\fP ()"
+.br
+.ti -1c
+.RI "void \fBstartWriting\fP ()"
+.br
+.ti -1c
+.RI "void \fBpostWriteToDevice\fP ()"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBAudioOutputProcessor\fP (QObject *parent=0)"
+.br
+.ti -1c
+.RI "bool \fBwrite\fP (const char *data, qint64 len)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for VetoLC from the source code\&.

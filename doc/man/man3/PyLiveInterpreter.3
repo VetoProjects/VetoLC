@@ -1,0 +1,94 @@
+.TH "PyLiveInterpreter" 3 "Sun Nov 23 2014" "Version 0.4.0" "VetoLC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+PyLiveInterpreter \- 
+.PP
+The \fBPyLiveInterpreter\fP class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <PyLiveInterpreter\&.hpp>\fP
+.PP
+Inherits QObject\&.
+.SS "Signals"
+
+.in +1c
+.ti -1c
+.RI "void \fBdoneSignal\fP (QString, int)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBPyLiveInterpreter\fP (char *, char *)"
+.br
+.RI "\fI\fBPyLiveInterpreter::PyLiveInterpreter\fP\&. \fP"
+.ti -1c
+.RI "void \fBrun\fP ()"
+.br
+.RI "\fI\fBPyLiveInterpreter::run\fP\&. \fP"
+.ti -1c
+.RI "bool \fBupdateCode\fP (QString, QString)"
+.br
+.RI "\fI\fBPyLiveInterpreter::updateCode\fP\&. \fP"
+.ti -1c
+.RI "\fB~PyLiveInterpreter\fP ()"
+.br
+.RI "\fI\fBPyLiveInterpreter::~PyLiveInterpreter\fP\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBPyLiveInterpreter\fP class\&. 
+
+A subclass of QThread that implements an environment for python coding while keeping the main codeeditor thread clean by dispatching\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "PyLiveInterpreter::PyLiveInterpreter (char *progName, char *pyInstructions)"
+
+.PP
+\fBPyLiveInterpreter::PyLiveInterpreter\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIprogName\fP 
+.br
+\fIpyInstructions\fP The constructor of the PyLiveInterpreterclass\&. Sets up the python interpreter, the instructions with which it will be fed, the class variables and the break shortcut\&. 
+.RE
+.PP
+
+.SS "PyLiveInterpreter::~PyLiveInterpreter ()"
+
+.PP
+\fBPyLiveInterpreter::~PyLiveInterpreter\fP\&. The destructor of the \fBPyLiveInterpreter\fP class\&. Kills the python interpreter\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void PyLiveInterpreter::run ()"
+
+.PP
+\fBPyLiveInterpreter::run\fP\&. The main loop\&. Calls the user code executing method and Q_EMITs a signal when it's done\&. 
+.SS "bool PyLiveInterpreter::updateCode (QStringfilename, QStringinstructions)"
+
+.PP
+\fBPyLiveInterpreter::updateCode\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP 
+.br
+\fIinstructions\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true if the name of the program could be changed, false otherwise
+.RE
+.PP
+Updates the code of the currently running Python interpreter\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for VetoLC from the source code\&.

@@ -1,0 +1,315 @@
+.TH "Instances::WindowInstance" 3 "Sun Nov 23 2014" "Version 0.4.0" "VetoLC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Instances::WindowInstance \- 
+.PP
+The Windownstance class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <WindowInstance\&.hpp>\fP
+.PP
+Inherits \fBInstances::IInstance\fP\&.
+.SS "Public Slots"
+
+.in +1c
+.ti -1c
+.RI "void \fBgotDestroying\fP (QObject *)"
+.br
+.ti -1c
+.RI "void \fBgotClosing\fP (\fBEditorWindow\fP *)"
+.br
+.RI "\fI\fBWindowInstance::gotClosing\fP\&. \fP"
+.ti -1c
+.RI "void \fBgotCloseAll\fP (\fBEditorWindow\fP *)"
+.br
+.RI "\fI\fBWindowInstance::gotCloseAll\fP\&. \fP"
+.ti -1c
+.RI "void \fBgotRunCode\fP (\fBEditorWindow\fP *)"
+.br
+.RI "\fI\fBWindowInstance::gotRunCode\fP\&. \fP"
+.ti -1c
+.RI "void \fBgotStopCode\fP (\fBEditorWindow\fP *)"
+.br
+.RI "\fI\fBWindowInstance::gotStopCode\fP\&. \fP"
+.ti -1c
+.RI "void \fBgotOpenHelp\fP (\fBEditorWindow\fP *)"
+.br
+.RI "\fI\fBWindowInstance::gotOpenHelp\fP\&. \fP"
+.ti -1c
+.RI "void \fBgotOpenSettings\fP (\fBEditorWindow\fP *)"
+.br
+.RI "\fI\fBWindowInstance::gotOpenSettings\fP\&. \fP"
+.ti -1c
+.RI "void \fBgotChangedSetting\fP (\fBEditorWindow\fP *, const QString &, const QVariant &)"
+.br
+.RI "\fI\fBWindowInstance::gotChangedSetting\fP\&. \fP"
+.ti -1c
+.RI "void \fBgotChangedSettings\fP (\fBEditorWindow\fP *, const QHash< QString, QVariant > &)"
+.br
+.RI "\fI\fBWindowInstance::gotChangedSettings\fP\&. \fP"
+.in -1c
+.SS "Signals"
+
+.in +1c
+.ti -1c
+.RI "void \fBrunCode\fP (\fBIInstance\fP *)"
+.br
+.ti -1c
+.RI "void \fBstopCode\fP (\fBIInstance\fP *)"
+.br
+.ti -1c
+.RI "void \fBclosing\fP (\fBIInstance\fP *)"
+.br
+.ti -1c
+.RI "void \fBcloseAll\fP ()"
+.br
+.ti -1c
+.RI "void \fBopenHelp\fP (\fBIInstance\fP *)"
+.br
+.ti -1c
+.RI "void \fBopenSettings\fP (\fBIInstance\fP *)"
+.br
+.ti -1c
+.RI "void \fBchangeSetting\fP (\fBIInstance\fP *, const QString &key, QVariant value)"
+.br
+.ti -1c
+.RI "void \fBchangeSettings\fP (\fBIInstance\fP *, const QHash< QString, QVariant > &)"
+.br
+.ti -1c
+.RI "void \fBgetSetting\fP (\fBIInstance\fP *, const QString &key, QVariant &value)"
+.br
+.ti -1c
+.RI "void \fBgetSettings\fP (\fBIInstance\fP *, QHash< QString, QVariant > &settings)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBWindowInstance\fP (int id, const QHash< QString, QVariant > &settings, QObject *parent=0)"
+.br
+.RI "\fI\fBWindowInstance::WindowInstance\fP\&. \fP"
+.ti -1c
+.RI "\fB~WindowInstance\fP ()"
+.br
+.RI "\fI\fBWindowInstance::~WindowInstance\fP\&. \fP"
+.ti -1c
+.RI "virtual QString \fBsourceCode\fP () const "
+.br
+.RI "\fI\fBWindowInstance::sourceCode\fP\&. \fP"
+.ti -1c
+.RI "virtual QString \fBtitle\fP () const "
+.br
+.RI "\fI\fBWindowInstance::title\fP\&. \fP"
+.ti -1c
+.RI "virtual bool \fBclose\fP ()"
+.br
+.RI "\fI\fBWindowInstance::close\fP\&. \fP"
+.ti -1c
+.RI "virtual void \fBreportError\fP (const QString &message)"
+.br
+.RI "\fI\fBWindowInstance::reportError\fP\&. \fP"
+.ti -1c
+.RI "virtual void \fBreportWarning\fP (const QString &)"
+.br
+.RI "\fI\fBWindowInstance::reportWarning\fP\&. \fP"
+.ti -1c
+.RI "virtual void \fBhighlightErroredLine\fP (int)"
+.br
+.RI "\fI\fBWindowInstance::highlightErroredLine\fP\&. \fP"
+.ti -1c
+.RI "virtual void \fBcodeStopped\fP ()"
+.br
+.RI "\fI\fBWindowInstance::codeStopped\fP\&. \fP"
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const int \fBID\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The Windownstance class\&. 
+
+Delegate from which all windows are derived that are managed by the backend\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Instances::WindowInstance::WindowInstance (intid, const QHash< QString, QVariant > &settings, QObject *parent = \fC0\fP)"
+
+.PP
+\fBWindowInstance::WindowInstance\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIid\fP 
+.br
+\fIsettings\fP 
+.br
+\fIparent\fP Constructor of the delegate\&. 
+.RE
+.PP
+
+.SS "Instances::WindowInstance::~WindowInstance ()"
+
+.PP
+\fBWindowInstance::~WindowInstance\fP\&. Destructor of the delegate\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "bool Instances::WindowInstance::close ()\fC [virtual]\fP"
+
+.PP
+\fBWindowInstance::close\fP\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+whether closing has succeeded
+.RE
+.PP
+Closes the editor window and return a success flag\&. 
+.PP
+Implements \fBInstances::IInstance\fP\&.
+.PP
+References gotClosing()\&.
+.SS "void Instances::WindowInstance::codeStopped ()\fC [virtual]\fP"
+
+.PP
+\fBWindowInstance::codeStopped\fP\&. Signals that execution of the editor code has finsihed\&. 
+.PP
+Implements \fBInstances::IInstance\fP\&.
+.PP
+References EditorWindow::codeStopped()\&.
+.SS "void Instances::WindowInstance::gotChangedSetting (\fBEditorWindow\fP *, const QString &key, const QVariant &value)\fC [slot]\fP"
+
+.PP
+\fBWindowInstance::gotChangedSetting\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIkey\fP 
+.br
+\fIvalue\fP Signals that the editors' settings have changed(singla value)\&. 
+.RE
+.PP
+
+.SS "void Instances::WindowInstance::gotChangedSettings (\fBEditorWindow\fP *, const QHash< QString, QVariant > &settings)\fC [slot]\fP"
+
+.PP
+\fBWindowInstance::gotChangedSettings\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsettings\fP Signals that the editors' settings have changed(completely)\&. 
+.RE
+.PP
+
+.SS "void Instances::WindowInstance::gotCloseAll (\fBEditorWindow\fP *)\fC [slot]\fP"
+
+.PP
+\fBWindowInstance::gotCloseAll\fP\&. Signals that the editor requested closing of all windows\&. 
+.SS "void Instances::WindowInstance::gotClosing (\fBEditorWindow\fP *)\fC [slot]\fP"
+
+.PP
+\fBWindowInstance::gotClosing\fP\&. Signals that the editor requested closing\&. 
+.PP
+Referenced by close()\&.
+.SS "void Instances::WindowInstance::gotOpenHelp (\fBEditorWindow\fP *)\fC [slot]\fP"
+
+.PP
+\fBWindowInstance::gotOpenHelp\fP\&. Signals that the editor requested a help window\&. 
+.SS "void Instances::WindowInstance::gotOpenSettings (\fBEditorWindow\fP *)\fC [slot]\fP"
+
+.PP
+\fBWindowInstance::gotOpenSettings\fP\&. Signals that the editor requested a settings window\&. 
+.SS "void Instances::WindowInstance::gotRunCode (\fBEditorWindow\fP *)\fC [slot]\fP"
+
+.PP
+\fBWindowInstance::gotRunCode\fP\&. Signals that the editor requested a run\&. 
+.SS "void Instances::WindowInstance::gotStopCode (\fBEditorWindow\fP *)\fC [slot]\fP"
+
+.PP
+\fBWindowInstance::gotStopCode\fP\&. Signals that the editor requested stop of execution\&. 
+.SS "void Instances::WindowInstance::highlightErroredLine (intlineno)\fC [virtual]\fP"
+
+.PP
+\fBWindowInstance::highlightErroredLine\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlineno\fP Highlight line number lineno as errored\&. 
+.RE
+.PP
+
+.PP
+Implements \fBInstances::IInstance\fP\&.
+.PP
+References EditorWindow::highlightErroredLine()\&.
+.SS "void Instances::WindowInstance::reportError (const QString &message)\fC [virtual]\fP"
+
+.PP
+\fBWindowInstance::reportError\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImessage\fP Displays error message in editor\&. 
+.RE
+.PP
+
+.PP
+Implements \fBInstances::IInstance\fP\&.
+.PP
+References EditorWindow::warningDisplay()\&.
+.SS "void Instances::WindowInstance::reportWarning (const QString &text)\fC [virtual]\fP"
+
+.PP
+\fBWindowInstance::reportWarning\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItext\fP Displays warning message in editor\&. 
+.RE
+.PP
+
+.PP
+Implements \fBInstances::IInstance\fP\&.
+.PP
+References EditorWindow::showResults()\&.
+.SS "QString Instances::WindowInstance::sourceCode () const\fC [virtual]\fP"
+
+.PP
+\fBWindowInstance::sourceCode\fP\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+the editor contents as string
+.RE
+.PP
+Gets the Editor Content as a QString\&. 
+.PP
+Implements \fBInstances::IInstance\fP\&.
+.PP
+References EditorWindow::getSourceCode()\&.
+.SS "QString Instances::WindowInstance::title () const\fC [virtual]\fP"
+
+.PP
+\fBWindowInstance::title\fP\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+file name as a QString
+.RE
+.PP
+Gets the file name as a QString\&. 
+.PP
+Implements \fBInstances::IInstance\fP\&.
+.PP
+References EditorWindow::getTitle()\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for VetoLC from the source code\&.

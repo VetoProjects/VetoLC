@@ -1,0 +1,61 @@
+.TH "SettingsTab" 3 "Sun Nov 23 2014" "Version 0.4.0" "VetoLC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SettingsTab \- 
+.PP
+The \fBSettingsTab\fP class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <SettingsTab\&.hpp>\fP
+.PP
+Inherits QWidget\&.
+.PP
+Inherited by \fBBehaviourTab\fP, and \fBLayoutTab\fP\&.
+.SS "Signals"
+
+.in +1c
+.ti -1c
+.RI "void \fBcontentChanged\fP ()"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSettingsTab\fP (QHash< QString, QVariant > *Settings, QWidget *parent=0)"
+.br
+.RI "\fI\fBSettingsTab::SettingsTab\fP\&. \fP"
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "QHash< QString, QVariant > * \fBsettings\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSettingsTab\fP class\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Veit Heller(s0539501) & Tobias Brosge(s0539713)
+.RE
+.PP
+A subclass of QWidget that implements a base class(not abstract) 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SettingsTab::SettingsTab (QHash< QString, QVariant > *Settings, QWidget *parent = \fC0\fP)"
+
+.PP
+\fBSettingsTab::SettingsTab\fP\&. The constructor of the \fBSettingsTab\fP class\&. Translates the QSettings into a list of strings and integers we can make use of\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for VetoLC from the source code\&.

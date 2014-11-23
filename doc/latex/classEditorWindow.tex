@@ -1,0 +1,246 @@
+\hypertarget{classEditorWindow}{\section{Editor\+Window Class Reference}
+\label{classEditorWindow}\index{Editor\+Window@{Editor\+Window}}
+}
+
+
+The \hyperlink{classEditorWindow}{Editor\+Window} class.  
+
+
+
+
+{\ttfamily \#include $<$Editor\+Window.\+hpp$>$}
+
+Inheritance diagram for Editor\+Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classEditorWindow}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classEditorWindow_ab5059ac20da670e1c2bb3e7e6e498aa1}{void {\bfseries closing} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$)}\label{classEditorWindow_ab5059ac20da670e1c2bb3e7e6e498aa1}
+
+\item 
+\hypertarget{classEditorWindow_a8e82f25b8aaa98fdcbd80ffbf4f2f01c}{void {\bfseries close\+All} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$)}\label{classEditorWindow_a8e82f25b8aaa98fdcbd80ffbf4f2f01c}
+
+\item 
+\hypertarget{classEditorWindow_a5a18c4334a66f2152f814690f27423c7}{void {\bfseries open\+Settings} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$)}\label{classEditorWindow_a5a18c4334a66f2152f814690f27423c7}
+
+\item 
+\hypertarget{classEditorWindow_a12b01e035aef46c087d4fa972748b4c9}{void {\bfseries open\+Help} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$)}\label{classEditorWindow_a12b01e035aef46c087d4fa972748b4c9}
+
+\item 
+\hypertarget{classEditorWindow_a099b128c5e948867df18babd7c6b14ca}{void {\bfseries run\+Code} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$)}\label{classEditorWindow_a099b128c5e948867df18babd7c6b14ca}
+
+\item 
+\hypertarget{classEditorWindow_af4ca2e0be1bb3098a8c94473c753d9c2}{void {\bfseries stop\+Code} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$)}\label{classEditorWindow_af4ca2e0be1bb3098a8c94473c753d9c2}
+
+\item 
+\hypertarget{classEditorWindow_a3927cefb23e1026ca7362c99da5f144c}{void {\bfseries title\+Changed} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$)}\label{classEditorWindow_a3927cefb23e1026ca7362c99da5f144c}
+
+\item 
+\hypertarget{classEditorWindow_a512fc6a54509b75d26cdd3b13eae03eb}{void {\bfseries changed\+Setting} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$, const Q\+String \&, const Q\+Variant \&)}\label{classEditorWindow_a512fc6a54509b75d26cdd3b13eae03eb}
+
+\item 
+\hypertarget{classEditorWindow_a7ae350466d88e3d4aeadb5926217809a}{void {\bfseries changed\+Settings} (\hyperlink{classEditorWindow}{Editor\+Window} $\ast$, const Q\+Hash$<$ Q\+String, Q\+Variant $>$ \&)}\label{classEditorWindow_a7ae350466d88e3d4aeadb5926217809a}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classEditorWindow_a6917407d81bd85ebc2af2f3915f62d56}{Editor\+Window} (const Q\+Hash$<$ Q\+String, Q\+Variant $>$ \&settings, Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_a6917407d81bd85ebc2af2f3915f62d56}{Editor\+Window\+::\+Editor\+Window}. \end{DoxyCompactList}\item 
+\hyperlink{classEditorWindow_a7dd5c84136960d8ba831b04993811cf3}{$\sim$\+Editor\+Window} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_a7dd5c84136960d8ba831b04993811cf3}{Editor\+Window\+::$\sim$\+Editor\+Window}. \end{DoxyCompactList}\item 
+void \hyperlink{classEditorWindow_a0ad1d080a548df7eb21ce05c50775e70}{show\+Results} (const Q\+String \&)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_a0ad1d080a548df7eb21ce05c50775e70}{Editor\+Window\+::show\+Results}. \end{DoxyCompactList}\item 
+void \hyperlink{classEditorWindow_ac40c7db381c4aa179667cc3803503880}{warning\+Display} (const Q\+String \&)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_ac40c7db381c4aa179667cc3803503880}{Editor\+Window\+::warning\+Display}. \end{DoxyCompactList}\item 
+void \hyperlink{classEditorWindow_af965f642e397d238c963df15e8561694}{highlight\+Errored\+Line} (int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_af965f642e397d238c963df15e8561694}{Editor\+Window\+::highlight\+Errored\+Line}. \end{DoxyCompactList}\item 
+void \hyperlink{classEditorWindow_a03cc1e6ae0c550c6f5fff486eaf6b508}{code\+Stopped} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_a03cc1e6ae0c550c6f5fff486eaf6b508}{Editor\+Window\+::code\+Stopped}. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{classEditorWindow_a4f42ffd31afc2a5e312f49048eab82ad}{get\+Source\+Code} () const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_a4f42ffd31afc2a5e312f49048eab82ad}{Editor\+Window\+::get\+Source\+Code}. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{classEditorWindow_a73910f42d7ffc26999f2d985fdc78686}{get\+Title} () const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_a73910f42d7ffc26999f2d985fdc78686}{Editor\+Window\+::get\+Title}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classEditorWindow_a70f0ac46ae9cd0362e1c4b80322c5fd6}{close\+Event} (Q\+Close\+Event $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEditorWindow_a70f0ac46ae9cd0362e1c4b80322c5fd6}{Editor\+Window\+::close\+Event}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classEditorWindow}{Editor\+Window} class. 
+
+\begin{DoxyAuthor}{Author}
+Veit Heller(s0539501) \& Tobias Brosge(s0539713)
+\end{DoxyAuthor}
+A subclass of Q\+Main\+Window that makes the \hyperlink{classCodeEditor}{Code\+Editor} more interactive by implementing save/load and open/close features. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classEditorWindow_a6917407d81bd85ebc2af2f3915f62d56}{\index{Editor\+Window@{Editor\+Window}!Editor\+Window@{Editor\+Window}}
+\index{Editor\+Window@{Editor\+Window}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{Editor\+Window}]{\setlength{\rightskip}{0pt plus 5cm}Editor\+Window\+::\+Editor\+Window (
+\begin{DoxyParamCaption}
+\item[{const Q\+Hash$<$ Q\+String, Q\+Variant $>$ \&}]{settings, }
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classEditorWindow_a6917407d81bd85ebc2af2f3915f62d56}
+
+
+\hyperlink{classEditorWindow_a6917407d81bd85ebc2af2f3915f62d56}{Editor\+Window\+::\+Editor\+Window}. 
+
+The constructor of the \hyperlink{classEditorWindow}{Editor\+Window} class. Sets up the whole U\+I around the Editor, including slots and signals. Also loads the settings and loads the file that was last displayed when closing the editor. Also, it deals with platform-\/specific displaying quirks. \hypertarget{classEditorWindow_a7dd5c84136960d8ba831b04993811cf3}{\index{Editor\+Window@{Editor\+Window}!````~Editor\+Window@{$\sim$\+Editor\+Window}}
+\index{````~Editor\+Window@{$\sim$\+Editor\+Window}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{$\sim$\+Editor\+Window}]{\setlength{\rightskip}{0pt plus 5cm}Editor\+Window\+::$\sim$\+Editor\+Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classEditorWindow_a7dd5c84136960d8ba831b04993811cf3}
+
+
+\hyperlink{classEditorWindow_a7dd5c84136960d8ba831b04993811cf3}{Editor\+Window\+::$\sim$\+Editor\+Window}. 
+
+Destructor of the \hyperlink{classEditorWindow}{Editor\+Window} class. Deletes all the G\+U\+I elements. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classEditorWindow_a70f0ac46ae9cd0362e1c4b80322c5fd6}{\index{Editor\+Window@{Editor\+Window}!close\+Event@{close\+Event}}
+\index{close\+Event@{close\+Event}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{close\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void Editor\+Window\+::close\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Close\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classEditorWindow_a70f0ac46ae9cd0362e1c4b80322c5fd6}
+
+
+\hyperlink{classEditorWindow_a70f0ac46ae9cd0362e1c4b80322c5fd6}{Editor\+Window\+::close\+Event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & reacts to the close signal; saves the current preferences if wanted and exits(\+S\+L\+O\+T). \\
+\hline
+\end{DoxyParams}
+\hypertarget{classEditorWindow_a03cc1e6ae0c550c6f5fff486eaf6b508}{\index{Editor\+Window@{Editor\+Window}!code\+Stopped@{code\+Stopped}}
+\index{code\+Stopped@{code\+Stopped}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{code\+Stopped}]{\setlength{\rightskip}{0pt plus 5cm}void Editor\+Window\+::code\+Stopped (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classEditorWindow_a03cc1e6ae0c550c6f5fff486eaf6b508}
+
+
+\hyperlink{classEditorWindow_a03cc1e6ae0c550c6f5fff486eaf6b508}{Editor\+Window\+::code\+Stopped}. 
+
+Sets the icon back to normal. 
+
+Referenced by Instances\+::\+Window\+Instance\+::code\+Stopped().
+
+\hypertarget{classEditorWindow_a4f42ffd31afc2a5e312f49048eab82ad}{\index{Editor\+Window@{Editor\+Window}!get\+Source\+Code@{get\+Source\+Code}}
+\index{get\+Source\+Code@{get\+Source\+Code}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{get\+Source\+Code}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Editor\+Window\+::get\+Source\+Code (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classEditorWindow_a4f42ffd31afc2a5e312f49048eab82ad}
+
+
+\hyperlink{classEditorWindow_a4f42ffd31afc2a5e312f49048eab82ad}{Editor\+Window\+::get\+Source\+Code}. 
+
+\begin{DoxyReturn}{Returns}
+plain text in editor
+\end{DoxyReturn}
+returns code in editor. 
+
+Referenced by Instances\+::\+Window\+Instance\+::source\+Code().
+
+\hypertarget{classEditorWindow_a73910f42d7ffc26999f2d985fdc78686}{\index{Editor\+Window@{Editor\+Window}!get\+Title@{get\+Title}}
+\index{get\+Title@{get\+Title}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{get\+Title}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Editor\+Window\+::get\+Title (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classEditorWindow_a73910f42d7ffc26999f2d985fdc78686}
+
+
+\hyperlink{classEditorWindow_a73910f42d7ffc26999f2d985fdc78686}{Editor\+Window\+::get\+Title}. 
+
+\begin{DoxyReturn}{Returns}
+current file name as string.
+\end{DoxyReturn}
+returns current file name. 
+
+Referenced by Instances\+::\+Window\+Instance\+::title().
+
+\hypertarget{classEditorWindow_af965f642e397d238c963df15e8561694}{\index{Editor\+Window@{Editor\+Window}!highlight\+Errored\+Line@{highlight\+Errored\+Line}}
+\index{highlight\+Errored\+Line@{highlight\+Errored\+Line}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{highlight\+Errored\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Editor\+Window\+::highlight\+Errored\+Line (
+\begin{DoxyParamCaption}
+\item[{int}]{lineno}
+\end{DoxyParamCaption}
+)}}\label{classEditorWindow_af965f642e397d238c963df15e8561694}
+
+
+\hyperlink{classEditorWindow_af965f642e397d238c963df15e8561694}{Editor\+Window\+::highlight\+Errored\+Line}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lineno} & Highlights a given line in red. Signifies an error in that line. \\
+\hline
+\end{DoxyParams}
+
+
+References Code\+Editor\+::highlight\+Errored\+Line().
+
+
+
+Referenced by Instances\+::\+Window\+Instance\+::highlight\+Errored\+Line().
+
+\hypertarget{classEditorWindow_a0ad1d080a548df7eb21ce05c50775e70}{\index{Editor\+Window@{Editor\+Window}!show\+Results@{show\+Results}}
+\index{show\+Results@{show\+Results}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{show\+Results}]{\setlength{\rightskip}{0pt plus 5cm}void Editor\+Window\+::show\+Results (
+\begin{DoxyParamCaption}
+\item[{const Q\+String \&}]{returned\+Value}
+\end{DoxyParamCaption}
+)}}\label{classEditorWindow_a0ad1d080a548df7eb21ce05c50775e70}
+
+
+\hyperlink{classEditorWindow_a0ad1d080a548df7eb21ce05c50775e70}{Editor\+Window\+::show\+Results}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em returned\+Value} & Is called after the execution of the interpreter thread has finished. Shows its return code or an exception traceback. \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by Instances\+::\+Window\+Instance\+::report\+Warning().
+
+\hypertarget{classEditorWindow_ac40c7db381c4aa179667cc3803503880}{\index{Editor\+Window@{Editor\+Window}!warning\+Display@{warning\+Display}}
+\index{warning\+Display@{warning\+Display}!Editor\+Window@{Editor\+Window}}
+\subsubsection[{warning\+Display}]{\setlength{\rightskip}{0pt plus 5cm}void Editor\+Window\+::warning\+Display (
+\begin{DoxyParamCaption}
+\item[{const Q\+String \&}]{message}
+\end{DoxyParamCaption}
+)}}\label{classEditorWindow_ac40c7db381c4aa179667cc3803503880}
+
+
+\hyperlink{classEditorWindow_ac40c7db381c4aa179667cc3803503880}{Editor\+Window\+::warning\+Display}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Displays a warning box containing message. \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by Instances\+::\+Window\+Instance\+::report\+Error().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Editor\+Window.\+hpp\item 
+src/Editor\+Window.\+cpp\end{DoxyCompactItemize}

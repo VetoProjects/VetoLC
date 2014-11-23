@@ -1,0 +1,118 @@
+\hypertarget{classPySoundGenerator}{\section{Py\+Sound\+Generator Class Reference}
+\label{classPySoundGenerator}\index{Py\+Sound\+Generator@{Py\+Sound\+Generator}}
+}
+
+
+The \hyperlink{classPySoundGenerator}{Py\+Sound\+Generator} class.  
+
+
+
+
+{\ttfamily \#include $<$Py\+Sound\+Generator.\+hpp$>$}
+
+Inheritance diagram for Py\+Sound\+Generator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classPySoundGenerator}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPySoundGenerator_a65289c7a550fec38c31c98771a626935}{void {\bfseries done\+Signal} (Q\+String, int)}\label{classPySoundGenerator_a65289c7a550fec38c31c98771a626935}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPySoundGenerator_a6a39079f1420a4160c9556ca25f136dc}{Py\+Sound\+Generator} (char $\ast$, char $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classPySoundGenerator_a6a39079f1420a4160c9556ca25f136dc}{Py\+Sound\+Generator\+::\+Py\+Sound\+Generator}. \end{DoxyCompactList}\item 
+void \hyperlink{classPySoundGenerator_acfd10c83de4bff94c8a46710d918a7e9}{run} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classPySoundGenerator_acfd10c83de4bff94c8a46710d918a7e9}{Py\+Sound\+Generator\+::run}. \end{DoxyCompactList}\item 
+bool \hyperlink{classPySoundGenerator_a1e45078f4f0b740c849d0c927fa929f1}{update\+Code} (Q\+String, Q\+String)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classPySoundGenerator_a1e45078f4f0b740c849d0c927fa929f1}{Py\+Sound\+Generator\+::update\+Code}. \end{DoxyCompactList}\item 
+\hyperlink{classPySoundGenerator_aeff90baafa85e12589195ce8206426bf}{$\sim$\+Py\+Sound\+Generator} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classPySoundGenerator_aeff90baafa85e12589195ce8206426bf}{Py\+Sound\+Generator\+::$\sim$\+Py\+Sound\+Generator}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classPySoundGenerator}{Py\+Sound\+Generator} class. 
+
+\begin{DoxyAuthor}{Author}
+Veit Heller(s0539501) \& Tobias Brosge(s0539713)
+\end{DoxyAuthor}
+A subclass of Q\+Thread that implements an environment for sound live coding while keeping the main codeeditor thread clean by dispatching. Python-\/based. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPySoundGenerator_a6a39079f1420a4160c9556ca25f136dc}{\index{Py\+Sound\+Generator@{Py\+Sound\+Generator}!Py\+Sound\+Generator@{Py\+Sound\+Generator}}
+\index{Py\+Sound\+Generator@{Py\+Sound\+Generator}!Py\+Sound\+Generator@{Py\+Sound\+Generator}}
+\subsubsection[{Py\+Sound\+Generator}]{\setlength{\rightskip}{0pt plus 5cm}Py\+Sound\+Generator\+::\+Py\+Sound\+Generator (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{prog\+Name, }
+\item[{char $\ast$}]{py\+Instructions}
+\end{DoxyParamCaption}
+)}}\label{classPySoundGenerator_a6a39079f1420a4160c9556ca25f136dc}
+
+
+\hyperlink{classPySoundGenerator_a6a39079f1420a4160c9556ca25f136dc}{Py\+Sound\+Generator\+::\+Py\+Sound\+Generator}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prog\+Name} & \\
+\hline
+{\em py\+Instructions} & The constructor of the Py\+Sound\+Generatorclass. Sets up the python interpreter, the instructions with which it will be fed, the class variables and the break shortcut. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classPySoundGenerator_aeff90baafa85e12589195ce8206426bf}{\index{Py\+Sound\+Generator@{Py\+Sound\+Generator}!````~Py\+Sound\+Generator@{$\sim$\+Py\+Sound\+Generator}}
+\index{````~Py\+Sound\+Generator@{$\sim$\+Py\+Sound\+Generator}!Py\+Sound\+Generator@{Py\+Sound\+Generator}}
+\subsubsection[{$\sim$\+Py\+Sound\+Generator}]{\setlength{\rightskip}{0pt plus 5cm}Py\+Sound\+Generator\+::$\sim$\+Py\+Sound\+Generator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classPySoundGenerator_aeff90baafa85e12589195ce8206426bf}
+
+
+\hyperlink{classPySoundGenerator_aeff90baafa85e12589195ce8206426bf}{Py\+Sound\+Generator\+::$\sim$\+Py\+Sound\+Generator}. 
+
+The destructor of the \hyperlink{classPySoundGenerator}{Py\+Sound\+Generator} class. Kills the python interpreter. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classPySoundGenerator_acfd10c83de4bff94c8a46710d918a7e9}{\index{Py\+Sound\+Generator@{Py\+Sound\+Generator}!run@{run}}
+\index{run@{run}!Py\+Sound\+Generator@{Py\+Sound\+Generator}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}void Py\+Sound\+Generator\+::run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classPySoundGenerator_acfd10c83de4bff94c8a46710d918a7e9}
+
+
+\hyperlink{classPySoundGenerator_acfd10c83de4bff94c8a46710d918a7e9}{Py\+Sound\+Generator\+::run}. 
+
+The main loop. Calls the user code executing method and Q\+\_\+\+E\+M\+I\+Ts a signal when it's done. \hypertarget{classPySoundGenerator_a1e45078f4f0b740c849d0c927fa929f1}{\index{Py\+Sound\+Generator@{Py\+Sound\+Generator}!update\+Code@{update\+Code}}
+\index{update\+Code@{update\+Code}!Py\+Sound\+Generator@{Py\+Sound\+Generator}}
+\subsubsection[{update\+Code}]{\setlength{\rightskip}{0pt plus 5cm}bool Py\+Sound\+Generator\+::update\+Code (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{filename, }
+\item[{Q\+String}]{instructions}
+\end{DoxyParamCaption}
+)}}\label{classPySoundGenerator_a1e45078f4f0b740c849d0c927fa929f1}
+
+
+\hyperlink{classPySoundGenerator_a1e45078f4f0b740c849d0c927fa929f1}{Py\+Sound\+Generator\+::update\+Code}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+{\em instructions} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the name of the program could be changed, false otherwise
+\end{DoxyReturn}
+Updates the code of the currently running Python interpreter. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Py\+Sound\+Generator.\+hpp\item 
+src/Py\+Sound\+Generator.\+cpp\end{DoxyCompactItemize}

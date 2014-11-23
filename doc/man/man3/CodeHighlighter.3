@@ -1,0 +1,97 @@
+.TH "CodeHighlighter" 3 "Sun Nov 23 2014" "Version 0.4.0" "VetoLC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CodeHighlighter \- 
+.PP
+The \fBCodeHighlighter\fP class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <CodeHighlighter\&.hpp>\fP
+.PP
+Inherits QSyntaxHighlighter\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCodeHighlighter\fP (QTextDocument *parent=0, int file=0)"
+.br
+.RI "\fI\fBCodeHighlighter::CodeHighlighter\fP\&. \fP"
+.ti -1c
+.RI "bool \fBsetupHighlighting\fP (int file)"
+.br
+.RI "\fI\fBCodeHighlighter::setupHighlighting\fP\&. \fP"
+.ti -1c
+.RI "int \fBgetHighlighting\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBhighlightBlock\fP (const QString &text)"
+.br
+.RI "\fI\fBCodeHighlighter::highlightBlock\fP\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBCodeHighlighter\fP class\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Veit Heller(s0539501) & Tobias Brosge(s0539713)
+.RE
+.PP
+A subclass of QSyntaxHighlighter that implements Syntax Highlighting(duh!) for the Code Editor class\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "CodeHighlighter::CodeHighlighter (QTextDocument *parent = \fC0\fP, intfile = \fC0\fP)"
+
+.PP
+\fBCodeHighlighter::CodeHighlighter\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIparent\fP 
+.br
+\fIfile\fP The constructor of the syntax highlighter\&. Needs a highlighting file\&. 
+.RE
+.PP
+
+.PP
+References setupHighlighting()\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void CodeHighlighter::highlightBlock (const QString &text)\fC [protected]\fP"
+
+.PP
+\fBCodeHighlighter::highlightBlock\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItext\fP Highlights blocks(duh) by evaluating the regexes created in the constructor\&. TODO: Code and time complexity are suboptimal\&. Is there a better way? 
+.RE
+.PP
+
+.SS "bool CodeHighlighter::setupHighlighting (intfile)"
+
+.PP
+\fBCodeHighlighter::setupHighlighting\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfile\fP Sets up the highlighting rules\&. TODO: Make it more flexible - File format? TODO: Highlight bracket-pairs TODO: Build quot-pairs ( 'bla ' bla ' bla ' -> all is highlighted) TODO: don't let the multi line comment trust preview format (see function highlightBlock(\&.\&.\&.) ) 
+.RE
+.PP
+
+.PP
+Referenced by CodeHighlighter(), and CodeEditor::setHighlighting()\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for VetoLC from the source code\&.

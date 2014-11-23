@@ -1,0 +1,156 @@
+.TH "SettingsBackend" 3 "Sun Nov 23 2014" "Version 0.4.0" "VetoLC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SettingsBackend \- 
+.PP
+The \fBSettingsBackend\fP class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <SettingsBackend\&.hpp>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static QVariant \fBgetSettingsFor\fP (QString, const QVariant &)"
+.br
+.RI "\fI\fBSettingsBackend::getSettingsFor\fP\&. \fP"
+.ti -1c
+.RI "static QVariant \fBgetSettingsFor\fP (const QString, const QVariant, const int)"
+.br
+.RI "\fI\fBSettingsBackend::getSettingsFor\fP\&. \fP"
+.ti -1c
+.RI "static QHash< QString, QVariant > \fBgetSettings\fP (const int index)"
+.br
+.RI "\fI\fBSettingsBackend::getSettings\fP\&. \fP"
+.ti -1c
+.RI "static void \fBaddSettings\fP (const QString key, const QVariant value)"
+.br
+.RI "\fI\fBSettingsBackend::addSettings\fP\&. \fP"
+.ti -1c
+.RI "static void \fBsaveSettingsFor\fP (const int id, const QString &key, const QVariant &value)"
+.br
+.RI "\fISettingsBackend::saveSettings\&. \fP"
+.ti -1c
+.RI "static void \fBsaveSettingsFor\fP (const int id, const QHash< QString, QVariant > &)"
+.br
+.ti -1c
+.RI "static void \fBremoveSettings\fP (const int)"
+.br
+.RI "\fI\fBSettingsBackend::removeSettings\fP\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSettingsBackend\fP class\&. 
+
+A settings backend\&. Reads from and writes to the platform independent persistent settings\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SettingsBackend::addSettings (const QStringkey, const QVariantvalue)\fC [static]\fP"
+
+.PP
+\fBSettingsBackend::addSettings\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIkey\fP 
+.br
+\fIvalue\fP Adds an entry to the global settings\&. 
+.RE
+.PP
+
+.SS "QHash< QString, QVariant > SettingsBackend::getSettings (const intid)\fC [static]\fP"
+
+.PP
+\fBSettingsBackend::getSettings\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIid\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+the settings as a QHash
+.RE
+.PP
+gets the settings for a child window and translates it to a QHash that is returned\&. 
+.PP
+Referenced by Backend::getSettings(), Backend::instanceRequestSettings(), and SettingsWindow::SettingsWindow()\&.
+.SS "QVariant SettingsBackend::getSettingsFor (QStringkey, const QVariant &defaultOption)\fC [static]\fP"
+
+.PP
+\fBSettingsBackend::getSettingsFor\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIkey\fP 
+.br
+\fIdefaultOption\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+the settings requested
+.RE
+.PP
+Takes a key and a default option\&. Gets the settings for the key or returns defaultOption\&. 
+.PP
+Referenced by Backend::Backend(), Backend::instanceRequestSetting(), Backend::instanceRunCode(), and Backend::loadIds()\&.
+.SS "QVariant SettingsBackend::getSettingsFor (const QStringkey, const QVariantdefaultOption, const intid)\fC [static]\fP"
+
+.PP
+\fBSettingsBackend::getSettingsFor\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIkey\fP 
+.br
+\fIdefaultOption\fP 
+.br
+\fIid\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+the settings requested
+.RE
+.PP
+Takes a key, a default option and the index of the requesting child window\&. Gets the settings for the key or returns defaultOption\&. 
+.SS "void SettingsBackend::removeSettings (const intid)\fC [static]\fP"
+
+.PP
+\fBSettingsBackend::removeSettings\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIid\fP Removes the settings of a child\&. 
+.RE
+.PP
+
+.PP
+Referenced by Backend::addInstance(), Backend::childSaidCloseAll(), and Backend::removeSettings()\&.
+.SS "void SettingsBackend::saveSettingsFor (const intid, const QString &key, const QVariant &value)\fC [static]\fP"
+
+.PP
+SettingsBackend::saveSettings\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIid\fP 
+.br
+\fIkey\fP 
+.br
+\fIvalue\fP Saves the settings of a instance\&. 
+.RE
+.PP
+
+.PP
+Referenced by Backend::instanceChangedSetting(), and Backend::instanceChangedSettings()\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for VetoLC from the source code\&.

@@ -1,0 +1,158 @@
+.TH "CodeEditor" 3 "Sun Nov 23 2014" "Version 0.4.0" "VetoLC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CodeEditor \- 
+.PP
+The \fBCodeEditor\fP class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <CodeEditor\&.hpp>\fP
+.PP
+Inherits QPlainTextEdit\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCodeEditor\fP (QWidget *parent=0, int file=0)"
+.br
+.RI "\fI\fBCodeEditor::CodeEditor\fP\&. \fP"
+.ti -1c
+.RI "void \fBlineHighlightingPaintEvent\fP (QPaintEvent *event)"
+.br
+.RI "\fI\fBCodeEditor::lineHighlightingPaintEvent\fP\&. \fP"
+.ti -1c
+.RI "int \fBlineHighlightingWidth\fP ()"
+.br
+.RI "\fI\fBCodeEditor::lineHighlightingWidth\fP\&. \fP"
+.ti -1c
+.RI "void \fBhighlightErroredLine\fP (int)"
+.br
+.RI "\fI\fBCodeEditor::highlightErroredLine\fP\&. \fP"
+.ti -1c
+.RI "void \fBsetHighlighting\fP (int highlighting)"
+.br
+.RI "\fI\fBCodeEditor::setHighlighting\fP\&. \fP"
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBresizeEvent\fP (QResizeEvent *event)"
+.br
+.RI "\fI\fBCodeEditor::resizeEvent\fP\&. \fP"
+.ti -1c
+.RI "void \fBkeyPressEvent\fP (QKeyEvent *e)"
+.br
+.RI "\fI\fBCodeEditor::keyPressEvent\fP\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBCodeEditor\fP class\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Veit Heller(s0539501) & Tobias Brosge(s0539713)
+.RE
+.PP
+A subclass of QPlainTextEdit that is optimized for code; with Syntax Highlighting, line numbers and highlighting of the current line\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "CodeEditor::CodeEditor (QWidget *parent = \fC0\fP, intfile = \fC0\fP)"
+
+.PP
+\fBCodeEditor::CodeEditor\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIparent\fP 
+.br
+\fIfile\fP The constructor of the code editor\&. Sets up the highlighting of syntax and current line and connects slots and signals\&. Needs a highlighting file\&. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void CodeEditor::highlightErroredLine (intlineno)"
+
+.PP
+\fBCodeEditor::highlightErroredLine\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlineno\fP highlights the line given as argument as errored\&. 
+.RE
+.PP
+
+.PP
+Referenced by EditorWindow::highlightErroredLine()\&.
+.SS "void CodeEditor::keyPressEvent (QKeyEvent *e)\fC [protected]\fP"
+
+.PP
+\fBCodeEditor::keyPressEvent\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIe\fP intercepts the keyPressEvent e so that a tab is rendered as 4 spaces\&. 
+.RE
+.PP
+
+.SS "void CodeEditor::lineHighlightingPaintEvent (QPaintEvent *event)"
+
+.PP
+\fBCodeEditor::lineHighlightingPaintEvent\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIevent\fP updates the line highlighting whenever scrolling happens; invoked from updateLineHighlighting()\&. 
+.RE
+.PP
+
+.SS "int CodeEditor::lineHighlightingWidth ()"
+
+.PP
+\fBCodeEditor::lineHighlightingWidth\fP\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+the width of the line to be highlighted
+.RE
+.PP
+Helper function that computes the width of the line that is to be highlighted\&. 
+.PP
+Referenced by resizeEvent()\&.
+.SS "void CodeEditor::resizeEvent (QResizeEvent *e)\fC [protected]\fP"
+
+.PP
+\fBCodeEditor::resizeEvent\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIe\fP catches the resize signal and customizes the update(SLOT) 
+.RE
+.PP
+
+.PP
+References lineHighlightingWidth()\&.
+.SS "void CodeEditor::setHighlighting (inthighlighting)"
+
+.PP
+\fBCodeEditor::setHighlighting\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhighlighting\fP Tells the syntax highlighter to change highlighting by using a code where 0 and 3 stand for Python, 1 stands for Qt and 2 stands for GLSL\&. 
+.RE
+.PP
+
+.PP
+References CodeHighlighter::setupHighlighting()\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for VetoLC from the source code\&.

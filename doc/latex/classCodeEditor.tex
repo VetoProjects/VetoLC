@@ -1,0 +1,187 @@
+\hypertarget{classCodeEditor}{\section{Code\+Editor Class Reference}
+\label{classCodeEditor}\index{Code\+Editor@{Code\+Editor}}
+}
+
+
+The \hyperlink{classCodeEditor}{Code\+Editor} class.  
+
+
+
+
+{\ttfamily \#include $<$Code\+Editor.\+hpp$>$}
+
+Inheritance diagram for Code\+Editor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCodeEditor}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCodeEditor_a77c9d3d8aad039e7d0b0166737baac51}{Code\+Editor} (Q\+Widget $\ast$parent=0, int file=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeEditor_a77c9d3d8aad039e7d0b0166737baac51}{Code\+Editor\+::\+Code\+Editor}. \end{DoxyCompactList}\item 
+void \hyperlink{classCodeEditor_aaf6208c8c957341c1834cbe38c61d989}{line\+Highlighting\+Paint\+Event} (Q\+Paint\+Event $\ast$event)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeEditor_aaf6208c8c957341c1834cbe38c61d989}{Code\+Editor\+::line\+Highlighting\+Paint\+Event}. \end{DoxyCompactList}\item 
+int \hyperlink{classCodeEditor_afdce3b62e44a12089cb94a726916e53d}{line\+Highlighting\+Width} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeEditor_afdce3b62e44a12089cb94a726916e53d}{Code\+Editor\+::line\+Highlighting\+Width}. \end{DoxyCompactList}\item 
+void \hyperlink{classCodeEditor_aa2b0ad14f9e7a6a1aecd6b5b4d6b1480}{highlight\+Errored\+Line} (int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeEditor_aa2b0ad14f9e7a6a1aecd6b5b4d6b1480}{Code\+Editor\+::highlight\+Errored\+Line}. \end{DoxyCompactList}\item 
+void \hyperlink{classCodeEditor_a3a8b18e7a1b4e00965d64c2816a770a8}{set\+Highlighting} (int highlighting)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeEditor_a3a8b18e7a1b4e00965d64c2816a770a8}{Code\+Editor\+::set\+Highlighting}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classCodeEditor_a3cf6c205d0cbcb3079811a406aab19be}{resize\+Event} (Q\+Resize\+Event $\ast$event)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeEditor_a3cf6c205d0cbcb3079811a406aab19be}{Code\+Editor\+::resize\+Event}. \end{DoxyCompactList}\item 
+void \hyperlink{classCodeEditor_aa7addc3f760c1503bf8a2e57bb4b8678}{key\+Press\+Event} (Q\+Key\+Event $\ast$e)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCodeEditor_aa7addc3f760c1503bf8a2e57bb4b8678}{Code\+Editor\+::key\+Press\+Event}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classCodeEditor}{Code\+Editor} class. 
+
+\begin{DoxyAuthor}{Author}
+Veit Heller(s0539501) \& Tobias Brosge(s0539713)
+\end{DoxyAuthor}
+A subclass of Q\+Plain\+Text\+Edit that is optimized for code; with Syntax Highlighting, line numbers and highlighting of the current line. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classCodeEditor_a77c9d3d8aad039e7d0b0166737baac51}{\index{Code\+Editor@{Code\+Editor}!Code\+Editor@{Code\+Editor}}
+\index{Code\+Editor@{Code\+Editor}!Code\+Editor@{Code\+Editor}}
+\subsubsection[{Code\+Editor}]{\setlength{\rightskip}{0pt plus 5cm}Code\+Editor\+::\+Code\+Editor (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}, }
+\item[{int}]{file = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classCodeEditor_a77c9d3d8aad039e7d0b0166737baac51}
+
+
+\hyperlink{classCodeEditor_a77c9d3d8aad039e7d0b0166737baac51}{Code\+Editor\+::\+Code\+Editor}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & \\
+\hline
+{\em file} & The constructor of the code editor. Sets up the highlighting of syntax and current line and connects slots and signals. Needs a highlighting file. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classCodeEditor_aa2b0ad14f9e7a6a1aecd6b5b4d6b1480}{\index{Code\+Editor@{Code\+Editor}!highlight\+Errored\+Line@{highlight\+Errored\+Line}}
+\index{highlight\+Errored\+Line@{highlight\+Errored\+Line}!Code\+Editor@{Code\+Editor}}
+\subsubsection[{highlight\+Errored\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Code\+Editor\+::highlight\+Errored\+Line (
+\begin{DoxyParamCaption}
+\item[{int}]{lineno}
+\end{DoxyParamCaption}
+)}}\label{classCodeEditor_aa2b0ad14f9e7a6a1aecd6b5b4d6b1480}
+
+
+\hyperlink{classCodeEditor_aa2b0ad14f9e7a6a1aecd6b5b4d6b1480}{Code\+Editor\+::highlight\+Errored\+Line}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lineno} & highlights the line given as argument as errored. \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by Editor\+Window\+::highlight\+Errored\+Line().
+
+\hypertarget{classCodeEditor_aa7addc3f760c1503bf8a2e57bb4b8678}{\index{Code\+Editor@{Code\+Editor}!key\+Press\+Event@{key\+Press\+Event}}
+\index{key\+Press\+Event@{key\+Press\+Event}!Code\+Editor@{Code\+Editor}}
+\subsubsection[{key\+Press\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void Code\+Editor\+::key\+Press\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Key\+Event $\ast$}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classCodeEditor_aa7addc3f760c1503bf8a2e57bb4b8678}
+
+
+\hyperlink{classCodeEditor_aa7addc3f760c1503bf8a2e57bb4b8678}{Code\+Editor\+::key\+Press\+Event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & intercepts the key\+Press\+Event e so that a tab is rendered as 4 spaces. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCodeEditor_aaf6208c8c957341c1834cbe38c61d989}{\index{Code\+Editor@{Code\+Editor}!line\+Highlighting\+Paint\+Event@{line\+Highlighting\+Paint\+Event}}
+\index{line\+Highlighting\+Paint\+Event@{line\+Highlighting\+Paint\+Event}!Code\+Editor@{Code\+Editor}}
+\subsubsection[{line\+Highlighting\+Paint\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void Code\+Editor\+::line\+Highlighting\+Paint\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Paint\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)}}\label{classCodeEditor_aaf6208c8c957341c1834cbe38c61d989}
+
+
+\hyperlink{classCodeEditor_aaf6208c8c957341c1834cbe38c61d989}{Code\+Editor\+::line\+Highlighting\+Paint\+Event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & updates the line highlighting whenever scrolling happens; invoked from update\+Line\+Highlighting(). \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCodeEditor_afdce3b62e44a12089cb94a726916e53d}{\index{Code\+Editor@{Code\+Editor}!line\+Highlighting\+Width@{line\+Highlighting\+Width}}
+\index{line\+Highlighting\+Width@{line\+Highlighting\+Width}!Code\+Editor@{Code\+Editor}}
+\subsubsection[{line\+Highlighting\+Width}]{\setlength{\rightskip}{0pt plus 5cm}int Code\+Editor\+::line\+Highlighting\+Width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCodeEditor_afdce3b62e44a12089cb94a726916e53d}
+
+
+\hyperlink{classCodeEditor_afdce3b62e44a12089cb94a726916e53d}{Code\+Editor\+::line\+Highlighting\+Width}. 
+
+\begin{DoxyReturn}{Returns}
+the width of the line to be highlighted
+\end{DoxyReturn}
+Helper function that computes the width of the line that is to be highlighted. 
+
+Referenced by resize\+Event().
+
+\hypertarget{classCodeEditor_a3cf6c205d0cbcb3079811a406aab19be}{\index{Code\+Editor@{Code\+Editor}!resize\+Event@{resize\+Event}}
+\index{resize\+Event@{resize\+Event}!Code\+Editor@{Code\+Editor}}
+\subsubsection[{resize\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void Code\+Editor\+::resize\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Resize\+Event $\ast$}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classCodeEditor_a3cf6c205d0cbcb3079811a406aab19be}
+
+
+\hyperlink{classCodeEditor_a3cf6c205d0cbcb3079811a406aab19be}{Code\+Editor\+::resize\+Event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & catches the resize signal and customizes the update(\+S\+L\+O\+T) \\
+\hline
+\end{DoxyParams}
+
+
+References line\+Highlighting\+Width().
+
+\hypertarget{classCodeEditor_a3a8b18e7a1b4e00965d64c2816a770a8}{\index{Code\+Editor@{Code\+Editor}!set\+Highlighting@{set\+Highlighting}}
+\index{set\+Highlighting@{set\+Highlighting}!Code\+Editor@{Code\+Editor}}
+\subsubsection[{set\+Highlighting}]{\setlength{\rightskip}{0pt plus 5cm}void Code\+Editor\+::set\+Highlighting (
+\begin{DoxyParamCaption}
+\item[{int}]{highlighting}
+\end{DoxyParamCaption}
+)}}\label{classCodeEditor_a3a8b18e7a1b4e00965d64c2816a770a8}
+
+
+\hyperlink{classCodeEditor_a3a8b18e7a1b4e00965d64c2816a770a8}{Code\+Editor\+::set\+Highlighting}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em highlighting} & Tells the syntax highlighter to change highlighting by using a code where 0 and 3 stand for Python, 1 stands for Qt and 2 stands for G\+L\+S\+L. \\
+\hline
+\end{DoxyParams}
+
+
+References Code\+Highlighter\+::setup\+Highlighting().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Code\+Editor.\+hpp\item 
+src/Code\+Editor.\+cpp\end{DoxyCompactItemize}

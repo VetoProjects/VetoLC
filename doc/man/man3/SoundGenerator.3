@@ -1,0 +1,93 @@
+.TH "SoundGenerator" 3 "Sun Nov 23 2014" "Version 0.4.0" "VetoLC" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoundGenerator \- 
+.PP
+The \fBSoundGenerator\fP class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <SoundGenerator\&.hpp>\fP
+.PP
+Inherits QObject\&.
+.SS "Signals"
+
+.in +1c
+.ti -1c
+.RI "void \fBdoneSignal\fP (QString)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoundGenerator\fP (const QString &, const QString &)"
+.br
+.RI "\fI\fBSoundGenerator::SoundGenerator\fP\&. \fP"
+.ti -1c
+.RI "void \fBrun\fP ()"
+.br
+.RI "\fI\fBSoundGenerator::run\fP\&. \fP"
+.ti -1c
+.RI "bool \fBupdateCode\fP (const QString &, const QString &)"
+.br
+.RI "\fI\fBSoundGenerator::updateCode\fP\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoundGenerator\fP class\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Veit Heller(s0539501) & Tobias Brosge(s0539713)
+.RE
+.PP
+A subclass of QThread that implements an environment for sound live coding while keeping the main codeeditor thread clean by dispatching\&. QML-based\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoundGenerator::SoundGenerator (const QString &progName, const QString &qtInstructions)"
+
+.PP
+\fBSoundGenerator::SoundGenerator\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIprogName\fP 
+.br
+\fIqtInstructions\fP Constructor of the \fBSoundGenerator\fP class\&. Sets up the QML interpreter, the class variables, the instructions and the break SIGNAL\&. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoundGenerator::run ()"
+
+.PP
+\fBSoundGenerator::run\fP\&. the main loop of the thread, running until the user interrupts or the stopflag is set\&. 
+.SS "bool SoundGenerator::updateCode (const QString &filename, const QString &qtInstructions)"
+
+.PP
+\fBSoundGenerator::updateCode\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP 
+.br
+\fIqtInstructions\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true when name and instructions are valid, false otherwise 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for VetoLC from the source code\&.
