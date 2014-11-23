@@ -26,9 +26,9 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
 
     PyObject* module = PyImport_AddModule("__main__");
     sys = PyImport_ImportModule("sys");
-//    PyObject *path = PyObject_GetAttrString(sys, "path");
-//    PyList_Append(path, PyString_FromString("../../../"));
-//    PyList_Append(path, PyString_FromString("."));
+    PyObject *path = PyObject_GetAttrString(sys, "path");
+    PyList_Append(path, PyString_FromString("../../../"));
+    PyList_Append(path, PyString_FromString("."));
     dict = PyModule_GetDict(module);
     if(!dict){
         exceptionOccurred();

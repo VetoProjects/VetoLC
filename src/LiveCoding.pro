@@ -1,14 +1,9 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2014-04-24T10:20:34
-#
-#-------------------------------------------------
-
-QT       += core gui multimedia widgets
 isEqual(QT_MAJOR_VERSION, 4) || isEqual(QT_MINOR_VERSION, 1) {
-    message("Cannot build VetoLC with Qt version $${QT_VERSION}.")
+    message("Cannot build VetoLC with Qt version $$QT_VERSION.")
     error("Use at least Qt 5.2.")
 }
+
+QT       += core gui multimedia widgets
 
 TARGET = VeToLC
 TEMPLATE = app

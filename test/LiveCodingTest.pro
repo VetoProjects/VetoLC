@@ -1,15 +1,9 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2014-04-29T13:06:15
-#
-#-------------------------------------------------
-
-QT       += core gui multimedia testlib widgets
-
 isEqual(QT_MAJOR_VERSION, 4) || isEqual(QT_MINOR_VERSION, 1) {
-    message("Cannot build VetoLC with Qt version $${QT_VERSION}.")
+    message("Cannot build VetoLC with Qt version $$QT_VERSION.")
     error("Use at least Qt 5.2.")
 }
+
+QT       += core gui multimedia testlib widgets
 
 TARGET = VetoLCTest
 TEMPLATE = app
