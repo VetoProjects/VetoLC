@@ -2,6 +2,7 @@ QMAKE=qmake # Set this for a non-default QMake version
 PREFIX=/usr/bin/ # Set this for different install dir
 BUILDDIR=bin/ # Set this for different build dir
 TESTDIR=testbin/ # Set this for different testing dir
+DOXY=doxygen # Set this for non-default doxygen version
 
 TARGET=VetoLC
 TESTTARGET=VetoLCTest
@@ -38,6 +39,10 @@ python:
 	cd $(TESTDIR) && make CPPFLAGS+=WITH_PYTHON && rm *.o *[ch]pp
 	cd src && ${QMAKE} CONFIG+=with_python ${QMAKE}_CXXFLAGS+=-DWITH_PYTHON LiveCoding.pro -o ../$(BUILDDIR)Makefile
 	cd $(BUILDDIR) && make CPPFLAGS+=WITH_PYTHON && rm *.o *[ch]pp
+
+# Makes the documentation
+doc:
+	$(DOXY) configfile
 
 # Removes everything previously built
 clean:

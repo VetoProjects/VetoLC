@@ -118,6 +118,10 @@ qmake foo QMAKE=/path/to/qmake
 
 You can have a look at the .travis.yml to get a slight idea of how your build process could look like.
 
+If you want to build the documentation(made with Doxygen), type `make doc`. If you do not have
+Doxygen installed there is a ready-made version in the [LC-Doc](https://github.com/VetoProjects/LC-Doc)
+repository. It might not always be bleeding edge, though.
+
 Usage
 -----
 
