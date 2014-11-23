@@ -237,9 +237,10 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
         return;
     }
     execute("import AudioPython");
+    execute("from AudioPython import *");
     execute(pyInstructions);
     execute("samples = AudioPython.compute_samples(channels, None)");
-
+    execute("gen = AudioPython.yield_raw(samples, None)");
 
 
     device = new AudioOutputProcessor();
@@ -285,7 +286,7 @@ void PySoundGenerator::run(){
  */
 void PySoundGenerator::write(){
     while(ready){
-        PyObject* check = execute("AudioPython.yield_raw(samples, None)");
+        PyObject* check = execute("next(gen)");
         if(!check){
             exceptionOccurred();
             Q_EMIT doneSignal(ownExcept, exceptNum);
@@ -316,6 +317,7 @@ PyObject* PySoundGenerator::execute(QString instruct){
  */
 void PySoundGenerator::stream(PyObject* data){
     ready = device->write(PyBytes_AsString(data), PyBytes_Size(data));
+    qDebug() << ready;
 }
 
 /**
@@ -330,6 +332,8 @@ void PySoundGenerator::stream(PyObject* data){
 bool PySoundGenerator::updateCode(QString filename, QString instructions){
     Py_SetProgramName(filename.toLocal8Bit().data());
     execute(instructions.toLocal8Bit().data());
+    execute("samples = AudioPython.compute_samples(channels, None)");
+    execute("gen = AudioPython.yield_raw(samples, None)");
     return true;
 }
 
