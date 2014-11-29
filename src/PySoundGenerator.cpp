@@ -16,28 +16,13 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
         return;
     }
 
-    Py_SetProgramName(QString(progName).toWCharArray());
-    Py_Initialize();
     ownExcept = QString();
     exceptNum = -1;
     abortAction = new QAction(this);
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
 
-    PyObject* module = PyImport_AddModule("__main__");
-    sys = PyImport_ImportModule("sys");
-    PyObject *path = PyObject_GetAttrString(sys, "path");
-    PyList_Append(path, PyString_FromString("../../../"));
-    PyList_Append(path, PyString_FromString("."));
-    dict = PyModule_GetDict(module);
-    if(!dict){
-        exceptionOccurred();
-        Q_EMIT doneSignal(ownExcept, -1);
-        return;
-    }
-    execute("import AudioPython");
-    execute(pyInstructions);
-    execute("samples = AudioPython.compute_samples(channels, None)");
+    setupPython(progName, pyInstructions);
 
     device = new AudioOutputProcessor();
     connect(device, SIGNAL(startWriting()), this, SLOT(setReady()));
@@ -52,14 +37,46 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
  * Kills the python interpreter.
  */
 PySoundGenerator::~PySoundGenerator(){
-    Py_DECREF(sys);
-    delete abortAction;
-    Py_Finalize();
     device->exit();
+    delete abortAction;
+    if(Py_IsInitialized())
+        Py_Finalize();
     // Wait for the end of QThread before deletion, otherwise it raises an error
     while(device->isRunning())
         ;
     delete device;
+}
+
+/**
+ * @brief PySoundGenerator::setupPython
+ * @param instructions
+ *
+ * sets up the Python interpreter.
+ */
+void PySoundGenerator::setupPython(QString instructions){
+    Py_Initialize();
+    Py_SetProgramName(progName);
+    main = PyImport_AddModule("__main__");
+
+    PyModule_AddStringConstant(main, "__file__", "");
+
+    dict = PyModule_GetDict(main);
+
+    if(!dict){
+        exceptionOccurred();
+        Q_EMIT doneSignal(ownExcept, -1);
+        return;
+    }
+
+
+
+    for(QString instructionSet : toExecute){
+        check = execute(instructionSet);
+        if(!check){
+            exceptionOccurred();
+            break;
+        }
+    }
 }
 
 /**
@@ -69,6 +86,10 @@ PySoundGenerator::~PySoundGenerator(){
  * and Q_EMITs a signal when it's done.
  */
 void PySoundGenerator::run(){
+    if(ownExcept != ""){
+        Q_EMIT doneSignal(ownExcept, exceptNum);
+        return;
+    }
     write();
     while(!ready)
         QCoreApplication::processEvents();
@@ -90,7 +111,27 @@ void PySoundGenerator::write(){
         }
         if(PyBytes_Check(check))
             stream(check);
+        Py_XDECREF(check);
     }
+}
+
+/**
+ * @brief PySoundGenerator::execute_return
+ * @return PyObject* / NULL if there was an exception
+ *         in the python interpreter.
+ *
+ * executes the python code in the interpreter and returns the result.
+ */
+PyObject* PySoundGenerator::execute_return(QString mod, QString function, QString args){
+    PyObject* pyModule = PyObject_GetAttrString(main, mod.toLocal8Bit().data());
+    if(!pyModule) return 0;
+    PyObject* pyFunction = PyObject_GetAttrString(pyModule, function.toLocal8Bit().data());
+    if(!pyFunction) return 0;
+    if(args.isEmpty()){
+        return PyObject_CallObject(pyFunction, NULL);
+    }
+    PyObject* arguments = PyTuple_Pack(1, args.toLocal8Bit().data());
+    return PyObject_CallObject(pyFunction, arguments);
 }
 
 /**
@@ -125,8 +166,7 @@ void PySoundGenerator::stream(PyObject* data){
  * Updates the code of the currently running Python interpreter.
  */
 bool PySoundGenerator::updateCode(QString filename, QString instructions){
-    Py_SetProgramName(filename.toWCharArray());
-    execute(instructions.toLocal8Bit().data());
+    setupPython(filename, instructions);
     return true;
 }
 
@@ -172,9 +212,9 @@ void PySoundGenerator::exceptionOccurred(){
         } else{
             exceptNum = -1;
         }
-        Py_DECREF(list);
-        Py_DECREF(string);
-        Py_DECREF(ret);
+        Py_XDECREF(list);
+        Py_XDECREF(string);
+        Py_XDECREF(ret);
     }
     PyErr_Clear();
     ownExcept = exceptionText;
@@ -223,25 +263,7 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
     abortAction->setShortcut(QKeySequence("Ctrl-C"));
     connect(abortAction, SIGNAL(triggered()), this, SLOT(terminated()));
 
-    Py_Initialize();
-    Py_SetProgramName(progName);
-    main = PyImport_AddModule("__main__");
-
-    PyModule_AddStringConstant(main, "__file__", "");
-
-    dict = PyModule_GetDict(main);
-
-    if(!dict){
-        exceptionOccurred();
-        Q_EMIT doneSignal(ownExcept, -1);
-        return;
-    }
-    PyObject* placeholder;
-    execute("import AudioPython");
-    execute("from AudioPython import *");
-    execute(pyInstructions);
-    execute("samples = AudioPython.compute_samples(channels, None)");
-    execute("gen = AudioPython.yield_raw(samples, None)");
+    setupPython(progName, pyInstructions);
 
     device = new AudioOutputProcessor();
     connect(device, SIGNAL(startWriting()), this, SLOT(setReady()));
@@ -257,8 +279,6 @@ PySoundGenerator::PySoundGenerator(char* progName, char* pyInstructions){
  */
 PySoundGenerator::~PySoundGenerator(){
     device->exit();
-    Py_XDECREF(audio);
-    Py_XDECREF(dict);
     delete abortAction;
     if(Py_IsInitialized())
         Py_Finalize();
@@ -269,12 +289,55 @@ PySoundGenerator::~PySoundGenerator(){
 }
 
 /**
+ * @brief PySoundGenerator::setupPython
+ * @param instructions
+ *
+ * sets up the Python interpreter.
+ */
+void PySoundGenerator::setupPython(QString progName, QString instructions){
+    Py_Initialize();
+    Py_SetProgramName(progName.toLocal8Bit().data());
+    main = PyImport_AddModule("__main__");
+
+    PyModule_AddStringConstant(main, "__file__", "");
+
+    dict = PyModule_GetDict(main);
+
+    if(!dict){
+        exceptionOccurred();
+        Q_EMIT doneSignal(ownExcept, -1);
+        return;
+    }
+
+    QList<QString> toExecute;
+    toExecute.append("import AudioPython");
+    toExecute.append("from AudioPython import *");
+    toExecute.append(instructions);
+    toExecute.append("samples = AudioPython.compute_samples(channels, None)");
+    toExecute.append("gen = AudioPython.yield_raw(samples, None)");
+
+    PyObject* check;
+
+    for(QString instructionSet : toExecute){
+        check = execute(instructionSet);
+        if(!check){
+            exceptionOccurred();
+            break;
+        }
+    }
+}
+
+/**
  * @brief PySoundGenerator::run
  *
  * The main loop. Calls the user code executing method
  * and Q_EMITs a signal when it's done.
  */
-void PySoundGenerator::run(){
+void PySoundGenerator::run(){ 
+    if(!ownExcept.isEmpty()){
+        Q_EMIT doneSignal(ownExcept, exceptNum);
+        return;
+    }
     write();
     while(!ready)
         QCoreApplication::processEvents();
@@ -353,10 +416,7 @@ void PySoundGenerator::stream(PyObject* data){
  * Updates the code of the currently running Python interpreter.
  */
 bool PySoundGenerator::updateCode(QString filename, QString instructions){
-    Py_SetProgramName(filename.toLocal8Bit().data());
-    execute(instructions.toLocal8Bit().data());
-    execute("samples = AudioPython.compute_samples(channels, None)");
-    execute("gen = AudioPython.yield_raw(samples, None)");
+    setupPython(filename, instructions);
     return true;
 }
 
@@ -390,7 +450,6 @@ void PySoundGenerator::exceptionOccurred(){
         if(list == 0){
             ownExcept = exceptionText;
             exceptNum = -1;
-            qDebug() << exceptionText;
             return;
         }
         string = PyString_FromString("\n");
@@ -409,7 +468,6 @@ void PySoundGenerator::exceptionOccurred(){
     }
     PyErr_Clear();
     ownExcept = exceptionText;
-    qDebug() << exceptionText;
 }
 
 /**

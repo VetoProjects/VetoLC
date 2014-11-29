@@ -116,7 +116,9 @@ private slots:
         api->start();
         QTest::qWait(1000);
         api->terminate();
-        QTest::qWait(100);
+        while(api->isRunning())
+            ;
+        QTest::qWait(5);
     }
 
 private:

@@ -66,6 +66,8 @@ private slots:
         QCOMPARE(lineno, 0);
     }*/
     void cleanup(){
+        while(thread->isRunning())
+            ;
         delete thread;
     }
 
