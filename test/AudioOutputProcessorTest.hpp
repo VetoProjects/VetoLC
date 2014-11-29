@@ -60,6 +60,12 @@ public:
     AudioProcessorInstance(QObject *parent = 0) : QThread(parent){
     }
 
+    ~AudioProcessorInstance(){
+        aop->terminate();
+        while(aop->isRunning())
+            ;
+    }
+
     virtual void run() Q_DECL_OVERRIDE {
         cycle = 0;
         aop = std::unique_ptr<AudioOutputProcessor>(new AudioOutputProcessor());
@@ -118,8 +124,8 @@ private slots:
         api->terminate();
         while(api->isRunning())
             ;
-        QTest::qWait(5);
-    }
+        QTest::qWait(10);
+     }
 
 private:
     std::unique_ptr<AudioProcessorInstance> api;
