@@ -27,7 +27,8 @@ public:
     ~PySoundGenerator();
 
 private:
-    PyObject* execute(QString instruct);
+    PyObject* execute_return(QString, QString, QString);
+    PyObject* execute(QString);
     void exceptionOccurred();
     void write();
     void stream(PyObject *process);
@@ -35,7 +36,7 @@ private:
     QString ownExcept;
     bool ready;
     QAction* abortAction;
-    PyObject* sys;
+    PyObject* main;
     PyObject* audio;
     PyObject* dict;
     AudioOutputProcessor* device;
