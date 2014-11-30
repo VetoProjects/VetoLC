@@ -1,6 +1,5 @@
-#include <exception>
 #include <QException>
-#include <QApplication>
+
 #include "AudioInputProcessorTest.hpp"
 #include "AudioOutputProcessorTest.hpp"
 #include "CodeEditorTest.hpp"

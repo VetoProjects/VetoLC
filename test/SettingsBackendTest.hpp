@@ -1,8 +1,8 @@
 #ifndef SETTINGSBACKENDTEST
 #define SETTINGSBACKENDTEST
 
-#include <QObject>
 #include <QTest>
+
 #include "../src/SettingsBackend.hpp"
 
 /**

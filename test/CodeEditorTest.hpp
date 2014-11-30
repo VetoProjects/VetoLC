@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include <QObject>
 #include <QTest>
+
 #include "../src/CodeEditor.hpp"
 
 /**

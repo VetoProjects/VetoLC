@@ -3,7 +3,6 @@
 
 #include <memory>
 
-#include <QObject>
 #include <QTest>
 #include "../src/AudioInputProcessor.hpp"
 

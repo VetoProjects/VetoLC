@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include <QObject>
 #include <QTest>
+
 #include "../src/Backend.hpp"
 #include "../src/Instances/WindowInstance.hpp"
 

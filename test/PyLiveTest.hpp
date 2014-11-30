@@ -1,8 +1,8 @@
 #ifndef PYLIVETEST_HPP
 #define PYLIVETEST_HPP
 
-#include <QObject>
 #include <QTest>
+
 #include "../src/LiveThread.hpp"
 
 /**

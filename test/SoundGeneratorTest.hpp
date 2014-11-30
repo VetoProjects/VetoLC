@@ -1,8 +1,8 @@
 #ifndef SOUNDGENERATORTEST
 #define SOUNDGENERATORTEST
 
-#include <QObject>
 #include <QTest>
+
 #include "../src/LiveThread.hpp"
 
 /**

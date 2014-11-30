@@ -1,9 +1,8 @@
 #ifndef PYSOUNDGENERATORTEST
 #define PYSOUNDGENERATORTEST
 
-#include <QObject>
 #include <QTest>
-#include <QDebug>
+
 #include "../src/LiveThread.hpp"
 
 /**

@@ -2,12 +2,10 @@
 #define AUDIOOUTPUTPROCESSORTEST
 
 #include <memory>
+#include <cmath>
 
 #include <QTest>
-#include <QThread>
-#include <QMutex>
-#include <QCoreApplication>
-#include <cmath>
+
 #include "../src/AudioOutputProcessor.hpp"
 
 #define PI (3.1415926535897932384626433832795)
@@ -124,7 +122,7 @@ private slots:
         api->terminate();
         while(api->isRunning())
             ;
-        QTest::qWait(10);
+        QTest::qWait(15);
      }
 
 private:
