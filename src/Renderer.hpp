@@ -11,6 +11,7 @@
 #include <QOpenGLShader>
 #include <QCoreApplication>
 #include <QDir>
+#include <QMutex>
 
 #include "AudioInputProcessor.hpp"
 
