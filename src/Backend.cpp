@@ -244,7 +244,7 @@ void Backend::settingsWindowRequested(IInstance *instance){
  * Opens a help window in HTML.
  */
 void Backend::openHelp(IInstance *){
-    QUrl url(directoryOf("html").absoluteFilePath("help.html"));
+    QUrl url(directoryOf("rc").absoluteFilePath("help.html"));
     url.setScheme("file");
     QDesktopServices::openUrl(url);
 }
