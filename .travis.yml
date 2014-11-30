@@ -12,13 +12,7 @@ before_install:
 
 
 script:
-    - make test
-    - cd test
-    - ./LiveCodingTest runall
-    - make python
-    - cd test
-    - ./LiveCodingTest runall
-    - make python2
-    - cd test
-    - ./LiveCodingTest runall
+    - make test && cd test && ./LiveCodingTest runall
+    - make python && cd test && ./LiveCodingTest runall
+    - make python2 && cd test && ./LiveCodingTest runall
     - make clean
