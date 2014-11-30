@@ -106,9 +106,7 @@ int main(int argc, char** argv){
     qDebug() << "Ran tests for" << size << "classes.";
     qDebug() << "Total failed tests:" << statusSum;
 
-    /*for(struct Tests &t: testcases)
-        delete t.name;
-    delete[] codes;*/
+    delete[] codes;
 
     return statusSum;
 }
