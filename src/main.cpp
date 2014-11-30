@@ -1,9 +1,4 @@
-#include <QApplication>
-#include <QLocalSocket>
-#include <QLocalServer>
 #include <QTranslator>
-#include <QFontDatabase>
-#include <QDebug>
 
 #include "EditorWindow.hpp"
 #include "Renderer.hpp"

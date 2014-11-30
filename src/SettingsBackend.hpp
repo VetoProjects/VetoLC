@@ -1,12 +1,7 @@
 #ifndef SETTINGSBACKEND_HPP
 #define SETTINGSBACKEND_HPP
 
-#include <QHash>
-#include <QVariant>
 #include <QSettings>
-#include <QString>
-#include <QStringList>
-#include <QWidget>
 
 /**
  * @brief The SettingsBackend class
@@ -14,8 +9,7 @@
  * A settings backend. Reads from and writes to the
  * platform independent persistent settings.
  */
-class SettingsBackend
-{
+class SettingsBackend{
 public:
     static QVariant getSettingsFor(QString, const QVariant &);
     static QVariant getSettingsFor(const QString, const QVariant, const int);

@@ -2,7 +2,7 @@
 #define IINSTANCE_HPP
 
 #include <QObject>
-#include <QSettings>
+#include <QVariant>
 
 namespace Instances{
 /**

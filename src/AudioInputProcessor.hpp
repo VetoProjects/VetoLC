@@ -6,9 +6,6 @@
 #include <QIODevice>
 #include <QDebug>
 #include <QAudioInput>
-#include <QMutex>
-#include <QByteArray>
-#include <QAudioBuffer>
 
 class AudioInputProcessor : public QIODevice
 {

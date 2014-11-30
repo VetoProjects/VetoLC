@@ -1,5 +1,4 @@
 #include "CodeHighlighter.hpp"
-#include <QDebug>
 
 /**
  * @brief CodeHighlighter::CodeHighlighter

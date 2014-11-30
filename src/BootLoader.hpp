@@ -1,9 +1,7 @@
 #ifndef BOOTLOADER_HPP
 #define BOOTLOADER_HPP
 
-#include <QObject>
 #include <QLocalServer>
-#include <QThread>
 #include <QLocalSocket>
 
 #include "Instances/WindowInstance.hpp"

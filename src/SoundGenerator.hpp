@@ -1,22 +1,17 @@
 #ifndef SOUNDGENERATOR
 #define SOUNDGENERATOR
 
-#include <exception>
 #include <QtMultimedia/QAudioOutput>
 #include <QtMultimedia/QAudioFormat>
 //#include <QtQml/QQmlEngine>
-#include <QList>
 #include <QFile>
-#include <QPair>
-#include <QException>
-#include <QThread>
 #include <QAction>
 
 /**
  * @brief The SoundGenerator class
  * @author Veit Heller(s0539501) & Tobias Brosge(s0539713)
  *
- * A subclass of QThread that implements an environment for sound
+ * A subclass of QObject that implements an environment for sound
  * live coding while keeping the main codeeditor thread clean by
  * dispatching. QML-based.
  */

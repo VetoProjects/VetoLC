@@ -1,12 +1,9 @@
 #ifndef AUDIOOUTPUTPROCESSOR_HPP
 #define AUDIOOUTPUTPROCESSOR_HPP
 
-#include <QThread>
 #include <QAudioOutput>
-#include <QIODevice>
 #include <QThread>
 #include <QDebug>
-#include <QCoreApplication>
 
 
 class AudioOutputProcessor : public QThread

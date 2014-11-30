@@ -1,9 +1,6 @@
 #ifndef SETTINGSWINDOW
 #define SETTINGSWINDOW
 
-#include <QDialog>
-#include <QStackedWidget>
-#include <QTabWidget>
 #include <QApplication>
 
 #include "SettingsTab.hpp"

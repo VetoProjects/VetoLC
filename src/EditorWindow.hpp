@@ -1,15 +1,15 @@
 #ifndef EDITORWINDOW
 #define EDITORWINDOW
 
-#include <QTextStream>
 #include <QApplication>
 #include <QMainWindow>
 #include <QAction>
-#include <QMenuBar>
+#include <QMenu>
 #include <QToolBar>
-#include <QStatusBar>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QMenuBar>
+#include <QStatusBar>
 
 #include "CodeEditor.hpp"
 

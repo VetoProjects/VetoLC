@@ -1,7 +1,6 @@
 #ifndef SETTINGTABS
 #define SETTINGTABS
 
-#include <QWidget>
 #include <QGroupBox>
 #include <QLabel>
 #include <QHBoxLayout>
@@ -9,12 +8,8 @@
 #include <QCheckBox>
 #include <QListWidget>
 #include <QPushButton>
-#include <QLineEdit>
-#include <QDateTimeEdit>
-#include <QSpinBox>
 #include <QButtonGroup>
 #include <QMessageBox>
-#include <QSettings>
 #include <QStyleFactory>
 
 /**

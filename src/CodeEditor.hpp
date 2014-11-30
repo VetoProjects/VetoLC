@@ -2,10 +2,6 @@
 #define CODEEDITOR
 
 #include <QPlainTextEdit>
-#include <QPaintEvent>
-#include <QResizeEvent>
-#include <QSize>
-#include <QWidget>
 #include <QPainter>
 
 #include "CodeHighlighter.hpp"
