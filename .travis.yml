@@ -12,8 +12,7 @@ before_install:
 
 
 script:
-    - cat Makefile
-    - make test && cd test && ./LiveCodingTest runall
-    - make python && cd test && ./LiveCodingTest runall
-    - make python2 && cd test && ./LiveCodingTest runall
+    - make testing && cd testbin && ./LiveCodingTest runall
+    - make python && cd testbin && ./LiveCodingTest runall
+    - make python2 && cd testbin && ./LiveCodingTest runall
     - make clean
