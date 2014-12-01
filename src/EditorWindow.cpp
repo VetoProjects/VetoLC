@@ -22,6 +22,7 @@ EditorWindow::EditorWindow(const QHash<QString, QVariant> &settings, QWidget *pa
     connect(codeEditor->document(), SIGNAL(contentsChanged()), this, SLOT(docModified()));
 
     templateNum = settings.value("UseCompiler").toInt();
+    pythonRegular = settings.value("RegularPythonDefault").toBool();
     applySettings(settings);
 
     // Mac quirks
@@ -109,7 +110,11 @@ void EditorWindow::openFile(){
     if(saveDialog()){
         QString fileName = QFileDialog::getOpenFileName(this);
         if (!fileName.isEmpty()){
-            if(fileName.endsWith("py")){
+            if(fileName.endsWith("py") && pythonRegular){
+                templateNum = 0;
+                codeEditor->setHighlighting(0);
+                Q_EMIT changedSetting(this, "UseCompiler", 3);
+            }else if(fileName.endsWith("py")){
                 templateNum = 0;
                 codeEditor->setHighlighting(0);
                 Q_EMIT changedSetting(this, "UseCompiler", 0);

@@ -84,12 +84,14 @@ private Q_SLOTS:
     void sizeSlot(bool);
     void rememberCompilerSlot(bool);
     void useCompilerSlot(int);
+    void pythonSlot(bool);
 private:
     void addLayout();
 
     QGroupBox* startup;
     QCheckBox* openCheck;
     QCheckBox* sizeCheck;
+    QCheckBox* defaultPython;
     QButtonGroup* startupCompiler;
     QCheckBox* rememberCompiler;
     QCheckBox* askForCompiler;

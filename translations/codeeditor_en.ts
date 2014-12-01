@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.0" language="en_US">
 <context>
     <name>AudioInputProcessor</name>
     <message>
@@ -112,151 +112,156 @@
         <source>Python (Regular)</source>
         <translation></translation>
     </message>
+    <message>
+        <location filename="../src/SettingsTab.cpp" line="221"/>
+        <source>Associate regular Python interpreter with *.py files</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>EditorWindow</name>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="205"/>
-        <location filename="../src/EditorWindow.cpp" line="405"/>
-        <location filename="../src/EditorWindow.cpp" line="429"/>
+        <location filename="../src/EditorWindow.cpp" line="210"/>
+        <location filename="../src/EditorWindow.cpp" line="410"/>
+        <location filename="../src/EditorWindow.cpp" line="434"/>
         <source>VeToLC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="301"/>
+        <location filename="../src/EditorWindow.cpp" line="306"/>
         <source>&amp;New File</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="303"/>
+        <location filename="../src/EditorWindow.cpp" line="308"/>
         <source>Create a new file</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="306"/>
+        <location filename="../src/EditorWindow.cpp" line="311"/>
         <source>&amp;Open...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="308"/>
+        <location filename="../src/EditorWindow.cpp" line="313"/>
         <source>Open an existing file</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="311"/>
+        <location filename="../src/EditorWindow.cpp" line="316"/>
         <source>&amp;Save</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="313"/>
+        <location filename="../src/EditorWindow.cpp" line="318"/>
         <source>Save the document to disk</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="316"/>
+        <location filename="../src/EditorWindow.cpp" line="321"/>
         <source>Save &amp;As...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="318"/>
+        <location filename="../src/EditorWindow.cpp" line="323"/>
         <source>Save the document under a new name</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="321"/>
+        <location filename="../src/EditorWindow.cpp" line="326"/>
         <source>E&amp;xit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="323"/>
+        <location filename="../src/EditorWindow.cpp" line="328"/>
         <source>Exit the application</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="326"/>
+        <location filename="../src/EditorWindow.cpp" line="331"/>
         <source>&amp;Run</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="328"/>
+        <location filename="../src/EditorWindow.cpp" line="333"/>
         <source>Runs the code in the editor</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="331"/>
+        <location filename="../src/EditorWindow.cpp" line="336"/>
         <source>Settings</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="333"/>
+        <location filename="../src/EditorWindow.cpp" line="338"/>
         <source>Opens A Settings Window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="336"/>
+        <location filename="../src/EditorWindow.cpp" line="341"/>
         <source>About</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="338"/>
+        <location filename="../src/EditorWindow.cpp" line="343"/>
         <source>Opens the Help</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="349"/>
+        <location filename="../src/EditorWindow.cpp" line="354"/>
         <source>&amp;File</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="357"/>
+        <location filename="../src/EditorWindow.cpp" line="362"/>
         <source>&amp;Edit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="362"/>
+        <location filename="../src/EditorWindow.cpp" line="367"/>
         <source>&amp;Help</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="373"/>
+        <location filename="../src/EditorWindow.cpp" line="378"/>
         <source>File</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="378"/>
+        <location filename="../src/EditorWindow.cpp" line="383"/>
         <source>Edit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="390"/>
+        <location filename="../src/EditorWindow.cpp" line="395"/>
         <source>Ready</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="406"/>
+        <location filename="../src/EditorWindow.cpp" line="411"/>
         <source>The document has been modified but is unsaved.
 Do you want to save your changes?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="430"/>
+        <location filename="../src/EditorWindow.cpp" line="435"/>
         <source>Cannot read file %1:
 %2.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="451"/>
+        <location filename="../src/EditorWindow.cpp" line="456"/>
         <source>File was loaded</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="467"/>
+        <location filename="../src/EditorWindow.cpp" line="472"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="488"/>
+        <location filename="../src/EditorWindow.cpp" line="493"/>
         <source>File saved</source>
         <translation></translation>
     </message>
@@ -359,13 +364,13 @@ Do you want to save your changes?</source>
     <name>PySoundGenerator</name>
     <message>
         <location filename="../src/PySoundGenerator.cpp" line="15"/>
-        <location filename="../src/PySoundGenerator.cpp" line="216"/>
+        <location filename="../src/PySoundGenerator.cpp" line="256"/>
         <source>File is empty. Nothing to execute.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PySoundGenerator.cpp" line="190"/>
-        <location filename="../src/PySoundGenerator.cpp" line="397"/>
+        <location filename="../src/PySoundGenerator.cpp" line="230"/>
+        <location filename="../src/PySoundGenerator.cpp" line="480"/>
         <source>User Terminated.</source>
         <translation></translation>
     </message>

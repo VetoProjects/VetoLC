@@ -76,7 +76,9 @@ private:
     void saveSettings();
     void setAsCurrentFile(const QString &);
     QString stripName(const QString &);
+
     int templateNum;
+    bool pythonRegular;
 
     CodeEditor *codeEditor;
     QString currentFile;

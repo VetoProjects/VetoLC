@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.0" language="de_DE">
 <context>
     <name>AudioInputProcessor</name>
     <message>
@@ -30,19 +30,19 @@
     </message>
     <message>
         <source>	channels: %d</source>
-        <translation type="vanished">Kanäle: %d</translation>
+        <translation>Kanäle: %d</translation>
     </message>
     <message>
         <source>	sample rate: %d</source>
-        <translation type="vanished">Abtastrate: %d</translation>
+        <translation>Abtastrate: %d</translation>
     </message>
     <message>
         <source>	sample size: %d</source>
-        <translation type="vanished">Abtastgrösse: %d</translation>
+        <translation>Abtastgrösse: %d</translation>
     </message>
     <message>
         <source>	sample type: %d</source>
-        <translation type="vanished">Abtasttyp: %d</translation>
+        <translation>Abtasttyp: %d</translation>
     </message>
 </context>
 <context>
@@ -128,152 +128,157 @@
         <source>Python (Regular)</source>
         <translation>Python (Regulär)</translation>
     </message>
+    <message>
+        <location filename="../src/SettingsTab.cpp" line="221"/>
+        <source>Associate regular Python interpreter with *.py files</source>
+        <translation>Assoziiere normalen Python-Interpreter mit *.py Dateien</translation>
+    </message>
 </context>
 <context>
     <name>EditorWindow</name>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="205"/>
-        <location filename="../src/EditorWindow.cpp" line="405"/>
-        <location filename="../src/EditorWindow.cpp" line="429"/>
+        <location filename="../src/EditorWindow.cpp" line="210"/>
+        <location filename="../src/EditorWindow.cpp" line="410"/>
+        <location filename="../src/EditorWindow.cpp" line="434"/>
         <source>VeToLC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="301"/>
+        <location filename="../src/EditorWindow.cpp" line="306"/>
         <source>&amp;New File</source>
         <translation>&amp;Neue Datei</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="303"/>
+        <location filename="../src/EditorWindow.cpp" line="308"/>
         <source>Create a new file</source>
         <translation>Erstelle neue Datei</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="306"/>
+        <location filename="../src/EditorWindow.cpp" line="311"/>
         <source>&amp;Open...</source>
         <translation>&amp;Oeffnen...</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="308"/>
+        <location filename="../src/EditorWindow.cpp" line="313"/>
         <source>Open an existing file</source>
         <translation>Öffnet eine existierende Datei</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="311"/>
+        <location filename="../src/EditorWindow.cpp" line="316"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichere</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="313"/>
+        <location filename="../src/EditorWindow.cpp" line="318"/>
         <source>Save the document to disk</source>
         <translation>Speichere die Datei auf der Festplatte</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="316"/>
+        <location filename="../src/EditorWindow.cpp" line="321"/>
         <source>Save &amp;As...</source>
         <translation>Speichere &amp;Unter...</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="318"/>
+        <location filename="../src/EditorWindow.cpp" line="323"/>
         <source>Save the document under a new name</source>
         <translation>Speichere die Datei unter einem neuen Namen</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="321"/>
+        <location filename="../src/EditorWindow.cpp" line="326"/>
         <source>E&amp;xit</source>
         <translation>Sch&amp;liessen</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="323"/>
+        <location filename="../src/EditorWindow.cpp" line="328"/>
         <source>Exit the application</source>
         <translation>Schliesse die Applikation</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="326"/>
+        <location filename="../src/EditorWindow.cpp" line="331"/>
         <source>&amp;Run</source>
         <translation>&amp;Erstelle</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="328"/>
+        <location filename="../src/EditorWindow.cpp" line="333"/>
         <source>Runs the code in the editor</source>
         <translation>Lässt den Code aus dem Editor laufen</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="331"/>
+        <location filename="../src/EditorWindow.cpp" line="336"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="333"/>
+        <location filename="../src/EditorWindow.cpp" line="338"/>
         <source>Opens A Settings Window</source>
         <translation>Öffnet ein Einstellungsfenster</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="336"/>
+        <location filename="../src/EditorWindow.cpp" line="341"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="338"/>
+        <location filename="../src/EditorWindow.cpp" line="343"/>
         <source>Opens the Help</source>
         <translation>Öffnet die Hilfe</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="349"/>
+        <location filename="../src/EditorWindow.cpp" line="354"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="357"/>
+        <location filename="../src/EditorWindow.cpp" line="362"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="362"/>
+        <location filename="../src/EditorWindow.cpp" line="367"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="373"/>
+        <location filename="../src/EditorWindow.cpp" line="378"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="378"/>
+        <location filename="../src/EditorWindow.cpp" line="383"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="390"/>
+        <location filename="../src/EditorWindow.cpp" line="395"/>
         <source>Ready</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="406"/>
+        <location filename="../src/EditorWindow.cpp" line="411"/>
         <source>The document has been modified but is unsaved.
 Do you want to save your changes?</source>
         <translation>Das Dokument wurde bearbeitet, jedoch nicht gespeichert.
 Möchten Sie die Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="430"/>
+        <location filename="../src/EditorWindow.cpp" line="435"/>
         <source>Cannot read file %1:
 %2.</source>
         <translation>Kann Datei %1 nicht lesen: %2.</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="451"/>
+        <location filename="../src/EditorWindow.cpp" line="456"/>
         <source>File was loaded</source>
         <translation>Datei geladen</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="467"/>
+        <location filename="../src/EditorWindow.cpp" line="472"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>Kann Datei %1 nicht schreiben: %2.</translation>
     </message>
     <message>
-        <location filename="../src/EditorWindow.cpp" line="488"/>
+        <location filename="../src/EditorWindow.cpp" line="493"/>
         <source>File saved</source>
         <translation>Datei gespeichert</translation>
     </message>
@@ -392,13 +397,13 @@ Möchten Sie die Änderungen speichern?</translation>
     <name>PySoundGenerator</name>
     <message>
         <location filename="../src/PySoundGenerator.cpp" line="15"/>
-        <location filename="../src/PySoundGenerator.cpp" line="216"/>
+        <location filename="../src/PySoundGenerator.cpp" line="256"/>
         <source>File is empty. Nothing to execute.</source>
         <translation>Datei ist leer. Nichts auszuführen.</translation>
     </message>
     <message>
-        <location filename="../src/PySoundGenerator.cpp" line="190"/>
-        <location filename="../src/PySoundGenerator.cpp" line="397"/>
+        <location filename="../src/PySoundGenerator.cpp" line="230"/>
+        <location filename="../src/PySoundGenerator.cpp" line="480"/>
         <source>User Terminated.</source>
         <translation>Beendet von Benutzer.</translation>
     </message>
@@ -460,7 +465,7 @@ Möchten Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>VeTo Live Coding Editor Settings</source>
-        <translation type="vanished">VeTo Live Coding Editor Einstellungen</translation>
+        <translation>VeTo Live Coding Editor Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/SettingsWindow.cpp" line="103"/>

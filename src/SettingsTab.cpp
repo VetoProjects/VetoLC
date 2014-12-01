@@ -218,6 +218,10 @@ void BehaviourTab::addLayout(){
 
     connect(compilerChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(useCompilerSlot(int)));
 
+    defaultPython = new QCheckBox(tr("Associate regular Python interpreter with *.py files"));
+    defaultPython->setChecked(settings->value("RegularPythonDefault").toBool());
+    connect(defaultPython, SIGNAL(toggled(bool)), this, SLOT(pythonSlot(bool)));
+
     startupLayout = new QVBoxLayout;
     startupLayout->addWidget(openCheck);
     startupLayout->addWidget(sizeCheck);
@@ -229,6 +233,7 @@ void BehaviourTab::addLayout(){
     compilerLayout = new QVBoxLayout;
     compilerLayout->addWidget(compilerChoiceLabel);
     compilerLayout->addWidget(compilerChoice);
+    compilerLayout->addWidget(defaultPython);
     compiler->setLayout(compilerLayout);
 
     mainLayout = new QVBoxLayout;
@@ -288,5 +293,18 @@ void BehaviourTab::rememberCompilerSlot(bool toggled){
  */
 void BehaviourTab::useCompilerSlot(int index){
     settings->insert("UseCompiler", index);
+    Q_EMIT contentChanged();
+}
+
+/**
+ * @brief BehaviourTab::rememberCompilerSlot
+ * @param toggled
+ *
+ * SLOT that reacts to the toggled() SIGNAL of
+ * pythonSlot. Writes change to Hashlist and Q_EMITs
+ * a contentChanged signal.
+ */
+void BehaviourTab::pythonSlot(bool toggled){
+    settings->insert("RegularPythonDefault", toggled);
     Q_EMIT contentChanged();
 }
