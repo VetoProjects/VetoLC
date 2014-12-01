@@ -1,7 +1,6 @@
 #ifndef LIVETHREAD
 #define LIVETHREAD
 
-
 #ifdef WITH_PYTHON
 #include "PyLiveInterpreter.hpp"
 #include "PySoundGenerator.hpp"
@@ -11,6 +10,7 @@
 
 #include "SoundGenerator.hpp"
 #include "Renderer.hpp"
+
 /**
  * @brief The LiveThread class
  *

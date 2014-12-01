@@ -1,8 +1,8 @@
 #ifndef PYLIVETEST_HPP
 #define PYLIVETEST_HPP
 
-#include <QObject>
 #include <QTest>
+
 #include "../src/LiveThread.hpp"
 
 /**
@@ -63,9 +63,6 @@ private slots:
         QCOMPARE(returned, QStringLiteral("Script terminated successfully."));
         QCOMPARE(thread, returnedThread);
         QCOMPARE(lineno, -1);
-    }
-    void cleanup(){
-        delete thread;
     }
 
 private:

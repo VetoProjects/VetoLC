@@ -1,8 +1,8 @@
 #ifndef RENDERERTEST
 #define RENDERERTEST
 
-#include <QObject>
 #include <QTest>
+
 #include "../src/LiveThread.hpp"
 
 /**

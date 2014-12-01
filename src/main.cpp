@@ -1,9 +1,4 @@
-#include <QApplication>
-#include <QLocalSocket>
-#include <QLocalServer>
 #include <QTranslator>
-#include <QFontDatabase>
-#include <QDebug>
 
 #include "EditorWindow.hpp"
 #include "Renderer.hpp"
@@ -65,7 +60,7 @@ int main(int argc, char *argv[]){
     BootLoader *bootLoader = new BootLoader(socketName, &server);
     bootLoader->start();
 
-    QFile style(dir.absoluteFilePath("style/flat.css"));
+    QFile style(dir.absoluteFilePath("style/default.css"));
     style.open(QFile::ReadOnly | QFile::Text);
 
     a.setStyleSheet(QTextStream(&style).readAll());

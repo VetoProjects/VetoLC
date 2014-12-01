@@ -26,11 +26,11 @@ bool CodeHighlighter::setupHighlighting(int file){
     python = false;
     QFile highlighting;
     if(file == 0 || file == 3)
-        highlighting.setFileName(":/highlighting/python");
+        highlighting.setFileName(":/rc/highlighting/python");
     else if(file == 1)
-        highlighting.setFileName(":/highlighting/qt");
+        highlighting.setFileName(":/rc/highlighting/qt");
     else if(file == 2)
-        highlighting.setFileName(":/highlighting/glsl");
+        highlighting.setFileName(":/rc/highlighting/glsl");
     else
         return false;
     highlighting.open(QFile::ReadOnly | QFile::Text);
@@ -72,21 +72,29 @@ bool CodeHighlighter::setupHighlighting(int file){
 
     if(filename == "python"){
         python = true;
-            // Single line comment
-            rule.format = QTextCharFormat();
-            rule.format.setForeground(Qt::darkGreen);
-            rule.pattern = QRegExp("^\\s*#.*$");
-            Rules.append(rule);
 
-            rule.format = QTextCharFormat();
-            rule.format.setForeground(Qt::darkMagenta);
-            rule.pattern = QRegExp("\\bimport\\b");
-            Rules.append(rule);
+        //Fix this case
+        /*
+        rule.format = QTextCharFormat();
+        rule.format.setForeground(Qt::blue);
+        rule.pattern = QRegExp("(?<=raise.*)from");
+        Rules.append(rule);*/
 
-            rule.format = QTextCharFormat();
-            rule.format.setForeground(Qt::darkMagenta);
-            rule.pattern = QRegExp("\\s*from(?=\\s*import)");
-            Rules.append(rule);
+        // Single line comment
+        rule.format = QTextCharFormat();
+        rule.format.setForeground(Qt::darkGreen);
+        rule.pattern = QRegExp("^\\s*#.*$");
+        Rules.append(rule);
+
+        rule.format = QTextCharFormat();
+        rule.format.setForeground(Qt::darkMagenta);
+        rule.pattern = QRegExp("\\bimport\\b");
+        Rules.append(rule);
+
+        rule.format = QTextCharFormat();
+        rule.format.setForeground(Qt::darkMagenta);
+        rule.pattern = QRegExp("\\s*from(?=.*import)");
+        Rules.append(rule);
     }else if(filename == "glsl"){
         // Single line comment
         rule.format = QTextCharFormat();
@@ -95,7 +103,7 @@ bool CodeHighlighter::setupHighlighting(int file){
         Rules.append(rule);
 
         // Multi line comment
-            // rule.format is already comment
+        // rule.format is already comment
         multiLineCommentNotation = rule.format; // needed for later highlight
         //work in progress; make for more elaborate matching
         //commentStartExpression = QRegExp("[^/(//[^\\r\\n]+)]?/\\*");

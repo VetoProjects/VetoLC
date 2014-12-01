@@ -2,8 +2,6 @@
 #define CODEHIGHLIGHTER
 
 #include <QSyntaxHighlighter>
-#include <QHash>
-#include <QTextCharFormat>
 #include <QTextStream>
 #include <QFileInfo>
 

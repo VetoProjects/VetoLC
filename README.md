@@ -1,9 +1,10 @@
 VetoLC
 ======
 
-![general version](http://img.shields.io/badge/version-0.2.4-yellow.svg)
+![general version](http://img.shields.io/badge/version-0.4.1-yellow.svg)
 ![qt version](http://img.shields.io/badge/qt_version-5.1--5.3-blue.svg)
-![python version](http://img.shields.io/badge/python_version-2.5--3.4-green.svg)
+![python version](http://img.shields.io/badge/c++_version-11-green.svg)
+![python version](http://img.shields.io/badge/python_version-2.5--3.4-brightgreen.svg)
 <!--[![Build Status](https://travis-ci.org/hellerve/VetoLC.png?branch=master)](https://travis-ci.org/hellerve/VetoLC)-->
 
 A Live Coding Environment for AudioPython, QML and GLSL(also rudimentary Python IDE capabilities) in QT/C++.
@@ -116,6 +117,10 @@ qmake foo QMAKE=/path/to/qmake
 ```
 
 You can have a look at the .travis.yml to get a slight idea of how your build process could look like.
+
+If you want to build the documentation(made with Doxygen), type `make doc`. If you do not have
+Doxygen installed there is a ready-made version in the [LC-Doc](https://github.com/VetoProjects/LC-Doc)
+repository. It might not always be bleeding edge, though.
 
 Usage
 -----

@@ -1,8 +1,10 @@
 #ifndef CODEEDITORTEST
 #define CODEEDITORTEST
 
-#include <QObject>
+#include <memory>
+
 #include <QTest>
+
 #include "../src/CodeEditor.hpp"
 
 /**
@@ -16,22 +18,19 @@ class CodeEditorTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase() {
-        codeEditor = new CodeEditor();
+        codeEditor = std::unique_ptr<CodeEditor>(new CodeEditor());
     }
     void objectCreationTest(){
-        QVERIFY(codeEditor);
+        QVERIFY(codeEditor.get());
     }
     void writingTest(){
-        QTest::keyClicks(codeEditor, "I am an int and that is code;");
+        QTest::keyClicks(codeEditor.get(), "I am an int and that is code;");
         QCOMPARE(codeEditor->toPlainText(), QStringLiteral("I am an int and that is code;"));
     }
     void LineHighlightingTest(){
         QVERIFY(codeEditor->lineHighlightingWidth() == 10);
     }
-    void cleanupTestCase() {
-        delete codeEditor;
-    }
 private:
-    CodeEditor *codeEditor;
+    std::unique_ptr<CodeEditor> codeEditor;
 };
 #endif // CODEEDITORTEST

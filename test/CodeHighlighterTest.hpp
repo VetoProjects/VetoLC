@@ -1,8 +1,10 @@
 #ifndef CODEHIGHLIGHTERTEST_H
 #define CODEHIGHLIGHTERTEST_H
 
-#include <QObject>
+#include <memory>
+
 #include <QTest>
+
 #include "../src/CodeHighlighter.hpp"
 
 /**
@@ -16,21 +18,18 @@ class CodeHighlighterTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase() {
-        codeHighlighter = new CodeHighlighter();
+        codeHighlighter = std::unique_ptr<CodeHighlighter>(new CodeHighlighter());
     }
     void objectCreationTest(){
-        QVERIFY(codeHighlighter);
+        QVERIFY(codeHighlighter.get());
     }
     void updateTest(){
         QVERIFY(codeHighlighter->setupHighlighting(1));
         QVERIFY(codeHighlighter->setupHighlighting(1000) == false);
         QVERIFY(codeHighlighter->setupHighlighting(-10) == false);
     }
-    void cleanupTestCase() {
-        delete codeHighlighter;
-    }
 private:
-    CodeHighlighter *codeHighlighter;
+    std::unique_ptr<CodeHighlighter> codeHighlighter;
 };
 
 #endif // CODEHIGHLIGHTERTEST_H

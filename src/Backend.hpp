@@ -1,15 +1,8 @@
 #ifndef BACKEND_HPP
 #define BACKEND_HPP
 
-#include <QAction>
-#include <QTextStream>
-#include <QApplication>
 #include <QDesktopServices>
 #include <QUrl>
-#include <QException>
-#include <QObject>
-#include <QSettings>
-#include <QDir>
 
 #include "SettingsBackend.hpp"
 #include "SettingsWindow.hpp"

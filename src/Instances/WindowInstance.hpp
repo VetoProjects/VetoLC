@@ -5,7 +5,12 @@
 #include "../EditorWindow.hpp"
 
 namespace Instances {
-
+/**
+ * @brief The Windownstance class
+ *
+ * Delegate from which all windows
+ * are derived that are managed by the backend.
+ */
 class WindowInstance : public IInstance
 {
     Q_OBJECT

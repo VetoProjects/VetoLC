@@ -2,11 +2,8 @@
 #define PYSOUNDGENERATOR
 
 #include <Python.h>
-#undef B0
-#include <QThread>
 #include <QAction>
 #include <QCoreApplication>
-#include <QIODevice>
 
 #include "AudioOutputProcessor.hpp"
 
@@ -27,7 +24,9 @@ public:
     ~PySoundGenerator();
 
 private:
-    PyObject* execute(QString instruct);
+    void setupPython(QString, QString);
+    PyObject* execute_return(QString, QString, QString);
+    PyObject* execute(QString);
     void exceptionOccurred();
     void write();
     void stream(PyObject *process);
@@ -35,8 +34,7 @@ private:
     QString ownExcept;
     bool ready;
     QAction* abortAction;
-    PyObject* sys;
-    PyObject* audio;
+    PyObject* main;
     PyObject* dict;
     AudioOutputProcessor* device;
 

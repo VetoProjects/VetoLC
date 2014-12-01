@@ -1,25 +1,17 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
-#include <QOpenGLShaderProgram>
-#include <QOpenGLContext>
 #include <QWindow>
 #include <QOpenGLPaintDevice>
 #include <QOpenGLFunctions>
 #include <QOpenGLVertexArrayObject>
-#include <QOpenGLBuffer>
 #include <QOpenGLDebugLogger>
 #include <QOpenGLTexture>
 #include <QTime>
-#include <QMutex>
-#include <QAudioInput>
-#include <QBuffer>
-#include <QList>
 #include <QOpenGLShader>
 #include <QCoreApplication>
-#include <QFileInfo>
 #include <QDir>
-#include <QString>
+#include <QMutex>
 
 #include "AudioInputProcessor.hpp"
 

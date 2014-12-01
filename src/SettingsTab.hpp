@@ -1,7 +1,6 @@
 #ifndef SETTINGTABS
 #define SETTINGTABS
 
-#include <QWidget>
 #include <QGroupBox>
 #include <QLabel>
 #include <QHBoxLayout>
@@ -9,12 +8,8 @@
 #include <QCheckBox>
 #include <QListWidget>
 #include <QPushButton>
-#include <QLineEdit>
-#include <QDateTimeEdit>
-#include <QSpinBox>
 #include <QButtonGroup>
 #include <QMessageBox>
-#include <QSettings>
 #include <QStyleFactory>
 
 /**
@@ -89,12 +84,14 @@ private Q_SLOTS:
     void sizeSlot(bool);
     void rememberCompilerSlot(bool);
     void useCompilerSlot(int);
+    void pythonSlot(bool);
 private:
     void addLayout();
 
     QGroupBox* startup;
     QCheckBox* openCheck;
     QCheckBox* sizeCheck;
+    QCheckBox* defaultPython;
     QButtonGroup* startupCompiler;
     QCheckBox* rememberCompiler;
     QCheckBox* askForCompiler;

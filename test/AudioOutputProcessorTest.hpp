@@ -1,11 +1,11 @@
 #ifndef AUDIOOUTPUTPROCESSORTEST
 #define AUDIOOUTPUTPROCESSORTEST
 
-#include <QTest>
-#include <QThread>
-#include <QMutex>
-#include <QCoreApplication>
+#include <memory>
 #include <cmath>
+
+#include <QTest>
+
 #include "../src/AudioOutputProcessor.hpp"
 
 #define PI (3.1415926535897932384626433832795)
@@ -58,12 +58,18 @@ public:
     AudioProcessorInstance(QObject *parent = 0) : QThread(parent){
     }
 
+    ~AudioProcessorInstance(){
+        aop->terminate();
+        while(aop->isRunning())
+            ;
+    }
+
     virtual void run() Q_DECL_OVERRIDE {
         cycle = 0;
-        aop = new AudioOutputProcessor();
+        aop = std::unique_ptr<AudioOutputProcessor>(new AudioOutputProcessor());
         connect(this, SIGNAL(startWriting()), this, SLOT(write()), Qt::QueuedConnection);
-        connect(aop, SIGNAL(startWriting()), this, SLOT(write()), Qt::QueuedConnection);
-        connect(aop, SIGNAL(started()), this, SLOT(write()), Qt::QueuedConnection);
+        connect(aop.get(), SIGNAL(startWriting()), this, SLOT(write()), Qt::QueuedConnection);
+        connect(aop.get(), SIGNAL(started()), this, SLOT(write()), Qt::QueuedConnection);
         aop->start();
         exec();
     }
@@ -84,7 +90,7 @@ public slots:
     }
 
 private:
-    AudioOutputProcessor *aop;
+    std::unique_ptr<AudioOutputProcessor> aop;
     int cycle;
 
     double generate(double t){
@@ -105,22 +111,21 @@ class AudioOutputProcessorTest : public QObject{
 Q_OBJECT
 private slots:
     void initTestCase(){
-        api = new AudioProcessorInstance();
+        api = std::unique_ptr<AudioProcessorInstance>(new AudioProcessorInstance());
     }
     void objectCreationTest(){
-        QVERIFY(api);
+        QVERIFY(api.get());
     }
     void writeTest(){
         api->start();
         QTest::qWait(1000);
         api->terminate();
-        QTest::qWait(100);
-    }
-    void cleanupTestCase(){
-        delete api;
-    }
+        while(api->isRunning())
+            ;
+        QTest::qWait(15);
+     }
 
 private:
-    AudioProcessorInstance *api;
+    std::unique_ptr<AudioProcessorInstance> api;
 };
 #endif // AUDIOOUTPUTPROCESSORTEST

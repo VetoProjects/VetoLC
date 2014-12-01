@@ -1,9 +1,8 @@
 #ifndef PYSOUNDGENERATORTEST
 #define PYSOUNDGENERATORTEST
 
-#include <QObject>
 #include <QTest>
-#include <QDebug>
+
 #include "../src/LiveThread.hpp"
 
 /**
@@ -66,6 +65,8 @@ private slots:
         QCOMPARE(lineno, 0);
     }*/
     void cleanup(){
+        while(thread->isRunning())
+            ;
         delete thread;
     }
 
