@@ -31,7 +31,6 @@ private:
     void addButtons();
 
     bool changed;
-    QListWidget *content;
     QTabWidget *tabs;
     LayoutTab *layout;
     BehaviourTab *behaviour;
