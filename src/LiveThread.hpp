@@ -72,7 +72,7 @@ public:
     PySoundThread(const long identity, QObject* parent = 0) : LiveThread(identity, parent){ }
     void run()Q_DECL_OVERRIDE{ }
     void initialize(const QString &, const QString &){
-        Q_EMIT doneSignal(this, tr("Python is not supported in this version"), -1);
+        Q_EMIT doneSignal(this, tr("Python is not supported in this version"), 0);
     }
     bool updateCode(const QString &, const QString &){
         return false;
@@ -133,7 +133,7 @@ public:
     void initialize(const QString &title, const QString &instructions){
         Q_UNUSED(title);
         Q_UNUSED(instructions);
-        Q_EMIT doneSignal(this, tr("Python is not supported in this version"), -1);
+        Q_EMIT doneSignal(this, tr("Python is not supported in this version"), 0);
     }
     bool updateCode(const QString &filename, const QString &code){
         Q_UNUSED(filename)
@@ -166,7 +166,8 @@ public:
     // No parent object =(
     void initialize(const QString &title, const QString &instructions){
         runObj = new Renderer(title, instructions);
-        connect(runObj, SIGNAL(doneSignal(QString, int)), this, SLOT(doneSignalReceived(QString, int)));
+        connect(runObj, SIGNAL(doneSignal(QString)), this, SLOT(doneSignalReceived(QString)));
+        connect(runObj, SIGNAL(errored(QString,int)), this, SLOT(erroredReceived(QString, int)));
 
         runObj->resize(800, 600);
         runObj->show();
@@ -178,10 +179,14 @@ public:
         return false;
     }
 public Q_SLOTS:
-    void doneSignalReceived(QString message, int lineno){
-        Q_EMIT errorSignal(this, message, lineno);
+    void doneSignalReceived(QString exception){
+        Q_EMIT doneSignal(this, exception);
+    }
+    void erroredReceived(QString error, int lineno){
+        Q_EMIT errorSignal(this, error, lineno);
     }
 Q_SIGNALS:
+    void doneSignal(GlLiveThread*, QString);
     void errorSignal(GlLiveThread*, QString, int);
 private:
     Renderer* runObj;
