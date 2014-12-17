@@ -30,8 +30,7 @@ public:
     ~Renderer();
 
 Q_SIGNALS:
-    void doneSignal(QString);
-    void errored(QString, int);
+    void doneSignal(QString, int);
 
 public Q_SLOTS:
     void renderNow();

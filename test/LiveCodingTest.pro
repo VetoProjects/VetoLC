@@ -1,5 +1,5 @@
 isEqual(QT_MAJOR_VERSION, 4) || isEqual(QT_MINOR_VERSION, 1) {
-    message("Cannot build VetoLC with Qt version $$QT_VERSION.")
+    message("Cannot build VetoLC tests with Qt version $$QT_VERSION.")
     error("Use at least Qt 5.2.")
 }
 

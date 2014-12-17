@@ -190,7 +190,7 @@ bool Renderer::initShaders(QString fragmentShader){
                 qWarning() << tr("Failed to compile default shader.");
             else if(shaderProgram == 0)
                 initShaders(defaultFragmentShader);
-            Q_EMIT errored("Image file does not exist: " + imagePath, fragmentShader.mid(0, pos).count('\n'));
+            Q_EMIT doneSignal("Image file does not exist: " + imagePath, fragmentShader.mid(0, pos).count('\n'));
             return false;
         }
 
@@ -239,9 +239,9 @@ bool Renderer::initShaders(QString fragmentShader){
         if(errorline.indexIn(error) > -1){
             QString text = errorline.cap(1);
             if(text.toInt()-3 > 0)  // because: "#define lowp", "#define mediump" and "#define highp"
-                Q_EMIT errored(error, text.toInt()-3);
+                Q_EMIT doneSignal(error, text.toInt()-3);
             else
-                Q_EMIT errored(error, text.toInt());
+                Q_EMIT doneSignal(error, text.toInt());
         }
         return false;
     }
@@ -426,7 +426,7 @@ bool Renderer::event(QEvent *event){
         renderNow();
         return true;
     case QEvent::Close:
-        Q_EMIT doneSignal(tr("User closed renderer"));
+        Q_EMIT doneSignal(tr("User closed renderer"), -1);
         return true;
     default:
         return QWindow::event(event);
