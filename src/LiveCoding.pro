@@ -23,7 +23,7 @@ macx {
 
 QMAKE_EXTRA_TARGETS += valgrind-check
 
-CONFIG+=c++11 no_keywords
+CONFIG+=c++14 no_keywords
 
 valgrind-check.depends = check
 valgrind-check.commands = valgrind ./$$TARGET
