@@ -213,7 +213,7 @@ void BehaviourTab::addLayout(){
     compilerChoice->addItem(tr("Python (Regular)"));
 
     int useCompilerConfig = settings->value("UseCompiler").toInt();
-    if(useCompilerConfig >= 0 || useCompilerConfig <= 3)
+    if(useCompilerConfig >= 0 && useCompilerConfig <= 3)
         compilerChoice->setCurrentIndex(useCompilerConfig);
 
     connect(compilerChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(useCompilerSlot(int)));
