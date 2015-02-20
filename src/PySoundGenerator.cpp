@@ -70,7 +70,7 @@ void PySoundGenerator::setupPython(QString instructions){
 
 
 
-    for(QString instructionSet : toExecute){
+    for(auto instructionSet : toExecute){
         check = execute(instructionSet);
         if(!check){
             exceptionOccurred();
@@ -103,7 +103,7 @@ void PySoundGenerator::run(){
  */
 void PySoundGenerator::write(){
     while(ready){
-        PyObject* check = execute("AudioPython.yield_raw(samples, None)");
+        auto* check = execute("AudioPython.yield_raw(samples, None)");
         if(!check){
             exceptionOccurred();
             Q_EMIT doneSignal(ownExcept, exceptNum);
@@ -123,14 +123,14 @@ void PySoundGenerator::write(){
  * executes the python code in the interpreter and returns the result.
  */
 PyObject* PySoundGenerator::execute_return(QString mod, QString function, QString args){
-    PyObject* pyModule = PyObject_GetAttrString(main, mod.toLocal8Bit().data());
+    auto* pyModule = PyObject_GetAttrString(main, mod.toLocal8Bit().data());
     if(!pyModule) return 0;
-    PyObject* pyFunction = PyObject_GetAttrString(pyModule, function.toLocal8Bit().data());
+    auto* pyFunction = PyObject_GetAttrString(pyModule, function.toLocal8Bit().data());
     if(!pyFunction) return 0;
     if(args.isEmpty()){
         return PyObject_CallObject(pyFunction, NULL);
     }
-    PyObject* arguments = PyTuple_Pack(1, args.toLocal8Bit().data());
+    auto* arguments = PyTuple_Pack(1, args.toLocal8Bit().data());
     return PyObject_CallObject(pyFunction, arguments);
 }
 
@@ -183,7 +183,7 @@ void PySoundGenerator::exceptionOccurred(){
     PyObject *ret, *list, *string;
     PyErr_Fetch(&errtype, &errvalue, &traceback);
     PyErr_NormalizeException(&errtype, &errvalue, &traceback);
-    QString exceptionText = QString(PyBytes_AsString(PyObject_Str(errtype)));
+    auto exceptionText = QString(PyBytes_AsString(PyObject_Str(errtype)));
     exceptionText.append(": '");
     exceptionText.append(PyBytes_AsString(PyObject_Str(errvalue)));
     QRegExp line("line [0-9]+");
@@ -318,7 +318,7 @@ void PySoundGenerator::setupPython(QString progName, QString instructions){
 
     PyObject* check;
 
-    for(QString instructionSet : toExecute){
+    for(auto instructionSet : toExecute){
         check = execute(instructionSet);
         if(!check){
             exceptionOccurred();
@@ -351,7 +351,7 @@ void PySoundGenerator::run(){
  */
 void PySoundGenerator::write(){
     while(ready){
-        PyObject* check = execute_return("gen", "next", "");
+        auto* check = execute_return("gen", "next", "");
         if(!check){
             exceptionOccurred();
             Q_EMIT doneSignal(ownExcept, exceptNum);
@@ -372,14 +372,14 @@ void PySoundGenerator::write(){
  * executes the python code in the interpreter and returns the result.
  */
 PyObject* PySoundGenerator::execute_return(QString mod, QString function, QString args){
-    PyObject* pyModule = PyObject_GetAttrString(main, mod.toLocal8Bit().data());
+    auto* pyModule = PyObject_GetAttrString(main, mod.toLocal8Bit().data());
     if(!pyModule) return 0;
-    PyObject* pyFunction = PyObject_GetAttrString(pyModule, function.toLocal8Bit().data());
+    auto* pyFunction = PyObject_GetAttrString(pyModule, function.toLocal8Bit().data());
     if(!pyFunction) return 0;
     if(args.isEmpty()){
         return PyObject_CallObject(pyFunction, NULL);
     }
-    PyObject* arguments = PyTuple_Pack(1, args.toLocal8Bit().data());
+    auto* arguments = PyTuple_Pack(1, args.toLocal8Bit().data());
     return PyObject_CallObject(pyFunction, arguments);
 }
 
@@ -433,7 +433,7 @@ void PySoundGenerator::exceptionOccurred(){
     PyObject *ret, *list, *string;
     PyErr_Fetch(&errtype, &errvalue, &traceback);
     PyErr_NormalizeException(&errtype, &errvalue, &traceback);
-    QString exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
+    auto exceptionText = QString(PyString_AsString(PyObject_Str(errtype)));
     exceptionText.append(": '");
     exceptionText.append(PyString_AsString(PyObject_Str(errvalue)));
     QRegExp line("line [0-9]+");

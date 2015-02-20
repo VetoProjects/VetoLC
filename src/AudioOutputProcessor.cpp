@@ -72,7 +72,7 @@ bool AudioOutputProcessor::write(const char *data, qint64 len)
 
     currentWriting = (currentWriting + 1) % 4;
 
-    bool full = (currentPlaying == currentWriting);
+    auto full = (currentPlaying == currentWriting);
 
     if(full)
         Q_EMIT stopWriting();

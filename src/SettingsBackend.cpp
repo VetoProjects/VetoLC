@@ -49,7 +49,7 @@ QHash<QString, QVariant> SettingsBackend::getSettings(const int id){
     QHash<QString, QVariant> settings;
     QString relevantSubdir(globalDir + "/" + QString::number(id));
     QSettings set(globalName, relevantSubdir);
-    for(const QString &key: set.childKeys())
+    for(const auto &key: set.childKeys())
         settings.insert(key, set.value(key));
     return settings;
 }
@@ -86,7 +86,7 @@ void SettingsBackend::saveSettingsFor(const int id, const QString &key, const QV
 void SettingsBackend::saveSettingsFor(const int id, const QHash<QString, QVariant> &settings){
     QString relevantSubdir(globalDir + "/" + QString::number(id));
     QSettings set(globalName, relevantSubdir);
-    for(const QString &key : settings.keys())
+    for(const auto &key : settings.keys())
         set.setValue(key, settings[key]);
 }
 

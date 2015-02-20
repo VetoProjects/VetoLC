@@ -108,7 +108,7 @@ void EditorWindow::newFile(){
  */
 void EditorWindow::openFile(){
     if(saveDialog()){
-        QString fileName = QFileDialog::getOpenFileName(this);
+        auto fileName = QFileDialog::getOpenFileName(this);
         if (!fileName.isEmpty()){
             if(fileName.endsWith("py") && pythonRegular){
                 templateNum = 0;
@@ -160,7 +160,7 @@ bool EditorWindow::saveFile(){
  * of the text editor under the chosen name(SLOT).
  */
 bool EditorWindow::saveFileAs(){
-    QString fileName = QFileDialog::getSaveFileName(this);
+    auto fileName = QFileDialog::getSaveFileName(this);
     return !fileName.isEmpty() && saveFile(fileName);
 }
 
@@ -239,12 +239,12 @@ void EditorWindow::highlightErroredLine(int lineno){
  */
 void EditorWindow::applySettings(const QHash<QString, QVariant> &settings){
     if(settings.value("RememberSize").toBool()){
-        const QPoint  pos  = settings.value("pos", QPoint(0, 0)).toPoint();
-        const QSize   size = settings.value("size", QSize(800, 600)).toSize();
+        const auto  pos  = settings.value("pos", QPoint(0, 0)).toPoint();
+        const auto  size = settings.value("size", QSize(800, 600)).toSize();
         move(pos);
         resize(size);
     }
-    const QString file = settings.value("file", "").toString();
+    const auto file = settings.value("file", "").toString();
     if(file.isEmpty()){
         if(templateNum == 0)
             loadFile(":/rc/template.py");
@@ -406,8 +406,7 @@ void EditorWindow::addStatusBar(){
  */
 bool EditorWindow::saveDialog(){
     if(codeEditor->document()->isModified()){
-        QMessageBox::StandardButton question;
-        question = QMessageBox::warning(this, tr("VeToLC"),
+        auto question = QMessageBox::warning(this, tr("VeToLC"),
                                 tr("The document has been modified"
                                    " but is unsaved.\n"
                                 "Do you want to save your changes?"),

@@ -25,7 +25,7 @@ Backend::Backend(QObject *parent) : QObject(parent){
  * when all the windows closed.
  */
 Backend::~Backend(){
-    for(LiveThread *thread: threads.values()){
+    for(auto* thread: threads.values()){
         if(thread){
             if(thread->isRunning())
                 thread->terminate();
@@ -76,7 +76,7 @@ void Backend::addInstance(IInstance *instance, bool removeSettings){
  * Look up the first free ID for a new Instance.
  */
 int Backend::nextID(){
-    int id = 0;
+    auto id = 0;
     while(ids.contains(id))
         ++id;
     return id;
@@ -91,9 +91,9 @@ int Backend::nextID(){
  */
 QList<int> Backend::loadIds()
 {
-    QVariantList ids = SettingsBackend::getSettingsFor("Instances", QVariantList()).toList();
+    auto ids = SettingsBackend::getSettingsFor("Instances", QVariantList()).toList();
     QList<int> res;
-    for(const QVariant id : ids){
+    for(const auto id : ids){
         bool ok;
         int i = id.toInt(&ok);
         if(ok)
@@ -124,7 +124,7 @@ void Backend::instanceClosing(IInstance *instance)
  */
 void Backend::instanceDestroyed(QObject *instance)
 {
-    int id = ((IInstance*)instance)->ID;
+    auto id = ((IInstance*)instance)->ID;
     instances.remove(id);
     removeInstance(id, false);
 }
@@ -172,14 +172,14 @@ bool Backend::removeInstance(int id, bool removeSettings){
  * will tell all the children to terminate.
  */
 void Backend::childSaidCloseAll(){
-    QList<int> notRemoved = ids;
-    for(const int id : ids){
+    auto notRemoved = ids;
+    for(const auto id : ids){
         disconnect(instances[id], SIGNAL(destroyed(QObject*)), this, SLOT(instanceDestroyed(QObject*)));
         if(removeInstance(id, false))
             notRemoved.removeOne(id);
     }
     if(!notRemoved.empty()){
-        for(const int id : ids)
+        for(const auto id : ids)
             if(!notRemoved.contains(id))
                SettingsBackend::removeSettings(id);
         ids = notRemoved;
@@ -304,9 +304,9 @@ bool Backend::isLast(){
  */
 void Backend::instanceRunCode(IInstance *instance)
 {
-    long id = instance->ID;
+    auto id = instance->ID;
     if(threads.contains(id)){
-        bool worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
+        auto worked = threads[id]->updateCode(instance->title(), instance->sourceCode());
         if(!worked){
             // Dont't stop!
 //            instances[id]->codeStopped();
@@ -418,7 +418,7 @@ void Backend::instanceRequestSettings(IInstance *instance, QHash<QString, QVaria
  * Creates a thread that executes Python scripts.
  */
 void Backend::runPyFile(IInstance *instance){
-    PyLiveThread *thread = new PyLiveThread(instance->ID, this);
+    auto* thread = new PyLiveThread(instance->ID, this);
     connect(thread, SIGNAL(doneSignal(PyLiveThread*, QString, int)),
             this, SLOT(getExecutionResults(PyLiveThread*, QString, int)));
     thread->initialize(instance->title(), instance->sourceCode());
@@ -436,7 +436,7 @@ void Backend::runPyFile(IInstance *instance){
  * Creates a thread that executes QT sound scripts.
  */
 void Backend::runQtSoundFile(IInstance *instance){
-    QtSoundThread* thread = new QtSoundThread(instance->ID, this);
+    auto* thread = new QtSoundThread(instance->ID, this);
     connect(thread, SIGNAL(doneSignal(QtSoundThread*, QString)),
             this, SLOT(getExecutionResults(QtSoundThread*, QString)));
     thread->initialize(instance->title(), instance->sourceCode());
@@ -453,7 +453,7 @@ void Backend::runQtSoundFile(IInstance *instance){
  * Creates a thread that executes AudioPython scripts.
  */
 void Backend::runPySoundFile(IInstance *instance){
-    PySoundThread *thread = new PySoundThread(instance->ID, this);
+    auto* thread = new PySoundThread(instance->ID, this);
     connect(thread, SIGNAL(doneSignal(PySoundThread*, QString, int)),
             this, SLOT(getExecutionResults(PySoundThread*, QString, int)));
     thread->initialize(instance->title(), instance->sourceCode());
@@ -471,7 +471,7 @@ void Backend::runPySoundFile(IInstance *instance){
  * Creates a thread that executes GL source code.
  */
 void Backend::runGlFile(IInstance *instance){
-    GlLiveThread* thread = new GlLiveThread(instance->ID, this);
+    auto* thread = new GlLiveThread(instance->ID, this);
     connect(thread, SIGNAL(doneSignal(GlLiveThread*, QString)),
             this, SLOT(getExecutionResults(GlLiveThread*, QString)));
     connect(thread, SIGNAL(errorSignal(GlLiveThread*, QString, int)),
@@ -547,7 +547,7 @@ void Backend::terminateThread(long id){
  */
 void Backend::saveIDs(){
     QVariantList vids;
-    for(const int i : ids)
+    for(const auto i : ids)
         vids.append(i);
     SettingsBackend::addSettings("Instances", vids);
 }

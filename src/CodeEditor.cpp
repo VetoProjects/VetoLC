@@ -36,7 +36,7 @@ CodeEditor::CodeEditor(QWidget *parent, int file) : QPlainTextEdit(parent){
  * to be highlighted.
  */
 int CodeEditor::lineHighlightingWidth(){
-    int digits = 1,
+    auto digits = 1,
     maxLen = qMax(1, blockCount());
     //computes how many blocks we have
     while(maxLen >= 10){
@@ -44,7 +44,7 @@ int CodeEditor::lineHighlightingWidth(){
         ++digits;
     }
     //computes the width with respect to the font
-    int space = 3 + fontMetrics().width(QLatin1Char('9')) * digits;
+    auto space = 3 + fontMetrics().width(QLatin1Char('9')) * digits;
 
     return space;
 }
@@ -86,7 +86,7 @@ void CodeEditor::updatelineHighlighting(const QRect &rect, int delta_y){
 void CodeEditor::resizeEvent(QResizeEvent *e){
     QPlainTextEdit::resizeEvent(e);
 
-    QRect rect = contentsRect();
+    auto rect = contentsRect();
     lineHighlighting->setGeometry(QRect(rect.left(), rect.top(), lineHighlightingWidth(), rect.height()));
 }
 
@@ -101,7 +101,7 @@ void CodeEditor::highlightCurrentLine(){
     if(!isReadOnly()){
         QTextEdit::ExtraSelection selection;
 
-        QColor lineColor = QColor(Qt::lightGray).lighter(120);
+        auto lineColor = QColor(Qt::lightGray).lighter(120);
 
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
         selection.format.setBackground(lineColor);
@@ -122,10 +122,10 @@ void CodeEditor::highlightCurrentLine(){
  */
 void CodeEditor::lineHighlightingPaintEvent(QPaintEvent *event){
     //computes first and last block numbers
-    QTextBlock textBlock = firstVisibleBlock();
-    int textBlockNum = textBlock.blockNumber();
-    int top = (int) blockBoundingGeometry(textBlock).translated(contentOffset()).top();
-    int bottom = top + (int) blockBoundingRect(textBlock).height();
+    auto textBlock = firstVisibleBlock();
+    auto textBlockNum = textBlock.blockNumber();
+    auto top = blockBoundingGeometry(textBlock).translated(contentOffset()).top();
+    auto bottom = top + blockBoundingRect(textBlock).height();
 
     //paints the background to where line nums will appear
     QPainter painter(lineHighlighting);
@@ -135,7 +135,7 @@ void CodeEditor::lineHighlightingPaintEvent(QPaintEvent *event){
     while(textBlock.isValid() && top <= event->rect().bottom()){
         //sets line num starting for current line
         if(textBlock.isVisible() && bottom >= event->rect().top()){
-            QString num = QString::number(textBlockNum + 1);
+            auto num = QString::number(textBlockNum + 1);
             painter.setPen(Qt::black);
             painter.drawText(0, top, lineHighlighting->width(), fontMetrics().height(),
                             Qt::AlignRight, num);
@@ -145,7 +145,7 @@ void CodeEditor::lineHighlightingPaintEvent(QPaintEvent *event){
         textBlock = textBlock.next();
         ++textBlockNum;
         top = bottom;
-        bottom = top + (int)blockBoundingRect(textBlock).height();
+        bottom = top + blockBoundingRect(textBlock).height();
     }
 }
 
@@ -162,7 +162,7 @@ void CodeEditor::highlightErroredLine(int lineno){
     cursor.movePosition(QTextCursor::EndOfLine);
     setTextCursor(cursor);
 
-    QColor lineColor = QColor(Qt::red).lighter(180);
+    auto lineColor = QColor(Qt::red).lighter(180);
 
     selection.format.setProperty(QTextFormat::FullWidthSelection, true);
     selection.format.setBackground(lineColor);

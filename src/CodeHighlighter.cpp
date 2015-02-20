@@ -41,12 +41,12 @@ bool CodeHighlighter::setupHighlighting(int file){
     rule.format.setForeground(Qt::blue); // rule.format already freshly initialized
 //    rule.format.setFontWeight(QFont::Bold);
     QStringList keywordPatterns;
-    QString keywords = QTextStream(&highlighting).readAll();
-    for(const QString in: keywords.split("\n")){
+    auto keywords = QTextStream(&highlighting).readAll();
+    for(const auto in: keywords.split("\n")){
         if(in != "")
             keywordPatterns << in;
     }
-    for(const QString &pattern: keywordPatterns){
+    for(const auto &pattern: keywordPatterns){
         rule.pattern = QRegExp(pattern);
         Rules.append(rule);
     }
@@ -68,7 +68,7 @@ bool CodeHighlighter::setupHighlighting(int file){
     rule.pattern = QRegExp("\\b[0-9]+|[0-9]*\\.[0-9]+\\b");
     Rules.append(rule);
 
-    QString filename = QFileInfo(highlighting.fileName()).fileName();
+    auto filename = QFileInfo(highlighting.fileName()).fileName();
 
     if(filename == "python"){
         python = true;
@@ -176,7 +176,7 @@ void CodeHighlighter::highlightBlock(const QString &text){
      * goes through the text once for each rule and
      * highlights the code according to those
      */
-    for(const Rule &rule: Rules){
+    for(const auto &rule: Rules){
         QRegExp regEx(rule.pattern);
         int i = regEx.indexIn(text);
         while(i >= 0){

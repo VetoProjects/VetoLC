@@ -44,7 +44,7 @@ void LayoutTab::addLayout(){
     designBoxLabel = new QLabel(tr("Design:"));
     designBox = new QComboBox;
     QString designConfig = settings->value("Design").toString();
-    for(const QString style : QStyleFactory::keys()){
+    for(const auto style : QStyleFactory::keys()){
         designBox->addItem(style);
         if(designConfig == style)
             designBox->setCurrentIndex(designBox->count() - 1);
@@ -70,7 +70,7 @@ void LayoutTab::addLayout(){
     hlBox->addItem(tr("Variable Names"));    
     hlBox->addItem(tr("None"));
 
-    int hlConfig = settings->value("Highlighting").toInt();
+    auto hlConfig = settings->value("Highlighting").toInt();
     if(hlConfig >= 0 || hlConfig <= 4)
         hlBox->setCurrentIndex(hlConfig);
 
@@ -92,7 +92,7 @@ void LayoutTab::addLayout(){
     languageBox->addItem(tr("English"));
     languageBox->addItem(tr("German"));
 
-    int languageConfig = settings->value("Language").toInt();
+    auto languageConfig = settings->value("Language").toInt();
     if(languageConfig >= 0 || languageConfig <= 1)
         languageBox->setCurrentIndex(languageConfig);
 
@@ -195,7 +195,7 @@ void BehaviourTab::addLayout(){
     startupCompiler->addButton(rememberCompiler);
     startupCompiler->addButton(askForCompiler);
 
-    bool remember = settings->value("RememberCompiler").toBool();
+    auto remember = settings->value("RememberCompiler").toBool();
     rememberCompiler->setChecked(remember);
     askForCompiler->setChecked(!remember);
 
@@ -212,7 +212,7 @@ void BehaviourTab::addLayout(){
     compilerChoice->addItem(tr("GLSL"));
     compilerChoice->addItem(tr("Python (Regular)"));
 
-    int useCompilerConfig = settings->value("UseCompiler").toInt();
+    auto useCompilerConfig = settings->value("UseCompiler").toInt();
     if(useCompilerConfig >= 0 && useCompilerConfig <= 3)
         compilerChoice->setCurrentIndex(useCompilerConfig);
 

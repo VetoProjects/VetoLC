@@ -43,12 +43,12 @@ void BootLoader::start()
  * and kills the original client.
  */
 void BootLoader::acceptConnection(){
-    QLocalSocket *client = server->nextPendingConnection();
-    QByteArray request = client->readAll();
+    auto* client = server->nextPendingConnection();
+    auto request = client->readAll();
     client->close();
     delete client;
     if(request.size() == 0){
-        Instances::WindowInstance *instance = new Instances::WindowInstance(backend->nextID(), QHash<QString,QVariant>(), backend);
+        auto* instance = new Instances::WindowInstance(backend->nextID(), QHash<QString,QVariant>(), backend);
         backend->addInstance(instance);
     }
 }

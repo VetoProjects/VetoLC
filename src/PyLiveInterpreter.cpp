@@ -45,7 +45,7 @@ PyLiveInterpreter::~PyLiveInterpreter(){
  * and Q_EMITs a signal when it's done.
  */
 void PyLiveInterpreter::run(){
-    PyObject* check = execute();
+    auto* check = execute();
     if(check == NULL)
         exceptionOccurred();
     Q_EMIT doneSignal(ownExcept, exceptNum);
